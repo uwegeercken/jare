@@ -13,6 +13,9 @@ package com.datamelt.rules.implementation;
  */
 public class CheckIsNotEmpty extends GenericCheck
 {
+	/**
+	 * specify a string to be evaluated
+	 */
     public static boolean evaluate(String value)
     {
     	if(value!=null)

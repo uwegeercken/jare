@@ -10,11 +10,13 @@ import com.datamelt.rules.core.util.Soundex;
 /**
  * checks if a string sounds like a given string using
  * the soundex algorithm 
- * 
- * @author uwe geercken
  */
 public class CheckSoundsLike extends GenericCheck
 {
+	/**
+	 * checks if a string sounds like a given string using
+	 * the soundex algorithm 
+	 */
     public static boolean evaluate(String value, String expectedValue)
     {
     	if(value!=null && expectedValue!=null)

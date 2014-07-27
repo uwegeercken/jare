@@ -12,6 +12,9 @@ package com.datamelt.rules.implementation;
  */
 public class CheckStartsWith extends GenericCheck
 {
+	/**
+     * checks if a string of characters starts with a certain value
+     */
     public static boolean evaluate(String value,String compareValue)
     {
     	if(value!=null && compareValue!=null)

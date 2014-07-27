@@ -125,8 +125,8 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first date is equal to the second
-     * date.
+     * checks, if the first date string is not equal to the second
+     * date string, using the given date format
      */
     public static boolean evaluate(String value1, String value2, String format)
     {
@@ -157,8 +157,8 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first date is equal to the second
-     * date.
+     * checks, if the date is not equal to the
+     * date string, using the given date format
      */
     public static boolean evaluate(Date date1, String value2, String format)
     {
@@ -170,6 +170,37 @@ public class CheckIsNotEqual extends GenericCheck
         try
         {
 	        Date date2 = sdf.parse(value2);
+	        
+	        Calendar cal1 = Calendar.getInstance();
+	        cal1.setTime(date1);
+	        
+	        Calendar cal2 = Calendar.getInstance();
+	        cal2.setTime(date2);
+	        
+	        result = !cal1.equals(cal2);
+        }
+        catch(Exception ex)
+        {
+        	
+        }
+        return result;
+    
+    }
+    
+    /**
+     * checks, if the first date string is not equal to the second
+     * date string, using the default date format
+     */
+    public static boolean evaluate(Date date1, String value)
+    {
+        
+        SimpleDateFormat sdf = new SimpleDateFormat(CheckConstants.DEFAULT_DATE_FORMAT);
+
+        boolean result = false;
+        
+        try
+        {
+	        Date date2 = sdf.parse(value);
 	        
 	        Calendar cal1 = Calendar.getInstance();
 	        cal1.setTime(date1);

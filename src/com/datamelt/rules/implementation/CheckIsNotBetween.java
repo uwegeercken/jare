@@ -12,16 +12,26 @@ package com.datamelt.rules.implementation;
  */
 public class CheckIsNotBetween extends GenericCheck
 {
+	/**
+	 * specify an integer to evaluate, an integer for the lower limit and an integer for the upper limit
+	 */
     public static boolean evaluate(int value,int valueLowerLimit, int valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
     }
     
+    /**
+	 * specify a long to evaluate, a long for the lower limit and an long for the upper limit
+	 */
     public static boolean evaluate(long value,long valueLowerLimit, long valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
     }
     
+    /**
+	 * specify an integer to evaluate and a string which contains the upper and the lower limit
+	 * seperated by a comma 
+	 */
     public static boolean evaluate(int value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -31,6 +41,10 @@ public class CheckIsNotBetween extends GenericCheck
         return value<lowerLimit || value>upperLimit;
     }
     
+    /**
+	 * specify an long to evaluate and a string which contains the upper and the lower limit
+	 * seperated by a comma 
+	 */
     public static boolean evaluate(long value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");

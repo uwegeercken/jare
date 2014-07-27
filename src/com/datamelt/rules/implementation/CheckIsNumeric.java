@@ -6,10 +6,16 @@
 package com.datamelt.rules.implementation;
 
 /**
+ * checks if a given string value is numeric by checking if
+ * all characters are numbers
+ * 
  * @author uwe geercken
  */
 public class CheckIsNumeric extends GenericCheck
 {
+	/**
+     * checks, if cahracters of the string are numbers
+     */
     public static boolean evaluate(String value)
     {
         boolean isDigit=true;

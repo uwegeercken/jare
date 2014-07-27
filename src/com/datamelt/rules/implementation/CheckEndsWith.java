@@ -6,8 +6,7 @@
 package com.datamelt.rules.implementation;
 
 /**
- * checks if a string of characters ends with a certain compare value
- * @author uwe geercken
+ * checks if a string of characters ends with a certain string
  */
 public class CheckEndsWith extends GenericCheck
 {
@@ -24,7 +23,7 @@ public class CheckEndsWith extends GenericCheck
     }
     
     /**
-     * checks if a string of characters ends with a certain value
+     * checks if a string of characters ends with a certain string
      * and ignores or does not ignore the case of the values. 
      */
     public static boolean evaluate(String value,String compareValue,boolean ignoreCase)

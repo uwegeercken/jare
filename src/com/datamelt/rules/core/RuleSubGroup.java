@@ -174,7 +174,7 @@ public class RuleSubGroup
             }
             catch(Exception ex)
             {
-            	throw new Exception("error rule: [" + rule.getId() + "] creating method from xml rule " + rule.getId() + ex.getMessage());
+            	throw new Exception("error rule: [" + rule.getId() + "] creating method from xml rule " + ex.getMessage());
             }
 
             // create the objects that will be used for the method
@@ -232,7 +232,7 @@ public class RuleSubGroup
 	            else
 	            {
 	                // throw an error if the return type is not a boolean
-	                throw new Exception("error rule: [" + rule.getId() + "]: return type of rule result must always be of type boolean");
+	                throw new Exception("error rule: [" + rule.getId() + "] return type of rule result must always be of type boolean");
 	            }
             }
             else
@@ -356,14 +356,17 @@ public class RuleSubGroup
 	        }
         }
         Method m = null;
+        GenericCheck gc = null;
         try
         {
-        	m = rule.getExecuteCheck().getClass().getMethod(GenericCheck.GENERIC_CHECK_METHOD_EVALUATE,classes);
+        	 gc = rule.getExecuteCheck();
         }
-        catch(Exception ex)
+        catch (Exception sue)
         {
-        	throw new Exception("error creating method: " + rule.getCheckToExecute() + " for rule: " + rule.getId());
+        	sue.printStackTrace();
         }
+        Class clazz = gc.getClass();
+       	m = clazz.getMethod(GenericCheck.GENERIC_CHECK_METHOD_EVALUATE,classes);
         return m;
     }
     

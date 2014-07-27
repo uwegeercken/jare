@@ -18,6 +18,10 @@ package com.datamelt.rules.implementation;
  */
 public class CheckIsNotInList extends GenericCheck
 {
+	/**
+     * checks, if the string is not contained in the list of values
+     * separated by commas
+     */
     public static boolean evaluate(String value,String list)
     {
     	boolean matches = false;
@@ -36,6 +40,10 @@ public class CheckIsNotInList extends GenericCheck
         return !matches;
     }
     
+    /**
+     * checks, if the string is contained in the list of values
+     * separated by commas, ignoring or not ignoring the case
+     */
     public static boolean evaluate(String value,String list, boolean ignoreCase)
     {
     	boolean matches = false;

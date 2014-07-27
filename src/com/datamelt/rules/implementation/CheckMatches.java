@@ -14,6 +14,9 @@ package com.datamelt.rules.implementation;
  */
 public class CheckMatches extends GenericCheck
 {
+	/**
+	 * specify the string to evaluate and a regular expression pattern 
+	 */
     public static boolean evaluate(String value,String pattern)
     {
     	if(value!=null && pattern!=null)

@@ -6,7 +6,7 @@
 package com.datamelt.rules.implementation;
 
 /**
- * checks if a given value is null.
+ * checks if a given string is all uppercase.
  * 
  * @author uwe geercken
  */

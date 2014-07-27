@@ -1,5 +1,5 @@
 /*
- * Created on 15.09.2006
+ * Created on 13.07.2014
  *
  * all code by uwe geercken
  */
@@ -7,7 +7,7 @@ package com.datamelt.rules.implementation;
 
 /**
  * checks if a string containing multiple values separated by commas (,) 
- * matches a given string. spaces in the individual values are removed (trim)
+ * contains a given string. spaces in the individual values are removed (trim)
  * 
  * an example for a list would be:
  * 
@@ -15,21 +15,21 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
-public class CheckIsInList extends GenericCheck
+public class CheckListHasMember extends GenericCheck
 {
 	/**
      * checks, if the string is contained in the list of values
      * separated by commas
      */
-    public static boolean evaluate(String value,String list)
+    public static boolean evaluate(String list, String value)
     {
         boolean matches = false;
-        if(value!=null)
+        if(list!=null)
         {
-        	String [] values = list.split(",");
-	        for(int i=0;i< values.length;i++)
+        	String [] entries = list.split(",");
+	        for(int i=0;i< entries.length;i++)
 	    	{
-	        	if(values[i].trim().equals(value.trim()))
+	        	if(entries[i].trim().equals(value.trim()))
 	    		{
 	        		matches = true;
 	    			break;
@@ -43,17 +43,17 @@ public class CheckIsInList extends GenericCheck
      * checks, if the string is contained in the list of values
      * separated by commas, ignore or not ignoring the case
      */
-    public static boolean evaluate(String value, String list, boolean ignoreCase)
+    public static boolean evaluate(String list, String value, boolean ignoreCase)
     {
     	boolean matches = false;
-    	if(value!=null)
+    	if(list!=null)
     	{
-	    	String [] values = list.split(",");
-	        for(int i=0;i<values.length;i++)
+	    	String [] entries = list.split(",");
+	        for(int i=0;i<entries.length;i++)
 	    	{
 	        	if(!ignoreCase)
 	    		{
-		        	if(values[i].trim().equals(value.trim()))
+		        	if(entries[i].trim().equals(value.trim()))
 		    		{
 		    			matches = true;
 		    			break;
@@ -61,7 +61,7 @@ public class CheckIsInList extends GenericCheck
 	    		}
 		        else
 		        {
-		        	if(values[i].trim().toLowerCase().equals(value.trim().toLowerCase()))
+		        	if(entries[i].trim().toLowerCase().equals(value.trim().toLowerCase()))
 		    		{
 		    			matches = true;
 		    			break;
@@ -73,16 +73,15 @@ public class CheckIsInList extends GenericCheck
     }
     
     /**
-     * checks, if the integer is contained in the list of values
-     * separated by commas
+     * checks, if the list of values contains a certain integer value
      */
-    public static boolean evaluate(int value, String list)
+    public static boolean evaluate(String list, int value )
     {
     	boolean matches = false;
-    	String [] values = list.split(",");
-        for(int i=0;i<values.length;i++)
+    	String [] entries = list.split(",");
+        for(int i=0;i<entries.length;i++)
     	{
-        	if(Integer.parseInt(values[i].trim()) == value)
+        	if(Integer.parseInt(entries[i].trim()) == value)
     		{
     			matches = true;
     			break;
@@ -92,16 +91,15 @@ public class CheckIsInList extends GenericCheck
     }
     
     /**
-     * checks, if the long is contained in the list of values
-     * separated by commas
-     */
-    public static boolean evaluate(long value, String list)
+    * checks, if the list of values contains a certain long value
+    */
+    public static boolean evaluate(String list, long value)
     {
     	boolean matches = false;
-    	String [] values = list.split(",");
-        for(int i=0;i<values.length;i++)
+    	String [] entries = list.split(",");
+        for(int i=0;i<entries.length;i++)
     	{
-        	if(Long.parseLong(values[i].trim()) == value)
+        	if(Long.parseLong(entries[i].trim()) == value)
     		{
     			matches = true;
     			break;

@@ -31,7 +31,22 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * checks two long values for equality 
+     * checks a long and integer value for equality 
+     */
+    public static boolean evaluate(long value1, int value2)
+    {
+        if(value1 == value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks two double values for equality 
      */
     public static boolean evaluate(double value1, double value2)
     {
@@ -69,7 +84,7 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * checks if a string of characters is equal to antoher
+     * checks if a string of characters is equal to another
      * string of characters and ignores or does not ignore
      * the case of the values
      */
@@ -108,7 +123,7 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * checks if a string of characters is equal to antoher
+     * checks if a string of characters is equal to another
      * string of characters
      */
     public static boolean evaluate(String value1, String value2)
@@ -124,8 +139,8 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first date is equal to the second
-     * date.
+     * checks, if the first date string is equal to the second
+     * date string using the given date format
      */
     public static boolean evaluate(String value1, String value2, String format)
     {
@@ -156,8 +171,8 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first date is equal to the second
-     * date.
+     * checks, if the date is equal to the date string using the given
+     * date format.
      */
     public static boolean evaluate(Date date1, String value2, String format)
     {
@@ -170,19 +185,60 @@ public class CheckIsEqual extends GenericCheck
         {
 	        Date date2 = sdf.parse(value2);
 	        
-	        Calendar cal1 = Calendar.getInstance();
-	        cal1.setTime(date1);
+	        String date1String = sdf.format(date1);
+	        String date2String = sdf.format(date2);
 	        
-	        Calendar cal2 = Calendar.getInstance();
-	        cal2.setTime(date2);
-	        
-	        result = cal1.equals(cal2);
+	        result = date1String.equals(date2String);
         }
         catch(Exception ex)
         {
         	
         }
         return result;
+    
+    }
+    
+    /**
+     * checks, if the date is equal to the date string using the default
+     * date format.
+     */
+    public static boolean evaluate(Date date1, String value2)
+    {
+        
+        SimpleDateFormat sdf = new SimpleDateFormat(CheckConstants.DEFAULT_DATE_FORMAT);
+        
+        boolean result = false;
+        
+        try
+        {
+	        Date date2 = sdf.parse(value2);
+	        
+	        String date1String = sdf.format(date1);
+	        String date2String = sdf.format(date2);
+	        
+	        result = date1String.equals(date2String);
+        }
+        catch(Exception ex)
+        {
+        	
+        }
+        return result;
+    
+    }
+    
+    /**
+     * checks, if the date is equal to the other date using the default
+     * date format.
+     */
+    public static boolean evaluate(Date date1, Date date2)
+    {
+        
+    	SimpleDateFormat sdf = new SimpleDateFormat(CheckConstants.DEFAULT_DATE_FORMAT);
+    	
+    	String date1String = sdf.format(date1);
+    	String date2String = sdf.format(date2);
+    	
+        return date1String.equals(date2String);
     
     }
 }
