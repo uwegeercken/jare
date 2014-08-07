@@ -36,11 +36,57 @@ public class CheckLength extends GenericCheck
         }
 	    		
     }
+    
+    /**
+     * checks, if the length of the string
+     * (number of digits) is exactly to the given length
+     */
+    public static boolean evaluate(String value, long length)
+    {
+        if(value!=null)
+        {
+	    	if(value.length()==length)
+	        {
+	            return true; 
+	        }
+	        else
+	        {
+	            return false;
+	        }
+        }
+        else
+        {
+        	return false;
+        }
+	    		
+    }
+    
     /**
      * checks if the length of the integer value
      * (number of digits) is equal to the given length 
      */
     public static boolean evaluate(int value, int length)
+    {
+        // we make a string out of the number.
+    	
+    	// be aware, that leading zeros might have been
+    	// trimmed from the number
+    	String valueString = "" + value;
+    	if(valueString.length()==length)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks if the length of the integer value
+     * (number of digits) is equal to the given length 
+     */
+    public static boolean evaluate(int value, long length)
     {
         // we make a string out of the number.
     	

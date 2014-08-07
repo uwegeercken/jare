@@ -46,6 +46,21 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
+     * checks a long and integer value for equality 
+     */
+    public static boolean evaluate(int value1, long value2)
+    {
+        if(value1 == value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
      * checks two double values for equality 
      */
     public static boolean evaluate(double value1, double value2)

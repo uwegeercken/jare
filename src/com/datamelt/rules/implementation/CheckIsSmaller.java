@@ -41,6 +41,29 @@ public class CheckIsSmaller extends GenericCheck
     }
     
     /**
+     * checks, if the length of the
+     * string if smaller than the given length
+     */
+    public static boolean evaluate(String value, long length)
+    {
+        if(value!=null)
+        {
+	    	if(value.length()< length)
+	        {
+	            return true; 
+	        }
+	        else
+	        {
+	            return false;
+	        }
+        }
+        else
+        {
+        	return false;
+        }
+    }
+    
+    /**
      * checks, if the first value is smaller than the second value
      */
     public static boolean evaluate(long value1, long value2)
