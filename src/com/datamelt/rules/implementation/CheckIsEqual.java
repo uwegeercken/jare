@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * checks if a string of characters is equal to antoher
+ * checks if a string of characters is equal to another
  * string of characters
  */
 public class CheckIsEqual extends GenericCheck
@@ -64,6 +64,21 @@ public class CheckIsEqual extends GenericCheck
      * checks two double values for equality 
      */
     public static boolean evaluate(double value1, double value2)
+    {
+        if(value1 == value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks two float values for equality 
+     */
+    public static boolean evaluate(float value1, float value2)
     {
         if(value1 == value2)
         {

@@ -46,6 +46,11 @@ public class MathAction
 		return value + value2;
 	}
 	
+	public long addValues(XmlAction action, int value, long value2) throws Exception
+	{
+		return value + value2;
+	}
+	
 	public double addValues(XmlAction action, double value, double value2) throws Exception
 	{
 		return value + value2;
@@ -71,6 +76,11 @@ public class MathAction
 		return value - value2;
 	}
 	
+	public long substractValues(XmlAction action, int value, long value2) throws Exception
+	{
+		return value - value2;
+	}
+	
 	public double substractValues(XmlAction action, double value, double value2) throws Exception
 	{
 		return value - value2;
@@ -92,6 +102,11 @@ public class MathAction
 	}
 	
 	public long multiplyValues(XmlAction action, long value, int value2) throws Exception
+	{
+		return value * value2;
+	}
+	
+	public long multiplyValues(XmlAction action, int value, long value2) throws Exception
 	{
 		return value * value2;
 	}
@@ -127,6 +142,11 @@ public class MathAction
 	}
 	
 	public double devideValues(XmlAction action, long value, int value2) throws Exception
+	{
+		return value / value2;
+	}
+	
+	public double devideValues(XmlAction action, int value, long value2) throws Exception
 	{
 		return value / value2;
 	}

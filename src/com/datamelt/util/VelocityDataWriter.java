@@ -34,8 +34,6 @@ public class VelocityDataWriter
 	private static final String DEFAULT_OBJECT_NAME  = "dbObject";
 	
 	private static final String RESOURCE_PATH        = "file.resource.loader.path";
-	private static final String LOGSYSTEM_CLASS_NAME = "org.apache.velocity.runtime.log.Log4JLogChute";
-	private static final String RUNTIME_LOG_NAME     = "velocity_businessrule_engine.log";
 	
 	private String templatePath;
     private String templateName;
@@ -53,11 +51,6 @@ public class VelocityDataWriter
         this.templateName = templateName;
 		Properties properties = new Properties();
         properties.setProperty(RESOURCE_PATH, templatePath);
-        
-        // only required for velocity 1.5
-        // set the class and name of the logger
-        //properties.setProperty(VelocityEngine.RUNTIME_LOG_LOGSYSTEM_CLASS, LOGSYSTEM_CLASS_NAME);
-        //properties.setProperty(VelocityEngine.RUNTIME_LOG, RUNTIME_LOG_NAME);
         
         VelocityEngine ve = new VelocityEngine();
         ve.init(properties);
@@ -128,7 +121,7 @@ public class VelocityDataWriter
 		{
 			throw new Exception("VelocityDataWriter: no objects to process");
 		}
-		for (Enumeration e = objects.keys(); e.hasMoreElements() ;)
+		for (Enumeration<String> e = objects.keys(); e.hasMoreElements() ;)
 		{
 			String objectKey = (String)e.nextElement();
 			context.put(objectKey, objects.get(objectKey));

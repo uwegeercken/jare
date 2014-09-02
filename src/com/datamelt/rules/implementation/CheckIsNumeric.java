@@ -14,7 +14,7 @@ package com.datamelt.rules.implementation;
 public class CheckIsNumeric extends GenericCheck
 {
 	/**
-     * checks, if cahracters of the string are numbers
+     * checks, if characters of the string are numbers
      */
     public static boolean evaluate(String value)
     {

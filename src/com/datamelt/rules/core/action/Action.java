@@ -60,7 +60,7 @@ public class Action
         	{
         		for(int i=0;i<actionGetterObjects.size();i++)
         		{
-        			Method methodGetterObject = methodGetterObject = ClassUtility.getObjectMethod(action,actionGetterObjects.get(i));
+        			Method methodGetterObject = ClassUtility.getObjectMethod(action,actionGetterObjects.get(i));
         			getterObjects[i] = ClassUtility.invokeObjectMethod(object, methodGetterObject, actionGetterObjects.get(i).getParameters());
         		}
         	}

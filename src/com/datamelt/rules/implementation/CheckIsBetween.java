@@ -45,8 +45,8 @@ public class CheckIsBetween extends GenericCheck
     public static boolean evaluate(double value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
-    	long lowerLimit = Long.parseLong(stringValues[0].trim());
-    	long upperLimit = Long.parseLong(stringValues[1].trim());
+    	double lowerLimit = Double.parseDouble(stringValues[0].trim());
+    	double upperLimit = Double.parseDouble(stringValues[1].trim());
     	
         return value>=lowerLimit && value<=upperLimit;
     }
@@ -58,8 +58,8 @@ public class CheckIsBetween extends GenericCheck
     public static boolean evaluate(float value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
-    	long lowerLimit = Long.parseLong(stringValues[0].trim());
-    	long upperLimit = Long.parseLong(stringValues[1].trim());
+    	float lowerLimit = Float.parseFloat(stringValues[0].trim());
+    	float upperLimit = Float.parseFloat(stringValues[1].trim());
     	
         return value>=lowerLimit && value<=upperLimit;
     }

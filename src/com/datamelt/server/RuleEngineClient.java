@@ -45,6 +45,8 @@ public class RuleEngineClient
 		File inputFile = new File(csvFilename);
 		if(!inputFile.isFile() || !inputFile.exists())
 		{
+			socketToServer.close();
+			outStream.close();
 			// if not exist or not a file throw an exception
 			throw new FileNotFoundException("error: file not found or is not a file: " + csvFilename);
 		}
@@ -91,6 +93,8 @@ public class RuleEngineClient
     	}
     	try
     	{
+    		reader.close();
+    		socketToServer.close();
     		inputStream.close(); 	
     		outStream.close();
     	}

@@ -25,7 +25,6 @@ public class RuleExecutionResult
     private Object resultObject2;
     private String objectLabel;
     private String timestamp;
-    //private int ruleFailed;
     
     /**
      * constructor including the timestamp of when the rule was executed

@@ -4,7 +4,6 @@ import java.io.EOFException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
 import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.engine.BusinessRulesEngine;

@@ -92,6 +92,7 @@ public class CsvReader
 	        }
 	    }
         
+        reader.close();
         System.out.println("number of lines of data:   " + counter);
         
         // total number of rules

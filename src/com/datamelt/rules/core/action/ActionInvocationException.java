@@ -1,7 +1,11 @@
 package com.datamelt.rules.core.action;
 
+
 public class ActionInvocationException extends Exception
 {
+	
+	  private static final long serialVersionUID=100000;
+	
 	  public ActionInvocationException()
 	  {
 		  super(); 

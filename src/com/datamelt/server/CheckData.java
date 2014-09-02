@@ -18,6 +18,8 @@ public class CheckData implements Serializable
      private long totalGroups;
      private long rulesPassed;
      private long totalRules;
+     
+     private static final long serialVersionUID=200000;
 
      public CheckData(String rulefile, Row row) 
      {

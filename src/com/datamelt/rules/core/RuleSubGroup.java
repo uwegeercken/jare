@@ -365,8 +365,7 @@ public class RuleSubGroup
         {
         	sue.printStackTrace();
         }
-        Class clazz = gc.getClass();
-       	m = clazz.getMethod(GenericCheck.GENERIC_CHECK_METHOD_EVALUATE,classes);
+       	m = gc.getClass().getMethod(GenericCheck.GENERIC_CHECK_METHOD_EVALUATE,classes);
         return m;
     }
     
