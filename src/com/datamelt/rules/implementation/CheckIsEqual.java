@@ -10,8 +10,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * checks if a string of characters is equal to antoher
- * string of characters
+ * <p>Checks if a string is equal to another string, if two numbers are equal or if two dates are equal.</p>
+ * 
+ * <p>
+ * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
+ * or an expected (fixed) value to check against the first value.
+ * </p>
+ * <p>
+ * Some methods may have additional arguments that can be passed to it.
+ * </p>
+ * 
+ * @author uwe geercken
  */
 public class CheckIsEqual extends GenericCheck
 {
@@ -99,8 +108,7 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * checks if a string of characters is equal to another
-     * string of characters and ignores or does not ignore
+     * checks if a string is equal to another string and ignores or does not ignore
      * the case of the values
      */
     public static boolean evaluate(String value1, String value2, boolean ignoreCase)
@@ -138,8 +146,7 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * checks if a string of characters is equal to another
-     * string of characters
+     * checks if a string is equal to another string
      */
     public static boolean evaluate(String value1, String value2)
     {

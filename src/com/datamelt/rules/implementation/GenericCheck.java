@@ -13,7 +13,5 @@ package com.datamelt.rules.implementation;
  */
 public class GenericCheck
 {
-    // this method - per default - will be invoked on the class that extends
-    // a GenericCheck class
     public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
 }

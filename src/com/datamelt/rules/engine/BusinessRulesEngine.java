@@ -224,6 +224,7 @@ public class BusinessRulesEngine
             	parseXmlInputStream(zipFile.getInputStream(entry));
             }
         }
+        zipFile.close();
     }
     
     /**
@@ -246,6 +247,7 @@ public class BusinessRulesEngine
             	parseXmlInputStream(zipFile.getInputStream(entry));
             }
         }
+        zipFile.close();
     }
     
     /**
@@ -265,6 +267,7 @@ public class BusinessRulesEngine
         {
             parseXmlFile(rulesFiles[i].getPath());
         }
+        
     }
     
     /**
@@ -855,6 +858,7 @@ public class BusinessRulesEngine
         {
             setMessageTemplate(messagesTemplate,templatesFolder);
         }
+        input.close();
 
 	}
     

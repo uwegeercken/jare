@@ -10,16 +10,24 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * checks if one value is greater than the other. in case
- * a string value is used, it checks, if the length of the
- * string if greater than the given length
+ * <p>checks if one value is greater than the other value. In case a string value is used, it checks, if the length of the
+ * string if greater than the given length.</p>
+ * 
+ * <p>
+ * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
+ * or an expected (fixed) value to check against the first value.
+ * </p>
+ * <p>
+ * Some methods may have additional arguments that can be passed to it.
+ * </p>
+ * 
  * @author uwe geercken
+ * 
  */
 public class CheckIsGreater extends GenericCheck
 {
     /**
-     * checks, if the length of the
-     * string is greater than the given length
+     * checks, if the length of the string is greater than the given length
      */
     public static boolean evaluate(String value, int length)
     {
@@ -41,10 +49,8 @@ public class CheckIsGreater extends GenericCheck
     }
     
     /**
-     * checks, if the length of the
-     * string is greater or equal than the given length
+     * checks, if the length of the string is greater than the given length
      */
-	
     public static boolean evaluate(String value, long length)
     {
         if(value!=null)
@@ -199,7 +205,6 @@ public class CheckIsGreater extends GenericCheck
         {
 	       	Date date1 = sdf.parse(value1);
 	        Date date2 = sdf.parse(value2);
-	        
 	        
 	        Calendar cal1 = Calendar.getInstance();
 	        cal1.setTime(date1);
