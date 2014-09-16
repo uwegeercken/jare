@@ -85,6 +85,7 @@ public class CsvToFixedLengthConverter
 	        counter++;
 	    }
         
+	    reader.close();
 	    // close stream
 	    out.close();
         

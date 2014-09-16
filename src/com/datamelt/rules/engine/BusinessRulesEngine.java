@@ -45,7 +45,7 @@ import com.datamelt.util.VelocityDataWriter;
  * <and> or <or>.</p>
  * 
  * <p>the engine accepts multiple xml rule files as input. this way the rules may
- * be devided into multiple files. each file must contain a complete group of
+ * be divided into multiple files. each file must contain a complete group of
  * rules; groups can not be split over multiple files.<p>
  * 
  * <p>rule xml files can also be put into a zip archive. the program will process
@@ -63,15 +63,17 @@ import com.datamelt.util.VelocityDataWriter;
  * of the rule logic.</p>
  * 
  * <p>version 0.60 introduces actions that can be applied to a group of rules after
- * a check is done. an action can be run after a group passes or fails the relevant
+ * the checks of a rulegroup are done. an action can be run after a group passes or fails the relevant
  * checks.
  * </p>
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2014-07-25</p>
+ * <p>last update: 2014-08-14</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de - www.datamelt.com
+ * 
+ * published under GPL3
  */
 public class BusinessRulesEngine
 {
@@ -216,7 +218,7 @@ public class BusinessRulesEngine
     {
         this.setPrintStream(System.out);
         this.setActionsPrintStream(System.out);
-        for(Enumeration entries = zipFile.entries();entries.hasMoreElements();)
+        for(Enumeration<?> entries = zipFile.entries();entries.hasMoreElements();)
         {
             ZipEntry entry = (ZipEntry)entries.nextElement();
             if(!entry.isDirectory())
@@ -239,7 +241,7 @@ public class BusinessRulesEngine
         {
             loadProperties(propertiesFile);
         }
-        for(Enumeration entries = zipFile.entries();entries.hasMoreElements();)
+        for(Enumeration<?> entries = zipFile.entries();entries.hasMoreElements();)
         {
             ZipEntry entry = (ZipEntry)entries.nextElement();
             if(!entry.isDirectory())
@@ -1027,6 +1029,7 @@ public class BusinessRulesEngine
     	System.out.println();
     	System.out.println("published as open source under the GPL. read the licence notice");
     	System.out.println("all code by uwe geercken, 2006-2014. uwe.geercken@web.de - www.datamelt.com");
+    	System.out.println("published under GPL3");
     	System.out.println();
     }
     

@@ -27,7 +27,7 @@ public class Row implements Serializable
     private String seperator = DEFAULT_SEPERATOR;
     
     private static final String DEFAULT_SEPERATOR = ";";
-    
+    private static final long serialVersionUID=500000;
     public Row()
     {
     	

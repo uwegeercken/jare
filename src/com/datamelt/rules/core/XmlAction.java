@@ -14,6 +14,8 @@ public class XmlAction
 	public static final int TYPE_PASSED = 0;
     public static final int TYPE_FAILED = 1;
     
+    private String id;
+    private String description;
     // name of the class to invoke
 	private String className;
 	// name of the method to invoke
@@ -27,17 +29,14 @@ public class XmlAction
 	private ActionObject actionSetterObject = null;
 
 	/**
-	 * contructor using the name of the class, name of the method and an indicator
-	 * when to run the action: if the group failed or passed
-	 * 
-	 */
-	public XmlAction(String className,String methodName,int executeIf)
-	{
-		this.className = className;
-		this.methodName = methodName;
-		this.executeIf = executeIf;
-	}
-	
+     * Constructor using the id and description of the rule. 
+     */
+    public XmlAction(String id, String description)
+    {
+        this.id = id;
+        this.description = description;
+    }
+    
 	/**
 	 * returns the name of the action class to run
 	 * 
@@ -193,5 +192,25 @@ public class XmlAction
 	{
 		this.actionSetterObject = actionSetterObject;
 	}
+	
+	public String getDescription()
+    {
+        return description;
+    }
+    
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+    
+    public String getId()
+    {
+        return id;
+    }
+    
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 	
 }

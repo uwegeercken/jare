@@ -62,7 +62,9 @@ public class Parser extends DefaultHandler implements ContentHandler
     private static final String TAG_GROUP_ID              = "id";
     private static final String TAG_GROUP_DESCRIPTION     = "description";
     private static final String TAG_GROUP_OUTPUT_AFTER_ACTIONS = "outputafteractions";
-    private static final String TAG_SUBGROUP              = "subgroup";
+    private static final String TAG_GROUP_VALID_FROM	  = "validfrom";
+    private static final String TAG_GROUP_VALID_UNTIL	  = "validuntil";
+    private static final String TAG_SUBGROUP	          = "subgroup";
     private static final String TAG_SUBGROUP_ID           = "id";
     private static final String TAG_SUBGROUP_DESCRIPTION  = "description";
     private static final String TAG_INTERGROUP_OPERATOR   = "intergroupoperator";
@@ -90,6 +92,8 @@ public class Parser extends DefaultHandler implements ContentHandler
     private static final String TAG_MESSAGE_TYPE		  = "type";
     private static final String TAG_MESSAGE_TEXT		  = "text";
     private static final String TAG_ACTION                = "action";
+    private static final String TAG_ACTION_ID             = "id";
+    private static final String TAG_ACTION_DESCRIPTION    = "description";
     private static final String TAG_ACTION_CLASSNAME      = "classname";
     private static final String TAG_ACTION_METHOD		  = "method";
     private static final String TAG_ACTION_METHOD_TYPE	  = "type";
@@ -100,12 +104,10 @@ public class Parser extends DefaultHandler implements ContentHandler
     private static final String TAG_ACTION_EXECUTEIF	  = "executeif";
     
     private static final String TAG_TYPE_TRUE   = "true";
-    private static final String TAG_TYPE_FALSE  = "false";
-    
+        
     private static final String TAG_TYPE_FAILED = "failed";
     private static final String TAG_TYPE_PASSED = "passed";
     
-    private static final String TAG_TYPE_GETTER = "getter";
     private static final String TAG_TYPE_SETTER = "setter";
     
 	/**
@@ -188,6 +190,14 @@ public class Parser extends DefaultHandler implements ContentHandler
             {
             	group.setOutputAfterActions(Boolean.TRUE);
             }
+            if(atts.getValue(TAG_GROUP_VALID_FROM)!=null)
+            {
+            	group.setValidFrom(atts.getValue(TAG_GROUP_VALID_FROM));
+            }
+            if(atts.getValue(TAG_GROUP_VALID_UNTIL)!=null)
+            {
+            	group.setValidUntil(atts.getValue(TAG_GROUP_VALID_UNTIL));
+            }
         }
         if(qName.equals(TAG_OBJECT) && groupTagActive && actionTagActive)
         {
@@ -230,13 +240,31 @@ public class Parser extends DefaultHandler implements ContentHandler
         if(qName.equals(TAG_ACTION) && groupTagActive &&! objectTagActive &&!subgroupTagActive && !ruleTagActive)
         {
         	actionTagActive=true;
+        	// action description may be empty
+            String actionDescription = "";
+            if(atts.getValue(TAG_ACTION_DESCRIPTION)!=null)
+            {
+            	actionDescription = atts.getValue(TAG_ACTION_DESCRIPTION);
+            }
+            // action id may be empty
+            String actionId = "";
+            if(atts.getValue(TAG_ACTION_ID)!=null)
+            {
+            	actionId = atts.getValue(TAG_ACTION_ID);
+            }
         	if(atts.getValue(TAG_ACTION_EXECUTEIF).equals(TAG_TYPE_FAILED))
             {
-        		action = new XmlAction(atts.getValue(TAG_ACTION_CLASSNAME),atts.getValue(TAG_ACTION_METHOD),1);
+        		action = new XmlAction(actionId,actionDescription);
+        		action.setClassName(atts.getValue(TAG_ACTION_CLASSNAME));
+        		action.setMethodName(atts.getValue(TAG_ACTION_METHOD));
+        		action.setExecuteIf(1);
             }
         	else
         	{
-        		action = new XmlAction(atts.getValue(TAG_ACTION_CLASSNAME),atts.getValue(TAG_ACTION_METHOD),0);
+        		action = new XmlAction(actionId,actionDescription);
+        		action.setClassName(atts.getValue(TAG_ACTION_CLASSNAME));
+        		action.setMethodName(atts.getValue(TAG_ACTION_METHOD));
+        		action.setExecuteIf(0);
         	}
         }
         if(qName.equals(TAG_PARAMETER) && actionTagActive && groupTagActive &&! objectTagActive &&!subgroupTagActive && !ruleTagActive)
@@ -352,8 +380,25 @@ public class Parser extends DefaultHandler implements ContentHandler
         	{
         		type=XmlAction.TYPE_PASSED;
         	}
-        	XmlAction action = new XmlAction(atts.getValue(TAG_ACTION_CLASSNAME),atts.getValue(TAG_ACTION_METHOD),type);
+        	// action description may be empty
+            String actionDescription = "";
+            if(atts.getValue(TAG_ACTION_DESCRIPTION)!=null)
+            {
+            	actionDescription = atts.getValue(TAG_ACTION_DESCRIPTION);
+            }
+            // action id may be empty
+            String actionId = "";
+            if(atts.getValue(TAG_ACTION_ID)!=null)
+            {
+            	actionId = atts.getValue(TAG_ACTION_ID);
+            }
+            XmlAction action= new XmlAction(actionId,actionDescription);
+        	action.setClassName(atts.getValue(TAG_ACTION_CLASSNAME));
+        	action.setMethodName(atts.getValue(TAG_ACTION_METHOD));
+        	action.setExecuteIf(type);
         	action.addParameter(new Parameter(atts.getValue(TAG_ACTION_PARAMETERTYPE),atts.getValue(TAG_ACTION_PARAMETER)));
+        	action.setDescription(actionDescription);
+        	action.setId(actionId);
         	xmlRule.getActions().add(action);
         }
         if(executeTagActive && qName.equals(TAG_PARAMETER))

@@ -7,7 +7,6 @@
 package com.datamelt.rules.core;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.datamelt.rules.core.RuleSubGroupCollection;
@@ -32,6 +31,8 @@ public class RuleGroup
     private String id;
     private String description;
     private boolean outputAfterActions=false;
+    private String validFrom;
+    private String validUntil;
     private PrintStream printStream;
     private PrintStream actionsPrintStream;
     private VelocityDataWriter writer;
@@ -45,7 +46,6 @@ public class RuleGroup
     private ArrayList <XmlAction>actions = new ArrayList<XmlAction>();
     
     private static final int OPERATOR_AND = 0;
-    private static final int OPERATOR_OR  = 1;
     
     /**
      * constructor for a rule group using its id 
@@ -70,6 +70,38 @@ public class RuleGroup
     public void setDescription(String description)
     {
         this.description = description;
+    }
+    
+    /**
+     * returns the valid from string of the group 
+     */
+    public String getValidFrom()
+    {
+        return validFrom;
+    }
+    
+    /**
+     * sets the valid from string of the group 
+     */
+    public void setValidFrom(String validFrom)
+    {
+        this.validFrom = validFrom;
+    }
+    
+    /**
+     * returns the valid until string of the group 
+     */
+    public String getValidUntil()
+    {
+        return validUntil;
+    }
+    
+    /**
+     * sets the valid until string of the group 
+     */
+    public void setValidUntil(String validUntil)
+    {
+        this.validUntil = validUntil;
     }
     
     /**
@@ -484,5 +516,9 @@ public class RuleGroup
 		this.outputAfterActions = outputAfterActions;
 	}
     
+	public ArrayList <XmlAction> getActions()
+	{
+		return actions;
+	}
     
 }

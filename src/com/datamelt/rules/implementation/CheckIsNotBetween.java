@@ -20,6 +20,34 @@ package com.datamelt.rules.implementation;
  */
 public class CheckIsNotBetween extends GenericCheck
 {
+	
+    
+    /**
+	 * specify a double to evaluate and a string which contains the upper and the lower limit
+	 * seperated by a comma 
+	 */
+    public static boolean evaluate(double value,String valueLowerUpperLimit)
+    {
+    	String[] stringValues= valueLowerUpperLimit.split(",");
+    	double lowerLimit = Double.parseDouble(stringValues[0].trim());
+    	double upperLimit = Double.parseDouble(stringValues[1].trim());
+    	
+        return value<lowerLimit || value>upperLimit;
+    }
+    
+    /**
+	 * specify a float to evaluate and a string which contains the upper and the lower limit
+	 * seperated by a comma 
+	 */
+    public static boolean evaluate(float value,String valueLowerUpperLimit)
+    {
+    	String[] stringValues= valueLowerUpperLimit.split(",");
+    	float lowerLimit = Float.parseFloat(stringValues[0].trim());
+    	float upperLimit = Float.parseFloat(stringValues[1].trim());
+    	
+        return value<lowerLimit || value>upperLimit;
+    }
+
 	/**
 	 * specify an integer to evaluate, an integer for the lower limit and an integer for the upper limit
 	 */
@@ -60,5 +88,21 @@ public class CheckIsNotBetween extends GenericCheck
     	long upperLimit = Long.parseLong(stringValues[1].trim());
     	
         return value<lowerLimit || value>upperLimit;
+    }
+    
+    /**
+	 * specify a double to evaluate, a double for the lower limit and a double for the upper limit
+	 */
+    public static boolean evaluate(double value,double valueLowerLimit, double valueUpperLimit)
+    {
+        return value<valueLowerLimit || value>valueUpperLimit;
+    }
+    
+    /**
+	 * specify a float to evaluate, a float for the lower limit and a float for the upper limit
+	 */
+    public static boolean evaluate(float value,float valueLowerLimit, float valueUpperLimit)
+    {
+        return value<valueLowerLimit || value>valueUpperLimit;
     }
 }

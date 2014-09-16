@@ -7,7 +7,7 @@ package com.datamelt.rules.implementation;
 
 /**
  * checks if a string containing multiple values separated by commas (,) 
- * not contains a given string. spaces in the individual values are removed (trim)
+ * not contains a given string. spaces between the individual values are removed (trim)
  * 
  * an example for a list would be:
  * 

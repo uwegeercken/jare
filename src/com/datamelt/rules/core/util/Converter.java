@@ -25,7 +25,7 @@ public class Converter
         {
             return "and";
         }
-        else if(i==RuleSubGroup.OPERATOR_OR)
+        else if(i==RuleSubGroup.OPERATOR_OR) 
         {
             return "or";
         }
