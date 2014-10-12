@@ -81,7 +81,8 @@ public class CheckListHasMember extends GenericCheck
     }
     
     /**
-     * checks, if the list of values contains a certain integer value
+     * checks, if the list of values contains a certain integer value.
+     * the values of the list are expected all to be if type integer.
      */
     public static boolean evaluate(String list, int value )
     {
@@ -99,7 +100,8 @@ public class CheckListHasMember extends GenericCheck
     }
     
     /**
-    * checks, if the list of values contains a certain long value
+    * checks, if the list of values contains a certain long value.
+    * the values of the list are expected all to be of type long.
     */
     public static boolean evaluate(String list, long value)
     {

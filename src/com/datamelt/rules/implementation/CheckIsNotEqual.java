@@ -56,6 +56,36 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
+     * checks two long values if they are not equal 
+     */
+    public static boolean evaluate(long value1, int value2)
+    {
+        if(value1 != value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks two long values if they are not equal 
+     */
+    public static boolean evaluate(int value1, long value2)
+    {
+        if(value1 != value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
      * checks two double values if they are not equal 
      */
     public static boolean evaluate(double value1, double value2)
@@ -240,6 +270,22 @@ public class CheckIsNotEqual extends GenericCheck
         	
         }
         return result;
+    
+    }
+    
+    /**
+     * checks, if the date is not equal to the other date using the default
+     * date format.
+     */
+    public static boolean evaluate(Date date1, Date date2)
+    {
+        
+    	SimpleDateFormat sdf = new SimpleDateFormat(CheckConstants.DEFAULT_DATE_FORMAT);
+    	
+    	String date1String = sdf.format(date1);
+    	String date2String = sdf.format(date2);
+    	
+        return !date1String.equals(date2String);
     
     }
 }
