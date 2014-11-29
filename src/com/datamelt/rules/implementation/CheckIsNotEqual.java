@@ -279,13 +279,6 @@ public class CheckIsNotEqual extends GenericCheck
      */
     public static boolean evaluate(Date date1, Date date2)
     {
-        
-    	SimpleDateFormat sdf = new SimpleDateFormat(CheckConstants.DEFAULT_DATE_FORMAT);
-    	
-    	String date1String = sdf.format(date1);
-    	String date2String = sdf.format(date2);
-    	
-        return !date1String.equals(date2String);
-    
+        return !date1.equals(date2);
     }
 }

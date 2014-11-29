@@ -285,4 +285,12 @@ public class CheckIsSmaller extends GenericCheck
         return result;
     
     }
+    
+    /**
+     * checks, if the date is smaller than the other date
+     */
+    public static boolean evaluate(Date date1, Date date2)
+    {
+        return date1.before(date2);
+    }
 }

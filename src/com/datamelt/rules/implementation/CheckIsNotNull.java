@@ -5,6 +5,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import java.util.Date;
+
 /**
  * checks if a given value is NOT NULL and also
  * checks if its value is not equal to the string "null"
@@ -91,4 +93,15 @@ public class CheckIsNotNull extends GenericCheck
         }
     }
     
+    public static boolean evaluate(Date value)
+    {
+    	if(value!=null)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

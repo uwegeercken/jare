@@ -103,4 +103,5 @@ public class CheckIsBetween extends GenericCheck
     {
         return value>=valueLowerLimit && value<=valueUpperLimit;
     }
+
 }

@@ -283,4 +283,12 @@ public class CheckIsGreater extends GenericCheck
         return result;
     
     }
+    
+    /**
+     * checks, if the date is greater than the other date 
+     */
+    public static boolean evaluate(Date date1, Date date2)
+    {
+        return date1.after(date2);
+    }
 }
