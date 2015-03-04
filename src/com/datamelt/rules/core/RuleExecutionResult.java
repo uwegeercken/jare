@@ -215,7 +215,16 @@ public class RuleExecutionResult
     public int getFailed()
     {
         return rule.getFailed();  // ruleFailed;
-     }
+    }
+    
+    /**
+     * returns if the rule that belongs to this result failed or passed
+     * the test 
+     */
+    public boolean isFailed()
+    {
+        return rule.getFailed()==1;  // ruleFailed;
+    }
     
     /** returns a string expression meaning [true] or [false]
      *  depending if the rule that belongs to this result passed or failed. 

@@ -69,7 +69,7 @@ import com.datamelt.util.VelocityDataWriter;
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2014-08-14</p>
+ * <p>last update: 2015-03-02</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de - www.datamelt.com
  * 
@@ -78,7 +78,7 @@ import com.datamelt.util.VelocityDataWriter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.70";
+	private static final String VERSION = "0.71";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -281,7 +281,7 @@ public class BusinessRulesEngine
         status = STATUS_ENGINE_EXECUTED;
         for(int i=0;i<groups.size();i++)
         {
-            RuleGroup group = (RuleGroup)groups.get(i);
+            RuleGroup group = groups.get(i);
             group.setPrintStream(stream);
             group.setActionsPrintStream(actionsStream);
             group.setWriter(writer);
@@ -1028,7 +1028,7 @@ public class BusinessRulesEngine
     	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv -s=; -v");
     	System.out.println();
     	System.out.println("published as open source under the GPL. read the licence notice");
-    	System.out.println("all code by uwe geercken, 2006-2014. uwe.geercken@web.de - www.datamelt.com");
+    	System.out.println("all code by uwe geercken, 2006-2015. uwe.geercken@web.de - www.datamelt.com");
     	System.out.println("published under GPL3");
     	System.out.println();
     }

@@ -23,7 +23,7 @@ import com.datamelt.rules.implementation.GenericCheck;
  *  
  * @author uwe geercken
  */
-public class XmlRule
+public class XmlRule implements Cloneable
 {
     // indicates if a rule failed or passed
     public static final int FAILED = 1;
@@ -69,6 +69,12 @@ public class XmlRule
         this.description = description;
     }
 
+    public Object clone() throws CloneNotSupportedException
+    {
+    	return (XmlRule)super.clone();
+    }
+    
+    
     /**
      * returns the expected value of the rule 
      */

@@ -121,7 +121,7 @@ public class RuleSubGroup
         {
             // get a xmlrule
             // this is the xml rule/business rule as defined in the external xml file
-            XmlRule rule = (XmlRule)rulesCollection.getRules().get(i); 
+            XmlRule rule = (XmlRule)rulesCollection.getRules().get(i).clone(); 
             
             // create object from the object as defined in the xml file
             Object result1=null;

@@ -47,6 +47,17 @@ public class RowFieldCollection
     }
     
     /**
+     * constructor that takes an array of fieldnames and an array of strings as parameter 
+     */
+    public RowFieldCollection(String fieldnames[],String[] fields)
+    {
+        for(int i=0;i<fields.length;i++)
+        {
+        	addField(new RowField(fieldnames[i], fields[i]));
+        }
+    }
+    
+    /**
      * returns the array of fields that belong to the given row object 
      */
     public ArrayList<RowField> getFields()

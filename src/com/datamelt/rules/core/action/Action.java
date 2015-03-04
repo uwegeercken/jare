@@ -116,7 +116,7 @@ public class Action
         {
         	try
         	{
-        		Object obj = ClassUtility.invokeObjectSetterMethod(object, actionClassResult, methodSetterObject,action.getActionSetterObject().getParameters());
+        		ClassUtility.invokeObjectSetterMethod(object, actionClassResult, methodSetterObject,action.getActionSetterObject().getParameters());
         	}
         	catch(ActionInvocationException aie)
         	{
