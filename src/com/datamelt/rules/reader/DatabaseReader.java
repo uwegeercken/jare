@@ -86,10 +86,6 @@ public class DatabaseReader
 	    }
         
         System.out.println("number of lines of data:   " + counter);
-        if(engine.getOutputFile()!=null)
-        {
-        	System.out.println("output to              :   " + engine.getOutputFile());
-        }
         // total number of rules
         int numberOfRules = engine.getNumberOfRules();
         // total number of failed rules

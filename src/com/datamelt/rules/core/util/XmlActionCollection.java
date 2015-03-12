@@ -1,11 +1,14 @@
 package com.datamelt.rules.core.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
 import com.datamelt.rules.core.XmlAction;
 
-public class XmlActionCollection
+public class XmlActionCollection implements Serializable
 {
-private ArrayList<XmlAction> actions = new ArrayList<XmlAction>();
+	private static final long serialVersionUID = 1964070316;
+	private ArrayList<XmlAction> actions = new ArrayList<XmlAction>();
     
     public void add(XmlAction action)
     {

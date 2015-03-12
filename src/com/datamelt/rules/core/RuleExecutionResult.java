@@ -5,6 +5,8 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
+
 import com.datamelt.rules.core.util.Converter;
 
 
@@ -18,9 +20,10 @@ import com.datamelt.rules.core.util.Converter;
  * 
  * @author uwe geercken
  */
-public class RuleExecutionResult
+public class RuleExecutionResult implements Serializable
 {
-    private XmlRule rule;
+	private static final long serialVersionUID = 1964070305;
+	private XmlRule rule;
     private Object resultObject1;
     private Object resultObject2;
     private String objectLabel;

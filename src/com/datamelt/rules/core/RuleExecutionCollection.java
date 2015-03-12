@@ -5,6 +5,7 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,9 +13,10 @@ import java.util.ArrayList;
  * 
  * @author uwe geercken
  */
-public class RuleExecutionCollection
+public class RuleExecutionCollection implements Serializable
 {
-    private ArrayList <RuleExecutionResult>results = new ArrayList<RuleExecutionResult>();
+	private static final long serialVersionUID = 1964070304;
+	private ArrayList <RuleExecutionResult>results = new ArrayList<RuleExecutionResult>();
     // carries the number of failed rules
     private int failedRulesCount = 0;
     // carries the number of failed groups

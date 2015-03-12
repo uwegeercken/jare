@@ -8,10 +8,8 @@ package com.datamelt.rules.engine;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +27,7 @@ import com.datamelt.rules.core.util.VariableReplacer;
 import com.datamelt.util.FileUtility;
 import com.datamelt.util.Row;
 import com.datamelt.util.Splitter;
-import com.datamelt.util.VelocityDataWriter;
+
 
 /**
  * <p>engine for executing business rules.</p>
@@ -69,7 +67,7 @@ import com.datamelt.util.VelocityDataWriter;
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2015-03-02</p>
+ * <p>last update: 2015-03-12</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de - www.datamelt.com
  * 
@@ -78,20 +76,15 @@ import com.datamelt.util.VelocityDataWriter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.71";
+	private static final String VERSION = "0.72";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
     private int status;
     
     // used to replace variables in xml rule files by actual values from a file
-    private VariableReplacer replacer;
-    // used to send the output somewhere
-    private PrintStream stream;
-    
- // used to send the output somewhere
-    private PrintStream actionsStream;
-    
+    private VariableReplacer replacer = null;
+
     // this label will be used - together with a running number - for all objects (that are to be tested)
     // to identify them in the output
     private String objectsLabel = OBJECT_LABEL_DEFAULT;
@@ -102,14 +95,6 @@ public class BusinessRulesEngine
     // type of output that is written
     private int outputType = OUTPUT_TYPE_FAILED_ONLY;
     
-    // path and name of the output template.
-    // template will be used to create output
-    //private String templatePath;
-    private String messageTemplateName;
-    
-    // velocity template writer
-    private VelocityDataWriter writer;
-
     // used for putting a timestamp in the output file name
     private String timestampFormat = TIMESTAMP_FORMAT_DEFAULT;
     
@@ -119,7 +104,6 @@ public class BusinessRulesEngine
     private static final String OBJECT_LABEL_DEFAULT              = "object"; 
     private static final String OBJECT_LABEL_NUMBERFORMAT_DEFAULT = "000000"; 
     
-    // output all rule results (failed AND passed ones)?
     // default is failed rules only
     public static final int OUTPUT_TYPE_FAILED_ONLY               = 0;
     public static final int OUTPUT_TYPE_PASSED_ONLY               = 1;
@@ -130,31 +114,12 @@ public class BusinessRulesEngine
     private static final int STATUS_ENGINE_EXECUTED               = 1;
     
     private static final String PROPERTY_REPLACEMENTS_FILE			 = "replacements_file";
-    private static final String PROPERTY_TEMPLATES_FOLDER 			 = "templates_folder";
-    private static final String PROPERTY_MESSAGES_TEMPLATE 			 = "messages_template";
-    private static final String PROPERTY_OUPUT_FILE 				 = "output_file";
-    private static final String PROPERTY_OUPUT_FILE_TIMESTAMP_FORMAT = "output_file_timestamp";
     private static final String PROPERTY_OUPUT_TYPE 				 = "output_type";
     private static final String PROPERTY_OBJECT_LABEL 				 = "object_label";
     private static final String PROPERTY_OBJECT_LABEL_FORMAT		 = "object_label_format";
-    private static final String PROPERTY_RULELOGIC_TEMPLATE 	     = "rule_logic_template";
-    private static final String PROPERTY_ACTIONS_OUPUT_FILE			 = "actions_output_file";
+
     // name of the replacements file
     private String replacementsFile;
-    // name of the folder where the templates are stored
-    private String templatesFolder;
-    // name of the template for message output
-    private String messagesTemplate;
-    // name of the output file
-    private String outputFile;
-    // format of the outputfile timestamp
-    private String outputFileTimestampFormat;
-    // name of the template that contains the format of the rule logic
-    private String ruleLogicTemplate;
-    // name of the output file for actions
-    private String actionsOutputFile;
-    // format of the actions outputfile timestamp
-    private String actionsOutputFileTimestampFormat;
     // contains the results of the execution of the rules
     private RuleExecutionCollection executionCollection = new RuleExecutionCollection();
 
@@ -173,8 +138,6 @@ public class BusinessRulesEngine
      */
     public BusinessRulesEngine(String rulesFilename) throws Exception
     {
-        this.setPrintStream(System.out);
-        this.setActionsPrintStream(System.out);
         parseXmlFile(rulesFilename);
     }
 
@@ -200,8 +163,6 @@ public class BusinessRulesEngine
      */
     public BusinessRulesEngine(File[] rulesFiles) throws Exception
     {
-        this.setPrintStream(System.out);
-        this.setActionsPrintStream(System.out);
         for(int i=0;i<rulesFiles.length;i++)
         {
             parseXmlFile(rulesFiles[i].getPath());
@@ -216,8 +177,6 @@ public class BusinessRulesEngine
      */
     public BusinessRulesEngine(ZipFile zipFile) throws Exception
     {
-        this.setPrintStream(System.out);
-        this.setActionsPrintStream(System.out);
         for(Enumeration<?> entries = zipFile.entries();entries.hasMoreElements();)
         {
             ZipEntry entry = (ZipEntry)entries.nextElement();
@@ -282,19 +241,14 @@ public class BusinessRulesEngine
         for(int i=0;i<groups.size();i++)
         {
             RuleGroup group = groups.get(i);
-            group.setPrintStream(stream);
-            group.setActionsPrintStream(actionsStream);
-            group.setWriter(writer);
             group.setTimestampFormat(timestampFormat);
             group.setOutputType(outputType);
-            group.setRuleLogicTemplate(ruleLogicTemplate);
             group.runRules(objectLabel, object);
             if(group.getFailed()==1) // group failed
             {
             	// increase the counter of failed groups
             	executionCollection.increaseFailedGroupCount();
             }
-            
             executionCollection.addAll(group.getExecutionCollection().getResults());
         }
     }
@@ -558,17 +512,8 @@ public class BusinessRulesEngine
     {
         if(index>-1 && groups.get(index)!=null)
         {
-        	if(templatesFolder!=null && ruleLogicTemplate!=null)
-        	{
-        		VelocityDataWriter writer = new VelocityDataWriter(getTemplatesFolder(),getRuleLogicTemplateName());
-        		writer.addObject("group",(RuleGroup)groups.get(index));
-        		return writer.merge();
-        	}
-        	else
-        	{
-        		RuleGroup group = (RuleGroup)groups.get(index);
-        		return group.getRuleLogic();
-        	}
+       		RuleGroup group = (RuleGroup)groups.get(index);
+       		return group.getRuleLogic();
         }
         else
         {
@@ -596,42 +541,6 @@ public class BusinessRulesEngine
         this.replacer = replacer;
     }
     
-    /**
-     * 
-     * the printstream that is used for output
-     */
-    public PrintStream getPrintStream()
-    {
-        return stream;
-    }
-    
-    /**
-     * sets the printstream to a new value
-     * @param stream
-     */
-    public void setPrintStream(PrintStream stream)
-    {
-        this.stream = stream;
-    }
-    
-    /**
-     * 
-     * the printstream that is used for output of actions
-     */
-    public PrintStream getActionsPrintStream()
-    {
-        return actionsStream;
-    }
-    
-    /**
-     * sets the printstream for actions to a new value
-     * @param stream
-     */
-    public void setActionsPrintStream(PrintStream stream)
-    {
-        this.actionsStream = stream;
-    }
-
     /**
     * this label will be used - together with a running number - for all objects (that are to be tested)
     * to identify them in the output
@@ -689,91 +598,6 @@ public class BusinessRulesEngine
     }
     
     /**
-     * sets the name and path of the template to use
-     * and initializes the velocity template engine for use.
-     * results of the rules will me merged with the template
-     * and output to the defined printstream.
-     */
-    public void setMessageTemplate(String name, String path) throws Exception
-    {
-        if(!path.endsWith("/")&& !path.endsWith("\\"))
-        {
-            path = path + "/";
-        }
-        writer = new VelocityDataWriter(path,name);
-    }
-    
-    /**
-     * sets the name and path of the template to use
-     * and initializes the velocity template engine for use.
-     * results of the rules will me merged with the template
-     * and output to the defined printstream.
-     * 
-     * The argument name must include the path and the name
-     * of the template file
-     */
-    public void setMessageTemplate(String pathAndName) throws Exception
-    {
-    	File file = new File(pathAndName);
-    	String path = file.getParent();
-    	String name = file.getName();
-        if(path!=null && !path.endsWith("/")&& !path.endsWith("\\"))
-        {
-            path = path + "/";
-        }
-        else
-        {
-        	path="";
-        }
-        writer = new VelocityDataWriter(path,name);
-    }
-    
-    /**
-     * name of the output template for rule messages.
-     */
-    public String getMessageTemplateName()
-    {
-        return messageTemplateName;
-    }
-    
-    /**
-     * name of the output template for rule logic.
-     */
-    public String getRuleLogicTemplateName()
-    {
-        return ruleLogicTemplate;
-    }
-    
-    /**
-     * path to the output template(s).
-     * template will be used to create output
-     */
-
-    public String getTemplatesFolder()
-    {
-        return templatesFolder;
-    }
-    
-    /**
-     * path to the output template(s).
-     * template will be used to create output
-     */
-
-    public void setTemplatesFolder(String templatesFolder)
-    {
-        this.templatesFolder=templatesFolder;
-    }
-    
-    /**
-     * gets the datawriter that is used for merging rule results with a
-     * template. the output will go to the defined printstream.
-     */
-    public VelocityDataWriter getWriter()
-    {
-        return writer;
-    }
-    
-    /**
      * returns the format of the timestamp used for timestamp formating
      */
     public String getTimestampFormat()
@@ -804,75 +628,19 @@ public class BusinessRulesEngine
 		
 	    replacementsFile = props.getProperty(PROPERTY_REPLACEMENTS_FILE);
 	    
-	    templatesFolder = props.getProperty(PROPERTY_TEMPLATES_FOLDER);
-	    messagesTemplate = props.getProperty(PROPERTY_MESSAGES_TEMPLATE);
-	    ruleLogicTemplate = props.getProperty(PROPERTY_RULELOGIC_TEMPLATE);
-	    
-	    outputFile = props.getProperty(PROPERTY_OUPUT_FILE);
-	    outputFileTimestampFormat = props.getProperty(PROPERTY_OUPUT_FILE_TIMESTAMP_FORMAT);
 	    outputType = Integer.parseInt(props.getProperty(PROPERTY_OUPUT_TYPE));
 	    
 	    objectsLabel = props.getProperty(PROPERTY_OBJECT_LABEL);
 	    objectsLabelNumberFormat = props.getProperty(PROPERTY_OBJECT_LABEL_FORMAT); 
 
-	    actionsOutputFile = props.getProperty(PROPERTY_ACTIONS_OUPUT_FILE);
-	    actionsOutputFileTimestampFormat = props.getProperty(PROPERTY_OUPUT_FILE_TIMESTAMP_FORMAT);
-	    
 	    if (replacementsFile!=null)
         {
             replacer = new VariableReplacer(replacementsFile);
         }
-        if(outputFile!=null)
-        {
-            String outputFileName=null;
-        	if(outputFileTimestampFormat!=null && !outputFileTimestampFormat.equals(""))
-            {
-            	outputFileName = FileUtility.getTimeStampedFilename(outputFile,outputFileTimestampFormat);
-            }
-            else
-            {
-            	outputFileName = outputFile;
-            }
-        	this.setPrintStream(new PrintStream(new FileOutputStream(new File(outputFileName))));
-        }
-        else
-        {
-            this.setPrintStream(System.out);
-        }
-        if(actionsOutputFile!=null)
-        {
-        	String actionsOutputFileName=null;
-        	if(actionsOutputFileTimestampFormat!=null && !actionsOutputFileTimestampFormat.equals(""))
-            {
-        		actionsOutputFileName = FileUtility.getTimeStampedFilename(actionsOutputFile,actionsOutputFileTimestampFormat);
-            }
-            else
-            {
-            	actionsOutputFileName = actionsOutputFile;
-            }
-        	this.setActionsPrintStream(new PrintStream(new FileOutputStream(new File(actionsOutputFileName))));
-        }
-        else
-        {
-            this.setActionsPrintStream(System.out);
-        }
-        if(templatesFolder!=null && messagesTemplate!=null)
-        {
-            setMessageTemplate(messagesTemplate,templatesFolder);
-        }
+        
         input.close();
-
 	}
     
-    /**
-     * sets the path and name of the output file which contains the
-     * results of the rule engine.
-     */
-    public void setOutputFile(String outputFile)
-    {
-		this.outputFile = outputFile;
-	}
-
 	public static void main(String[] args) throws Exception
     {
         if (args.length==0 || args.length<2 || args.length>5)
@@ -1033,11 +801,6 @@ public class BusinessRulesEngine
     	System.out.println();
     }
     
-    public String getOutputFile()
-    {
-    	return outputFile;
-    }
-
 	public String getObjectsLabelNumberFormat()
 	{
 		return objectsLabelNumberFormat;
@@ -1048,35 +811,4 @@ public class BusinessRulesEngine
 		return replacementsFile;
 	}
 
-	public String getMessagesTemplate()
-	{
-		return messagesTemplate;
-	}
-
-	public String getOutputFileTimestampFormat() 
-	{
-		return outputFileTimestampFormat;
-	}
-
-	public String getActionsOutputFileTimestampFormat()
-	{
-		return actionsOutputFileTimestampFormat;
-	}
-
-	public void setActionsOutputFileTimestampFormat(String actionsOutputFileTimestampFormat)
-	{
-		this.actionsOutputFileTimestampFormat = actionsOutputFileTimestampFormat;
-	}
-
-	public String getRuleLogicTemplate()
-	{
-		return ruleLogicTemplate;
-	}
-
-	public String getActionsOutputFile()
-	{
-		return actionsOutputFile;
-	}
-	
-	
 }

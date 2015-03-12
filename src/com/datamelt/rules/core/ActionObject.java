@@ -5,6 +5,7 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +17,10 @@ import java.util.ArrayList;
  * 
  * @author uwe geercken
  */
-public class ActionObject
+public class ActionObject implements Serializable
 {
+	private static final long serialVersionUID = 1964070301;
+	
 	public static final int METHOD_GETTER = 0;
 	public static final int METHOD_SETTER = 1;
 	

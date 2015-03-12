@@ -1,28 +1,40 @@
 package com.datamelt.server;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.net.ServerSocketFactory;
 
+import com.datamelt.util.FileUtility;
+
 public class RuleEngineServer extends Thread
 {
     private ServerSocket serverSocket;
-    private String templateFolder;
-    private String template;
+    private String ruleFileFolder;
+    private String ruleFile;
 
-    RuleEngineServer(int port) throws Exception
+    private RuleEngineServer(int port) throws Exception
     {
         serverSocket = ServerSocketFactory.getDefault().createServerSocket(port);
-        System.out.println("waiting on: " + serverSocket.getInetAddress() + " port: " + port + " for connections");
+        System.out.println("waiting on: " + serverSocket.getInetAddress() + ", port: " + port + " for connections");
     }
 
     public static void main(String args[]) throws Exception
     {
     	RuleEngineServer server = new RuleEngineServer(Integer.parseInt(args[0]));
-    	server.templateFolder=args[1];
-    	server.template=args[2];
-        server.start();
+    	server.ruleFileFolder = FileUtility.adjustSlash(args[1]);
+		server.ruleFile = args[2];
+    	if(FileUtility.fileExists(server.ruleFileFolder, server.ruleFile))
+    	{
+    		
+    		System.out.println("server starting with rule file: " + server.ruleFileFolder + server.ruleFile);
+    		server.start();
+    	}
+    	else
+    	{
+    		System.out.println("file not found or is not a file: " + server.ruleFileFolder + server.ruleFile);
+    	}
     }
     
     @Override
@@ -35,15 +47,25 @@ public class RuleEngineServer extends Thread
             {
                 final Socket socketToClient = serverSocket.accept();
                 System.out.println("client connected from: " + socketToClient.getInetAddress());
-                ClientHandler clientHandler = new ClientHandler(socketToClient,templateFolder,template);
+                ClientHandler clientHandler = new ClientHandler(socketToClient,ruleFileFolder,ruleFile);
                 clientHandler.start();
             }
             catch (Exception e)
             {
             	ok = false;
+            	if(!serverSocket.isClosed())
+            	{
+            		try 
+            		{
+						serverSocket.close();
+					} 
+            		catch (IOException e1)
+            		{
+						e1.printStackTrace();
+					}
+            	}
                 e.printStackTrace();
             }
         }
     }
-
 }

@@ -5,6 +5,7 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,9 +13,10 @@ import java.util.ArrayList;
  * 
  * @author uwe geercken
  */
-public class RuleSubGroupCollection
+public class RuleSubGroupCollection implements Serializable
 {
-    private ArrayList<RuleSubGroup> subGroups = new ArrayList<RuleSubGroup>();
+	private static final long serialVersionUID = 1964070315;
+	private ArrayList<RuleSubGroup> subGroups = new ArrayList<RuleSubGroup>();
     
     public void add(RuleSubGroup subGroup)
     {

@@ -6,14 +6,12 @@
  */
 package com.datamelt.rules.core;
 
-import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.datamelt.rules.core.RuleSubGroupCollection;
 import com.datamelt.rules.core.action.Action;
 import com.datamelt.rules.core.util.Converter;
-import com.datamelt.rules.engine.BusinessRulesEngine;
-import com.datamelt.util.VelocityDataWriter;
 
 /**
  * Rules are organized in groups and subgroups. Subgroups can contain multiple rules
@@ -26,19 +24,16 @@ import com.datamelt.util.VelocityDataWriter;
  * 
  * @author uwe geercken
  */
-public class RuleGroup
+public class RuleGroup implements Serializable
 {
-    private String id;
+	private static final long serialVersionUID = 1964070306;
+	private String id;
     private String description;
     private boolean outputAfterActions=false;
     private String validFrom;
     private String validUntil;
-    private PrintStream printStream;
-    private PrintStream actionsPrintStream;
-    private VelocityDataWriter writer;
     private int outputType;
     private String timestampFormat;
-    private String ruleLogicTemplate;
 
     // list of all subgroups belonging to this group
     private RuleSubGroupCollection subGroupCollection = new RuleSubGroupCollection();
@@ -152,71 +147,12 @@ public class RuleGroup
         for(int i=0;i<subGroupCollection.size();i++)
         {
             RuleSubGroup subGroup = (RuleSubGroup)subGroupCollection.get(i);
-            subGroup.setOutputStream(printStream);
-            subGroup.setWriter(writer);
             subGroup.setTimestampFormat(timestampFormat);
             subGroup.setOutputType(outputType);
             subGroup.runRules(objectLabel, object);
         }
-        if(outputType!=BusinessRulesEngine.OUTPUT_TYPE_NO_OUTPUT)
-        {
-	        if(printStream!=null && writer==null)
-	        {
-	            String output = "group " + id + " failed=";
-	        	if(outputType==BusinessRulesEngine.OUTPUT_TYPE_FAILED_ONLY)
-	            {
-	                if(getFailed()==1)
-	                {
-	                    // objectLabel used to identify object in output
-	                    printStream.println(output + getFailedAsString());
-	                }
-	            }
-	            else if(outputType==BusinessRulesEngine.OUTPUT_TYPE_PASSED_ONLY)
-	            {
-	                if(getFailed()==0)
-	                {
-	                    // objectLabel used to identify object in output
-	                    printStream.println(output + getFailedAsString());
-	                }
-	            }
-	            else if(outputType==BusinessRulesEngine.OUTPUT_TYPE_FAILED_AND_PASSED)
-	            {
-	                // objectLabel used to identify object in output
-	                printStream.println(output + getFailedAsString());
-	            }
-	        }
-	        else if(printStream!=null && writer!=null)
-	        {
-	            //RuleExecutionCollection col = getExecutionCollection();
-	            if(outputType==BusinessRulesEngine.OUTPUT_TYPE_FAILED_ONLY)
-	            {
-	                if(getFailed()==1)
-	                {
-	                    writer.addObject("group", this);
-	                    writer.addObject("objectlabel", objectLabel);
-	                    writer.write();
-	                }
-	            }
-	            else if(outputType==BusinessRulesEngine.OUTPUT_TYPE_PASSED_ONLY)
-	            {
-	                if(getFailed()==0)
-	                {
-	                    writer.addObject("group", this);
-	                    writer.addObject("objectlabel", objectLabel);
-	                    writer.write();
-	                }
-	            }
-	            else if(outputType==BusinessRulesEngine.OUTPUT_TYPE_FAILED_AND_PASSED)
-	            {
-	                writer.addObject("group", this);
-	                writer.addObject("objectlabel", objectLabel);
-	                writer.write();
-	            }
-	        }
-        }
         // execute all actions on this object
         Action action = new Action(this.getFailed(), object, outputAfterActions);
-       	action.setPrintStream(actionsPrintStream);
         action.executeActions(actions);
     }
     
@@ -406,26 +342,6 @@ public class RuleGroup
         return buffer.toString();
     }
 
-    public PrintStream getPrintStream()
-    {
-        return printStream;
-    }
-    
-    public void setPrintStream(PrintStream printStream)
-    {
-        this.printStream = printStream;
-    }
-    
-    public PrintStream getActionsPrintStream()
-    {
-        return actionsPrintStream;
-    }
-    
-    public void setActionsPrintStream(PrintStream printStream)
-    {
-        this.actionsPrintStream = printStream;
-    }
-    
     /**
      * specifies if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
@@ -445,24 +361,6 @@ public class RuleGroup
     }
     
     /**
-     * gets the template writer that is used for output
-     */
-    public VelocityDataWriter getWriter()
-    {
-        return writer;
-    }
-    
-    /**
-     * sets the velocity template writer for use.
-     * results of the rules will me merged with the template
-     * and output to the defined printstream.
-     */
-    public void setWriter(VelocityDataWriter writer)
-    {
-        this.writer = writer;
-    }
-    
-    /**
      * returns the format of the timestamp used for timestamp formating
      */
     public String getTimestampFormat()
@@ -479,24 +377,6 @@ public class RuleGroup
         this.timestampFormat = timestampFormat;
     }
 
-    /**
-     * returns the name of the template that is used for outputing
-     * the rule logic
-     */
-    public String getRuleLogicTemplate()
-    {
-        return ruleLogicTemplate;
-    }
-    
-    /**
-     * sets the name of the template that is used for outputing
-     * the rule logic
-     */
-    public void setRuleLogicTemplate(String ruleLogicTemplate)
-    {
-        this.ruleLogicTemplate = ruleLogicTemplate;
-    }
-    
     /**
      * add an action to this group that shall be executed
      */

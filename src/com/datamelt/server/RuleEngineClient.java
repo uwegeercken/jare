@@ -1,154 +1,148 @@
 package com.datamelt.server;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
-import com.datamelt.util.Row;
-import com.datamelt.util.Splitter;
+import com.datamelt.util.RowFieldCollection;
 
 public class RuleEngineClient
 {
-	// the csv input file
-	private static String csvFilename;
-	// the seperator deviding the individual fields
-	private static String fieldSeperator=";";
-	// the server adress - default is localhost
-	private static String server="127.0.0.1";
+	// the server adress - default is 127.0.0.1
+	private String server="127.0.0.1";
 	// the port the server runs on - default 9999
-	private static int port=9999;
-	// name of the rulefile to use
-	private static String ruleFile;
-	// outputType 0 = output all groups
-	// outputType 1 = output only failed groups
-	// outputType 2 = output only passed groups
-	// default outputType = 1
-	private static int outputType =1;
+	private int port=9999;
+	// output type for rule results from the rule engine
+	private int outputType =1;
+	// the output stream to the server
+	private ObjectOutputStream outStream;
+	// the socket to the server
+	private Socket socket;
 	
+	public static final int OUTPUT_TYPE_ALL_GROUPS = 0;
+	public static final int OUTPUT_TYPE_FAILED_GROUPS_ONLY = 1;
+	public static final int OUTPUT_TYPE_PASSED_GROUPS_ONLY = 2;
 	
-	public static void main(String[] args) throws Exception
+	public RuleEngineClient(String server, int port) throws UnknownHostException, IOException
 	{
-		// we first check if there are any arguments
-		// if so we assign the appropriate variables
-    	parseArguments(args);
+		this.server = server;
+		this.port = port;
 		
-    	// create a socket for the given server
-		Socket socketToServer = new Socket(server, port);
+		init();
+	}
+	
+	public RuleEngineClient(String server) throws UnknownHostException, IOException
+	{
+		this.server = server;
+		
+		init();
+	}
+	
+	private void init() throws UnknownHostException, IOException
+	{
+		getServerSocket(server, port);
+		getOutputStream(socket);
+	}
+	
+	
+	public RuleEngineServerObject getServerResponse(RowFieldCollection fields) throws IOException, ClassNotFoundException
+	{
+		// create a server object
+		RuleEngineServerObject object = new RuleEngineServerObject(fields,outputType);
+		
+		// send the object to the server
+       	outStream.writeObject(object);
+       	outStream.flush();
+       	
+       	// get an input stream from the server
+       	ObjectInputStream inputStream = getInputStream(socket);
+       	
+		// create a response object from the object we received from the server
+        return (RuleEngineServerObject)inputStream.readObject();
+			        
+        
+	}
+	
+	public String getServerResponse(String message) throws IOException, ClassNotFoundException
+	{
+		// send the object to the server
+       	outStream.writeObject(message);
+       	outStream.flush();
+       	
+       	// get an input stream from the server
+       	ObjectInputStream inputStream = getInputStream(socket);
+       	
+		// create a response object from the object we received from the server
+        return (String)inputStream.readObject();
+			        
+        
+	}
+	
+	private void getOutputStream(Socket socket) throws IOException
+	{
 		// create an output stream to the server
-		ObjectOutputStream outStream = new ObjectOutputStream(socketToServer.getOutputStream());
+		outStream =  new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         
-		// create a file
-		File inputFile = new File(csvFilename);
-		if(!inputFile.isFile() || !inputFile.exists())
-		{
-			socketToServer.close();
-			outStream.close();
-			// if not exist or not a file throw an exception
-			throw new FileNotFoundException("error: file not found or is not a file: " + csvFilename);
-		}
-		// prepare a reader for the file
-		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-
-		String line;
-	    long counter=0;
-
-	    // the splitter will devide the individual fields of a row in the file into 
-	    Splitter splitter = new Splitter(Splitter.TYPE_COMMA_SEPERATED, fieldSeperator);
-        
-	    // input stream of the socket server
-	    ObjectInputStream inputStream=null;
-	    // read all lines of the file
-    	while ((line=reader.readLine())!=null)
-    	{
-    		// create a row object for the line/row of the csv file
-    		Row row = splitter.getRow(line); 
-			counter++;
-			
-			// create a checkdate object
-			CheckData cd = new CheckData(ruleFile, row);
-			// send the checkdata object to the server
-	       	outStream.writeObject(cd);
-	        
-	       	// create an inputstream from the server
-			inputStream = new ObjectInputStream(socketToServer.getInputStream());
-			// create a checkdata object from the object we received from the server
-	        CheckData cdReceived = (CheckData)inputStream.readObject();
-	        
-	        if(outputType==0 || (outputType==1 && cdReceived.getTotalGroups()!=cdReceived.getGroupsPassed()) || (outputType==2 && cdReceived.getTotalGroups()==cdReceived.getGroupsPassed())) // output group results
-        	{
-	        	System.out.println("row [" + counter + "]: " + cdReceived.getRow());
-        	}
-            for(int i=0;i<cdReceived.getRuleGroups().size();i++)
-            {
-            	RuleGroupSimple group = cdReceived.getRuleGroups().get(i);
-            	if(outputType==0 ||(outputType==1 && group.getFailed()==1) || (outputType==2 && group.getFailed()==0)) // output group results
-            	{
-            		System.out.println(group.getResults());
-            	}
-            }
-    	}
-    	try
-    	{
-    		reader.close();
-    		socketToServer.close();
-    		inputStream.close(); 	
-    		outStream.close();
-    	}
-    	catch(Exception ex)
-    	{
-    		ex.printStackTrace();
-    	}
-    }
+	}
 	
-	/**
-	 *	parses the arguments that where passed to this program 
-	 */
-	private static void parseArguments(String args[]) throws Exception
+	private ObjectInputStream getInputStream(Socket socket) throws IOException
 	{
-		// arguments shall be in the form:
-		// -key=value
-		//
-		// example: -f=test.csv
-		
-		for(int i=0;i<args.length;i++)
+       	// create an inputstream from the server
+		return new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+
+	}
+	
+	private void getServerSocket(String server, int port) throws UnknownHostException, IOException
+	{
+		// create a socket for the given server
+		this.socket = new Socket(server, port);
+	}
+	
+	public void closeSocket() throws IOException
+	{
+		if(!socket.isClosed())
 		{
-			if (args[i].startsWith("-f"))
-			{
-				csvFilename = args[i].substring(3);
-			}
-			else if (args[i].startsWith("-p"))
-			{
-				port = Integer.parseInt(args[i].substring(3));
-			}
-			else if (args[i].startsWith("-s"))
-			{
-				fieldSeperator = args[i].substring(3);
-			}
-			else if (args[i].startsWith("-h"))
-			{
-				server = args[i].substring(3);
-			}
-			else if (args[i].startsWith("-r"))
-			{
-				ruleFile = args[i].substring(3);
-			}
-			else if (args[i].startsWith("-o"))
-			{
-				outputType = Integer.parseInt(args[i].substring(3));
-			}
-		}
-		
-		if(csvFilename==null)
-		{
-			throw new Exception("argument [-f=] (csv filename) must be specified as an argument");
-		}
-		if(ruleFile==null)
-		{
-			throw new Exception("argument [-r=] (rulefile) must be specified as an argument");
+			socket.close();
 		}
 	}
+	
+	public void closeOutputStream() throws IOException
+	{
+		outStream.close();
+	}
+	
+	public String getServer() 
+	{
+		return server;
+	}
+
+	public void setServer(String server) 
+	{
+		this.server = server;
+	}
+
+	public int getPort() 
+	{
+		return port;
+	}
+
+	public void setPort(int port) 
+	{
+		this.port = port;
+	}
+
+	public int getOutputType() 
+	{
+		return outputType;
+	}
+
+	public void setOutputType(int outputType) 
+	{
+		this.outputType = outputType;
+	}
+
 }

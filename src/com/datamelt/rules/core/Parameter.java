@@ -5,6 +5,8 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
+
 import org.xml.sax.SAXException;
 
 /**
@@ -13,8 +15,9 @@ import org.xml.sax.SAXException;
  * 
  * @author uwe geercken
  */
-public class Parameter
+public class Parameter implements Serializable
 {
+	private static final long serialVersionUID = 1964070302;
 	// type of the parameter: integer, string, float, etc
     private String type;
     // the value of the parameter

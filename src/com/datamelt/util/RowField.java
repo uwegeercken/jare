@@ -1,5 +1,6 @@
 package com.datamelt.util;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,8 +13,9 @@ import java.util.Date;
  * 
  * @author uwe geercken
  */
-public class RowField 
+public class RowField  implements Serializable
 {
+	private static final long serialVersionUID = 1964070313;
 	private String name;
 	private Object object;
 	private boolean updated=false;

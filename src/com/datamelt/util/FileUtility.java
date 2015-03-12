@@ -9,8 +9,8 @@ public class FileUtility
 {
 	// the default timestamp format for the filename
 	public static final String DEFAULT_TIMESTAMP_FORMAT     = "yyyyMMddHHmmss";
-	
 	public static final String XML_FILE_EXTENSION  			= ".xml";
+	public static final String FORWARD_SLASH				= "/";
 	
 	/**
      * adds the current timestamp to the given filename
@@ -73,5 +73,30 @@ public class FileUtility
     {
     	 File dir = new File(folder);
          return dir.listFiles();
+    }
+    
+    public static String adjustSlash(String folder)
+    {
+    	if(folder.endsWith("/"))
+    	{
+    		return folder;
+    	}
+    	else
+    	{
+    		return folder + FORWARD_SLASH;
+    	}
+    }
+    
+    public static boolean fileExists(String folder, String filename)
+    {
+    	File file = new File(folder + filename);
+    	if(file.exists() && file.isFile())
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
     }
 }

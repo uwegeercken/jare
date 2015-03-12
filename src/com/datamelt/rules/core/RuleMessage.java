@@ -5,6 +5,8 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
+
 /**
  * this class is used for the messages that are used for a rule. a rule can have
  * a message in case it fails and one in case it passes.
@@ -14,9 +16,10 @@ package com.datamelt.rules.core;
  * 
  * @author uwe geercken
  */
-public class RuleMessage
+public class RuleMessage implements Serializable
 {
-    private String text;
+	private static final long serialVersionUID = 1964070307;
+	private String text;
     private int type;
     
     public static final int TYPE_PASSED = 0;

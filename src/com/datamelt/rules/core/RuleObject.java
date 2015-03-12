@@ -5,6 +5,8 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
+
 /**
  * 	a RuleObject identifies an object that will be instantiated and one of its methods
  *  will be run. The result will later in the process be compared to another value
@@ -14,9 +16,10 @@ package com.datamelt.rules.core;
  * 
  * @author uwe geercken
  */
-public class RuleObject
+public class RuleObject implements Serializable
 {
-    private String className;
+	private static final long serialVersionUID = 1964070309;
+	private String className;
     private String methodName;
     private String methodReturnType;
     private String parameter;

@@ -5,6 +5,7 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +14,10 @@ import java.util.ArrayList;
  * 
  * @author uwe geercken
  */
-public class RuleCollection
+public class RuleCollection implements Serializable
 {
-    private ArrayList<XmlRule> rules = new ArrayList<XmlRule>();
+	private static final long serialVersionUID = 1964070303;
+	private ArrayList<XmlRule> rules = new ArrayList<XmlRule>();
     
     public void add(XmlRule rule)
     {

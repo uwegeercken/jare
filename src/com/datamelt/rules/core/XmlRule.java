@@ -5,6 +5,7 @@
  */
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.datamelt.rules.core.util.Converter;
@@ -23,9 +24,10 @@ import com.datamelt.rules.implementation.GenericCheck;
  *  
  * @author uwe geercken
  */
-public class XmlRule implements Cloneable
+public class XmlRule implements Cloneable ,Serializable
 {
-    // indicates if a rule failed or passed
+	private static final long serialVersionUID = 1964070317;
+	// indicates if a rule failed or passed
     public static final int FAILED = 1;
     public static final int PASSED = 0;
     

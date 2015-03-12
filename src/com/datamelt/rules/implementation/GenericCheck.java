@@ -5,13 +5,16 @@
  */
 package com.datamelt.rules.implementation;
 
+import java.io.Serializable;
+
 /**
  * this class is the base class of all classes that check
  * certain conditions in regards to provided values
  * 
  * @author uwe geercken
  */
-public class GenericCheck
+public class GenericCheck implements Serializable
 {
-    public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
+	private static final long serialVersionUID = 1964070312;
+	public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
 }

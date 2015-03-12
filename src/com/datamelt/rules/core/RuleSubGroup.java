@@ -5,7 +5,7 @@
  */
 package com.datamelt.rules.core;
 
-import java.io.PrintStream;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -16,14 +16,14 @@ import com.datamelt.rules.core.util.Converter;
 import com.datamelt.rules.implementation.GenericCheck;
 import com.datamelt.util.ClassUtility;
 import com.datamelt.util.FieldNotFoundException;
-import com.datamelt.util.VelocityDataWriter;
 
 /**
  * @author uwe geercken
  */
-public class RuleSubGroup
+public class RuleSubGroup implements Serializable
 {
-    private String id;
+	private static final long serialVersionUID = 1964070311;
+	private String id;
     private String description;
     
     // operator is used to connect the rules in one subgroup to each
@@ -47,9 +47,6 @@ public class RuleSubGroup
     private RuleCollection rulesCollection = new RuleCollection();
     //  list of errors that occurred in this subgroup
     private RuleExecutionCollection executionCollection = new RuleExecutionCollection();
-    
-    private PrintStream printStream;
-    private VelocityDataWriter writer;
     
     private String timestampFormat;
     
@@ -635,23 +632,7 @@ public class RuleSubGroup
         buffer.append(")");
         return buffer.toString();
     }
-    /**
-     * returns the output stream used for his object
-     */
-    public PrintStream getPrintStream()
-    {
-        return printStream;
-    }
-    
-    /**
-     * sets the outputstream for his object 
-     * 
-     */
-    public void setOutputStream(PrintStream stream)
-    {
-        this.printStream = stream;
-    }
-    
+
     /**
      * specifies if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
@@ -670,28 +651,6 @@ public class RuleSubGroup
         this.outputType = outputType;
     }
     
-    /**
-     * gets the template writer that is used for output
-     */
-    public VelocityDataWriter getWriter()
-    {
-        return writer;
-    }
-    
-    /**
-     * sets the velocity template writer for use.
-     * results of the rules will me merged with the template
-     * and output to the defined printstream.
-     */
-    public void setWriter(VelocityDataWriter writer)
-    {
-        if(writer!=null)
-        {
-            this.writer = writer;
-            writer.setOutputStream(printStream);
-        }
-    }
-
     /**
      * returns the format of the timestamp used for timestamp formating
      */

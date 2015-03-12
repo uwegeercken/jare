@@ -11,8 +11,10 @@
 
 package com.datamelt.util;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -27,9 +29,10 @@ import java.util.Date;
  * @author uwe geercken
  */
 
-public class RowFieldCollection
+public class RowFieldCollection implements Serializable
 {
-    private long id;
+	private static final long serialVersionUID = 1964070314;
+	private long id;
     private boolean collectionUpdated;
     private boolean rowFailed=false;
     private ArrayList<RowField> fields = new ArrayList<RowField>();
@@ -82,49 +85,6 @@ public class RowFieldCollection
     {
     	fields.add(new RowField(fieldName, fieldValue));
     }
-    
-    /**
-    public void addField(String fieldName, String fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    public void addField(String fieldName, int fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    public void addField(String fieldName, long fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    public void addField(String fieldName, double fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    public void addField(String fieldName, float fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    public void addField(String fieldName, boolean fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    public void addField(String fieldName, BigDecimal fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    public void addField(String fieldName, Date fieldValue)
-    {
-    	fields.add(new RowField(fieldName, fieldValue));
-    }
-    
-    */
     
     /**
      * returns the number of fields that belong to the given row object 
@@ -467,4 +427,23 @@ public class RowFieldCollection
 		this.rowFailed = rowFailed;
 	}
 	
+	public String getFieldNames()
+	{
+		String[] fieldNames = new String[fields.size()];
+		for(int i=0;i<fields.size();i++) 
+    	{
+			fieldNames[i]=fields.get(i).getName();
+    	}
+		return Arrays.toString(fieldNames);
+	}
+	
+	public String getFieldValues()
+	{
+		String[] fieldValues = new String[fields.size()];
+		for(int i=0;i<fields.size();i++) 
+    	{
+			fieldValues[i]=(String)fields.get(i).getValue();
+    	}
+		return Arrays.toString(fieldValues);
+	}
 }
