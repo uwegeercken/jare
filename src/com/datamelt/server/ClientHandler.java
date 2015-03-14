@@ -2,6 +2,7 @@ package com.datamelt.server;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -24,18 +25,20 @@ public class ClientHandler extends Thread
     private String ruleFile;
     private long clientStart;
     private long rowsProcessed=0;
+    private long resetInterval = 1000;
     
     private static final String RESPONSE_UPTIME = "uptime";
     private static final String RESPONSE_EXIT = "exit";
     private static final String RESPONSE_ROWSPROCESSED = "rowsprocessed";
     private static final String RESPONSE_RELOAD = "reload";
 
-    ClientHandler(Socket socket, String ruleFileFolder, String ruleFile) throws Exception
+    ClientHandler(Socket socket, String ruleFileFolder, String ruleFile,long resetInterval) throws Exception
     {
     	this.clientStart = System.currentTimeMillis();
     	this.ruleFileFolder = ruleFileFolder;
     	this.ruleFile = ruleFile;
         this.socket = socket;
+        this.resetInterval = resetInterval;
         this.ruleEngine = new BusinessRulesEngine(new ZipFile(ruleFileFolder + ruleFile));
         this.inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
     }
@@ -70,14 +73,28 @@ public class ClientHandler extends Thread
 	                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
 	                serverObject.setRulesPassed(ruleEngine.getNumberOfRulesPassed());
 	                serverObject.setRuleGroups(ruleEngine.getGroups());
-	                serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());	
+	                //serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());	
+	                
+	                DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+	                
+	                outputStream.writeLong(ruleEngine.getNumberOfGroups());
+	                outputStream.writeLong(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
+	                outputStream.writeLong(ruleEngine.getNumberOfRules());
+	                outputStream.writeLong(ruleEngine.getNumberOfRulesPassed());
+	                
+	                outputStream.flush();
 	                
 	                // create an ouput stream
-	                ObjectOutputStream outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+	                //ObjectOutputStream outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 	                
 	                // write object to stream
-	               	outputStream.writeObject(serverObject);
-	               	outputStream.flush();
+	               	//outputStream.writeObject(serverObject);
+	               	//outputStream.flush();
+	               	
+	               	if(rowsProcessed % resetInterval==0)
+	               	{
+	               		//outputStream.reset();
+	               	}
 	             
 	               	// clear the execution results, otherwise they get cumulated
 	               	ruleEngine.getRuleExecutionCollection().clear();

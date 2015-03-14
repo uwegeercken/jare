@@ -2,6 +2,7 @@ package com.datamelt.server;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,6 +23,9 @@ public class RuleEngineClient
 	private ObjectOutputStream outStream;
 	// the socket to the server
 	private Socket socket;
+	
+	private long resetInterval=1000;
+	private long counter=0;
 	
 	public static final int OUTPUT_TYPE_ALL_GROUPS = 0;
 	public static final int OUTPUT_TYPE_FAILED_GROUPS_ONLY = 1;
@@ -48,38 +52,61 @@ public class RuleEngineClient
 		getOutputStream(socket);
 	}
 	
+	public RuleEngineServerObject getServerObject(RowFieldCollection fields) throws IOException
+	{
+		sendObject(fields);
+		return receiveObject();
+	}
 	
-	public RuleEngineServerObject getServerResponse(RowFieldCollection fields) throws IOException, ClassNotFoundException
+	public String getServerObject(String message) throws IOException, ClassNotFoundException
+	{
+		sendMessageObject(message);
+		return receiveMessageObject();
+	}
+	
+	private void sendObject(RowFieldCollection fields) throws IOException
 	{
 		// create a server object
 		RuleEngineServerObject object = new RuleEngineServerObject(fields,outputType);
 		
+		counter ++;
 		// send the object to the server
-       	outStream.writeObject(object);
+       	
+		outStream.writeObject(object);
        	outStream.flush();
-       	
-       	// get an input stream from the server
-       	ObjectInputStream inputStream = getInputStream(socket);
-       	
-		// create a response object from the object we received from the server
-        return (RuleEngineServerObject)inputStream.readObject();
-			        
-        
+       	if(counter % resetInterval==0)
+       	{
+       		outStream.reset();
+       	}
 	}
 	
-	public String getServerResponse(String message) throws IOException, ClassNotFoundException
+	private RuleEngineServerObject receiveObject() throws IOException
 	{
-		// send the object to the server
+		DataInputStream inputStream = new DataInputStream(getDataInputStream(socket));
+       	
+       	RuleEngineServerObject response = new RuleEngineServerObject();
+       	response.setTotalGroups(inputStream.readLong());
+       	response.setGroupsPassed(inputStream.readLong());
+       	response.setTotalRules(inputStream.readLong());
+       	response.setRulesPassed(inputStream.readLong());
+       	
+       	return response;	
+	}
+	
+	private void sendMessageObject(String message) throws IOException
+	{
+		// send the message to the server
        	outStream.writeObject(message);
        	outStream.flush();
-       	
-       	// get an input stream from the server
-       	ObjectInputStream inputStream = getInputStream(socket);
+	}
+	
+	private String receiveMessageObject() throws IOException, ClassNotFoundException
+	{
+		// get an input stream from the server
+       	ObjectInputStream inputStream = getObjectInputStream(socket);
        	
 		// create a response object from the object we received from the server
         return (String)inputStream.readObject();
-			        
-        
 	}
 	
 	private void getOutputStream(Socket socket) throws IOException
@@ -89,11 +116,16 @@ public class RuleEngineClient
         
 	}
 	
-	private ObjectInputStream getInputStream(Socket socket) throws IOException
+	private DataInputStream getDataInputStream(Socket socket) throws IOException
+	{
+       	// create an inputstream from the server
+		return new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+	}
+	
+	private ObjectInputStream getObjectInputStream(Socket socket) throws IOException
 	{
        	// create an inputstream from the server
 		return new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-
 	}
 	
 	private void getServerSocket(String server, int port) throws UnknownHostException, IOException
@@ -143,6 +175,11 @@ public class RuleEngineClient
 	public void setOutputType(int outputType) 
 	{
 		this.outputType = outputType;
+	}
+
+	public long getCounter() 
+	{
+		return counter;
 	}
 
 }

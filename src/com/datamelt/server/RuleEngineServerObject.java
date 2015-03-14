@@ -19,6 +19,7 @@ public class RuleEngineServerObject implements Serializable
      private long rulesPassed;
      private long totalRules;
      private int outputType;
+     private String test;
      
      private static final long serialVersionUID=2000000;
 
@@ -124,6 +125,20 @@ public class RuleEngineServerObject implements Serializable
 	public void setOutputType(int outputType) 
 	{
 		this.outputType = outputType;
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) 
+	{
+		this.test = test;
+	}
+
+	public ArrayList<RuleGroup> getGroups() 
+	{
+		return groups;
 	}
 	
 	

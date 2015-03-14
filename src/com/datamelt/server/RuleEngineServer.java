@@ -13,6 +13,7 @@ public class RuleEngineServer extends Thread
     private ServerSocket serverSocket;
     private String ruleFileFolder;
     private String ruleFile;
+    private long resetInterval=1000;
 
     private RuleEngineServer(int port) throws Exception
     {
@@ -25,6 +26,7 @@ public class RuleEngineServer extends Thread
     	RuleEngineServer server = new RuleEngineServer(Integer.parseInt(args[0]));
     	server.ruleFileFolder = FileUtility.adjustSlash(args[1]);
 		server.ruleFile = args[2];
+		server.resetInterval = Long.parseLong(args[3]);
     	if(FileUtility.fileExists(server.ruleFileFolder, server.ruleFile))
     	{
     		
@@ -47,7 +49,7 @@ public class RuleEngineServer extends Thread
             {
                 final Socket socketToClient = serverSocket.accept();
                 System.out.println("client connected from: " + socketToClient.getInetAddress());
-                ClientHandler clientHandler = new ClientHandler(socketToClient,ruleFileFolder,ruleFile);
+                ClientHandler clientHandler = new ClientHandler(socketToClient,ruleFileFolder,ruleFile,resetInterval);
                 clientHandler.start();
             }
             catch (Exception e)
