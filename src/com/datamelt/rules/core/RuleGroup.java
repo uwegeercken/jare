@@ -26,7 +26,6 @@ import com.datamelt.rules.core.util.Converter;
  */
 public class RuleGroup implements Serializable
 {
-	private static final long serialVersionUID = 1964070306;
 	private String id;
     private String description;
     private boolean outputAfterActions=false;
@@ -41,6 +40,8 @@ public class RuleGroup implements Serializable
     private ArrayList <XmlAction>actions = new ArrayList<XmlAction>();
     
     private static final int OPERATOR_AND = 0;
+    
+    public static final long serialVersionUID = 1964070331;
     
     /**
      * constructor for a rule group using its id 

@@ -19,10 +19,10 @@ public class RuleEngineServerObject implements Serializable
      private long rulesPassed;
      private long totalRules;
      private int outputType;
-     private String test;
+     private String objectLabel;
      
-     private static final long serialVersionUID=2000000;
-
+     public static final long serialVersionUID = 2000000;
+     
      public RuleEngineServerObject() 
      {
         
@@ -127,19 +127,21 @@ public class RuleEngineServerObject implements Serializable
 		this.outputType = outputType;
 	}
 
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) 
-	{
-		this.test = test;
-	}
-
 	public ArrayList<RuleGroup> getGroups() 
 	{
 		return groups;
 	}
+
+	public String getObjectLabel()
+	{
+		return objectLabel;
+	}
+
+	public void setObjectLabel(String objectLabel) 
+	{
+		this.objectLabel = objectLabel;
+	}
+	
 	
 	
 }

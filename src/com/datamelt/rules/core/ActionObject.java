@@ -19,8 +19,6 @@ import java.util.ArrayList;
  */
 public class ActionObject implements Serializable
 {
-	private static final long serialVersionUID = 1964070301;
-	
 	public static final int METHOD_GETTER = 0;
 	public static final int METHOD_SETTER = 1;
 	
@@ -29,6 +27,8 @@ public class ActionObject implements Serializable
     private String returnType;
     private int isGetter;
     private ArrayList <Parameter>parameters = new ArrayList<Parameter>();
+    
+    public static final long serialVersionUID = 1964070322;
     
     /**
      * constructor using the classname, name of the method to execute and the return

@@ -89,7 +89,21 @@ public class FileUtility
     
     public static boolean fileExists(String folder, String filename)
     {
-    	File file = new File(folder + filename);
+    	String fullFilename = adjustSlash(folder) + filename;
+    	File file = new File(fullFilename);
+    	if(file.exists() && file.isFile())
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    public static boolean fileExists(String fullFilename)
+    {
+    	File file = new File(fullFilename);
     	if(file.exists() && file.isFile())
     	{
     		return true;

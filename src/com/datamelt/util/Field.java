@@ -1,17 +1,21 @@
 package com.datamelt.util;
 
+import java.io.Serializable;
+
 /**
  * defines a field in a fixed length ASCII file. fields have a fixed length
  * and position. so the fields are defined by a start position and a length.
  * 
  * optionally a field description may be given.
  */
-public class Field 
+public class Field implements Serializable
 {
 	public String name;
 	public String description;
 	public int start;
 	public int length;
+	
+	public static final long serialVersionUID = 1964070323;
 	
 	/**
 	 * constructor for a field using the name, start and length of the field 

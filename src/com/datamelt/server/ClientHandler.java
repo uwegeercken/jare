@@ -10,10 +10,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.zip.ZipFile;
 
+import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.engine.BusinessRulesEngine;
+import com.datamelt.server.transform.Transformer;
 
 public class ClientHandler extends Thread
 {
@@ -25,20 +28,22 @@ public class ClientHandler extends Thread
     private String ruleFile;
     private long clientStart;
     private long rowsProcessed=0;
-    private long resetInterval = 1000;
+    private Transformer transformer;
     
     private static final String RESPONSE_UPTIME = "uptime";
+    private static final String RESPONSE_RULEFILE = "rulefile";
     private static final String RESPONSE_EXIT = "exit";
     private static final String RESPONSE_ROWSPROCESSED = "rowsprocessed";
     private static final String RESPONSE_RELOAD = "reload";
 
-    ClientHandler(Socket socket, String ruleFileFolder, String ruleFile,long resetInterval) throws Exception
+    ClientHandler(Socket socket, String ruleFileFolder, String ruleFile, Transformer transformer) throws Exception
     {
     	this.clientStart = System.currentTimeMillis();
     	this.ruleFileFolder = ruleFileFolder;
     	this.ruleFile = ruleFile;
         this.socket = socket;
-        this.resetInterval = resetInterval;
+        this.transformer = transformer;
+        
         this.ruleEngine = new BusinessRulesEngine(new ZipFile(ruleFileFolder + ruleFile));
         this.inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
     }
@@ -62,7 +67,7 @@ public class ClientHandler extends Thread
 	                ruleEngine.setOutputType(serverObject.getOutputType());
 	                
 	                // run the rule engine
-	                ruleEngine.run(serverObject.getFields());
+	                ruleEngine.run(serverObject.getFields().getFieldValues(), serverObject.getFields());
 	                
 	                // count the processed rows
 	                rowsProcessed++;
@@ -73,6 +78,7 @@ public class ClientHandler extends Thread
 	                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
 	                serverObject.setRulesPassed(ruleEngine.getNumberOfRulesPassed());
 	                serverObject.setRuleGroups(ruleEngine.getGroups());
+	                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
 	                //serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());	
 	                
 	                DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -81,21 +87,11 @@ public class ClientHandler extends Thread
 	                outputStream.writeLong(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
 	                outputStream.writeLong(ruleEngine.getNumberOfRules());
 	                outputStream.writeLong(ruleEngine.getNumberOfRulesPassed());
-	                
 	                outputStream.flush();
 	                
-	                // create an ouput stream
-	                //ObjectOutputStream outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+	                // output the results
+	                output(serverObject,ruleEngine.getGroups());
 	                
-	                // write object to stream
-	               	//outputStream.writeObject(serverObject);
-	               	//outputStream.flush();
-	               	
-	               	if(rowsProcessed % resetInterval==0)
-	               	{
-	               		//outputStream.reset();
-	               	}
-	             
 	               	// clear the execution results, otherwise they get cumulated
 	               	ruleEngine.getRuleExecutionCollection().clear();
             	}
@@ -140,22 +136,53 @@ public class ClientHandler extends Thread
     	                
     	                System.out.println(responseMessage);
             		}
+            		else if(serverObject.equals(RESPONSE_RULEFILE))
+            		{
+    	                String responseMessage = "running rule file: " + ruleFileFolder + ruleFile;
+    	                sendMessage(responseMessage);
+    	                
+    	                System.out.println(responseMessage);
+            		}
             	}
             }
             catch (EOFException e)
             {
             	// something went wrong here
             	ok=false;
+            	try
+            	{
+            		transformer.close();
+            	}
+            	catch(Exception ex)
+            	{
+            		
+            	}
             }
             catch (SocketException e)
             {
             	// something went wrong here
             	ok=false;
+            	try
+            	{
+            		transformer.close();
+            	}
+            	catch(Exception ex)
+            	{
+            		
+            	}
             }
             catch (Exception e)
             {
             	// something went wrong here
             	ok=false;
+            	try
+            	{
+            		transformer.close();
+            	}
+            	catch(Exception ex)
+            	{
+            		
+            	}
                 e.printStackTrace();
             }
             finally
@@ -170,6 +197,14 @@ public class ClientHandler extends Thread
             	}
             }
         }
+    }
+    
+    private void output(RuleEngineServerObject serverObject,ArrayList<RuleGroup> groups) throws Exception
+    {
+   		if(transformer!=null)
+   		{
+   			transformer.write(serverObject,groups);
+   		}
     }
     
     private void sendMessage(String responseMessage) throws IOException

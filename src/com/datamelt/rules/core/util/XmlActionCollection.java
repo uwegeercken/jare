@@ -7,9 +7,10 @@ import com.datamelt.rules.core.XmlAction;
 
 public class XmlActionCollection implements Serializable
 {
-	private static final long serialVersionUID = 1964070316;
 	private ArrayList<XmlAction> actions = new ArrayList<XmlAction>();
     
+	public static final long serialVersionUID = 1964070339;
+	
     public void add(XmlAction action)
     {
         actions.add(action);

@@ -16,9 +16,10 @@ import java.util.ArrayList;
  */
 public class RuleCollection implements Serializable
 {
-	private static final long serialVersionUID = 1964070303;
 	private ArrayList<XmlRule> rules = new ArrayList<XmlRule>();
     
+	public static final long serialVersionUID = 1964070328;
+	
     public void add(XmlRule rule)
     {
         rules.add(rule);

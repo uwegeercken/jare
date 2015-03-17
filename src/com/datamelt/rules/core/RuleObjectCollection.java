@@ -17,9 +17,10 @@ import java.util.ArrayList;
  */
 public class RuleObjectCollection implements Serializable
 {
-	private static final long serialVersionUID = 1964070310;
 	private ArrayList<RuleObject> ruleObjects = new ArrayList<RuleObject>();
     
+	public static final long serialVersionUID = 1964070335;
+	
     public void add(RuleObject ruleObject)
     {
         ruleObjects.add(ruleObject);

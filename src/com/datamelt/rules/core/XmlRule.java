@@ -24,9 +24,10 @@ import com.datamelt.rules.implementation.GenericCheck;
  *  
  * @author uwe geercken
  */
-public class XmlRule implements Cloneable ,Serializable
+public class XmlRule implements Cloneable, Serializable
 {
-	private static final long serialVersionUID = 1964070317;
+	public static final long serialVersionUID = 1964070340;
+	
 	// indicates if a rule failed or passed
     public static final int FAILED = 1;
     public static final int PASSED = 0;

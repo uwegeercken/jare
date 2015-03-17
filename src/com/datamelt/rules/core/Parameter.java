@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
  */
 public class Parameter implements Serializable
 {
-	private static final long serialVersionUID = 1964070302;
 	// type of the parameter: integer, string, float, etc
     private String type;
     // the value of the parameter
@@ -25,6 +24,8 @@ public class Parameter implements Serializable
     // indicates that this variable is the actual value used
     // by a setter method
     private boolean isSetterValue=false;
+    
+    public static final long serialVersionUID = 1964070326;
     
     /**
      * constructor for creating a parameter. expects the type of the

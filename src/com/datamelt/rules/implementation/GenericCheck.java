@@ -15,6 +15,6 @@ import java.io.Serializable;
  */
 public class GenericCheck implements Serializable
 {
-	private static final long serialVersionUID = 1964070312;
+	public static final long serialVersionUID = 1964070325;
 	public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
 }

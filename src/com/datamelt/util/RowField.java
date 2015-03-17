@@ -13,12 +13,13 @@ import java.util.Date;
  * 
  * @author uwe geercken
  */
-public class RowField  implements Serializable
+public class RowField implements Serializable
 {
-	private static final long serialVersionUID = 1964070313;
 	private String name;
 	private Object object;
 	private boolean updated=false;
+	
+	public static final long serialVersionUID = 1964070313;
 	
 	public RowField(String name, Object object)
 	{

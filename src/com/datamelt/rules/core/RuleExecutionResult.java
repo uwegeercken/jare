@@ -22,12 +22,13 @@ import com.datamelt.rules.core.util.Converter;
  */
 public class RuleExecutionResult implements Serializable
 {
-	private static final long serialVersionUID = 1964070305;
 	private XmlRule rule;
     private Object resultObject1;
     private Object resultObject2;
     private String objectLabel;
     private String timestamp;
+    
+    public static final long serialVersionUID = 1964070330;
     
     /**
      * constructor including the timestamp of when the rule was executed

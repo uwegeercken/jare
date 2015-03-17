@@ -15,12 +15,13 @@ import java.util.ArrayList;
  */
 public class RuleExecutionCollection implements Serializable
 {
-	private static final long serialVersionUID = 1964070304;
 	private ArrayList <RuleExecutionResult>results = new ArrayList<RuleExecutionResult>();
     // carries the number of failed rules
     private int failedRulesCount = 0;
     // carries the number of failed groups
     private int failedGroupsCount = 0;
+    
+    public static final long serialVersionUID = 1964070329;
     
     /**
      * add one result of the executing of the business rule engine

@@ -1,5 +1,6 @@
 package com.datamelt.rules.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,10 +10,12 @@ import java.util.ArrayList;
  * @author uwe geercken
  *
  */
-public class XmlAction
+public class XmlAction implements Serializable
 {
 	public static final int TYPE_PASSED = 0;
     public static final int TYPE_FAILED = 1;
+    
+    public static final long serialVersionUID = 1964070338;
     
     private String id;
     private String description;

@@ -7,6 +7,7 @@ package com.datamelt.rules.core;
 
 import java.io.Serializable;
 
+
 /**
  * 	a RuleObject identifies an object that will be instantiated and one of its methods
  *  will be run. The result will later in the process be compared to another value
@@ -18,12 +19,13 @@ import java.io.Serializable;
  */
 public class RuleObject implements Serializable
 {
-	private static final long serialVersionUID = 1964070309;
 	private String className;
     private String methodName;
     private String methodReturnType;
     private String parameter;
     private String parameterType;
+    
+    public static final long serialVersionUID = 1964070334;
     
     /**
      * constructor using the classname, name of the method to execute and the return

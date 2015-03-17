@@ -31,11 +31,12 @@ import java.util.Date;
 
 public class RowFieldCollection implements Serializable
 {
-	private static final long serialVersionUID = 1964070314;
 	private long id;
     private boolean collectionUpdated;
     private boolean rowFailed=false;
     private ArrayList<RowField> fields = new ArrayList<RowField>();
+    
+    public static final long serialVersionUID = 1964070314;
     
     public RowFieldCollection()
     {

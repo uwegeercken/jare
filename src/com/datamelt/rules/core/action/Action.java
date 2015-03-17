@@ -1,6 +1,7 @@
 package com.datamelt.rules.core.action;
 
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -10,12 +11,15 @@ import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ClassUtility;
 import com.datamelt.util.FieldNotFoundException;
 
-public class Action
+public class Action implements Serializable
 {
 	private Object object;
 	private int failed;
 	private PrintStream stream;
 	private boolean outputAfterActions;
+	
+	public static final long serialVersionUID = 1964070320;
+	
 	public Action(int failed,Object object,boolean outputAfterActions)
 	{
 		this.object = object;

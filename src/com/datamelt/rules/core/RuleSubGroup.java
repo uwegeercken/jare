@@ -22,7 +22,8 @@ import com.datamelt.util.FieldNotFoundException;
  */
 public class RuleSubGroup implements Serializable
 {
-	private static final long serialVersionUID = 1964070311;
+	public static final long serialVersionUID = 1964070336;
+	
 	private String id;
     private String description;
     

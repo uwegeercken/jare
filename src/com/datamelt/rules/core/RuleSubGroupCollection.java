@@ -15,9 +15,10 @@ import java.util.ArrayList;
  */
 public class RuleSubGroupCollection implements Serializable
 {
-	private static final long serialVersionUID = 1964070315;
 	private ArrayList<RuleSubGroup> subGroups = new ArrayList<RuleSubGroup>();
     
+	public static final long serialVersionUID = 1964070337;
+	
     public void add(RuleSubGroup subGroup)
     {
         subGroups.add(subGroup);
