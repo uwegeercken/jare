@@ -6,6 +6,7 @@ public class JsonRuleGroups
 {
 	private ArrayList<JsonRuleGroup> groups = new ArrayList<JsonRuleGroup>();
 	private String objectLabel;
+	private String processId;
 
 	public ArrayList<JsonRuleGroup> getGroups() 
 	{
@@ -26,5 +27,15 @@ public class JsonRuleGroups
 	{
 		this.objectLabel = objectLabel;
 	}
-	
+
+	public String getProcessId()
+	{
+		return processId;
+	}
+
+	public void setProcessId(String processId) 
+	{
+		this.processId = processId;
+	}
+
 }

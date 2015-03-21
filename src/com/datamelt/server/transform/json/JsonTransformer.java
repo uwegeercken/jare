@@ -65,6 +65,7 @@ public class JsonTransformer extends Transformer
 	{
 		JsonRuleGroups ruleGroups = new JsonRuleGroups();
 		ruleGroups.setObjectLabel(serverObject.getObjectLabel());
+		ruleGroups.setProcessId(serverObject.getProcessId());
 		
 		for(int k=0;k<groups.size();k++)
 		{

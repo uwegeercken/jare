@@ -9,9 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.zip.ZipFile;
 
 import com.datamelt.rules.core.RuleGroup;
@@ -20,7 +18,7 @@ import com.datamelt.server.transform.Transformer;
 
 public class ClientHandler extends Thread
 {
-
+	private String processId;
 	private Socket socket;
     private ObjectInputStream inputStream;
     private BusinessRulesEngine ruleEngine;
@@ -35,10 +33,12 @@ public class ClientHandler extends Thread
     private static final String RESPONSE_EXIT = "exit";
     private static final String RESPONSE_ROWSPROCESSED = "rowsprocessed";
     private static final String RESPONSE_RELOAD = "reload";
+    private static final String RESPONSE_PROCESSID = "processid";
 
-    ClientHandler(Socket socket, String ruleFileFolder, String ruleFile, Transformer transformer) throws Exception
+    ClientHandler(String processId, Socket socket, String ruleFileFolder, String ruleFile, Transformer transformer) throws Exception
     {
     	this.clientStart = System.currentTimeMillis();
+    	this.processId= processId;
     	this.ruleFileFolder = ruleFileFolder;
     	this.ruleFile = ruleFile;
         this.socket = socket;
@@ -79,7 +79,8 @@ public class ClientHandler extends Thread
 	                serverObject.setRulesPassed(ruleEngine.getNumberOfRulesPassed());
 	                serverObject.setRuleGroups(ruleEngine.getGroups());
 	                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
-	                //serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());	
+	                serverObject.setProcessId(processId);
+	                serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());	
 	                
 	                DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 	                
@@ -92,7 +93,7 @@ public class ClientHandler extends Thread
 	                // output the results
 	                output(serverObject,ruleEngine.getGroups());
 	                
-	               	// clear the execution results, otherwise they get cumulated
+	               	// clear the execution results, otherwise they get accumulated
 	               	ruleEngine.getRuleExecutionCollection().clear();
             	}
             	else if(object instanceof String)
@@ -136,6 +137,13 @@ public class ClientHandler extends Thread
     	                
     	                System.out.println(responseMessage);
             		}
+            		else if(serverObject.equals(RESPONSE_PROCESSID))
+            		{
+    	                String responseMessage = processId;
+    	                sendMessage(responseMessage);
+    	                
+    	                System.out.println(responseMessage);
+            		}
             		else if(serverObject.equals(RESPONSE_RULEFILE))
             		{
     	                String responseMessage = "running rule file: " + ruleFileFolder + ruleFile;
@@ -143,6 +151,20 @@ public class ClientHandler extends Thread
     	                
     	                System.out.println(responseMessage);
             		}
+            		else
+            		{
+    	                String responseMessage = "unknown request: " + serverObject;
+    	                sendMessage(responseMessage);
+    	                
+    	                System.out.println(responseMessage);
+            		}
+            	}
+            	else
+            	{
+            		String responseMessage = "unknown or unhandled object received: ";
+	                sendMessage(responseMessage);
+	                
+	                System.out.println(responseMessage);
             	}
             }
             catch (EOFException e)
@@ -216,18 +238,45 @@ public class ClientHandler extends Thread
        	outputStream.flush();
     }
     
-    private String getStartDateTime()
-    {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	Calendar cal = Calendar.getInstance();
-    	cal.setTimeInMillis(clientStart);
-    	return sdf.format(cal.getTime());
-    }
-    
     private String getRunTime()
     {
     	long runTime = System.currentTimeMillis() - clientStart; 	
     	    	
     	return "" + runTime/1000;
     }
+
+	public String getProcessId()
+	{
+		return processId;
+	}
+
+	public BusinessRulesEngine getRuleEngine() 
+	{
+		return ruleEngine;
+	}
+
+	public String getRuleFileFolder() 
+	{
+		return ruleFileFolder;
+	}
+
+	public String getRuleFile() 
+	{
+		return ruleFile;
+	}
+
+	public long getClientStart() 
+	{
+		return clientStart;
+	}
+
+	public long getRowsProcessed() 
+	{
+		return rowsProcessed;
+	}
+
+	public Transformer getTransformer() 
+	{
+		return transformer;
+	}
 }

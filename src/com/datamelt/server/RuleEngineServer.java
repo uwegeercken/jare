@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.net.ServerSocketFactory;
@@ -49,8 +51,6 @@ public class RuleEngineServer extends Thread
     	setVariables();
     	createSocket();
         createTransformer();
-        
-    	
     }
     
     private void loadProperties() throws IOException
@@ -165,7 +165,7 @@ public class RuleEngineServer extends Thread
             {
                 final Socket socketToClient = serverSocket.accept();
                 System.out.println("client connected from: " + socketToClient.getInetAddress());
-                ClientHandler clientHandler = new ClientHandler(socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer);
+                ClientHandler clientHandler = new ClientHandler(getProcessId(),socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer);
                 clientHandler.start();
             }
             catch (Exception e)
@@ -190,5 +190,11 @@ public class RuleEngineServer extends Thread
 	private String getProperty(String key)
 	{
 		return properties.getProperty(key);
+	}
+	
+	private String getProcessId()
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		return ruleFile + "_" + sdf.format(new Date());
 	}
 }

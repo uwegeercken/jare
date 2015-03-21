@@ -20,6 +20,7 @@ public class RuleEngineServerObject implements Serializable
      private long totalRules;
      private int outputType;
      private String objectLabel;
+     private String processId;
      
      public static final long serialVersionUID = 2000000;
      
@@ -141,7 +142,14 @@ public class RuleEngineServerObject implements Serializable
 	{
 		this.objectLabel = objectLabel;
 	}
-	
-	
-	
+
+	public String getProcessId() 
+	{
+		return processId;
+	}
+
+	public void setProcessId(String processId) 
+	{
+		this.processId = processId;
+	}
 }

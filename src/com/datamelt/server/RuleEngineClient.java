@@ -89,7 +89,6 @@ public class RuleEngineClient
        	response.setGroupsPassed(inputStream.readLong());
        	response.setTotalRules(inputStream.readLong());
        	response.setRulesPassed(inputStream.readLong());
-       	
        	return response;	
 	}
 	
