@@ -18,6 +18,7 @@ public class RuleEngineServerObject implements Serializable
      private long totalGroups;
      private long rulesPassed;
      private long totalRules;
+     private long totalActions;
      private int outputType;
      private String objectLabel;
      private String processId;
@@ -152,4 +153,15 @@ public class RuleEngineServerObject implements Serializable
 	{
 		this.processId = processId;
 	}
+
+	public long getTotalActions() 
+	{
+		return totalActions;
+	}
+
+	public void setTotalActions(long totalActions) 
+	{
+		this.totalActions = totalActions;
+	}
+	
 }

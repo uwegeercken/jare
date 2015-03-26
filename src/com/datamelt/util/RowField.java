@@ -2,6 +2,7 @@ package com.datamelt.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 
@@ -64,6 +65,12 @@ public class RowField implements Serializable
 	}
 
 	public RowField(String name, BigDecimal object)
+	{
+		this.name = name;
+		this.object = object;
+	}
+
+	public RowField(String name, BigInteger object)
 	{
 		this.name = name;
 		this.object = object;

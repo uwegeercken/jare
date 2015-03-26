@@ -89,7 +89,14 @@ public class JsonTransformer extends Transformer
 			}
 			ruleGroups.getGroups().add(jsonRuleGroup);
 		}
-		collection.insert(ruleGroups);
+		try
+		{
+			collection.insert(ruleGroups);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	public void close() throws Exception

@@ -77,6 +77,7 @@ public class ClientHandler extends Thread
 	                serverObject.setGroupsPassed(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
 	                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
 	                serverObject.setRulesPassed(ruleEngine.getNumberOfRulesPassed());
+	                serverObject.setTotalActions(ruleEngine.getNumberOfActions());
 	                serverObject.setRuleGroups(ruleEngine.getGroups());
 	                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
 	                serverObject.setProcessId(processId);
@@ -88,6 +89,7 @@ public class ClientHandler extends Thread
 	                outputStream.writeLong(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
 	                outputStream.writeLong(ruleEngine.getNumberOfRules());
 	                outputStream.writeLong(ruleEngine.getNumberOfRulesPassed());
+	                outputStream.writeLong(ruleEngine.getNumberOfActions());
 	                outputStream.flush();
 	                
 	                // output the results
@@ -174,6 +176,10 @@ public class ClientHandler extends Thread
             	try
             	{
             		transformer.close();
+            		if(!socket.isClosed())
+         			{
+         				socket.close();
+         			}
             	}
             	catch(Exception ex)
             	{
@@ -187,6 +193,10 @@ public class ClientHandler extends Thread
             	try
             	{
             		transformer.close();
+            		if(!socket.isClosed())
+         			{
+         				socket.close();
+         			}
             	}
             	catch(Exception ex)
             	{
@@ -200,6 +210,10 @@ public class ClientHandler extends Thread
             	try
             	{
             		transformer.close();
+            		if(!socket.isClosed())
+         			{
+         				socket.close();
+         			}
             	}
             	catch(Exception ex)
             	{
@@ -211,7 +225,8 @@ public class ClientHandler extends Thread
             {
             	try
             	{
-            		//socket.close();
+            		transformer.close();
+            		socket.close();
             	}
             	catch(Exception ex)
             	{

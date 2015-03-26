@@ -13,6 +13,7 @@ package com.datamelt.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -36,6 +37,8 @@ public class RowFieldCollection implements Serializable
     private boolean rowFailed=false;
     private ArrayList<RowField> fields = new ArrayList<RowField>();
     
+    public static final String DEFAULT_FIELDNAME = "field";
+    
     public static final long serialVersionUID = 1964070314;
     
     public RowFieldCollection()
@@ -51,7 +54,7 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * constructor that takes an array of fieldnames and an array of strings as parameter 
+     * constructor that takes an array of field names and an array of strings as parameter 
      */
     public RowFieldCollection(String fieldnames[],String[] fields)
     {
@@ -61,6 +64,29 @@ public class RowFieldCollection implements Serializable
         }
     }
     
+    /**
+     * constructor that takes an array of field names and an array of objects as parameter 
+     */
+    public RowFieldCollection(String fieldnames[],Object[] fields)
+    {
+        for(int i=0;i<fields.length;i++)
+        {
+        	addField(new RowField(fieldnames[i], fields[i]));
+        }
+    }
+    
+    /**
+     * constructor that takes an array of field names and an array of objects as parameter 
+     */
+    public RowFieldCollection(Object[] fields)
+    {
+        for(int i=0;i<fields.length;i++)
+        {
+        	addField(new RowField(DEFAULT_FIELDNAME +"_" + i, fields[i]));
+        }
+    }
+    
+
     /**
      * returns the array of fields that belong to the given row object 
      */
@@ -82,11 +108,40 @@ public class RowFieldCollection implements Serializable
     	fields.add(field);
     }
     
+    
     public void addField(String fieldName, Object fieldValue)
     {
     	fields.add(new RowField(fieldName, fieldValue));
     }
     
+    public void removeField(String fieldName) throws FieldNotFoundException
+    {
+    	int found=-1;
+    	for(int i=0;i<fields.size();i++)
+    	{
+    		RowField field = fields.get(i);
+    		if(field.getName().equals(fieldName))
+    		{
+    			found = i;
+    			break;
+    		}
+    	}
+    	if(found> -1)
+    	{
+    		fields.remove(found);
+    	}
+    	else
+    	{
+    		throw new FieldNotFoundException("field: [" + fieldName + "] not found");
+
+    	}
+    }
+
+    public void removeField(int index)
+    {
+   		fields.remove(index);
+    }
+
     /**
      * returns the number of fields that belong to the given row object 
      */
@@ -384,6 +439,30 @@ public class RowFieldCollection implements Serializable
     /**
      * sets the field value of the field 
      */
+    public void setFieldValue(String name,BigInteger value) throws Exception
+    {
+    	int found=-1;
+    	for(int i=0;i<fields.size();i++)
+    	{
+    		RowField field = fields.get(i);
+    		if(field.getName().equals(name))
+    		{
+    			found = i;
+    			field.setValue(value);
+    			field.setUpdated(true);
+    			collectionUpdated=true;
+    			break;
+    		}
+    	}
+    	if(found== -1)
+    	{
+    		throw new FieldNotFoundException("field: [" + name + "] not found");
+    	}
+    }
+
+    /**
+     * sets the field value of the field 
+     */
     public void setFieldUpdated(String name, boolean value) throws Exception
     {
     	for(int i=0;i<fields.size();i++)
@@ -443,7 +522,14 @@ public class RowFieldCollection implements Serializable
 		String[] fieldValues = new String[fields.size()];
 		for(int i=0;i<fields.size();i++) 
     	{
-			fieldValues[i]=(String)fields.get(i).getValue();
+			if(fields.get(i).getValue()!=null)
+			{
+				fieldValues[i]=fields.get(i).getValue().toString();
+			}
+			else
+			{
+				return null;
+			}
     	}
 		return Arrays.toString(fieldValues);
 	}

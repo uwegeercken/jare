@@ -106,6 +106,21 @@ public class Splitter
 	}
 	
 	/**
+	 * returns a RowFieldCollection object, containing the fields that the row
+	 * consists of. the line argument is a line (or row) from an 
+	 * ASCII file.
+	 */
+	public RowFieldCollection getRowFieldCollection(String line) throws Exception
+	{
+		if(type==TYPE_FIXED_LENGTH && parser==null)
+		{
+			throw new Exception("no row definition xml file specified for fixed length ascii file");
+		}
+		return new RowFieldCollection(splitRow(line));
+		
+	}
+	
+	/**
 	 * returns an array of strings, containing the fields that the row
 	 * consists of. the line argument is a line (or row) from an 
 	 * ASCII file.

@@ -34,13 +34,21 @@ public class LogTransformer extends Transformer
 	public void write(RuleEngineServerObject serverObject,ArrayList<RuleGroup> groups) throws Exception
 	{
 		// review this loop: depends on how the output should look like
-		// currently it outputs all groups seperately
-		for(int i=0;i<groups.size();i++)
+		// currently it outputs all groups separately
+		
+		try
 		{
-			dataWriter.addObject("serverobject" , serverObject);
-			dataWriter.addObject("group" , groups.get(i));
-			writer.write(dataWriter.merge());
-			dataWriter.clearObjects();
+			for(int i=0;i<groups.size();i++)
+			{
+				dataWriter.addObject("serverobject" , serverObject);
+				dataWriter.addObject("group" , groups.get(i));
+				writer.write(dataWriter.merge());
+				dataWriter.clearObjects();
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 	

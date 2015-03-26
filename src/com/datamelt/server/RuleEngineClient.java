@@ -15,8 +15,8 @@ public class RuleEngineClient
 {
 	// the server adress - default is 127.0.0.1
 	private String server="127.0.0.1";
-	// the port the server runs on - default 9999
-	private int port=9999;
+	// the port the server runs on - default 9000
+	private int port=9000;
 	// output type for rule results from the rule engine
 	private int outputType =1;
 	// the output stream to the server
@@ -89,6 +89,7 @@ public class RuleEngineClient
        	response.setGroupsPassed(inputStream.readLong());
        	response.setTotalRules(inputStream.readLong());
        	response.setRulesPassed(inputStream.readLong());
+       	response.setTotalActions(inputStream.readLong());
        	return response;	
 	}
 	
