@@ -1,7 +1,7 @@
 jare
 ====
 
-Version 0.733
+Version 0.74
 
 Java Rule Engine source files.
 
@@ -35,4 +35,4 @@ Please send your feedback and help to enhance the tool.
 uwe geercken
 uwe.geercken@web.de
 
-last update: 2015-03-17
+last update: 2016-02-29
