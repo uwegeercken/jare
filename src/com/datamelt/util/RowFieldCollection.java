@@ -58,7 +58,7 @@ public class RowFieldCollection implements Serializable
      */
     public RowFieldCollection(String fieldnames[],String[] fields)
     {
-        for(int i=0;i<fields.length;i++)
+        for(int i=0;i<fieldnames.length;i++)
         {
         	addField(new RowField(fieldnames[i], fields[i]));
         }
@@ -69,7 +69,7 @@ public class RowFieldCollection implements Serializable
      */
     public RowFieldCollection(String fieldnames[],Object[] fields)
     {
-        for(int i=0;i<fields.length;i++)
+        for(int i=0;i<fieldnames.length;i++)
         {
         	addField(new RowField(fieldnames[i], fields[i]));
         }

@@ -27,6 +27,7 @@ public class ClientHandler extends Thread
     private long clientStart;
     private long rowsProcessed=0;
     private Transformer transformer;
+    private DataOutputStream outputStream;
     
     private static final String RESPONSE_UPTIME = "uptime";
     private static final String RESPONSE_RULEFILE = "rulefile";
@@ -46,6 +47,9 @@ public class ClientHandler extends Thread
         
         this.ruleEngine = new BusinessRulesEngine(new ZipFile(ruleFileFolder + ruleFile));
         this.inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+        
+        this.outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        
     }
 
     @Override
@@ -72,6 +76,13 @@ public class ClientHandler extends Thread
 	                // count the processed rows
 	                rowsProcessed++;
 	                
+	                outputStream.writeLong(ruleEngine.getNumberOfGroups());
+	                outputStream.writeLong(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
+	                outputStream.writeLong(ruleEngine.getNumberOfRules());
+	                outputStream.writeLong(ruleEngine.getNumberOfRulesPassed());
+	                outputStream.writeLong(ruleEngine.getNumberOfActions());
+	                outputStream.flush();
+
 	                // set the fields of the object by using the results from the rule engine
 	                serverObject.setTotalGroups(ruleEngine.getNumberOfGroups());
 	                serverObject.setGroupsPassed(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
@@ -82,15 +93,6 @@ public class ClientHandler extends Thread
 	                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
 	                serverObject.setProcessId(processId);
 	                serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());	
-	                
-	                DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-	                
-	                outputStream.writeLong(ruleEngine.getNumberOfGroups());
-	                outputStream.writeLong(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
-	                outputStream.writeLong(ruleEngine.getNumberOfRules());
-	                outputStream.writeLong(ruleEngine.getNumberOfRulesPassed());
-	                outputStream.writeLong(ruleEngine.getNumberOfActions());
-	                outputStream.flush();
 	                
 	                // output the results
 	                output(serverObject,ruleEngine.getGroups());
@@ -104,7 +106,7 @@ public class ClientHandler extends Thread
             		if(serverObject.equals(RESPONSE_EXIT))
             		{
             			// write response message
-    	                String responseMessage = "stopping thread...";
+    	                String responseMessage = "client requested exit - stopping thread...";
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
@@ -120,7 +122,7 @@ public class ClientHandler extends Thread
             			// create a new instance of the rule engine
             			ruleEngine = new BusinessRulesEngine(new ZipFile(ruleFileFolder + ruleFile));
             			
-    	                String responseMessage = "reloaded rule file: " + ruleFileFolder + ruleFile;
+    	                String responseMessage = "client requested reload rule file: " + ruleFileFolder + ruleFile;
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
@@ -220,18 +222,6 @@ public class ClientHandler extends Thread
             		
             	}
                 e.printStackTrace();
-            }
-            finally
-            {
-            	try
-            	{
-            		transformer.close();
-            		socket.close();
-            	}
-            	catch(Exception ex)
-            	{
-            		ex.printStackTrace();
-            	}
             }
         }
     }

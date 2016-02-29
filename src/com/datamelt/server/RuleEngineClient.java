@@ -24,6 +24,8 @@ public class RuleEngineClient
 	// the socket to the server
 	private Socket socket;
 	
+	private DataInputStream inputStream;
+	
 	private long resetInterval=1000;
 	private long counter=0;
 	
@@ -50,6 +52,7 @@ public class RuleEngineClient
 	{
 		getServerSocket(server, port);
 		getOutputStream(socket);
+		inputStream = new DataInputStream(getDataInputStream(socket));
 	}
 	
 	public RuleEngineServerObject getServerObject(RowFieldCollection fields) throws IOException
@@ -82,8 +85,7 @@ public class RuleEngineClient
 	
 	private RuleEngineServerObject receiveObject() throws IOException
 	{
-		DataInputStream inputStream = new DataInputStream(getDataInputStream(socket));
-       	
+		//DataInputStream inputStream = new DataInputStream(getDataInputStream(socket));
        	RuleEngineServerObject response = new RuleEngineServerObject();
        	response.setTotalGroups(inputStream.readLong());
        	response.setGroupsPassed(inputStream.readLong());
@@ -113,7 +115,6 @@ public class RuleEngineClient
 	{
 		// create an output stream to the server
 		outStream =  new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        
 	}
 	
 	private DataInputStream getDataInputStream(Socket socket) throws IOException

@@ -175,4 +175,51 @@ public class MathAction
 	{
 		return value / value2;
 	}
+	
+	public double squareRootValue(XmlAction action, double value) throws Exception
+	{
+		return Math.sqrt(value);
+	}
+	
+	public double squareValue(XmlAction action, double value) throws Exception
+	{
+		return value * value;
+	}
+
+	public long squareValue(XmlAction action, int value) throws Exception
+	{
+		return value * value;
+	}
+	
+	public double squareValue(XmlAction action, float value) throws Exception
+	{
+		return value * value;
+	}
+
+	public long squareValue(XmlAction action, long value) throws Exception
+	{
+		return value * value;
+	}
+
+	public double absValue(XmlAction action, double value) throws Exception
+	{
+		return Math.abs(value);
+	}
+
+	public float absValue(XmlAction action, float value) throws Exception
+	{
+		return Math.abs(value);
+	}
+	
+	public long absValue(XmlAction action, long value) throws Exception
+	{
+		return Math.abs(value);
+	}
+	
+	public int absValue(XmlAction action, int value) throws Exception
+	{
+		return Math.abs(value);
+	}
+
+
 }
