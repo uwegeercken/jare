@@ -67,7 +67,7 @@ import com.datamelt.util.Splitter;
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2015-03-14</p>
+ * <p>last update: 2016-03-24</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de - www.datamelt.com
  * 
@@ -76,7 +76,7 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.73";
+	private static final String VERSION = "0.75";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -796,7 +796,7 @@ public class BusinessRulesEngine
     	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv -s=; -v");
     	System.out.println();
     	System.out.println("published as open source under the GPL. read the licence notice");
-    	System.out.println("all code by uwe geercken, 2006-2015. uwe.geercken@web.de - www.datamelt.com");
+    	System.out.println("all code by uwe geercken, 2006-2016. uwe.geercken@web.de - www.datamelt.com");
     	System.out.println("published under GPL3");
     	System.out.println();
     }

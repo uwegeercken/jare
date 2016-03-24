@@ -221,5 +221,58 @@ public class MathAction
 		return Math.abs(value);
 	}
 
+	public long roundValue(XmlAction action, double value) throws Exception
+	{
+		return Math.round(value);
+	}
+	
+	public int roundValue(XmlAction action, float value) throws Exception
+	{
+		return Math.round(value);
+	}
+	
+	public double cosValue(XmlAction action, double value) throws Exception
+	{
+		return Math.cos(value);
+	}
+	
+	public double coshValue(XmlAction action, double value) throws Exception
+	{
+		return Math.cosh(value);
+	}
 
+	public double acosValue(XmlAction action, double value) throws Exception
+	{
+		return Math.acos(value);
+	}
+	
+	public double sinValue(XmlAction action, double value) throws Exception
+	{
+		return Math.sin(value);
+	}
+	
+	public double sinhValue(XmlAction action, double value) throws Exception
+	{
+		return Math.sinh(value);
+	}
+	
+	public double asinValue(XmlAction action, double value) throws Exception
+	{
+		return Math.asin(value);
+	}
+	
+	public double tanValue(XmlAction action, double value) throws Exception
+	{
+		return Math.tan(value);
+	}
+	
+	public double tanhValue(XmlAction action, double value) throws Exception
+	{
+		return Math.tanh(value);
+	}
+	
+	public double atanValue(XmlAction action, double value) throws Exception
+	{
+		return Math.atan(value);
+	}
 }
