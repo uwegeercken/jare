@@ -181,6 +181,21 @@ public class MathAction
 		return Math.sqrt(value);
 	}
 	
+	public double squareRootValue(XmlAction action, float value) throws Exception
+	{
+		return Math.sqrt(value);
+	}
+	
+	public double squareRootValue(XmlAction action, int value) throws Exception
+	{
+		return Math.sqrt(value);
+	}
+	
+	public double squareRootValue(XmlAction action, long value) throws Exception
+	{
+		return Math.sqrt(value);
+	}
+	
 	public double squareValue(XmlAction action, double value) throws Exception
 	{
 		return value * value;

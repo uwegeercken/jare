@@ -67,7 +67,7 @@ import com.datamelt.util.Splitter;
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2016-03-24</p>
+ * <p>last update: 2016-04-07</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de - www.datamelt.com
  * 
@@ -76,7 +76,7 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.75";
+	private static final String VERSION = "0.76";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();

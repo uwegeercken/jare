@@ -84,7 +84,47 @@ public class StringAction
 		return value + seperator + appendValue;
 	}
 	
+	public String appendValue(XmlAction action, String value, int appendValue) throws Exception
+	{
+		return value + appendValue;
+	}
+	
+	public String appendValue(XmlAction action, String value, int appendValue, String seperator) throws Exception
+	{
+		return value + seperator + appendValue;
+	}
+	
+	public String appendValue(XmlAction action, String value, long appendValue) throws Exception
+	{
+		return value + appendValue;
+	}
+	
+	public String appendValue(XmlAction action, String value, long appendValue, String seperator) throws Exception
+	{
+		return value + seperator + appendValue;
+	}
+	
 	public String prependValue(XmlAction action, String value, String prependValue) throws Exception
+	{
+		return prependValue + value;
+	}
+
+	public String prependValue(XmlAction action, String value, int prependValue, String seperator) throws Exception
+	{
+		return prependValue + seperator + value;
+	}
+
+	public String prependValue(XmlAction action, String value, int prependValue) throws Exception
+	{
+		return prependValue + value;
+	}
+
+	public String prependValue(XmlAction action, String value, long prependValue, String seperator) throws Exception
+	{
+		return prependValue + seperator + value;
+	}
+
+	public String prependValue(XmlAction action, String value, long prependValue) throws Exception
 	{
 		return prependValue + value;
 	}

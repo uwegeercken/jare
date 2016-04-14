@@ -8,11 +8,29 @@ import com.datamelt.rules.core.XmlAction;
 
 public class DateAction
 {
+	
+	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+	
 	public Date setValue(XmlAction action, Date value) throws Exception
 	{
 		return value;
 	}
+	
+	public Date setValue(XmlAction action, String value) throws Exception
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(sdf.parse(value));
+		return cal.getTime();
+	}
 
+	public Date setValue(XmlAction action, String value, String dateFormat) throws Exception
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(sdf.parse(value));
+		return cal.getTime();
+	}
 	/**
 	 * method will set the value of the relevant object to the actual date.
 	 * the dateFormat parameter is used to specify the date format according

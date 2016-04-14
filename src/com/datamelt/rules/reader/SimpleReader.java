@@ -11,7 +11,7 @@ import com.datamelt.rules.engine.BusinessRulesEngine;
 
 /**
  * SimpleReader class is used to run the business rule engine
- * using a rule xml file against a simple set of data.
+ * using a rule zip file against a simple set of data.
  * 
  * Demonstrates that you can check single records or sets of
  * data.
@@ -32,15 +32,17 @@ public class SimpleReader
     	
     	// create an engine object, passing a reference to the rules file
         BusinessRulesEngine engine = new BusinessRulesEngine(new ZipFile(args[0]),args[1]);
+
         // set the output of the engine to NO_OUTPUT
         //engine.setOutputType(BusinessRulesEngine.OUTPUT_TYPE_FAILED_AND_PASSED);
         //engine.setPrintStream(new PrintStream(new FileOutputStream(new File("/home/uwe/temp/output.txt"))));
+        
         // create a simple row object with some fields
     	//String [] fields= {"Peter","Paulsen","Paris","Europa","6","1"};
     	//Row row = new Row(fields);
 
     	// run the engine to check the rules against the row object
-    	engine.run("/home/uwe/temp/test.csv",";");
+    	engine.run(args[0],args[1]);
         
         // total number of rules
         int numberOfRules = engine.getNumberOfRules();
