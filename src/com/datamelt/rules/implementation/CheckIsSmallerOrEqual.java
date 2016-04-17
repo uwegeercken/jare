@@ -140,6 +140,22 @@ public class CheckIsSmallerOrEqual extends GenericCheck
      * checks, if the first value is smaller or equal than
      * the second value
      */
+    public static boolean evaluate(double value1, float value2)
+    {
+        if(value1 <= value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks, if the first value is smaller or equal than
+     * the second value
+     */
     public static boolean evaluate(double value1, int value2)
     {
         if(value1 <= value2)
@@ -157,6 +173,38 @@ public class CheckIsSmallerOrEqual extends GenericCheck
      * the second value
      */
     public static boolean evaluate(float value1, int value2)
+    {
+        if(value1 <= value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks, if the first value is smaller or equal than
+     * the second value
+     */
+    public static boolean evaluate(float value1, long value2)
+    {
+        if(value1 <= value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks, if the first value is smaller or equal than
+     * the second value
+     */
+    public static boolean evaluate(float value1, double value2)
     {
         if(value1 <= value2)
         {

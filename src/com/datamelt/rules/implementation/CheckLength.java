@@ -24,7 +24,7 @@ public class CheckLength extends GenericCheck
     
     /**
      * checks, if the length of the string
-     * (number of digits) is equal to the given length
+     * (number of characters) is equal to the given length
      */
     public static boolean evaluate(String value, int length)
     {
@@ -48,7 +48,7 @@ public class CheckLength extends GenericCheck
     
     /**
      * checks, if the length of the string
-     * (number of digits) is equal to the given length
+     * (number of characters) is equal to the given length
      */
     public static boolean evaluate(String value, long length)
     {
