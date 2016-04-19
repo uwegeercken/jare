@@ -290,4 +290,113 @@ public class MathAction
 	{
 		return Math.atan(value);
 	}
+	
+	public double subtractPercentageValue(XmlAction action, double value, double percentage) throws Exception
+	{
+		double percentageValue = value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, double value, float percentage) throws Exception
+	{
+		double percentageValue = value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, double value, int percentage) throws Exception
+	{
+		double percentageValue = value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, int value, int percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, int value, double percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, int value, float percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, long value, int percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, long value, double percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+	public double subtractPercentageValue(XmlAction action, long value, float percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value - percentageValue;
+	}
+	
+
+	public double addPercentageValue(XmlAction action, double value, double percentage) throws Exception
+	{
+		double percentageValue = value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, double value, float percentage) throws Exception
+	{
+		double percentageValue = value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, double value, int percentage) throws Exception
+	{
+		double percentageValue = value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, int value, int percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, int value, double percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, int value, float percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, long value, int percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, long value, double percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value + percentageValue;
+	}
+	
+	public double addPercentageValue(XmlAction action, long value, float percentage) throws Exception
+	{
+		double percentageValue = (double)value * percentage / 100;
+		return value + percentageValue;
+	}
 }
