@@ -1,6 +1,7 @@
 package com.datamelt.rules.core.action;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.datamelt.rules.core.XmlAction;
 
@@ -89,6 +90,23 @@ public class MathAction
 	public float substractValues(XmlAction action, float value, float value2) throws Exception
 	{
 		return value - value2;
+	}
+	
+	public long substractValues(XmlAction action, Date value, Date value2) throws Exception
+	{
+		// difference is in milliseconds
+		long difference = Math.abs(value.getTime() - value2.getTime());
+		
+		if(difference>0)
+		{
+			// devide by 1000 to return seconds
+			return difference / 1000;
+		}
+		else
+		{
+			return 0;
+		}
+
 	}
 	
 	public int multiplyValues(XmlAction action, int value, int value2) throws Exception

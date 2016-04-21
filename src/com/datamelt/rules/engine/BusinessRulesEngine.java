@@ -67,9 +67,9 @@ import com.datamelt.util.Splitter;
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2016-04-17</p>
+ * <p>last update: 2016-04-21</p>
  * 
- * @author uwe geercken - uwe.geercken@web.de - www.datamelt.com
+ * @author uwe geercken - uwe.geercken@web.de
  * 
  * published under GPL3
  */
@@ -77,6 +77,7 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION = "0.77";
+	private static final String REVISION = "1";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -102,7 +103,7 @@ public class BusinessRulesEngine
     
     // will be used for labeling in output files
     private static final String OBJECT_LABEL_DEFAULT              = "object"; 
-    private static final String OBJECT_LABEL_NUMBERFORMAT_DEFAULT = "000000"; 
+    private static final String OBJECT_LABEL_NUMBERFORMAT_DEFAULT = "0000000000"; 
     
     // default is failed rules only
     public static final int OUTPUT_TYPE_FAILED_ONLY               = 0;
@@ -124,11 +125,11 @@ public class BusinessRulesEngine
     private RuleExecutionCollection executionCollection = new RuleExecutionCollection();
 
     /** 
-     * returns the version of the business rule engine
+     * returns the version and revision of the business rule engine
      */
     public String getVersion()
     {
-    	return VERSION;
+    	return VERSION + "-R" + REVISION;
     }
     
     /**
