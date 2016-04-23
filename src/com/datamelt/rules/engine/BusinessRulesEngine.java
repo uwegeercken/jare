@@ -67,7 +67,7 @@ import com.datamelt.util.Splitter;
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2016-04-21</p>
+ * <p>last update: 2016-04-23</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de
  * 

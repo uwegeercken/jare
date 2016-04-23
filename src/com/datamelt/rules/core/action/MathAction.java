@@ -62,37 +62,37 @@ public class MathAction
 		return value + value2;
 	}
 	
-	public int substractValues(XmlAction action, int value, int value2) throws Exception
+	public int subtractValues(XmlAction action, int value, int value2) throws Exception
 	{
 		return value - value2;
 	}
 	
-	public long substractValues(XmlAction action, long value, long value2) throws Exception
+	public long subtractValues(XmlAction action, long value, long value2) throws Exception
 	{
 		return value - value2;
 	}
 	
-	public long substractValues(XmlAction action, long value, int value2) throws Exception
+	public long subtractValues(XmlAction action, long value, int value2) throws Exception
 	{
 		return value - value2;
 	}
 	
-	public long substractValues(XmlAction action, int value, long value2) throws Exception
+	public long subtractValues(XmlAction action, int value, long value2) throws Exception
 	{
 		return value - value2;
 	}
 	
-	public double substractValues(XmlAction action, double value, double value2) throws Exception
+	public double subtractValues(XmlAction action, double value, double value2) throws Exception
 	{
 		return value - value2;
 	}
 	
-	public float substractValues(XmlAction action, float value, float value2) throws Exception
+	public float subtractValues(XmlAction action, float value, float value2) throws Exception
 	{
 		return value - value2;
 	}
 	
-	public long substractValues(XmlAction action, Date value, Date value2) throws Exception
+	public long subtractValues(XmlAction action, Date value, Date value2) throws Exception
 	{
 		// difference is in milliseconds
 		long difference = Math.abs(value.getTime() - value2.getTime());
@@ -109,7 +109,7 @@ public class MathAction
 
 	}
 	
-	public int multiplyValues(XmlAction action, int value, int value2) throws Exception
+	public long multiplyValues(XmlAction action, int value, int value2) throws Exception
 	{
 		return value * value2;
 	}
