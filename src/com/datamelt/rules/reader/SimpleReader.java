@@ -8,6 +8,8 @@ package com.datamelt.rules.reader;
 import java.util.zip.ZipFile;
 import com.datamelt.rules.core.util.Converter;
 import com.datamelt.rules.engine.BusinessRulesEngine;
+import com.datamelt.util.Row;
+import com.datamelt.util.RowFieldCollection;
 
 /**
  * SimpleReader class is used to run the business rule engine
@@ -31,19 +33,24 @@ public class SimpleReader
     	System.out.println("start of process...");
     	
     	// create an engine object, passing a reference to the rules file
-        BusinessRulesEngine engine = new BusinessRulesEngine(new ZipFile(args[0]),args[1]);
-
+        //BusinessRulesEngine engine = new BusinessRulesEngine(new ZipFile(args[0]),args[1]);
+        BusinessRulesEngine engine = new BusinessRulesEngine(new ZipFile(args[0]));
+        
         // set the output of the engine to NO_OUTPUT
-        //engine.setOutputType(BusinessRulesEngine.OUTPUT_TYPE_FAILED_AND_PASSED);
+        engine.setOutputType(BusinessRulesEngine.OUTPUT_TYPE_FAILED_AND_PASSED);
         //engine.setPrintStream(new PrintStream(new FileOutputStream(new File("/home/uwe/temp/output.txt"))));
         
         // create a simple row object with some fields
-    	//String [] fields= {"Peter","Paulsen","Paris","Europa","6","1"};
+    	String [] fields= {"Peter","Paulsen","Paris","Europa","6","1"};
     	//Row row = new Row(fields);
 
+    	RowFieldCollection collection = new RowFieldCollection(fields);
+    	
     	// run the engine to check the rules against the row object
-    	engine.run(args[0],args[1]);
+    	//engine.run(args[0],args[1]);
         
+    	engine.run(collection);
+    	
         // total number of rules
         int numberOfRules = engine.getNumberOfRules();
         // total number of failed rules

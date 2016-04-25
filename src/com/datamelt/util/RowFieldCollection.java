@@ -221,6 +221,15 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
+     * returns the field value from the array of fields 
+     */
+    public Object getFieldValue(int index) throws Exception
+    {
+   		Object obj = fields.get(index).getValue();
+    	return obj;
+    }
+    
+    /**
      * sets the field value of the field 
      */
     public void setFieldValue(String name,Object object) throws Exception
