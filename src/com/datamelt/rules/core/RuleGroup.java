@@ -266,7 +266,10 @@ public class RuleGroup implements Serializable
         }
         else
         {
-            throw new Exception("no rule groups defined");
+            // there are no subgroups defined for the rulegroup. so there are also
+        	// no rules.
+        	// so we set the failed value to 0 meaning the rulegroup passed
+        	failed = 0;
         }
         return failed;
         

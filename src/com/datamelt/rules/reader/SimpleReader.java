@@ -51,6 +51,8 @@ public class SimpleReader
         
     	engine.run(collection);
     	
+    	System.out.println(engine.getRuleLogic(0));
+    	
         // total number of rules
         int numberOfRules = engine.getNumberOfRules();
         // total number of failed rules
