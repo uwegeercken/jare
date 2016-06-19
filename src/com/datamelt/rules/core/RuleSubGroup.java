@@ -204,7 +204,7 @@ public class RuleSubGroup implements Serializable
 	            if(executeRuleResult instanceof Boolean)
 	            {
 	            	// create a result object
-	                RuleExecutionResult executionResult = new RuleExecutionResult(sdf.format(new Date()), rule,objectLabel);
+	                RuleExecutionResult executionResult = new RuleExecutionResult(sdf.format(new Date()), rule,objectLabel,getId());
 	                // the result from the data object
 	                executionResult.setResultObject1(result1);
 	                // the result from the data object
@@ -243,7 +243,7 @@ public class RuleSubGroup implements Serializable
             	// in this case the rule has passed.
             	
             	// create a result object
-                RuleExecutionResult executionResult = new RuleExecutionResult(sdf.format(new Date()), rule,objectLabel);
+                RuleExecutionResult executionResult = new RuleExecutionResult(sdf.format(new Date()), rule,objectLabel, getId());
                 // the result from the data object
               
                 executionResult.setResultObject1(result1);

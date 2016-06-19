@@ -72,6 +72,33 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
+     * retrieve a specific entry in the list of
+     * results for a given subgroup id and rule id
+     */
+    public RuleExecutionResult getSubgroupRuleResult(String subgroupId, String ruleId)
+    {
+        int found = -1;
+    	for(int i=0;i<results.size();i++)
+        {
+        	RuleExecutionResult result = results.get(i);
+        	if(result.getSubgroupId().equals(subgroupId) && result.getRule().getId().equals(ruleId))
+        	{
+        		found = i;
+        		break;
+        	}
+        }
+    	if (found>-1)
+    	{
+    		return (RuleExecutionResult)results.get(found);
+    	}
+    	else
+    	{
+    		return null;
+    	}
+    }
+    
+    
+    /**
      * returns the number of results collected when the
      * business rule engine executed rules
      */

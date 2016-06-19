@@ -76,8 +76,8 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.77";
-	private static final String REVISION = "3";
+	private static final String VERSION = "0.78";
+	private static final String REVISION = "1";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -127,7 +127,7 @@ public class BusinessRulesEngine
     /** 
      * returns the version and revision of the business rule engine
      */
-    public String getVersion()
+    public static String getVersion()
     {
     	return VERSION + "-R" + REVISION;
     }

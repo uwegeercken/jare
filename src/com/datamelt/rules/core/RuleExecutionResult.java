@@ -6,6 +6,8 @@
 package com.datamelt.rules.core;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.datamelt.rules.core.util.Converter;
 
@@ -27,6 +29,7 @@ public class RuleExecutionResult implements Serializable
     private Object resultObject2;
     private String objectLabel;
     private String timestamp;
+    private String subgroupId;
     
     public static final long serialVersionUID = 1964070330;
     
@@ -43,11 +46,12 @@ public class RuleExecutionResult implements Serializable
      * constructor for this class using the timestamp, the rule and a label
      * for the rule used during output.
      */
-    public RuleExecutionResult(String timestamp, XmlRule rule, String objectLabel)
+    public RuleExecutionResult(String timestamp, XmlRule rule, String objectLabel, String subgroupId)
     {
         this.timestamp = timestamp;
         this.rule = rule;
         this.objectLabel = objectLabel;
+        this.subgroupId = subgroupId;
     }
 
     /**
@@ -120,7 +124,15 @@ public class RuleExecutionResult implements Serializable
         String resultString1="";
         try
         {
-        	resultString1 = resultObject1.toString();
+        	if(resultObject1 instanceof Date)
+        	{
+        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        		resultString1 = sdf.format(resultObject1);
+        	}
+        	else
+        	{
+        		resultString1 = resultObject1.toString();
+        	}
         }
         catch(Exception ex)
         {
@@ -151,7 +163,15 @@ public class RuleExecutionResult implements Serializable
 	            	String resultString2="";
 	                try
 	                {
-	                	resultString2 = resultObject2.toString();
+	                	if(resultObject2 instanceof Date)
+	                	{
+	                		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	                		resultString2 = sdf.format(resultObject2);
+	                	}
+	                	else
+	                	{
+	                		resultString2 = resultObject2.toString();
+	                	}
 	                }
 	                catch(Exception ex)
 	                {
@@ -238,4 +258,16 @@ public class RuleExecutionResult implements Serializable
         return "[" + Converter.convertIntegerToBooleanString(rule.getFailed()) + "]";
         
     }
+
+	public String getSubgroupId() 
+	{
+		return subgroupId;
+	}
+
+	public void setSubgroupId(String subgroupId) 
+	{
+		this.subgroupId = subgroupId;
+	}
+    
+    
 }
