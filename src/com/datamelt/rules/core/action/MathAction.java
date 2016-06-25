@@ -32,6 +32,11 @@ public class MathAction
 		return value;
 	}
 	
+	public BigDecimal setValue(XmlAction action, BigDecimal value) throws Exception
+	{
+		return value;
+	}
+	
 	public int addValues(XmlAction action, int value, int value2) throws Exception
 	{
 		return value + value2;
@@ -253,7 +258,7 @@ public class MathAction
 	{
 		return Math.abs(value);
 	}
-
+	
 	public long roundValue(XmlAction action, double value) throws Exception
 	{
 		return Math.round(value);

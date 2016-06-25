@@ -14,6 +14,19 @@ public class StringAction
 		return value.replaceAll(regex, replacement);
 	}
 	
+	public String subStringValue(XmlAction action, String value, String untilString)
+	{
+		int pos = value.indexOf(untilString);
+		if (pos>-1)
+		{
+			return value.substring(0,pos).trim();
+		}
+		else
+		{
+			return value;			
+		}
+	}
+	
 	public String subStringValue(XmlAction action, String value, int beginIndex)
 	{
 		return value.substring(beginIndex);
@@ -81,7 +94,7 @@ public class StringAction
 	
 	public String appendValue(XmlAction action, String value, String appendValue, String seperator) throws Exception
 	{
-		return value + seperator + appendValue;
+		return value. + seperator + appendValue;
 	}
 	
 	public String appendValue(XmlAction action, String value, int appendValue) throws Exception
@@ -174,5 +187,4 @@ public class StringAction
 	{
 		return value.toLowerCase();
 	}
-
 }

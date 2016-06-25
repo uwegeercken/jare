@@ -85,6 +85,36 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
+     * checks a float and a double value for equality 
+     */
+    public static boolean evaluate(float value1, double value2)
+    {
+        if(value1 == value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
+     * checks a float and a double value for equality 
+     */
+    public static boolean evaluate(double value1, float value2)
+    {
+        if(value1 == value2)
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
      * checks two float values for equality 
      */
     public static boolean evaluate(float value1, float value2)

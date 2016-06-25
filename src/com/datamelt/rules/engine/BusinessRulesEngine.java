@@ -77,7 +77,7 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION = "0.78";
-	private static final String REVISION = "1";
+	private static final String REVISION = "2";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
