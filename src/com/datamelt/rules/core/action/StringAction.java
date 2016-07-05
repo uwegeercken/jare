@@ -94,7 +94,7 @@ public class StringAction
 	
 	public String appendValue(XmlAction action, String value, String appendValue, String seperator) throws Exception
 	{
-		return value. + seperator + appendValue;
+		return value + seperator + appendValue;
 	}
 	
 	public String appendValue(XmlAction action, String value, int appendValue) throws Exception

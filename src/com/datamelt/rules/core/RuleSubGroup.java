@@ -133,7 +133,7 @@ public class RuleSubGroup implements Serializable
             }
             catch(InvocationTargetException ite)
             {
-            	throw new Exception("error rule: [" + rule.getId() + "] invoking method: "+ ite.getTargetException());
+            	throw new Exception("error rule: [" + rule.getId() + "] invoking method for first object: "+ ite.getTargetException());
             }
             catch(Exception ex)
             {
@@ -155,7 +155,7 @@ public class RuleSubGroup implements Serializable
                 }
                 catch(InvocationTargetException ite)
                 {
-                	throw new Exception("error rule: [" + rule.getId() + "] invoking method: "+ ite.getTargetException());
+                	throw new Exception("error rule: [" + rule.getId() + "] invoking method for second object: "+ ite.getTargetException());
                 }
             	catch(Exception ex)
             	{
@@ -402,7 +402,7 @@ public class RuleSubGroup implements Serializable
         }
         else
         {
-            if(resultObject2==null)
+            if(rule.getRuleObjects().size()==1)
 	        {
 	            // create an array of classes
 	            // with at least 2 parameters
