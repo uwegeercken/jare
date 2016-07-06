@@ -124,14 +124,21 @@ public class RuleExecutionResult implements Serializable
         String resultString1="";
         try
         {
-        	if(resultObject1 instanceof Date)
+        	if(resultObject1!=null)
         	{
-        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        		resultString1 = sdf.format(resultObject1);
+        		if(resultObject1 instanceof Date)
+        		{
+        			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        			resultString1 = sdf.format(resultObject1);
+        		}
+        		else
+        		{
+        			resultString1 = resultObject1.toString();
+        		}
         	}
         	else
         	{
-        		resultString1 = resultObject1.toString();
+        		resultString1 = "null";
         	}
         }
         catch(Exception ex)
@@ -163,14 +170,21 @@ public class RuleExecutionResult implements Serializable
 	            	String resultString2="";
 	                try
 	                {
-	                	if(resultObject2 instanceof Date)
+	                	if(resultObject2!=null)
 	                	{
-	                		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	                		resultString2 = sdf.format(resultObject2);
+	                		if(resultObject2 instanceof Date)
+	                		{
+	                			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	                			resultString2 = sdf.format(resultObject2);
+	                		}
+	                		else
+	                		{
+	                			resultString2 = resultObject2.toString();
+	                		}
 	                	}
 	                	else
 	                	{
-	                		resultString2 = resultObject2.toString();
+	                		resultString2 = "null";
 	                	}
 	                }
 	                catch(Exception ex)
@@ -186,18 +200,18 @@ public class RuleExecutionResult implements Serializable
 	                }
 	            	if(rule.getRuleObjects().get(0).getParameter()!=null)
 	                {
-	                    messageText =  messageText.replaceAll("\\$0","[" + resultString1 +"]");
+	                    messageText =  messageText.replaceAll("\\$1","[" + resultString1 +"]");
 	                }
 		            if(rule.getRuleObjects().get(1).getParameter()!=null)
 		            {
-		                messageText =  messageText.replaceAll("\\$1","[" + resultString2 + "]" );
+		                messageText =  messageText.replaceAll("\\$0","[" + resultString2 + "]" );
 		            }
 	            }
 	            else
 	            {
 	                if(rule.getRuleObjects().get(0).getParameter()!=null)
 	                {
-	                    messageText =  messageText.replaceAll("\\$1","[" + resultString1 +"]");
+	                    messageText =  messageText.replaceAll("\\$0","[" + resultString1 +"]");
 	                }
 	            	
 	            }
