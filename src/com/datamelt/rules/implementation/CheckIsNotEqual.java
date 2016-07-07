@@ -279,6 +279,13 @@ public class CheckIsNotEqual extends GenericCheck
      */
     public static boolean evaluate(Date date1, Date date2)
     {
-        return !date1.equals(date2);
+    	if(date1!=null && date2!=null)
+        {
+    		return !date1.equals(date2);
+        }
+    	else
+    	{
+    		return false;
+    	}
     }
 }

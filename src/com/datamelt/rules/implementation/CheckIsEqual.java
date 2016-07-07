@@ -134,7 +134,7 @@ public class CheckIsEqual extends GenericCheck
      */
     public static boolean evaluate(int value1, int value2)
     {
-        if(value1 == value2)
+    	if(value1 == value2)
         {
             return true; 
         }
@@ -313,7 +313,6 @@ public class CheckIsEqual extends GenericCheck
     		date2String = sdf.format(date2);
     	}
     	return date1String.equals(date2String);
-    
     }
     
     /**
@@ -324,10 +323,17 @@ public class CheckIsEqual extends GenericCheck
     {
     	SimpleDateFormat sdf = new SimpleDateFormat(format);
         
-    	String date1String = sdf.format(date1);
-        String date2String = sdf.format(date2);
+    	String date1String=null;
+    	String date2String=null;
     	
+    	if(date1!=null)
+    	{
+    		date1String = sdf.format(date1);
+    	}
+    	if(date2!=null)
+    	{
+    		date2String = sdf.format(date2);
+    	}
     	return date1String.equals(date2String);
-    
     }
 }
