@@ -211,7 +211,7 @@ public class RuleExecutionResult implements Serializable
 	            {
 	                if(rule.getRuleObjects().get(0).getParameter()!=null)
 	                {
-	                    messageText =  messageText.replaceAll("\\$0","[" + resultString1 +"]");
+	                    messageText =  messageText.replaceAll("\\$1","[" + resultString1 +"]");
 	                }
 	            	
 	            }
