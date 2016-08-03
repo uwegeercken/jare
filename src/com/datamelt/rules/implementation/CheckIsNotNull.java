@@ -44,53 +44,26 @@ public class CheckIsNotNull extends GenericCheck
     public static boolean evaluate(long value)
     {
     	Long longValue = value;
-    	if(longValue!=null)
-        {
-            return true; 
-        }
-        else
-        {
-            return false;
-        }
+    	return longValue!=null;
+
     }
     
     public static boolean evaluate(int value)
     {
     	Integer integerValue = value;
-    	if(integerValue!=null)
-        {
-            return true; 
-        }
-        else
-        {
-            return false;
-        }
+    	return integerValue!=null;
     }
     
     public static boolean evaluate(double value)
     {
     	Double doubleValue = value;
-    	if(doubleValue!=null)
-        {
-            return true; 
-        }
-        else
-        {
-            return false;
-        }
+    	return doubleValue!=null;
     }
     
     public static boolean evaluate(float value)
     {
     	Float floatValue = value;
-    	if(floatValue!=null)
-        {
-            return true; 
-        }
-        else
-        {
-            return false;
-        }
+    	return floatValue!=null;
     }
     
     public static boolean evaluate(Date value)

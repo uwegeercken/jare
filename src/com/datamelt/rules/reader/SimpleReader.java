@@ -8,7 +8,6 @@ package com.datamelt.rules.reader;
 import java.util.zip.ZipFile;
 import com.datamelt.rules.core.util.Converter;
 import com.datamelt.rules.engine.BusinessRulesEngine;
-import com.datamelt.util.Row;
 import com.datamelt.util.RowFieldCollection;
 
 /**
