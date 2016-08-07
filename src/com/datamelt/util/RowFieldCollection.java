@@ -76,7 +76,7 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * constructor that takes an array of field names and an array of objects as parameter 
+     * constructor that takes an array of objects as parameter 
      */
     public RowFieldCollection(Object[] fields)
     {

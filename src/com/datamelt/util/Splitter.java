@@ -16,9 +16,9 @@ import com.datamelt.rules.parser.xml.RowDefinitionParser;
  * the other possibility is to split a given row into its fields by
  * providing an xml file, which defines the layout of the row. this way
  * fixed length ASCII files can used, where the row has a fixed layout
- * rather than a separator as the devider.
+ * rather than a separator as the divider.
  * in case a xml file is used, you have to pass its name to the
- * setRowDefinitionFile() method. The fiel will be parsed and the input
+ * setRowDefinitionFile() method. The file will be parsed and the input
  * data (line) will be split into its fields accordingly.
  * 
  * the getRow() method returns a Row object containing an array of fields
@@ -107,7 +107,7 @@ public class Splitter
 	
 	/**
 	 * returns a RowFieldCollection object, containing the fields that the row
-	 * consists of. the line argument is a line (or row) from an 
+	 * consists of. the line argument is a line (row) from an 
 	 * ASCII file.
 	 */
 	public RowFieldCollection getRowFieldCollection(String line) throws Exception

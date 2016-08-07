@@ -10,15 +10,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.util.Calendar;
+import java.util.zip.ZipFile;
 
 import com.datamelt.util.Row;
+import com.datamelt.util.RowFieldCollection;
 import com.datamelt.util.Splitter;
 import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.engine.BusinessRulesEngine;
 
 /**
  * CsvReader class is used to run the business rule engine
- * against data from a CSV file. The default seperator used
+ * against data from a CSV file. The default separator used
  * is the semicolon (;) but may be changed to another character.
  * 
  * Example:
@@ -38,6 +40,13 @@ public class CsvReader
     
     public static void main(String[] args) throws Exception
     {
+    	// if no arguments are defined or help requested, output help info
+    	if(args== null || args.length==0 || args[0].equals("-h") || args[0].equals("--help"))
+    	{
+    		help();
+    		System.exit(0);
+    	}
+    	
     	// capture start time
     	Calendar start = Calendar.getInstance();
 	    System.out.println("start:                     " + start.getTime());
@@ -48,19 +57,17 @@ public class CsvReader
 	    // counts number of lines in data file
 	    long counter=0;
 	    
-	    // select all xml files in the given folder containing rule definitions
-	    // but only those that end in .xml
-        File dir = new File(args[1]);
-        File[] fileList = dir.listFiles(new FilenameFilter() {
-            public boolean accept(File f, String s) {return s.endsWith(XML_FILE_EXTENSION);}
-        	});
-        
-        System.out.println("parsing xml rule files...");
-        // create an engine object, passing a reference to the properties file
-        BusinessRulesEngine engine = new BusinessRulesEngine(fileList, args[2]);
+	    // the rule engine processes the rules from a zip file generated with
+	    // the Business Rules Maintenance Tool. The zip file contains all the
+	    // business logic for a given project.
+        ZipFile zipFile = new ZipFile(args[1]);
+
+        // create an engine object, passing a reference to the zipfile 
+        // that contains the business rules
+        BusinessRulesEngine engine = new BusinessRulesEngine(zipFile);
         //BusinessRulesEngine engine = new BusinessRulesEngine(fileList);
 
-        // splitter object will split the row from the datafile into
+        // splitter object will split the row of the  data/csv file into
         // its fields using - in this case - the default semicolon (;) seperator
         Splitter splitter = new Splitter(Splitter.TYPE_COMMA_SEPERATED);
 
@@ -76,23 +83,26 @@ public class CsvReader
             RuleGroup group = (RuleGroup)engine.getGroups().get(i);
             System.out.println("group logic:               " + group.getId() + ": "+ engine.getRuleLogic(i));
         }
+        // read the input file line by line
         while ((line=reader.readLine())!=null)
 	    {
-        	// only if the line is not empty 
-        	// and does not start with a hash sign (comment).
+        	// only if the line is NOT empty 
+        	// and does NOT start with a hash sign (comment).
         	// otherwise the line will be NOT be processed nor counted!
 	        if(!line.trim().equals("") && !line.startsWith("#"))
 	        {
 	        	line = line.replace("\"","");
 		        // get a row object containing the fields and data
-		        Row row = splitter.getRow(line); 
+		        RowFieldCollection row = splitter.getRowFieldCollection(line); 
+		        
 		        // run rules on this data
 		        engine.run("row: " + counter, row);
 		        counter++;
 	        }
 	    }
-        
+        // close the reader
         reader.close();
+        
         System.out.println("number of lines of data:   " + counter);
         
         // total number of rules
@@ -117,6 +127,17 @@ public class CsvReader
 	    System.out.println("end:                       " + end.getTime());
 	    System.out.println("elapsed time:              " + elapsedSeconds + " second(s)");
 	    System.out.println("end of process.");
+    }
+    
+    public static void help()
+    {
+    	System.out.println("program to process a CSV file row by row against a given set of business rules.");
+    	System.out.println();
+    	System.out.println("pass the path and name of the data file as the first parameter.");
+    	System.out.println("pass the path and name of the project zip file containing all rules as the second parameter.");
+    	System.out.println();
+    	System.out.println("example: CsvReader /somefolder/mycsvfile.csv /otherfolder/testrules.zip");
+    	
     }
     
 }
