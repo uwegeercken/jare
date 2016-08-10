@@ -85,7 +85,18 @@ public class Action implements Serializable
         else if(actionGetterObjects.size()==0 && actionSetterObject!=null)
         {
         	// construct the setter method to execute on the object from the xml action
-    		methodSetterObject = ClassUtility.getObjectMethod(action,action.getActionSetterObject());
+    		try
+    		{
+    			methodSetterObject = ClassUtility.getObjectMethod(action,action.getActionSetterObject());
+    		}
+    		catch(NoSuchMethodException nsm)
+    		{
+    			throw new Exception("no such method: "+ nsm.getMessage());
+    		}
+    		catch(Exception ex)
+    		{
+    			throw new Exception("error invoking action method: "+ ex.getMessage());
+    		}
     		
         }
         Object actionClassResult=null;
@@ -134,6 +145,10 @@ public class Action implements Serializable
             {
             	throw new Exception("error invoking action setter method: "+ ite.getTargetException());
             }
+        	catch(Exception ex)
+        	{
+        		throw new Exception("error invoking action setter method: "+ ex.getMessage());
+        	}
         }
 	}
 	

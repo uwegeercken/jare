@@ -132,12 +132,13 @@ public class CsvReader
     public static void help()
     {
     	System.out.println("program to process a CSV file row by row against a given set of business rules.");
+    	System.out.println("the business rules zip file can be created with the Business Rules Maintenance Tool.");
     	System.out.println();
-    	System.out.println("pass the path and name of the data file as the first parameter.");
-    	System.out.println("pass the path and name of the project zip file containing all rules as the second parameter.");
+    	System.out.println("pass the path and name of the data file as the first argument.");
+    	System.out.println("pass the path and name of the project zip file containing all rules as the second argument.");
     	System.out.println();
     	System.out.println("example: CsvReader /somefolder/mycsvfile.csv /otherfolder/testrules.zip");
-    	
+    	System.out.println();
     }
     
 }

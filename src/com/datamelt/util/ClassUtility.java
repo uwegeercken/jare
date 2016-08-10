@@ -262,6 +262,6 @@ public class ClassUtility
     	Class<?> cl = Class.forName(actionObject.getClassName());
     	
         //Object object = cl.newInstance();
-        return  cl.getMethod(actionObject.getMethodName(),parameterTypes);
+    	return cl.getMethod(actionObject.getMethodName(),parameterTypes);
     }
 }
