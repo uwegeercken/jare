@@ -58,50 +58,52 @@ public class Parser extends DefaultHandler implements ContentHandler
     private boolean actionTagActive;
     private boolean objectTagActive;
     
-    private static final String TAG_GROUP                 = "group";
-    private static final String TAG_GROUP_ID              = "id";
-    private static final String TAG_GROUP_DESCRIPTION     = "description";
-    private static final String TAG_GROUP_OUTPUT_AFTER_ACTIONS = "outputafteractions";
-    private static final String TAG_GROUP_VALID_FROM	  = "validfrom";
-    private static final String TAG_GROUP_VALID_UNTIL	  = "validuntil";
-    private static final String TAG_SUBGROUP	          = "subgroup";
-    private static final String TAG_SUBGROUP_ID           = "id";
-    private static final String TAG_SUBGROUP_DESCRIPTION  = "description";
-    private static final String TAG_INTERGROUP_OPERATOR   = "intergroupoperator";
-    private static final String TAG_SUBGROUP_RULEOPERATOR = "ruleoperator";
-    private static final String TAG_RULE                  = "rule";
-    private static final String TAG_RULE_ID               = "id";
-    private static final String TAG_RULE_DESCRIPTION      = "description";
-    private static final String TAG_OBJECT                = "object";
-    private static final String TAG_OBJECT_CLASSNAME      = "classname";
-    private static final String TAG_OBJECT_METHOD         = "method";
-	private static final String TAG_OBJECT_TYPE           = "type";
-    private static final String TAG_OBJECT_TYPE2          = "returntype";
-    private static final String TAG_OBJECT_PARAMETER      = "parameter";
-    private static final String TAG_OBJECT_PARAMETER_TYPE = "parametertype";
-    private static final String TAG_OBJECT_PARAMETER_IS_SETTER_VALUE = "settervalue";
-    private static final String TAG_EXPECTED              = "expected";
-    private static final String TAG_EXPECTED_VALUE        = "value";
-    private static final String TAG_EXPECTED_TYPE         = "type";
-    private static final String TAG_EXECUTE               = "execute";
-    private static final String TAG_EXECUTE_VALUE         = "value";
-    private static final String TAG_PARAMETER             = "parameter";
-    private static final String TAG_PARAMETER_VALUE       = "value";
-    private static final String TAG_PARAMETER_TYPE        = "type";
-    private static final String TAG_MESSAGE               = "message";
-    private static final String TAG_MESSAGE_TYPE		  = "type";
-    private static final String TAG_MESSAGE_TEXT		  = "text";
-    private static final String TAG_ACTION                = "action";
-    private static final String TAG_ACTION_ID             = "id";
-    private static final String TAG_ACTION_DESCRIPTION    = "description";
-    private static final String TAG_ACTION_CLASSNAME      = "classname";
-    private static final String TAG_ACTION_METHOD		  = "method";
-    private static final String TAG_ACTION_METHOD_TYPE	  = "type";
-    private static final String TAG_ACTION_METHOD_RETURNTYPE = "returntype";
-    private static final String TAG_ACTION_PARAMETER      = "parameter";
-    private static final String TAG_ACTION_PARAMETERTYPE  = "type";
-    private static final String TAG_ACTION_PARAMETERVALUE = "value";
-    private static final String TAG_ACTION_EXECUTEIF	  = "executeif";
+    private static final String TAG_GROUP                 				= "group";
+    private static final String TAG_GROUP_ID              				= "id";
+    private static final String TAG_GROUP_DESCRIPTION     				= "description";
+    private static final String TAG_GROUP_OUTPUT_AFTER_ACTIONS 			= "outputafteractions";
+    private static final String TAG_GROUP_VALID_FROM	  				= "validfrom";
+    private static final String TAG_GROUP_VALID_UNTIL	  				= "validuntil";
+    private static final String TAG_GROUP_DEPENDENT_GROUP_ID  			= "dependentgroupid";
+    private static final String TAG_GROUP_DEPENDENT_GROUP_CONDITION 	= "dependentgroupcondition";
+    private static final String TAG_SUBGROUP	          				= "subgroup";
+    private static final String TAG_SUBGROUP_ID          				= "id";
+    private static final String TAG_SUBGROUP_DESCRIPTION  				= "description";
+    private static final String TAG_INTERGROUP_OPERATOR   				= "intergroupoperator";
+    private static final String TAG_SUBGROUP_RULEOPERATOR 				= "ruleoperator";
+    private static final String TAG_RULE                  				= "rule";
+    private static final String TAG_RULE_ID               				= "id";
+    private static final String TAG_RULE_DESCRIPTION      				= "description";
+    private static final String TAG_OBJECT                				= "object";
+    private static final String TAG_OBJECT_CLASSNAME      				= "classname";
+    private static final String TAG_OBJECT_METHOD         				= "method";
+	private static final String TAG_OBJECT_TYPE           				= "type";
+    private static final String TAG_OBJECT_TYPE2          				= "returntype";
+    private static final String TAG_OBJECT_PARAMETER      				= "parameter";
+    private static final String TAG_OBJECT_PARAMETER_TYPE 				= "parametertype";
+    private static final String TAG_OBJECT_PARAMETER_IS_SETTER_VALUE 	= "settervalue";
+    private static final String TAG_EXPECTED              				= "expected";
+    private static final String TAG_EXPECTED_VALUE        				= "value";
+    private static final String TAG_EXPECTED_TYPE         				= "type";
+    private static final String TAG_EXECUTE               				= "execute";
+    private static final String TAG_EXECUTE_VALUE         				= "value";
+    private static final String TAG_PARAMETER             				= "parameter";
+    private static final String TAG_PARAMETER_VALUE       				= "value";
+    private static final String TAG_PARAMETER_TYPE        				= "type";
+    private static final String TAG_MESSAGE               				= "message";
+    private static final String TAG_MESSAGE_TYPE		  				= "type";
+    private static final String TAG_MESSAGE_TEXT		  				= "text";
+    private static final String TAG_ACTION                				= "action";
+    private static final String TAG_ACTION_ID             				= "id";
+    private static final String TAG_ACTION_DESCRIPTION    				= "description";
+    private static final String TAG_ACTION_CLASSNAME      				= "classname";
+    private static final String TAG_ACTION_METHOD		  				= "method";
+    private static final String TAG_ACTION_METHOD_TYPE	  				= "type";
+    private static final String TAG_ACTION_METHOD_RETURNTYPE 			= "returntype";
+    private static final String TAG_ACTION_PARAMETER      				= "parameter";
+    private static final String TAG_ACTION_PARAMETERTYPE  				= "type";
+    private static final String TAG_ACTION_PARAMETERVALUE 				= "value";
+    private static final String TAG_ACTION_EXECUTEIF	  				= "executeif";
     
     private static final String TAG_TYPE_TRUE   = "true";
         
@@ -197,6 +199,14 @@ public class Parser extends DefaultHandler implements ContentHandler
             if(atts.getValue(TAG_GROUP_VALID_UNTIL)!=null)
             {
             	group.setValidUntil(atts.getValue(TAG_GROUP_VALID_UNTIL));
+            }
+            if(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_ID)!=null)
+            {
+            	group.setDependentRuleGroupId(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_ID));
+            }
+            if(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_CONDITION)!=null)
+            {
+            	group.setDependentRuleGroupCondition(Integer.parseInt(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_CONDITION)));
             }
         }
         if(qName.equals(TAG_OBJECT) && groupTagActive && actionTagActive)

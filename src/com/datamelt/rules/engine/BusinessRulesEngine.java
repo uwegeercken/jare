@@ -67,7 +67,7 @@ import com.datamelt.util.Splitter;
  * 
  * <p>please read the provided documentation.</p>
  * 
- * <p>last update: 2016-07-05</p>
+ * <p>last update: 2016-08-10</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de
  * 
@@ -76,9 +76,9 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.78";
-	private static final String REVISION = "3";
-	private static final String LAST_UPDATE = "2016-07-05";
+	private static final String VERSION = "0.79";
+	private static final String REVISION = "1";
+	private static final String LAST_UPDATE = "2016-08-10";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -253,13 +253,26 @@ public class BusinessRulesEngine
             RuleGroup group = groups.get(i);
             group.setTimestampFormat(timestampFormat);
             group.setOutputType(outputType);
-            group.runRules(objectLabel, object);
-            if(group.getFailed()==1) // group failed
+            RuleGroup dependentRuleGroup;
+            boolean runGroup = true;
+            if(group.getDependentRuleGroupId()!=null)
             {
-            	// increase the counter of failed groups
-            	executionCollection.increaseFailedGroupCount();
+            	dependentRuleGroup = getGroupByid(group.getDependentRuleGroupId());
+            	if(dependentRuleGroup!=null && group.getFailed()!=dependentRuleGroup.getDependentRuleGroupCondition())
+            	{
+            		runGroup= false;
+            	}
             }
-            executionCollection.addAll(group.getExecutionCollection().getResults());
+            if(runGroup)
+            {
+	            group.runRules(objectLabel, object);
+	            if(group.getFailed()==1) // group failed
+	            {
+	            	// increase the counter of failed groups
+	            	executionCollection.increaseFailedGroupCount();
+	            }
+	            executionCollection.addAll(group.getExecutionCollection().getResults());
+            }
         }
     }
     
@@ -379,6 +392,16 @@ public class BusinessRulesEngine
     public RuleExecutionCollection getRuleExecutionCollection()
     {
         return executionCollection;
+    }
+    
+    public boolean getPreserveRuleExcecutionResults()
+    {
+    	return executionCollection.getPreserveRuleExcecutionResults();
+    }
+    
+    public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
+    {
+    	executionCollection.setPreserveRuleExcecutionResults(preserveRuleExcecutionResults);
     }
     
     /**

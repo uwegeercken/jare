@@ -33,6 +33,8 @@ public class RuleGroup implements Serializable
     private String validUntil;
     private int outputType;
     private String timestampFormat;
+    private String dependentRuleGroupId;
+    private int dependentRuleGroupCondition;
 
     // list of all subgroups belonging to this group
     private RuleSubGroupCollection subGroupCollection = new RuleSubGroupCollection();
@@ -41,6 +43,9 @@ public class RuleGroup implements Serializable
     
     private static final int OPERATOR_AND = 0;
     
+    public static final int TYPE_PASSED = 0;
+    public static final int TYPE_FAILED = 1;
+
     public static final long serialVersionUID = 1964070331;
     
     /**
@@ -403,6 +408,26 @@ public class RuleGroup implements Serializable
 	public ArrayList <XmlAction> getActions()
 	{
 		return actions;
+	}
+
+	public String getDependentRuleGroupId()
+	{
+		return dependentRuleGroupId;
+	}
+
+	public void setDependentRuleGroupId(String dependentRuleGroupId)
+	{
+		this.dependentRuleGroupId = dependentRuleGroupId;
+	}
+
+	public int getDependentRuleGroupCondition()
+	{
+		return dependentRuleGroupCondition;
+	}
+
+	public void setDependentRuleGroupCondition(int dependentRuleGroupCondition)
+	{
+		this.dependentRuleGroupCondition = dependentRuleGroupCondition;
 	}
     
 }

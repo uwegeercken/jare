@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.datamelt.rules.core.util.Converter;
 
 
@@ -155,7 +157,10 @@ public class RuleExecutionResult implements Serializable
 
         if(messageText!=null)
         {
-	        if(rule.getExpectedValueRule()!=null && rule.getExpectedValueRuleType()!=null)
+	        // replace some of the chracters that would fail the regular expression match
+        	resultString1 = resultString1.replaceAll("\\\\", "/");
+	        resultString1 = resultString1.replaceAll("\\$", "\\\\\\$");
+        	if(rule.getExpectedValueRule()!=null && rule.getExpectedValueRuleType()!=null)
 	        {
 	            if(rule.getRuleObjects().get(0).getParameter()!=null)
 	            {

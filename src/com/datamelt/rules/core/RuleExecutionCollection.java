@@ -20,6 +20,8 @@ public class RuleExecutionCollection implements Serializable
     private int failedRulesCount = 0;
     // carries the number of failed groups
     private int failedGroupsCount = 0;
+    // flag if rule execution results should be preserved
+    private boolean preserveRuleExcecutionResults=true;
     
     public static final long serialVersionUID = 1964070329;
     
@@ -29,7 +31,11 @@ public class RuleExecutionCollection implements Serializable
      */
     public void add(RuleExecutionResult result)
     {
-        results.add(result);
+        // only add the result if preserveRuleExcecutionResults is set to true
+    	if(preserveRuleExcecutionResults)
+        {
+        	results.add(result);
+        }
         // count those, that failed
         if (result.getRule().getFailed()==1) 
         {
@@ -154,4 +160,16 @@ public class RuleExecutionCollection implements Serializable
     {
     	failedGroupsCount ++;
     }
+
+	public boolean getPreserveRuleExcecutionResults()
+	{
+		return preserveRuleExcecutionResults;
+	}
+
+	public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
+	{
+		this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;
+	}
+    
+    
 }
