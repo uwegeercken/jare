@@ -87,9 +87,9 @@ public class DatabaseReader
         
         System.out.println("number of lines of data:   " + counter);
         // total number of rules
-        int numberOfRules = engine.getNumberOfRules();
+        long numberOfRules = engine.getNumberOfRules();
         // total number of failed rules
-        int numberOfErrors = engine.getNumberOfRulesFailed();
+        long numberOfErrors = engine.getNumberOfRulesFailed();
         // total number of successful run rules
         long numbersOfSuccessfulRules = numberOfRules * counter - numberOfErrors;
         // total number of failed groups

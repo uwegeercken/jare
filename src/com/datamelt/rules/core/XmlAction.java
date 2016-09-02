@@ -14,6 +14,7 @@ public class XmlAction implements Serializable
 {
 	public static final int TYPE_PASSED = 0;
     public static final int TYPE_FAILED = 1;
+    public static final int TYPE_ALWAYS = 2;
     
     public static final long serialVersionUID = 1964070338;
     

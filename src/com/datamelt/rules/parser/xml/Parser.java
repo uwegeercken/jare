@@ -65,7 +65,7 @@ public class Parser extends DefaultHandler implements ContentHandler
     private static final String TAG_GROUP_VALID_FROM	  				= "validfrom";
     private static final String TAG_GROUP_VALID_UNTIL	  				= "validuntil";
     private static final String TAG_GROUP_DEPENDENT_GROUP_ID  			= "dependentgroupid";
-    private static final String TAG_GROUP_DEPENDENT_GROUP_CONDITION 	= "dependentgroupcondition";
+    private static final String TAG_GROUP_DEPENDENT_GROUP_EXECUTE_IF 	= "dependentgroupexecuteif";
     private static final String TAG_SUBGROUP	          				= "subgroup";
     private static final String TAG_SUBGROUP_ID          				= "id";
     private static final String TAG_SUBGROUP_DESCRIPTION  				= "description";
@@ -109,6 +109,7 @@ public class Parser extends DefaultHandler implements ContentHandler
         
     private static final String TAG_TYPE_FAILED = "failed";
     private static final String TAG_TYPE_PASSED = "passed";
+    private static final String TAG_TYPE_ALWAYS = "always";
     
     private static final String TAG_TYPE_SETTER = "setter";
     
@@ -202,11 +203,18 @@ public class Parser extends DefaultHandler implements ContentHandler
             }
             if(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_ID)!=null)
             {
-            	group.setDependentRuleGroupId(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_ID));
+           		group.setDependentRuleGroupId(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_ID));
             }
-            if(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_CONDITION)!=null)
+            if(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_EXECUTE_IF)!=null)
             {
-            	group.setDependentRuleGroupCondition(Integer.parseInt(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_CONDITION)));
+            	if(atts.getValue(TAG_GROUP_DEPENDENT_GROUP_EXECUTE_IF).equals(TAG_TYPE_PASSED))
+                {
+            		group.setDependentRuleGroupExecuteIf(0);
+                }
+            	else
+                {
+            		group.setDependentRuleGroupExecuteIf(1);
+                }
             }
         }
         if(qName.equals(TAG_OBJECT) && groupTagActive && actionTagActive)
@@ -232,7 +240,6 @@ public class Parser extends DefaultHandler implements ContentHandler
         		actionObject.setIsGetter(ActionObject.METHOD_GETTER);
         		action.addActionGetterObject(actionObject);
         	}
-        	
         }
         if(qName.equals(TAG_PARAMETER) && objectTagActive && actionTagActive)
         {
@@ -244,7 +251,6 @@ public class Parser extends DefaultHandler implements ContentHandler
             		parameter.setSetterValue(true);
             	}
             }
-
         	actionObject.addParameter(parameter);
         }
         if(qName.equals(TAG_ACTION) && groupTagActive &&! objectTagActive &&!subgroupTagActive && !ruleTagActive)
@@ -269,12 +275,19 @@ public class Parser extends DefaultHandler implements ContentHandler
         		action.setMethodName(atts.getValue(TAG_ACTION_METHOD));
         		action.setExecuteIf(1);
             }
-        	else
+        	else if(atts.getValue(TAG_ACTION_EXECUTEIF).equals(TAG_TYPE_PASSED))
         	{
         		action = new XmlAction(actionId,actionDescription);
         		action.setClassName(atts.getValue(TAG_ACTION_CLASSNAME));
         		action.setMethodName(atts.getValue(TAG_ACTION_METHOD));
         		action.setExecuteIf(0);
+        	}
+        	else if(atts.getValue(TAG_ACTION_EXECUTEIF).equals(TAG_TYPE_ALWAYS))
+        	{
+        		action = new XmlAction(actionId,actionDescription);
+        		action.setClassName(atts.getValue(TAG_ACTION_CLASSNAME));
+        		action.setMethodName(atts.getValue(TAG_ACTION_METHOD));
+        		action.setExecuteIf(2);
         	}
         }
         if(qName.equals(TAG_PARAMETER) && actionTagActive && groupTagActive &&! objectTagActive &&!subgroupTagActive && !ruleTagActive)
@@ -386,9 +399,13 @@ public class Parser extends DefaultHandler implements ContentHandler
         	{
         		type=XmlAction.TYPE_FAILED;
         	}
-        	else
+        	else if(atts.getValue(TAG_ACTION_EXECUTEIF)==TAG_TYPE_PASSED)
         	{
         		type=XmlAction.TYPE_PASSED;
+        	}
+        	else
+        	{
+        		type=XmlAction.TYPE_ALWAYS;
         	}
         	// action description may be empty
             String actionDescription = "";
@@ -458,7 +475,21 @@ public class Parser extends DefaultHandler implements ContentHandler
         else if(qName.equals(TAG_GROUP))
         {
             groupTagActive=false;
-            groups.add(group);
+            
+            try
+            {
+            	// only add the group if it is valid on the current date
+            	// and if the valid from and valid until dates can be parsed correctly
+            	if(group.isValid())
+            	{
+                	groups.add(group);
+                }
+            }
+            catch(Exception ex)
+            {
+            	ex.printStackTrace();
+            }
+            
         }
     }
 

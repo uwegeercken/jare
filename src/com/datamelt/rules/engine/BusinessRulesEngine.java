@@ -26,6 +26,7 @@ import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.core.util.VariableReplacer;
 import com.datamelt.util.FileUtility;
 import com.datamelt.util.Row;
+import com.datamelt.util.RuleGroupPrioritizer;
 import com.datamelt.util.Splitter;
 
 
@@ -60,14 +61,7 @@ import com.datamelt.util.Splitter;
  * <p>the getRuleDefinition method returns a simple readable representation and overview
  * of the rule logic.</p>
  * 
- * <p>version 0.60 introduces actions that can be applied to a group of rules after
- * the checks of a rulegroup are done. an action can be run after a group passes or fails the relevant
- * checks.
- * </p>
- * 
- * <p>please read the provided documentation.</p>
- * 
- * <p>last update: 2016-08-10</p>
+ * <p>please read the available documentation.</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de
  * 
@@ -77,11 +71,12 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION = "0.79";
-	private static final String REVISION = "1";
-	private static final String LAST_UPDATE = "2016-08-10";
+	private static final String REVISION = "3";
+	private static final String LAST_UPDATE = "2016-09-02";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
+    // indicator if the ruleengine ran
     private int status;
     
     // used to replace variables in xml rule files by actual values from a file
@@ -124,6 +119,8 @@ public class BusinessRulesEngine
     private String replacementsFile;
     // contains the results of the execution of the rules
     private RuleExecutionCollection executionCollection = new RuleExecutionCollection();
+    // indicated if the results of the rule execution should be kept
+    private boolean preserveRuleExcecutionResults=true;
 
     /** 
      * returns the version and revision of the business rule engine
@@ -149,6 +146,7 @@ public class BusinessRulesEngine
     public BusinessRulesEngine(String rulesFilename) throws Exception
     {
         parseXmlFile(rulesFilename);
+        prioritizeRuleGroups();
     }
 
     /**
@@ -164,6 +162,7 @@ public class BusinessRulesEngine
             loadProperties(propertiesFile);
         }
         parseXmlFile(rulesFilename);
+        prioritizeRuleGroups();
     }
     
     /**
@@ -177,10 +176,11 @@ public class BusinessRulesEngine
         {
             parseXmlFile(rulesFiles[i].getPath());
         }
+        prioritizeRuleGroups();
     }
     
     /**
-     * engine can be instantiated by passing a zipfile containg xml
+     * engine can be instantiated by passing a zipfile containing xml
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
@@ -196,10 +196,11 @@ public class BusinessRulesEngine
             }
         }
         zipFile.close();
+        prioritizeRuleGroups();
     }
     
     /**
-     * engine can be instantiated by passing a zipfile containg xml
+     * engine can be instantiated by passing a zipfile containing xml
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
@@ -219,6 +220,7 @@ public class BusinessRulesEngine
             }
         }
         zipFile.close();
+        prioritizeRuleGroups();
     }
     
     /**
@@ -238,7 +240,7 @@ public class BusinessRulesEngine
         {
             parseXmlFile(rulesFiles[i].getPath());
         }
-        
+        prioritizeRuleGroups();
     }
     
     /**
@@ -248,19 +250,28 @@ public class BusinessRulesEngine
     public void run(String objectLabel, Object object)throws Exception
     {
         status = STATUS_ENGINE_EXECUTED;
+        
         for(int i=0;i<groups.size();i++)
         {
+        	// get the next group
             RuleGroup group = groups.get(i);
-            group.setTimestampFormat(timestampFormat);
-            group.setOutputType(outputType);
+            
+            // we reset the skipped flag of the group here
+            group.setSkipped(0);
             RuleGroup dependentRuleGroup;
+            // per default each rulegroup will be run
             boolean runGroup = true;
-            if(group.getDependentRuleGroupId()!=null)
+            // check if we have a dependent rulegroup
+            if(group.getDependentRuleGroupId()!=null && !group.getDependentRuleGroupId().equals(""))
             {
-            	dependentRuleGroup = getGroupByid(group.getDependentRuleGroupId());
-            	if(dependentRuleGroup!=null && group.getFailed()!=dependentRuleGroup.getDependentRuleGroupCondition())
+            	// get the dependent group from the list of groups
+            	dependentRuleGroup = getGroupById(group.getDependentRuleGroupId());
+            	// don't run the group if the dependent group does not exist or does not have the correct status (passed/failed)
+            	if(dependentRuleGroup!=null && dependentRuleGroup.getFailed()!=group.getDependentRuleGroupExecuteIf())
             	{
             		runGroup= false;
+            		group.setSkipped(1);
+            		executionCollection.increaseSkippedGroupCount();
             	}
             }
             if(runGroup)
@@ -271,7 +282,19 @@ public class BusinessRulesEngine
 	            	// increase the counter of failed groups
 	            	executionCollection.increaseFailedGroupCount();
 	            }
+	            else
+	            {
+	            	// increase the counter of failed groups
+	            	executionCollection.increasePassedGroupCount();
+	            	
+	            }
+	            // execution reults will be added unless the preserveRuleExcecutionResults is set to false
 	            executionCollection.addAll(group.getExecutionCollection().getResults());
+	            // add the number of executed actions by the rulegroup
+	            executionCollection.addNumberOfActionsExecuted(group.getNumberOfActionsExecuted());
+	            executionCollection.addNumberOfRulesRun(group.getNumberOfRulesRun());
+	            executionCollection.addNumberOfRulesFailed(group.getNumberOfRulesFailed());
+	            executionCollection.addNumberOfRulesPassed(group.getNumberOfRulesPassed());
             }
         }
     }
@@ -337,6 +360,14 @@ public class BusinessRulesEngine
     	reader.close();
     }
     
+    private void prioritizeRuleGroups()
+    {
+        // the prioritizer will make sure that all rulegroups that other rulegroups
+        // depend on will be executed first
+        RuleGroupPrioritizer prioritizer = new RuleGroupPrioritizer(groups);
+        groups = prioritizer.getPrioritizedList();
+    }
+    
     /**
      * method runs the rules for all groups and subgroups
      * against the object.
@@ -354,6 +385,17 @@ public class BusinessRulesEngine
         run(label, object);
     }
     
+    private void applyGroupSettings()
+    {
+    	for(int i=0;i<groups.size();i++)
+    	{
+    		RuleGroup group = groups.get(i);
+    		group.setTimestampFormat(timestampFormat);
+            group.setOutputType(outputType);
+            group.setPreserveRuleExcecutionResults(preserveRuleExcecutionResults);
+    	}
+    }
+    
     /**
      * method is used to parse the given xml file
      */
@@ -368,6 +410,7 @@ public class BusinessRulesEngine
         // get the created xmlrule arraylist from the parser
         // and add them to the list
         groups.addAll(parser.getGroups());
+        applyGroupSettings();
     }
     
     /**
@@ -381,9 +424,8 @@ public class BusinessRulesEngine
         Parser parser = new Parser(replacer);
         parser.parse(stream); 
         
-        // get the created xmlrule arraylist from the parser
-        // and add them to the list
         groups.addAll(parser.getGroups());
+        applyGroupSettings();
     }
     
     /**
@@ -401,6 +443,7 @@ public class BusinessRulesEngine
     
     public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
     {
+    	this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;
     	executionCollection.setPreserveRuleExcecutionResults(preserveRuleExcecutionResults);
     }
     
@@ -416,7 +459,7 @@ public class BusinessRulesEngine
      * method returns the a group identified by it's id
      * as defined in the xml file
      */
-    public RuleGroup getGroupByid(String groupId)
+    public RuleGroup getGroupById(String groupId)
     {
     	int found=-1;
     	for(int i=0;i< groups.size();i++)
@@ -441,7 +484,7 @@ public class BusinessRulesEngine
     /**
      * method returns the number of rules from all groups and subgroups
      */
-    public int getNumberOfRules()
+    public long getNumberOfRules()
     {
         int count = 0;
         for(int i=0;i<groups.size();i++)
@@ -455,7 +498,7 @@ public class BusinessRulesEngine
     /**
      * method returns the number of actions from all groups
      */
-    public int getNumberOfActions()
+    public long getNumberOfActions()
     {
         int count = 0;
         for(int i=0;i<groups.size();i++)
@@ -466,20 +509,25 @@ public class BusinessRulesEngine
         return count;
     }
     
+    public long getNumberOfActionsExecuted()
+    {
+    	return executionCollection.getActionsExecutedCount();
+    }
+    
     /**
      * method returns the number of failed rules from all groups and subgroups
      */
-    public int getNumberOfRulesFailed()
+    public long getNumberOfRulesFailed()
     {
-        return executionCollection.getFailedRulesCount();
+        return executionCollection.getRulesFailedCount();
     }
     
     /**
      * method returns the number of passed rules from all groups and subgroups
      */
-    public int getNumberOfRulesPassed()
+    public long getNumberOfRulesPassed()
     {
-        return executionCollection.getPassedRulesCount();
+        return executionCollection.getRulesPassedCount();
     }
     
     /**
@@ -489,11 +537,35 @@ public class BusinessRulesEngine
     {
     	return executionCollection.getFailedGroupsCount();
     }
+    
+    /**
+     * method returns the number of groups that failed
+     */
+    public long getNumberOfGroupsPassed() throws Exception
+    {
+    	return executionCollection.getPassedGroupsCount();
+    }
+
+    /**
+     * method returns the number of groups that were skipped
+     */
+    public long getNumberOfGroupsSkipped() throws Exception
+    {
+    	return executionCollection.getSkippedGroupsCount();
+    }
 
     /**
      * method returns the total number of groups
      */
     public long getNumberOfGroups() throws Exception
+    {
+    	return groups.size();
+    }
+    
+    /**
+     * method returns the total number of groups
+     */
+    public long getNumberOfExecutedGroups() throws Exception
     {
     	return groups.size();
     }

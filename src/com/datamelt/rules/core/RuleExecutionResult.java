@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.datamelt.rules.core.util.Converter;
 
 

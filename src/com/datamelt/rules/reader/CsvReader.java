@@ -6,13 +6,10 @@
 package com.datamelt.rules.reader;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FilenameFilter;
 import java.util.Calendar;
 import java.util.zip.ZipFile;
 
-import com.datamelt.util.Row;
 import com.datamelt.util.RowFieldCollection;
 import com.datamelt.util.Splitter;
 import com.datamelt.rules.core.RuleGroup;
@@ -106,9 +103,9 @@ public class CsvReader
         System.out.println("number of lines of data:   " + counter);
         
         // total number of rules
-        int numberOfRules = engine.getNumberOfRules();
+        long numberOfRules = engine.getNumberOfRules();
         // total number of failed rules
-        int numberOfErrors = engine.getNumberOfRulesFailed();
+        long numberOfErrors = engine.getNumberOfRulesFailed();
         // total number of successful run rules
         long numbersOfSuccessfulRules = numberOfRules * counter - numberOfErrors;
         // total number of failed groups

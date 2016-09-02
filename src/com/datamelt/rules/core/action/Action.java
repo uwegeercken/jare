@@ -14,34 +14,36 @@ import com.datamelt.util.FieldNotFoundException;
 public class Action implements Serializable
 {
 	private Object object;
-	private int failed;
+	private int ruleGroupFailed;
 	private PrintStream stream;
 	private boolean outputAfterActions;
 	
 	public static final long serialVersionUID = 1964070320;
 	
-	public Action(int failed,Object object,boolean outputAfterActions)
+	public Action(int ruleGroupFailed,Object object,boolean outputAfterActions)
 	{
 		this.object = object;
-		this.failed = failed;
+		this.ruleGroupFailed = ruleGroupFailed;
 		this.outputAfterActions = outputAfterActions;
 	}
 	
-	public void executeActions(ArrayList<XmlAction> actions) throws Exception
+	public int executeActions(ArrayList<XmlAction> actions) throws Exception
 	{
 			int counter=0;
 			for(int i=0;i<actions.size();i++)
 			{
-				if(failed==actions.get(i).getExecuteIf())
+				XmlAction action = actions.get(i);
+				if(ruleGroupFailed==action.getExecuteIf() || action.getExecuteIf()==XmlAction.TYPE_ALWAYS)
 				{
+					executeAction(action);
 					counter++;
-					executeAction(actions.get(i));
 				}
 			}
 			if(counter>0 && this.outputAfterActions)
 			{
 				stream.println(object);
 			}
+			return counter;
 	}
 	
 	public void executeAction(XmlAction action) throws Exception

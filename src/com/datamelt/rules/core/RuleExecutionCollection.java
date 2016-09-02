@@ -16,10 +16,21 @@ import java.util.ArrayList;
 public class RuleExecutionCollection implements Serializable
 {
 	private ArrayList <RuleExecutionResult>results = new ArrayList<RuleExecutionResult>();
-    // carries the number of failed rules
-    private int failedRulesCount = 0;
+	// carries the number of rules
+    private long rulesRunCount = 0;
+    // carries the number of rules that failed
+    private long rulesFailedCount = 0;
+    // carries the number of rules that passed
+    private long rulesPassedCount = 0;
     // carries the number of failed groups
-    private int failedGroupsCount = 0;
+    private long failedGroupsCount = 0;
+ // carries the number of passed groups
+    private long passedGroupsCount = 0;
+    // carries the number of skipped groups because the dependent rulegroup
+    // did not have to expected result (passed/failed)
+    private long skippedGroupsCount = 0;
+    // number of actions executed
+    private long actionsExecutedCount = 0;
     // flag if rule execution results should be preserved
     private boolean preserveRuleExcecutionResults=true;
     
@@ -35,11 +46,6 @@ public class RuleExecutionCollection implements Serializable
     	if(preserveRuleExcecutionResults)
         {
         	results.add(result);
-        }
-        // count those, that failed
-        if (result.getRule().getFailed()==1) 
-        {
-        	failedRulesCount++;
         }
     }
     
@@ -120,35 +126,76 @@ public class RuleExecutionCollection implements Serializable
     public void clear()
     {
         results.clear();
-        failedRulesCount = 0;
+        rulesRunCount = 0;
+        rulesFailedCount = 0;
+        rulesPassedCount = 0;
+        passedGroupsCount=0;
         failedGroupsCount = 0;
+        skippedGroupsCount=0;
+        actionsExecutedCount=0;
     }
     
     /**
      * returns the number of rules
      * that failed during execution of the business rule engine
      */
-    public int getFailedRulesCount()
+    public long getRulesRunCount()
     {
-    	return failedRulesCount;
+    	return rulesRunCount;
     }
     
     /**
      * returns the number of rules
      * that failed during execution of the business rule engine
      */
-    public int getPassedRulesCount()
+    public long getRulesFailedCount()
     {
-    	return results.size() - failedRulesCount;
+    	return rulesFailedCount;
+    }
+    
+    /**
+     * returns the number of rules
+     * that failed during execution of the business rule engine
+     */
+    public long getRulesPassedCount()
+    {
+    	return rulesPassedCount;
     }
     
     /**
      * returns the total number of groups that failed 
      * during execution of the business rule engine
      */
-    public int getFailedGroupsCount()
+    public long getFailedGroupsCount()
     {
     	return failedGroupsCount;
+    }
+    
+    /**
+     * returns the total number of groups that passed 
+     * during execution of the business rule engine
+     */
+    public long getPassedGroupsCount()
+    {
+    	return passedGroupsCount;
+    }
+    
+    /**
+     * returns the total number of groups that failed 
+     * during execution of the business rule engine
+     */
+    public long getActionsExecutedCount()
+    {
+    	return actionsExecutedCount;
+    }
+    
+    /**
+     * returns the total number of groups that where skipped 
+     * during execution of the business rule engine
+     */
+    public long getSkippedGroupsCount()
+    {
+    	return skippedGroupsCount;
     }
     
     /**
@@ -159,6 +206,90 @@ public class RuleExecutionCollection implements Serializable
     public void increaseFailedGroupCount()
     {
     	failedGroupsCount ++;
+    }
+    
+    /**
+     * increases the count of failed groups by one (1)
+     * 
+     * used to track how many groups in total failed during execution
+     */
+    public void increasePassedGroupCount()
+    {
+    	passedGroupsCount ++;
+    }
+    
+    /**
+     * increases the count of skipped groups by one (1)
+     * 
+     * used to track how many groups in total were skipped during execution
+     * because the dependent rulegroup did not have the expected result (passed/failed)
+     */
+    public void increaseSkippedGroupCount()
+    {
+    	skippedGroupsCount ++;
+    }
+    
+    /**
+     * increases the count of rules
+     * 
+     */
+    public void increaseRulesRunCount()
+    {
+    	rulesRunCount ++;
+    }
+    
+    /**
+     * increases the count of rules that failed
+     * 
+     */
+    public void increaseRulesFailedCount()
+    {
+    	rulesFailedCount ++;
+    }
+    
+    /**
+     * increases the count of rules that passed
+     * 
+     */
+    public void increaseRulesPassedCount()
+    {
+    	rulesPassedCount ++;
+    }
+
+    /**
+     * add the number of actions executed by a rulegroup
+     * 
+     */
+    public void addNumberOfActionsExecuted(int number)
+    {
+    	actionsExecutedCount =  actionsExecutedCount + number;
+    }
+    
+    /**
+     * add the number of rules run
+     * 
+     */
+    public void addNumberOfRulesRun(long number)
+    {
+    	rulesRunCount =  rulesRunCount + number;
+    }
+    
+    /**
+     * add the number of rules that failed
+     * 
+     */
+    public void addNumberOfRulesFailed(long number)
+    {
+    	rulesFailedCount =  rulesFailedCount + number;
+    }
+    
+    /**
+     * add the number of rules that passed
+     * 
+     */
+    public void addNumberOfRulesPassed(long number)
+    {
+    	rulesPassedCount =  rulesPassedCount + number;
     }
 
 	public boolean getPreserveRuleExcecutionResults()

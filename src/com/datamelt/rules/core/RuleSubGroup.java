@@ -50,6 +50,7 @@ public class RuleSubGroup implements Serializable
     private RuleExecutionCollection executionCollection = new RuleExecutionCollection();
     
     private String timestampFormat;
+    private boolean preserveRuleExcecutionResults=true;
     
     public RuleSubGroup(String id, String description,String operatorSubGroup,String operatorRules)
     {
@@ -217,15 +218,16 @@ public class RuleSubGroup implements Serializable
 	                {
 	                    // the execution of the rule was sucessful                    
 	                    executionResult.getRule().setFailed(0);
+	                    executionCollection.increaseRulesPassedCount();
 	                }
 	                else // the execution of the rule was unsucessful
 	                {
 	                    // set the rule failed indicator of the xmlrule
 	                    executionResult.getRule().setFailed(1);
+	                    executionCollection.increaseRulesFailedCount();
 	                }
 	                
-	                // add result to list.
-	                executionCollection.add(executionResult);
+                	executionCollection.add(executionResult);
 	            }
 	            else
 	            {
@@ -254,15 +256,18 @@ public class RuleSubGroup implements Serializable
                 if (rule.getCheckToExecute().equals("com.datamelt.rules.implementation.CheckIsNull"))
                 {
                 	executionResult.getRule().setFailed(0);
+                	executionCollection.increaseRulesPassedCount();
                 }
                 else
                 {
                 	executionResult.getRule().setFailed(1);
+                	executionCollection.increaseRulesFailedCount();
                 }
                 
                 // add result to list.
-                executionCollection.add(executionResult);
+               	executionCollection.add(executionResult);
             }
+            executionCollection.increaseRulesRunCount();
         }
     }
     
@@ -505,9 +510,26 @@ public class RuleSubGroup implements Serializable
      * returns the number of rules that failed
      * when running them for this subgroup
      */
-    public int getNumberOfRulesFailed()
+    public long getNumberOfRulesFailed()
     {
-        return executionCollection.getFailedRulesCount();
+        return executionCollection.getRulesFailedCount();
+    }
+    
+    /**
+     * returns the number of rules that passed
+     * when running them for this subgroup
+     */
+    public long getNumberOfRulesPassed()
+    {
+        return executionCollection.getRulesPassedCount();
+    }
+    
+    /**
+     * returns the number of rules
+     */
+    public long getNumberOfRulesRun()
+    {
+        return executionCollection.getRulesRunCount();
     }
 
     /**
@@ -668,5 +690,15 @@ public class RuleSubGroup implements Serializable
     {
         this.timestampFormat = timestampFormat;
     }
+
+	public boolean isPreserveRuleExcecutionResults()
+	{
+		return preserveRuleExcecutionResults;
+	}
+
+	public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
+	{
+		this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;
+	}
 
 }

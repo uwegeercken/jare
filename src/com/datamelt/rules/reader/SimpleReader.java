@@ -53,9 +53,9 @@ public class SimpleReader
     	System.out.println(engine.getRuleLogic(0));
     	
         // total number of rules
-        int numberOfRules = engine.getNumberOfRules();
+        long numberOfRules = engine.getNumberOfRules();
         // total number of failed rules
-        int numberOfErrors = engine.getNumberOfRulesFailed();
+        long numberOfErrors = engine.getNumberOfRulesFailed();
         System.out.println("number of rules       :    " + numberOfRules);
         System.out.println("number of rules failed:    " + numberOfErrors);
         System.out.println("group failed: " + Converter.convertIntegerToBooleanString((int)engine.getNumberOfGroupsFailed()));

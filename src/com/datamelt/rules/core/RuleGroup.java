@@ -7,7 +7,10 @@
 package com.datamelt.rules.core;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.datamelt.rules.core.RuleSubGroupCollection;
 import com.datamelt.rules.core.action.Action;
@@ -34,7 +37,10 @@ public class RuleGroup implements Serializable
     private int outputType;
     private String timestampFormat;
     private String dependentRuleGroupId;
-    private int dependentRuleGroupCondition;
+    private int dependentRuleGroupExecuteIf;
+    private boolean preserveRuleExcecutionResults=true;
+    private int numberOfActionsExecuted;
+    private int skipped;
 
     // list of all subgroups belonging to this group
     private RuleSubGroupCollection subGroupCollection = new RuleSubGroupCollection();
@@ -88,6 +94,45 @@ public class RuleGroup implements Serializable
     {
         this.validFrom = validFrom;
     }
+    
+    /**
+     * checks if the rulegroup is valid on today's date by comparing
+     * the valid from and valid until settings
+     * 
+     */
+    public boolean isValid() throws Exception
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateFrom = sdf.parse(validFrom);
+		Date dateUntil = sdf.parse(validUntil);
+		
+		Calendar today = Calendar.getInstance();
+		today.set(Calendar.HOUR_OF_DAY, 0);
+		today.set(Calendar.MINUTE, 0);
+		today.set(Calendar.SECOND, 0);
+		today.set(Calendar.MILLISECOND, 0);
+
+		Calendar from = Calendar.getInstance();
+		from.setTime(dateFrom);
+		from.set(Calendar.HOUR_OF_DAY, 0);
+		from.set(Calendar.MINUTE, 0);
+		from.set(Calendar.SECOND, 0);
+		from.set(Calendar.MILLISECOND, 0);
+		
+		Calendar until = Calendar.getInstance();
+		until.setTime(dateUntil);
+		until.set(Calendar.HOUR_OF_DAY, 0);
+		until.set(Calendar.MINUTE, 0);
+		until.set(Calendar.SECOND, 0);
+		until.set(Calendar.MILLISECOND, 0);
+
+		// from javadoc:
+		// ... the value 0 if the time represented by the argument is equal to the time represented by this Calendar
+		// a value less than 0 if the time of this Calendar is before the time represented by the argument
+		// and a value greater than 0 if the time of this Calendar is after the time represented by the argument.
+		//
+		return today.compareTo(from)>=0 && today.compareTo(until)<=0;
+	}
     
     /**
      * returns the valid until string of the group 
@@ -155,11 +200,13 @@ public class RuleGroup implements Serializable
             RuleSubGroup subGroup = (RuleSubGroup)subGroupCollection.get(i);
             subGroup.setTimestampFormat(timestampFormat);
             subGroup.setOutputType(outputType);
+            subGroup.setPreserveRuleExcecutionResults(preserveRuleExcecutionResults);
             subGroup.runRules(objectLabel, object);
         }
         // execute all actions on this object
+        // the mothod gives back the number of actions that were executed
         Action action = new Action(this.getFailed(), object, outputAfterActions);
-        action.executeActions(actions);
+        numberOfActionsExecuted = action.executeActions(actions);
     }
     
     /**
@@ -183,17 +230,56 @@ public class RuleGroup implements Serializable
     {
         return actions.size();
     }
+    
+    /**
+     * returns the total number of actions of this group
+     */
+    public int getNumberOfActionsExecuted()
+    {
+        return numberOfActionsExecuted;
+    }
+    
     /**
      * returns the number of rules that failed over all
      * subgroups
      */
-    public int getNumberOfRulesFailed()
+    public long getNumberOfRulesRun()
     {
-        int count = 0;
+        long count = 0;
+        for(int i=0;i<subGroupCollection.size();i++)
+        {
+            RuleSubGroup subGroup = (RuleSubGroup)subGroupCollection.get(i);
+            count = count + subGroup.getNumberOfRulesRun();
+        }
+        return count;
+    }
+    
+    /**
+     * returns the number of rules that failed over all
+     * subgroups
+     */
+    public long getNumberOfRulesFailed()
+    {
+        long count = 0;
         for(int i=0;i<subGroupCollection.size();i++)
         {
             RuleSubGroup subGroup = (RuleSubGroup)subGroupCollection.get(i);
             count = count + subGroup.getNumberOfRulesFailed();
+        }
+        return count;
+    }
+    
+    /**
+     * returns the number of rules that passed over all
+     * subgroups
+     */
+    public long getNumberOfRulesPassed()
+    {
+        long count = 0;
+        for(int i=0;i<subGroupCollection.size();i++)
+        {
+            RuleSubGroup subGroup = (RuleSubGroup)subGroupCollection.get(i);
+            count = count + subGroup.getNumberOfRulesPassed();
         }
         return count;
     }
@@ -209,6 +295,9 @@ public class RuleGroup implements Serializable
         {
             RuleSubGroup subGroup = (RuleSubGroup)subGroupCollection.get(i);
             collection.addAll(subGroup.getExecutionCollection().getResults());
+            collection.addNumberOfRulesRun(subGroup.getNumberOfRulesRun());
+            collection.addNumberOfRulesPassed(subGroup.getNumberOfRulesPassed());
+            collection.addNumberOfRulesFailed(subGroup.getNumberOfRulesFailed());
         }
         return collection;
     }
@@ -420,14 +509,34 @@ public class RuleGroup implements Serializable
 		this.dependentRuleGroupId = dependentRuleGroupId;
 	}
 
-	public int getDependentRuleGroupCondition()
+	public int getDependentRuleGroupExecuteIf()
 	{
-		return dependentRuleGroupCondition;
+		return dependentRuleGroupExecuteIf;
 	}
 
-	public void setDependentRuleGroupCondition(int dependentRuleGroupCondition)
+	public void setDependentRuleGroupExecuteIf(int dependentRuleGroupExecuteIf)
 	{
-		this.dependentRuleGroupCondition = dependentRuleGroupCondition;
+		this.dependentRuleGroupExecuteIf = dependentRuleGroupExecuteIf;
+	}
+
+	public boolean getPreserveRuleExcecutionResults()
+	{
+		return preserveRuleExcecutionResults;
+	}
+
+	public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
+	{
+		this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;
+	}
+
+	public int getSkipped()
+	{
+		return skipped;
+	}
+
+	public void setSkipped(int skipped)
+	{
+		this.skipped = skipped;
 	}
     
 }
