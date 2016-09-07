@@ -288,7 +288,7 @@ public class BusinessRulesEngine
 	            	executionCollection.increasePassedGroupCount();
 	            	
 	            }
-	            // execution reults will be added unless the preserveRuleExcecutionResults is set to false
+	            // execution results will be added unless the preserveRuleExcecutionResults is set to false
 	            executionCollection.addAll(group.getExecutionCollection().getResults());
 	            // add the number of executed actions by the rulegroup
 	            executionCollection.addNumberOfActionsExecuted(group.getNumberOfActionsExecuted());
@@ -326,7 +326,7 @@ public class BusinessRulesEngine
     /**
      * method runs the rules for all groups and subgroups.
      * the csv file is parsed, split into rows and fields
-     * using the defined field seperator.
+     * using the defined field separator.
      */
     public void run(String csvfileName,String fieldSeperator) throws Exception
     {
