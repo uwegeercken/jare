@@ -71,8 +71,8 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION = "0.79";
-	private static final String REVISION = "3";
-	private static final String LAST_UPDATE = "2016-09-02";
+	private static final String REVISION = "4";
+	private static final String LAST_UPDATE = "2016-09-08";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -180,7 +180,7 @@ public class BusinessRulesEngine
     }
     
     /**
-     * engine can be instantiated by passing a zipfile containing xml
+     * engine can be instantiated by passing a zip file containing xml
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
@@ -200,7 +200,7 @@ public class BusinessRulesEngine
     }
     
     /**
-     * engine can be instantiated by passing a zipfile containing xml
+     * engine can be instantiated by passing a zip file containing xml
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
@@ -217,6 +217,34 @@ public class BusinessRulesEngine
             if(!entry.isDirectory())
             {
             	parseXmlInputStream(zipFile.getInputStream(entry));
+            }
+        }
+        zipFile.close();
+        prioritizeRuleGroups();
+    }
+    
+    /**
+     * engine can be instantiated by passing a zip file containing xml
+     * rule files and specifying an array of the names of the rule files to process.
+     * all other rule files will be ignored.
+     * 
+     * the files will be parsed and all rules from all relevant files
+     * will be collected
+     */
+    public BusinessRulesEngine(ZipFile zipFile, String[] ruleFiles) throws Exception
+    {
+        for(Enumeration<?> entries = zipFile.entries();entries.hasMoreElements();)
+        {
+            ZipEntry entry = (ZipEntry)entries.nextElement();
+            if(!entry.isDirectory())
+            {
+            	for(int i=0;i<ruleFiles.length;i++)
+            	{
+            		if(ruleFiles[i].equals(entry.getName()))
+            		{
+            			parseXmlInputStream(zipFile.getInputStream(entry));
+            		}
+            	}
             }
         }
         zipFile.close();
@@ -901,7 +929,7 @@ public class BusinessRulesEngine
     	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv -s=; -v");
     	System.out.println();
     	System.out.println("published as open source under the GPL. read the licence notice");
-    	System.out.println("all code by uwe geercken, 2006-2016. uwe.geercken@web.de - www.datamelt.com");
+    	System.out.println("all code by uwe geercken, 2006-2016. uwe.geercken@web.de");
     	System.out.println("published under GPL3");
     	System.out.println();
     }
