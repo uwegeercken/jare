@@ -1,8 +1,3 @@
-/*
- * Created on 15.09.2006
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 import java.text.SimpleDateFormat;
@@ -10,23 +5,23 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * checks if a string of characters is not equal to antoher
- * string of characters
- * 
+ * Checks if a given string is not equal to another string, if two numbers are not equal or if two dates are not equal.
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
+ * The default format for comparing dates is yyyy-MM-dd.
  * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckIsNotEqual extends GenericCheck
 {
 	/**
-     * checks two int values if they are not equal 
+     * Evaluates if two integer values are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
 	public static boolean evaluate(int value1, int value2)
     {
@@ -41,7 +36,11 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
 	/**
-     * checks two long values if they are not equal 
+     * Evaluates if two long values are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
     public static boolean evaluate(long value1, long value2)
     {
@@ -56,7 +55,11 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks two long values if they are not equal 
+     * Evaluates if a long value and an integer value are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
     public static boolean evaluate(long value1, int value2)
     {
@@ -71,7 +74,11 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks two long values if they are not equal 
+     * Evaluates if an integer value and an long value are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
     public static boolean evaluate(int value1, long value2)
     {
@@ -86,7 +93,11 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks two double values if they are not equal 
+     * Evaluates if two double values are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
     public static boolean evaluate(double value1, double value2)
     {
@@ -101,7 +112,11 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks two float values if they are not equal 
+     * Evaluates if two float values are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
     public static boolean evaluate(float value1, float value2)
     {
@@ -116,7 +131,11 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks two boolean values if they are not equal 
+     * Evaluates if two boolean values are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
     public static boolean evaluate(boolean value1, boolean value2)
     {
@@ -124,10 +143,12 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks if a string of characters is not equal to antoher
-     * string of characters
+     * Evaluates if two string values are not equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are not equal
      */
-
     public static boolean evaluate(String value1, String value2)
     {
     	if(value1!=null && value2!=null)
@@ -141,9 +162,12 @@ public class CheckIsNotEqual extends GenericCheck
     }
 
     /**
-     * checks if a string of characters is not equal to antoher
-     * string of characters and ignores or does not ignore
-     * the case of the values
+     * Evaluates if two string values are not equal.
+     * 
+     * @param value1		first value for comparison
+     * @param value2		second value for comparison
+     * @param ignoreCase	indication if the case of the values shall be ignored for comparison
+     * @return				indication if the two values are not equal
      */
     public static boolean evaluate(String value1, String value2, boolean ignoreCase)
     {
@@ -180,8 +204,12 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first date string is not equal to the second
-     * date string, using the given date format
+     * Evaluates if two dates provided as string values are not equal using the specified date format.
+     * 
+     * @param value1		first value for comparison
+     * @param value2		second value for comparison
+     * @param format		the format of both dates according to the SimpleDateFormat class
+     * @return				indication if the two values are not equal
      */
     public static boolean evaluate(String value1, String value2, String format)
     {
@@ -212,8 +240,12 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks, if the date is not equal to the
-     * date string, using the given date format
+     * Evaluates if the date and the date provided as string value are not equal using the specified date format.
+     * 
+     * @param date1			first value for comparison
+     * @param value2		second value for comparison
+     * @param format		the format of the date provided as string according to the SimpleDateFormat class
+     * @return				indication if the two values are not equal
      */
     public static boolean evaluate(Date date1, String value2, String format)
     {
@@ -243,8 +275,11 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first date string is not equal to the second
-     * date string, using the default date format
+     * Evaluates if the date and the date provided as string value are not equal using the default date format.
+     * 
+     * @param date1			first value for comparison
+     * @param value			second value for comparison
+     * @return				indication if the two values are not equal
      */
     public static boolean evaluate(Date date1, String value)
     {
@@ -274,8 +309,37 @@ public class CheckIsNotEqual extends GenericCheck
     }
     
     /**
-     * checks, if the date is not equal to the other date using the default
-     * date format.
+     * Evaluates if the two dates are not equal using the specified date format.
+     * 
+     * @param date1			first value for comparison
+     * @param date2			second value for comparison
+     * @param format		the format of the date provided as string according to the SimpleDateFormat class
+     * @return				indication if the two values are not equal
+     */
+    public static boolean evaluate(Date date1, Date date2, String format)
+    {
+    	SimpleDateFormat sdf = new SimpleDateFormat(format);
+        
+    	String date1String=null;
+    	String date2String=null;
+    	
+    	if(date1!=null)
+    	{
+    		date1String = sdf.format(date1);
+    	}
+    	if(date2!=null)
+    	{
+    		date2String = sdf.format(date2);
+    	}
+    	return !date1String.equals(date2String);
+    }
+    
+    /**
+     * Evaluates if the date and the date provided as string value are not equal using the default date format.
+     * 
+     * @param date1			first value for comparison
+     * @param date2			second value for comparison
+     * @return				indication if the two values are not equal
      */
     public static boolean evaluate(Date date1, Date date2)
     {

@@ -7,24 +7,23 @@ package com.datamelt.rules.implementation;
 
 /**
  * checks if a string of characters does not match a given pattern.
- * the pattern is a regular expression as documented in the
- * java api.
- * 
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
+ * the pattern is a regular expression as documented in the java api.
  * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckNotMatches extends GenericCheck
 {
 	/**
-	 * specify the string to evaluate and a regular expression pattern 
-	 */
+     * Evaluates if the string does not match the given regular expression pattern
+     * 
+     * @param value		the value to compare
+     * @param pattern	the pattern to compare against
+     * @return			indication if the string does not match the pattern
+     */
     public static boolean evaluate(String value,String pattern)
     {
         if(value!=null && pattern!=null)

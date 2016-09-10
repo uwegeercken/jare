@@ -6,23 +6,23 @@
 package com.datamelt.rules.implementation;
 
 /**
- * <p>Checks if a string is empty meaning: it is of zero length and is NOT null.</p>
+ * Checks if a string is empty meaning: it is of zero length and is NOT null.
+ * <p>
  * 
- * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckIsEmpty extends GenericCheck
 {
+    
     /**
-	 * specify a string to be evaluated
-	 */
+     * Evaluates if a string is empty
+     * 
+     * @param value	the value to evaluate
+     * @return		indication if the given string is empty
+     */
     public static boolean evaluate(String value)
     {
         if(value!=null)

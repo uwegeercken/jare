@@ -1,33 +1,28 @@
-/*
- * Created on 15.09.2006
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 /**
- * checks if a string containing multiple values separated by comma (,) 
- * matches a given string. spaces in the individual values are removed (trim)
- * 
+ * Checks if the given string value is contained in a list of values separated by comma.
+ * <p>
+ * spaces in the individual values are removed
+ * <p>
  * an example for a list would be:
- * 
+ * <p>
  * 		Rome, Paris, New York, Berlin
- * 
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckIsInList extends GenericCheck
 {
-	/**
-     * checks, if the string is contained in the list of values
-     * separated by commas
+	
+    /**
+     * Checks if the given string value is contained in a list of values separated by comma.
+     * 
+     * @param value		the first value for the comparison
+     * @param list		list of string values separated by commas
+     * @return			indication if the value is contained in the list of values
      */
     public static boolean evaluate(String value,String list)
     {
@@ -48,8 +43,12 @@ public class CheckIsInList extends GenericCheck
     }
     
     /**
-     * checks, if the string is contained in the list of values
-     * separated by commas, ignore or not ignoring the case
+     * Checks if the given string value is contained in a list of values separated by comma.
+     * 
+     * @param value			the first value for the comparison
+     * @param list			list of string values separated by commas
+     * @param ignoreCase	indication if the case of the values shall be ignored for comparison
+     * @return				indication if the value is contained in the list of values
      */
     public static boolean evaluate(String value, String list, boolean ignoreCase)
     {
@@ -81,8 +80,13 @@ public class CheckIsInList extends GenericCheck
     }
     
     /**
-     * checks, if the integer is contained in the list of values
-     * separated by commas
+     * Checks if the given integer value is contained in a list of values separated by comma.
+     * <p>
+     * Each value in the list is converted to an integer value.
+     * 
+     * @param value		the first value for the comparison
+     * @param list		list of integer values separated by commas
+     * @return			indication if the value is contained in the list of values
      */
     public static boolean evaluate(int value, String list)
     {
@@ -100,8 +104,13 @@ public class CheckIsInList extends GenericCheck
     }
     
     /**
-     * checks, if the long is contained in the list of values
-     * separated by commas
+     * Checks if the given long value is contained in a list of values separated by comma.
+     * <p>
+     * Each value in the list is converted to a long value.
+     * 
+     * @param value		the first value for the comparison
+     * @param list		list of long values separated by commas
+     * @return			indication if the value is contained in the list of values
      */
     public static boolean evaluate(long value, String list)
     {

@@ -10,6 +10,12 @@ import com.datamelt.rules.core.ActionObject;
 import com.datamelt.rules.core.Parameter;
 import com.datamelt.rules.core.XmlAction;
 
+/**
+ * Utility class to translate types, retrieve methods and invoke methods on objects
+ * 
+ * @author uwe
+ *
+ */
 public class ClassUtility
 {
 	public static final String TYPE_INTEGER   = "integer";
@@ -26,6 +32,11 @@ public class ClassUtility
     
 	 /**
      * method is used to return a class corresponding to the type passed to it.
+     * 
+     */
+    /**
+     * @param type	the name of the type according to constants defined in this class
+     * @return		a Java class corresponding to the type specified
      */
     public static Class<?> getClass(String type)
     {
@@ -76,9 +87,13 @@ public class ClassUtility
     }
     
     /**
-     * in the xml file a <type> and a <value> is specified.
+     * in the xml file of a rule 'type' and 'value' are specified.
      * using these two components, a corresponding object is created. these objects will be passed
-     * into a method as an array of objects, so that the method of the objects can be invoked .
+     * into a method as an array of objects, so that the method of the objects can be invoked.
+     * 
+     * @param type		the name of the type according to constants defined in this class		
+     * @param value		the value for the object to be created
+     * @return			an object corresponding to the type and value specified
      */
     public static Object getObject(String type, String value)
     {
@@ -134,6 +149,16 @@ public class ClassUtility
         }
     }
     
+    
+    /**
+     * Invokes the method on the given object and with the specified parameters.
+     * 
+     * @param object		the object to invoke the method on
+     * @param method		the method to be invoked
+     * @param parameters	the parameters required for the method
+     * @return				the object that is created by invoking the method
+     * @throws Exception	an exception if the method can not be invoked
+     */
     public static Object invokeObjectMethod(Object object, Method method, ArrayList <Parameter> parameters) throws Exception
     {
     	 // create the actual value of the method parameter/argument
@@ -155,6 +180,16 @@ public class ClassUtility
         return method.invoke(object,parameterObjects);
     }
     
+    /**
+     * Invokes the setter method on the given object and with the specified parameters.
+     * 
+     * @param object		the object to invoke the method on
+     * @param resultObject	the resulting object
+     * @param method		the method to be invoked
+     * @param parameters	the parameters required for the method
+     * @return				the object that is created by invoking the method
+     * @throws Exception	an exception if the method can not be invoked
+     */
     public static Object invokeObjectSetterMethod(Object object, Object resultObject, Method method, ArrayList <Parameter> parameters) throws Exception
     {
     	 // create the actual value of the method parameter/argument
@@ -176,6 +211,12 @@ public class ClassUtility
         return method.invoke(object,parameterObjects);
     }
     
+    /**
+     * Creates a list of parameter values.
+     * 
+     * @param parameters	list of parameters
+     * @return				a list of parameter values corresponding to the parameters provided
+     */
     public static Object getParameterValuesArray(ArrayList <Parameter> parameters)
     {
     	 // create the actual value of the method parameter/argument
@@ -188,6 +229,14 @@ public class ClassUtility
     	return parameterValues;
     }
     
+    
+    /**
+     * Creates a method of an action.
+     * 
+     * @param action		the action for which the method is created
+     * @return				a method for the action
+     * @throws Exception	throws an exception if the method can not be created
+     */
     public static Method getActionMethod(XmlAction action) throws Exception
     {
     	Class<?> parameterTypes[]=null;
@@ -218,6 +267,15 @@ public class ClassUtility
         return  object.getClass().getMethod(action.getMethodName(),parameterTypes);
     }
     
+    /**
+     * Invokes a method of an action.
+     * 
+     * @param action		the action for which the method is created
+     * @param object		the object to invoke the action on
+     * @param methodAction	the method to invoke
+     * @return				the resulting object of the invoked method
+     * @throws Exception	throws an exception if the method can not be invoked
+     */
     public static Object invokeActionMethod(XmlAction action, Object[] object, Method methodAction) throws Exception
     {
     	int numberOfObjects=0;
@@ -249,6 +307,14 @@ public class ClassUtility
         return result;
     }
     
+    /**
+     * Get the method corresponding to the given action and the concrete action object.
+     * 
+     * @param action			the action for which to create the method
+     * @param actionObject		the concrete action object
+     * @return					the method created from the action
+     * @throws Exception		throws an exception if the method can not be retrieved for the object
+     */
     public static Method getObjectMethod(XmlAction action, ActionObject actionObject) throws Exception
     {
     	Class<?> parameterTypes[]= new Class[actionObject.getParameters().size()];

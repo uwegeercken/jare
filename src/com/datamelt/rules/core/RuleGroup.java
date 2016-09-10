@@ -308,10 +308,10 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * the subgroups can be combined using either a logical <and> or a logical <or>.
+     * the subgroups can be combined using either a logical 'and' or a logical 'or'.
      * the logical operator is stored with the subgroup and expresses how to logically combine
      * the subgroup to the PREVIOUS subgroup.
-     * the first subgroup will be combined with the second subgroup. the result is a <0> or <1> (passed or failed).
+     * the first subgroup will be combined with the second subgroup. the result is a '0' or '1' (passed or failed).
      * then the result will be compared to the next/third subgroup using the logical operator of the third subgroup.
      * 
      * here is the logic in a diagram form:

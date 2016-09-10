@@ -59,7 +59,9 @@ public class Row implements Serializable
     }
     
     /**
-     * returns the array of fields that belong to the given row object 
+     * returns the array of fields that belong to the given row object
+     *  
+     * @return		an array of strings representing the fields
      */
     public String[] getFields()
     {
@@ -67,7 +69,9 @@ public class Row implements Serializable
     }
     
     /**
-     * sets the array of fields that belong to the given row object 
+     * sets the array of fields that belong to the given row object
+     *  
+     * @param fields	array of strings representing the fields
      */
     public void setFields(String[] fields)
     {
@@ -75,7 +79,9 @@ public class Row implements Serializable
     }
     
     /**
-     * returns the number of fields that belong to the given row object 
+     * returns the number of fields that belong to the given row object
+     *  
+     * @return	the total number of fields
      */
     public int getNumberOfFields()
     {
@@ -90,7 +96,11 @@ public class Row implements Serializable
     }
     
     /**
-     * sets the value of a field in the array of fields 
+     * sets the value of a field in the array of fields
+     *  
+     * @param index			index of the field to change
+     * @param value			the value of the field
+     * @throws Exception	exception if the field is not in the array of fields
      */
     public void setField(int index, String value)throws Exception
     {
@@ -98,7 +108,11 @@ public class Row implements Serializable
     }
     
     /**
-     * sets the value of a field in the array of fields 
+     * sets the value of a field in the array of fields
+     *  
+     * @param index			index of the field to change
+     * @param value			the value of the field
+     * @throws Exception	exception if the field is not in the array of fields
      */
     public void setField(int index, int value)throws Exception
     {

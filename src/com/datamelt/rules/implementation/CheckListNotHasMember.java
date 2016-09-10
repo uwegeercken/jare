@@ -26,8 +26,11 @@ package com.datamelt.rules.implementation;
 public class CheckListNotHasMember extends GenericCheck
 {
 	/**
-     * checks, if the string is not contained in the list of values
-     * separated by commas
+     * Evaluates if the list does not contain the given value as a member
+     * 
+     * @param list		list of string values separated by commas
+     * @param value		the value to compare against
+     * @return			indication if the given string is not a member of the list
      */
     public static boolean evaluate(String list, String value)
     {
@@ -48,8 +51,12 @@ public class CheckListNotHasMember extends GenericCheck
     }
     
     /**
-     * checks, if the string is not contained in the list of values
-     * separated by commas, ignore or not ignoring the case
+     * Evaluates if the list does not contain the given value as a member
+     * 
+     * @param list			list of string values separated by commas
+     * @param value			the value to compare against
+     * @param ignoreCase	indication if the case of the values shall be ignored for comparison
+     * @return				indication if the given string is not a member of the list
      */
     public static boolean evaluate(String list, String value, boolean ignoreCase)
     {
@@ -81,8 +88,11 @@ public class CheckListNotHasMember extends GenericCheck
     }
     
     /**
-     * checks, if the list of values not contains a certain integer value.
-     * the values of the list are expected all to be of type integer.
+     * Evaluates if the list does not contain the given value as a member
+     * 
+     * @param list		list of integer values separated by commas
+     * @param value		the value to compare against
+     * @return			indication if the given integer is not member of the list
      */
     public static boolean evaluate(String list, int value )
     {
@@ -100,8 +110,11 @@ public class CheckListNotHasMember extends GenericCheck
     }
     
     /**
-     * checks, if the list of values not contains a certain long value.
-     * the values of the list are expected all to be of type long.
+     * Evaluates if the list does not contain the given value as a member
+     * 
+     * @param list		list of long values separated by commas
+     * @param value		the value to compare against
+     * @return			indication if the given long is not member of the list
      */
     public static boolean evaluate(String list, long value)
     {

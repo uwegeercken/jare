@@ -1,27 +1,21 @@
-/*
- * Created on 15.09.2006
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 /**
- * checks if a given value starts with the compare value.
- * 
+ * Checks if a string starts with a given other string.
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckStartsWith extends GenericCheck
 {
 	/**
-     * checks if a string of characters starts with a certain value
+     * Check if the specified value starts with given compare value
+     * 
+     * @param value			the first value for comparison
+     * @param compareValue	the second value for comparison - to compare against the first value
+     * @return				indication if the first value starts with the second value
      */
     public static boolean evaluate(String value,String compareValue)
     {
@@ -37,8 +31,12 @@ public class CheckStartsWith extends GenericCheck
     }
     
     /**
-     * checks if a string of characters starts with a certain value
-     * and ignores or does not ignore the case of the values. 
+     * Check if the specified value starts with given compare value
+     * 
+     * @param value			the first value for comparison
+     * @param compareValue	the second value for comparison - to compare against the first value
+     * @param ignoreCase	indication if the case of the values shall be ignored for comparison
+     * @return				indication if the first value starts with the second value
      */
     public static boolean evaluate(String value,String compareValue,boolean ignoreCase)
     {

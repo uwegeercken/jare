@@ -444,9 +444,9 @@ public class RuleSubGroup implements Serializable
     
     
     /**
-     * the rules of one subgroup can be joined using either a logical <and> or a logical <or>.
-     * if the rules are connected with an <and>, then all rules must pass for the subgroup to pass.
-     * if they are connected with an <or> condition, then at least one must pass for the subgroup to pass.
+     * the rules of one subgroup can be joined using either a logical 'and' or a logical 'or'.
+     * if the rules are connected with an 'and', then all rules must pass for the subgroup to pass.
+     * if they are connected with an 'or' condition, then at least one must pass for the subgroup to pass.
      * 
      * returns [1] if failed or [0] if the subgroup did not fail
      */

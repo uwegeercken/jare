@@ -1,20 +1,11 @@
-/*
- * Created on 28.06.2008
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 /**
- * checks if an integer is not between two given numbers 
+ * Checks if one number is not between two given other numbers - excluding the upper and lower limit.
+ * <p>
  * 
- * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
@@ -22,10 +13,13 @@ public class CheckIsNotBetween extends GenericCheck
 {
 	
     
-    /**
-	 * specify a double to evaluate and a string which contains the upper and the lower limit
-	 * seperated by a comma 
-	 */
+	/**
+	 * Evaluate if a double value is not between an upper and the lower limit provided as string values and separated by a comma.
+	 *  
+     * @param value					the first value for comparison
+     * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
+     * @return						indication if the first value is not between the upper and lower limit
+     */
     public static boolean evaluate(double value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -36,9 +30,12 @@ public class CheckIsNotBetween extends GenericCheck
     }
     
     /**
-	 * specify a float to evaluate and a string which contains the upper and the lower limit
-	 * seperated by a comma 
-	 */
+	 * Evaluate if a float value is not between an upper and the lower limit provided as string values and separated by a comma.
+	 *  
+     * @param value					the first value for comparison
+     * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
+     * @return						indication if the first value is not between the upper and lower limit
+     */
     public static boolean evaluate(float value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -48,26 +45,40 @@ public class CheckIsNotBetween extends GenericCheck
         return value<lowerLimit || value>upperLimit;
     }
 
-	/**
-	 * specify an integer to evaluate, an integer for the lower limit and an integer for the upper limit
-	 */
+	
+    /**
+	 * Evaluate if an integer value is not between an upper and the lower limit provided as integer values.
+	 *  
+     * @param value				the first value for comparison
+     * @param valueLowerLimit	the lower limit for the comparison
+     * @param valueUpperLimit	the upper limit for the comparison
+     * @return					indication if the first value is between the upper and lower limit
+     */
     public static boolean evaluate(int value,int valueLowerLimit, int valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
     }
     
     /**
-	 * specify a long to evaluate, a long for the lower limit and an long for the upper limit
-	 */
+	 * Evaluate if a long value is not between an upper and the lower limit provided as long values.
+	 *  
+     * @param value				the first value for comparison
+     * @param valueLowerLimit	the lower limit for the comparison
+     * @param valueUpperLimit	the upper limit for the comparison
+     * @return					indication if the first value is between the upper and lower limit
+     */
     public static boolean evaluate(long value,long valueLowerLimit, long valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
     }
     
     /**
-	 * specify an integer to evaluate and a string which contains the upper and the lower limit
-	 * seperated by a comma 
-	 */
+	 * Evaluate if an integer value is not between an upper and the lower limit provided as string values and separated by a comma.
+	 *  
+     * @param value					the first value for comparison
+     * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
+     * @return						indication if the first value is not between the upper and lower limit
+     */
     public static boolean evaluate(int value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -78,9 +89,12 @@ public class CheckIsNotBetween extends GenericCheck
     }
     
     /**
-	 * specify an long to evaluate and a string which contains the upper and the lower limit
-	 * seperated by a comma 
-	 */
+	 * Evaluate if a long value is not between an upper and the lower limit provided as string values and separated by a comma.
+	 *  
+     * @param value					the first value for comparison
+     * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
+     * @return						indication if the first value is not between the upper and lower limit
+     */
     public static boolean evaluate(long value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -91,16 +105,26 @@ public class CheckIsNotBetween extends GenericCheck
     }
     
     /**
-	 * specify a double to evaluate, a double for the lower limit and a double for the upper limit
-	 */
+	 * Evaluate if a double value is not between an upper and the lower limit provided as double values.
+	 *  
+     * @param value				the first value for comparison
+     * @param valueLowerLimit	the lower limit for the comparison
+     * @param valueUpperLimit	the upper limit for the comparison
+     * @return					indication if the first value is between the upper and lower limit
+     */
     public static boolean evaluate(double value,double valueLowerLimit, double valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
     }
     
     /**
-	 * specify a float to evaluate, a float for the lower limit and a float for the upper limit
-	 */
+	 * Evaluate if a float value is not between an upper and the lower limit provided as float values.
+	 *  
+     * @param value				the first value for comparison
+     * @param valueLowerLimit	the lower limit for the comparison
+     * @param valueUpperLimit	the upper limit for the comparison
+     * @return					indication if the first value is between the upper and lower limit
+     */
     public static boolean evaluate(float value,float valueLowerLimit, float valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;

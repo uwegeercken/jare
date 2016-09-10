@@ -6,25 +6,22 @@
 package com.datamelt.rules.implementation;
 
 /**
- * checks, if the length of the string
- * (number of digits) if exactly equal to the given length
- * 
+ * checks, if the length of the given value (number of digits/characters) is equal to the given length.
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckLength extends GenericCheck
 {
     
-    /**
-     * checks, if the length of the string
-     * (number of characters) is equal to the given length
+	/**
+     * Evaluates if the length (number of digits/characters) of the value is equal to the given length.
+     * 
+     * @param value		the value to compare
+     * @param length	the length to compare against
+     * @return			indication if the length of the value is equal to the expected length
      */
     public static boolean evaluate(String value, int length)
     {
@@ -47,8 +44,11 @@ public class CheckLength extends GenericCheck
     }
     
     /**
-     * checks, if the length of the string
-     * (number of characters) is equal to the given length
+     * Evaluates if the length (number of digits/characters) of the value is equal to the given length.
+     * 
+     * @param value		the value to compare
+     * @param length	the length to compare against
+     * @return			indication if the length of the value is equal to the expected length
      */
     public static boolean evaluate(String value, long length)
     {
@@ -71,8 +71,11 @@ public class CheckLength extends GenericCheck
     }
     
     /**
-     * checks if the length of the integer value
-     * (number of digits) is equal to the given length 
+     * Evaluates if the length (number of digits/characters) of the value is equal to the given length.
+     * 
+     * @param value		the value to compare
+     * @param length	the length to compare against
+     * @return			indication if the length of the value is equal to the expected length
      */
     public static boolean evaluate(int value, int length)
     {
@@ -92,8 +95,11 @@ public class CheckLength extends GenericCheck
     }
     
     /**
-     * checks if the length of the integer value
-     * (number of digits) is equal to the given length 
+     * Evaluates if the length (number of digits/characters) of the value is equal to the given length.
+     * 
+     * @param value		the value to compare
+     * @param length	the length to compare against
+     * @return			indication if the length of the value is equal to the expected length
      */
     public static boolean evaluate(int value, long length)
     {
@@ -113,8 +119,11 @@ public class CheckLength extends GenericCheck
     }
     
     /**
-     * checks if the length of the long value
-     * (number of digits) is equal to the given length 
+     * Evaluates if the length (number of digits/characters) of the value is equal to the given length.
+     * 
+     * @param value		the value to compare
+     * @param length	the length to compare against
+     * @return			indication if the length of the value is equal to the expected length
      */
     public static boolean evaluate(long value, int length)
     {

@@ -31,41 +31,42 @@ import com.datamelt.util.Splitter;
 
 
 /**
- * <p>engine for executing business rules.</p>
- * 
- * <p>rules are based on xml. additionally a replacements (properties) file might
+ * engine for executing business rules.
+ * <p>
+ * rules are defined in xml files. additionally a replacements (properties) file might
  * be specified, where variable names and replacement values for them are
  * specified. this way values, that are used repeatedly in an xml file
- * might be defined once and used multiple times.</p>
- * 
- * <p>the engine executes rules which are defined in the form of groups and
+ * might be defined once and used multiple times.
+ * <p>
+ * the engine executes rules which are defined in the form of groups and
  * subgroups. rules in a subgroup belong together and are chained using
- * either <and> or <or>. additionally subgroups may be chained together
- * <and> or <or>.</p>
- * 
- * <p>the engine accepts multiple xml rule files as input. this way the rules may
+ * either 'and' or 'or'. additionally subgroups may be chained together
+ * 'and' or 'or'.
+ * <p>
+ * the engine accepts multiple xml rule files as input. this way the rules may
  * be divided into multiple files. each file must contain a complete group of
- * rules; groups can not be split over multiple files.<p>
- * 
- * <p>rule xml files can also be put into a zip archive. the program will process
- * the zip file and read all rule xml files from it.</p>
- * 
- * <p>the rules are executed against the data using a certain check or condition.
- * these are defined in classes implementing the GenericCheck interface.</p>
- * 
- * <p>rules defined in the xml file(s) are instantiated using java reflection.
+ * rules; groups can not be split over multiple files.
+ * <p>
+ * rule xml files can also be put into a zip archive. the program will process
+ * the zip file and read all rule xml files from it.
+ * <p>
+ * the rules are executed against the data using a certain check or condition.
+ * these are defined in classes implementing the GenericCheck interface.
+ * <p>
+ * rules defined in the xml file(s) are instantiated using java reflection.
  * usually the return value of a method is compared to an expected value. or
  * two object are compared against each other. or the return value is compared
- * against a fix condition such as "not null".</p> 
- * 
- * <p>the getRuleDefinition method returns a simple readable representation and overview
- * of the rule logic.</p>
- * 
- * <p>please read the available documentation.</p>
+ * against a fix condition such as 'not null'. * 
+ * <p>
+ * the getRuleDefinition method returns a simple readable representation and overview
+ * of the rule logic.
+ * <p>
+ * published under GPL3
+ * <p>
+ * please read the available documentation.</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de
  * 
- * published under GPL3
  */
 public class BusinessRulesEngine
 {
@@ -599,8 +600,8 @@ public class BusinessRulesEngine
     }
     
     /**
-     * returns if the method <run> has been invoked or not,
-     * meaning if the rules ran or not.
+     * returns if the method: 'run' has been invoked or not,
+     * meaning if the ruleengine ran or not.
      */
     public boolean getStatus()
     {

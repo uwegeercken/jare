@@ -1,8 +1,3 @@
-/*
- * Created on 15.09.2006
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 import java.text.SimpleDateFormat;
@@ -10,25 +5,22 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * checks if one value is smalleror equal than the other. in case
- * a string value is used, it checks, if the length of the
- * string if smaller than the given length
- * 
+ * Checks if one value is smaller or equal compared to the other value. In case a string value is used, it checks, if the length of the
+ * string if smaller or equal to the given length.
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckIsSmallerOrEqual extends GenericCheck
 {
-    /**
-     * checks, if the length of the
-     * string if smaller or equal than the given length
+	/**
+     * Evaluates if the string length is smaller or equal to the given length.
+     * 
+     * @param value		the value to compare
+     * @param length	the length to compare against
+     * @return			indication if the length of the value is smaller or equal
      */
     public static boolean evaluate(String value, int length)
     {
@@ -50,8 +42,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the length of the
-     * string if smaller or equal than the given length
+     * Evaluates if the string length is smaller or equal to the given length.
+     * 
+     * @param value		the value to compare
+     * @param length	the length to compare against
+     * @return			indication if the length of the value is smaller or equal
      */
     public static boolean evaluate(String value, long length)
     {
@@ -73,8 +68,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(long value1, long value2)
     {
@@ -89,8 +87,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(int value1, int value2)
     {
@@ -105,8 +106,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(double value1, double value2)
     {
@@ -121,8 +125,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(double value1, long value2)
     {
@@ -137,8 +144,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(double value1, float value2)
     {
@@ -153,8 +163,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(double value1, int value2)
     {
@@ -169,8 +182,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(float value1, int value2)
     {
@@ -185,8 +201,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(float value1, long value2)
     {
@@ -201,8 +220,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(float value1, double value2)
     {
@@ -217,8 +239,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(long value1, int value2)
     {
@@ -233,8 +258,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the first value is smaller or equal than
-     * the second value
+     * Evaluates if the first value is smaller or equal to the second value.
+     * 
+     * @param value1	the first value for comparison
+     * @param value2	the second value for comparison
+     * @return			indication if the first value is smaller or equal to the second value
      */
     public static boolean evaluate(float value1, float value2)
     {
@@ -249,12 +277,15 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
 
     /**
-     * checks, if the first date string is smaller or equal than the second
-     * date string(before the second date), using the given date format
+     * Evaluates if the first date is smaller or equal to the second date - both provided as string values- using the specified date format.
+     * 
+     * @param value1	the first date value for comparison
+     * @param value2	the second date value for comparison
+     * @param format	the format to be used for the comparison according to the SimpleDateFormat class
+     * @return			indication if the first value is smaller than the second value
      */
     public static boolean evaluate(String value1, String value2, String format)
     {
-        
         SimpleDateFormat sdf = new SimpleDateFormat(format);
 
         boolean result = false;
@@ -277,12 +308,15 @@ public class CheckIsSmallerOrEqual extends GenericCheck
         	
         }
         return result;
-    
     }
     
     /**
-     * checks, if the date is smaller or equal than the 
-     * date string(before the second date), using the given date format
+     * Evaluates if the first date is smaller or equal to the second date - provided as a string value - using the specified date format.
+     * 
+     * @param date1		the first date value for comparison
+     * @param value2	the second date value for comparison
+     * @param format	the format to be used for the comparison according to the SimpleDateFormat class
+     * @return			indication if the first value is smaller than the second value
      */
     public static boolean evaluate(Date date1, String value2, String format)
     {
@@ -312,8 +346,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the date is smaller or equal than the 
-     * date string(before the second date), using the default date format
+     * Evaluates if the first date is smaller or equal to the second date - provided as a string value - using the default date format.
+     * 
+     * @param date1		the first date value for comparison
+     * @param value		the second date value for comparison
+     * @return			indication if the first value is smaller than the second value
      */
     public static boolean evaluate(Date date1, String value)
     {
@@ -343,7 +380,11 @@ public class CheckIsSmallerOrEqual extends GenericCheck
     }
     
     /**
-     * checks, if the date is smaller or equal than the other date
+     * Evaluates if the first date is smaller than the second date using the default date format.
+     * 
+     * @param date1		the first date value for comparison
+     * @param date2		the second date value for comparison
+     * @return			indication if the first value is smaller than the second value
      */
     public static boolean evaluate(Date date1, Date date2)
     {

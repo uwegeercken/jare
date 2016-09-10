@@ -6,23 +6,23 @@
 package com.datamelt.rules.implementation;
 
 /**
- * <p>Checks if the Levenshtein distance between two strings is equal to a given value.</p>
- * 
+ * Checks if the Levenshtein distance between two strings is equal to a given value.
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckDistanceIsEqual extends GenericCheck
 {
     /**
-	 * specify two strings and a value for the distance to be evaluated
-	 */
+	 * specify two strings and an integer value for the Levenshtein distance to be evaluated
+	 *
+     * @param originalString	the first value for comparison
+     * @param compareString 	the second value for comparison - to compare against the first value
+     * @param value				expected value of the distance between the two strings
+     * @return					indication if the Levenshtein distance is equal to the given integer value
+     */
     public static boolean evaluate(String originalString,String compareString, int value )
     {
     	int[][] dp = new int[originalString.length() + 1][compareString.length() + 1];
@@ -48,5 +48,4 @@ public class CheckDistanceIsEqual extends GenericCheck
 		}
 		return dp[originalString.length()][compareString.length()]== value;
     }
-    
 }

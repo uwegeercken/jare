@@ -1,32 +1,24 @@
-/*
- * Created on 28.06.2008
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 import com.datamelt.rules.core.util.Soundex;
 
 /**
- * checks if a string sounds like a given string using
- * the soundex algorithm 
- * 
+ * checks if a string sounds like a given string using the soundex algorithm. 
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckSoundsLike extends GenericCheck
 {
 	/**
-	 * checks if a string sounds like a given string using
-	 * the soundex algorithm 
-	 */
+	 * Checks if a string sounds like a given string using the soundex algorithm 
+     * 
+     * @param value			the first value for comparison
+     * @param expectedValue	the second value for comparison - to compare against the first value
+     * @return				indication if the first value sounds like the second value
+     */
     public static boolean evaluate(String value, String expectedValue)
     {
     	if(value!=null && expectedValue!=null)

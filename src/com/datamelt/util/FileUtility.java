@@ -15,7 +15,10 @@ public class FileUtility
 	/**
      * adds the current timestamp to the given filename
      * by trying to locate the dot and setting the timestamp
-     * before it. if none is found, the timestamp is appended. 
+     * before it. if none is found, the timestamp is appended.
+     *  
+     * @param filename	the name of the file
+     * @return			the name of the file and the prepended timestamp
      */
     public static String getTimeStampedFilename(String filename)
     {
@@ -35,7 +38,11 @@ public class FileUtility
     /**
      * adds the current timestamp to the given filename
      * by trying to locate the dot and setting the timestamp
-     * before it. if none is found, the timestamp is appended. 
+     * before it. if none is found, the timestamp is appended.
+     *  
+     * @param filename			the name of the file
+     * @param timestampFormat	the format of the timestamp according to the SimpleDateFormat class
+     * @return					the name of the file and the prepended timestamp
      */
     public static String getTimeStampedFilename(String filename, String timestampFormat)
     {
@@ -54,7 +61,10 @@ public class FileUtility
     /**
      * returns a array of xml files that are in the specified
      * folder.
-     * only files that end in .xml are returned.  
+     * only files that end in .xml are returned.
+     *   
+     * @param folder		the name of the folder where the xml files are stored
+     * @return				list of xml files
      */
     public static File[] getXmlFiles(String folder)
     {
@@ -66,8 +76,10 @@ public class FileUtility
     }
     
     /**
-     * returns a array of files that are in the specified
-     * folder.
+     * returns a array of files that are in the specified folder.
+     * 
+     * @param folder	the name of the folder where the xml files are stored
+     * @return			array of files
      */
     public static File[] getFiles(String folder)
     {
@@ -75,6 +87,12 @@ public class FileUtility
          return dir.listFiles();
     }
     
+    /**
+     * Add a trailing slash if not already present
+     * 
+     * @param folder	the name of the folder
+     * @return			the name of the folder with a slash character at the end
+     */
     public static String adjustSlash(String folder)
     {
     	if(folder.endsWith("/"))
@@ -87,6 +105,13 @@ public class FileUtility
     	}
     }
     
+    /**
+     * Checks if the given filename exists as a file and is a file (not directory)
+     * 
+     * @param folder		the name of the folder
+     * @param filename		the name of the file to check
+     * @return				indicator if the file exists and is a file
+     */
     public static boolean fileExists(String folder, String filename)
     {
     	String fullFilename = adjustSlash(folder) + filename;
@@ -101,6 +126,12 @@ public class FileUtility
     	}
     }
     
+    /**
+     * Checks if the given filename exists as a file and is a file (not directory)
+     * 
+     * @param fullFilename	the complete path and name of the file
+     * @return				indicator if the file exists and is a file
+     */
     public static boolean fileExists(String fullFilename)
     {
     	File file = new File(fullFilename);

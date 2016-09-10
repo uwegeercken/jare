@@ -19,6 +19,10 @@ public class Field implements Serializable
 	
 	/**
 	 * constructor for a field using the name, start and length of the field 
+	 *
+	 * @param name		the name of the field
+	 * @param start		the position where the field starts
+	 * @param length	the length of the field
 	 */
 	public Field(String name, int start, int length)
 	{
@@ -29,6 +33,11 @@ public class Field implements Serializable
 	
 	/**
 	 * constructor for a field using the name, description, start and length of the field 
+	 *
+	 * @param name			the name of the field
+	 * @param description	the description of the field
+	 * @param start			the position where the field starts
+	 * @param length		the length of the field
 	 */
 	public Field(String name, String description, int start, int length)
 	{
@@ -38,41 +47,81 @@ public class Field implements Serializable
 		this.length = length;
 	}
 
+	/**
+	 * retrieves the description of the field
+	 * 
+	 * @return	the description of the field
+	 */
 	public String getDescription()
 	{
 		return description;
 	}
 
+	/**
+	 * sets the description of the field
+	 * 
+	 * @param description	the description of the field
+	 */
 	public void setDescription(String description) 
 	{
 		this.description = description;
 	}
 
+	/**
+	 * retrieves the length of the field
+	 * 
+	 * @return	the length of the field
+	 */
 	public int getLength()
 	{
 		return length;
 	}
 
+	/**
+	 * sets the length of the field
+	 * 
+	 * @param length	the length of the field
+	 */
 	public void setLength(int length) 
 	{
 		this.length = length;
 	}
 
+	/**
+	 * retrieves the name of the field
+	 * 
+	 * @return	the name of the field
+	 */
 	public String getName() 
 	{
 		return name;
 	}
 
+	/**
+	 * sets the name of the field
+	 * 
+	 * @param name	the name of the field
+	 */
 	public void setName(String name) 
 	{
 		this.name = name;
 	}
 
+	/**
+	 * retrieves the start position of the field
+	 * 
+	 * @return	the start position of the field
+	 */
 	public int getStart() 
 	{
 		return start;
 	}
 
+	/**
+	 * sets the start position of the field
+	 * 
+	 * @param start		the start position of the field
+	 */
 	public void setStart(int start) 
 	{
 		this.start = start;

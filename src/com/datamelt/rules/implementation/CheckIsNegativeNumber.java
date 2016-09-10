@@ -1,27 +1,22 @@
-/*
- * Created on 15.09.2006
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 /**
- * checks if a given value is smaller than zero (0)
+ * checks if a given value is smaller than zero (0).
  * 
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckIsNegativeNumber extends GenericCheck
 {
-	/**
-     * checks, if the integer is a number smaller than zero
+	
+    /**
+     * Evaluates if the given value is smaller than zero (0).
+     * 
+     * @param value1	the value for comparison	
+     * @return			indication if the value is smaller zero
      */
     public static boolean evaluate(int value1)
     {
@@ -35,8 +30,11 @@ public class CheckIsNegativeNumber extends GenericCheck
         }
     }
     
-	/**
-     * checks, if the long is a number smaller than zero
+    /**
+     * Evaluates if the given value is smaller than zero (0).
+     * 
+     * @param value1	the value for comparison	
+     * @return			indication if the value is smaller zero
      */
     public static boolean evaluate(long value1)
     {
@@ -50,8 +48,11 @@ public class CheckIsNegativeNumber extends GenericCheck
         }
     }
     
-	/**
-     * checks, if the double is a number smaller than zero
+    /**
+     * Evaluates if the given value is smaller than zero (0).
+     * 
+     * @param value1	the value for comparison	
+     * @return			indication if the value is smaller zero
      */
     public static boolean evaluate(double value1)
     {
@@ -65,8 +66,11 @@ public class CheckIsNegativeNumber extends GenericCheck
         }
     }
     
-	/**
-     * checks, if the float is a number smaller than zero
+    /**
+     * Evaluates if the given value is smaller than zero (0).
+     * 
+     * @param value1	the value for comparison	
+     * @return			indication if the value is smaller zero
      */
     public static boolean evaluate(float value1)
     {

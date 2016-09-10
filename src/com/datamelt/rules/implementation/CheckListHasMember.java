@@ -1,33 +1,27 @@
-/*
- * Created on 13.07.2014
- *
- * all code by uwe geercken
- */
 package com.datamelt.rules.implementation;
 
 /**
- * checks if a string containing multiple values separated by commas (,) 
- * contains a given string. spaces between the individual values are removed (trim)
- * 
+ * Checks if a list of string values separated by commas contains a given string.
+ * <p>
+ * spaces between the individual values are removed (trim)
+ * <p>
  * an example for a list would be:
- * 
+ * <p>
  * 		"Rome, Paris, New York, Berlin"
- * 
  * <p>
- * The first argument of a method is always the value of the field that one wants to check. The second argument is either another field 
- * or an expected (fixed) value to check against the first value.
- * </p>
- * <p>
- * Some methods may have additional arguments that can be passed to it.
- * </p>
+ * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
+ * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
 public class CheckListHasMember extends GenericCheck
 {
 	/**
-     * checks, if the string is contained in the list of values
-     * separated by commas
+     * Evaluates if the list contains the given value as a member
+     * 
+     * @param list		list of string values separated by commas
+     * @param value		the value to compare against
+     * @return			indication if the given string is a member of the list
      */
     public static boolean evaluate(String list, String value)
     {
@@ -48,8 +42,12 @@ public class CheckListHasMember extends GenericCheck
     }
     
     /**
-     * checks, if the string is contained in the list of values
-     * separated by commas, ignore or not ignoring the case
+     * Evaluates if the list contains the given value as a member
+     * 
+     * @param list			list of string values separated by commas
+     * @param value			the value to compare against
+     * @param ignoreCase	indication if the case of the values shall be ignored for comparison
+     * @return				indication if the given string is a member of the list
      */
     public static boolean evaluate(String list, String value, boolean ignoreCase)
     {
@@ -81,8 +79,11 @@ public class CheckListHasMember extends GenericCheck
     }
     
     /**
-     * checks, if the list of values contains a certain integer value.
-     * the values of the list are expected all to be if type integer.
+     * Evaluates if the list contains the given value as a member
+     * 
+     * @param list		list of integer values separated by commas
+     * @param value		the value to compare against
+     * @return			indication if the given integer is a member of the list
      */
     public static boolean evaluate(String list, int value )
     {
@@ -100,9 +101,12 @@ public class CheckListHasMember extends GenericCheck
     }
     
     /**
-    * checks, if the list of values contains a certain long value.
-    * the values of the list are expected all to be of type long.
-    */
+     * Evaluates if the list contains the given value as a member
+     * 
+     * @param list		list of long values separated by commas
+     * @param value		the value to compare against
+     * @return			indication if the given long is a member of the list
+     */
     public static boolean evaluate(String list, long value)
     {
     	boolean matches = false;

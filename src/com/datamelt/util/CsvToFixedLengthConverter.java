@@ -13,13 +13,13 @@ import com.datamelt.rules.parser.xml.RowDefinitionParser;
 import com.datamelt.util.Splitter;
 
 /**
- * converts a csv file where the fields are seperated 
- * by a specific character, into a fixed length file,
+ * converts a csv file where the fields are separated by a specific character, into a fixed length file,
  * where each field has a defined start and length.
- * 
- * - the xml file contains the definition of the fields and their length.
- * - the data file contains the data in form of a CSV file
- * - the output file is the new file in fixed length ASCII format that will be created
+ * <ul>
+ * <li>the xml file contains the definition of the fields and their length.
+ * <li>the data file contains the data in form of a CSV file
+ * <li>the output file is the new file in fixed length ASCII format that will be created
+ * </ul>
  * 
  * @author uwe geercken
  */
@@ -29,6 +29,11 @@ public class CsvToFixedLengthConverter
 	/**
 	 * converts a csv file to a fixed length ASCII file using the xml file containing the
 	 * definition of the single fields of the output file.  
+	 *
+	 * @param xmlFilename		the name of the xml file
+	 * @param dataFilename		the name of the data file
+	 * @param outputFilename	the name of the output file
+	 * @throws Exception		throws exception if files can not be handled
 	 */
 	public void convertToFixedLengthFile(String xmlFilename, String dataFilename, String outputFilename) throws Exception
 	{
