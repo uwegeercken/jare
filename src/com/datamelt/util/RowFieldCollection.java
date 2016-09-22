@@ -46,7 +46,9 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * constructor that takes an array of fields as parameter 
+     * constructor that takes an array of fields as parameter
+     *  
+     * @param fields	array of fields
      */
     public RowFieldCollection(ArrayList<RowField> fields)
     {
@@ -55,6 +57,9 @@ public class RowFieldCollection implements Serializable
     
     /**
      * constructor that takes an array of field names and an array of strings as parameter 
+     *  
+     * @param fieldnames	an array of fields
+     * @param fields		an array of field values
      */
     public RowFieldCollection(String fieldnames[],String[] fields)
     {
@@ -65,7 +70,10 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * constructor that takes an array of field names and an array of objects as parameter 
+     * constructor that takes an array of field names and an array of values as parameter
+     *  
+     * @param fieldnames	an array of fields
+     * @param fields		an array of field values
      */
     public RowFieldCollection(String fieldnames[],Object[] fields)
     {
@@ -76,7 +84,9 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * constructor that takes an array of objects as parameter 
+     * constructor that takes an array of objects as parameter
+     *  
+     * @param fields	array of fields as objects
      */
     public RowFieldCollection(Object[] fields)
     {
@@ -88,7 +98,9 @@ public class RowFieldCollection implements Serializable
     
 
     /**
-     * returns the array of fields that belong to the given row object 
+     * returns the array of fields that belong to the given row object
+     *  
+     * @return		array of fields
      */
     public ArrayList<RowField> getFields()
     {
@@ -96,24 +108,43 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the array of fields that belong to the given row object 
+     * sets the array of fields that belong to the given row object
+     *  
+     * @param fields	sets the fields to the given array
      */
     public void setFields(ArrayList<RowField> fields)
     {
         this.fields = fields;
     }
     
+    /**
+     * Add a field to the array of fields.
+     * 
+     * @param field		a field to be added
+     */
     public void addField(RowField field)
     {
     	fields.add(field);
     }
     
     
+    /**
+     * Add a field to the array of fields by specifying the name and value.
+     * 
+     * @param fieldName		the name of the field
+     * @param fieldValue	the valu of the field
+     */
     public void addField(String fieldName, Object fieldValue)
     {
     	fields.add(new RowField(fieldName, fieldValue));
     }
     
+    /**
+     * Remove a field from the array of fields.
+     * 
+     * @param fieldName					the name of the field to remove
+     * @throws FieldNotFoundException	thrown when the specified field does not exist
+     */
     public void removeField(String fieldName) throws FieldNotFoundException
     {
     	int found=-1;
@@ -137,13 +168,20 @@ public class RowFieldCollection implements Serializable
     	}
     }
 
+    /**
+     * Remove a field from the array of fields.
+     * 
+     * @param index		the index of the field to remove
+     */
     public void removeField(int index)
     {
    		fields.remove(index);
     }
 
     /**
-     * returns the number of fields that belong to the given row object 
+     * returns the number of fields that belong to the given row object
+     *  
+     * @return	the number of fields in the array
      */
     public int getNumberOfFields()
     {
@@ -158,7 +196,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * returns a field from the array of fields 
+     * returns a field from the array of fields by specifying its index.
+     *  
+     * @param number		the index of the field to retrieve
+     * @return				a field from the array
+     * @throws Exception	when the field was not found
      */
     public RowField getField(int number) throws Exception
     {
@@ -170,7 +212,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * returns a field from the array of fields 
+     * returns a field from the array of fields  by specifying its name.
+     * 
+     * @param name			the name of the field to retrieve
+     * @return				a field from the array
+     * @throws Exception	when the field was not found
      */
     public RowField getField(String name) throws Exception
     {
@@ -196,7 +242,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * returns the field value from the array of fields 
+     * returns the field value from the array of fields by specifying its name
+     *  
+     * @param name			the name of the field
+     * @return				an object representing the field value
+     * @throws Exception	exception when the field was not found
      */
     public Object getFieldValue(String name) throws Exception
     {
@@ -221,7 +271,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * returns the field value from the array of fields 
+     * returns the field value from the array of fields by specifying its index.
+     *  
+     * @param index			the index of the field in the array
+     * @return				an object representing the field value
+     * @throws Exception	exception when the field was not found
      */
     public Object getFieldValue(int index) throws Exception
     {
@@ -230,7 +284,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param object		the value of the fields
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,Object object) throws Exception
     {
@@ -254,7 +312,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,double value) throws Exception
     {
@@ -278,7 +340,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,float value) throws Exception
     {
@@ -302,7 +368,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,int value) throws Exception
     {
@@ -326,7 +396,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,String value) throws Exception
     {
@@ -350,7 +424,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,boolean value) throws Exception
     {
@@ -374,7 +452,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,long value) throws Exception
     {
@@ -398,7 +480,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,BigDecimal value) throws Exception
     {
@@ -422,7 +508,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,Date value) throws Exception
     {
@@ -446,7 +536,11 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the field value of the field 
+     * sets the field value of the field by specifying its name and value
+     *  
+     * @param name			the name of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldValue(String name,BigInteger value) throws Exception
     {
@@ -470,7 +564,11 @@ public class RowFieldCollection implements Serializable
     }
 
     /**
-     * sets the field value of the field 
+     * sets if the field has been updated
+     *  
+     * @param name			the name of the field
+     * @param value			the boolean value of the field
+     * @throws Exception	exception when the field was not found
      */
     public void setFieldUpdated(String name, boolean value) throws Exception
     {
@@ -487,6 +585,8 @@ public class RowFieldCollection implements Serializable
     
     /**
      * returns the id of the row object
+     * 
+     * @return	the id of the row
      */
     public long getId()
     {
@@ -495,27 +595,49 @@ public class RowFieldCollection implements Serializable
     
     /**
      * sets the id of the row object
+     * 
+     * @param id	the id of the row
      */
     public void setId(long id)
     {
         this.id = id;
     }
 
+	/**
+	 * If the collection of fields has been updated.
+	 * 
+	 * @return		indicator if the collection of fields has been updated
+	 */
 	public boolean isCollectionUpdated()
 	{
 		return collectionUpdated;
 	}
 
+	/**
+	 * If the row failed.
+	 * 
+	 * @return	indicator if the row failed
+	 */
 	public boolean isRowFailed()
 	{
 		return rowFailed;
 	}
 
+	/**
+	 * Stes the indicator if the row failed.
+	 * 
+	 * @param rowFailed		boolean value if the row failed
+	 */
 	public void setRowFailed(boolean rowFailed) 
 	{
 		this.rowFailed = rowFailed;
 	}
 	
+	/**
+	 * Get the names of the fields as a string.
+	 * 
+	 * @return		names of all fields
+	 */
 	public String getFieldNames()
 	{
 		String[] fieldNames = new String[fields.size()];
@@ -526,6 +648,11 @@ public class RowFieldCollection implements Serializable
 		return Arrays.toString(fieldNames);
 	}
 	
+	/**
+	 * Gets the values of all fields as a string.
+	 * 
+	 * @return		values of all fields
+	 */
 	public String getFieldValues()
 	{
 		String[] fieldValues = new String[fields.size()];

@@ -132,15 +132,24 @@ public class ClassUtility
         }
         else if(type.equals(TYPE_DATE))
         {
-        	SimpleDateFormat sdf = new SimpleDateFormat();
+        	SimpleDateFormat sdtf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         	try
         	{
-        		Date d = sdf.parse(value);
+        		Date d = sdtf.parse(value);
                 return  d;
         	}
         	catch(Exception ex)
         	{
-        		return null;
+        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            	try
+            	{
+            		Date d = sdtf.parse(value);
+                    return  d;
+            	}
+            	catch(Exception ex2)
+            	{
+            		return null;
+            	}
         	}
         }
         else

@@ -36,6 +36,8 @@ public class Row implements Serializable
     
     /**
      * constructor that takes an array of fields as parameter 
+     * 
+     * @param fields	array of strings to assign to fields
      */
     public Row(String[] fields)
     {
@@ -45,6 +47,8 @@ public class Row implements Serializable
     /**
      * constructor that takes an array of objects as parameter.
      * the objects are converted to their string representation.
+     * 
+     * @param objects	array of objects to assign to fields
      */
     public Row(Object[] objects)
     {
@@ -120,7 +124,11 @@ public class Row implements Serializable
     }
     
     /**
-     * returns a field from the array of fields 
+     * returns a field from the array of fields
+     *  
+     * @param number		the number of the field to get
+     * @return				the field as a string
+     * @throws Exception	when a wrong field number is specified
      */
     public String getField(int number) throws Exception
     {
@@ -133,7 +141,10 @@ public class Row implements Serializable
     
     /**
      * returns an integer field from the array of fields
-     * throws an exception if the returned value is not an integer 
+     *  
+     * @param number		the number of the field to get
+     * @return				the field as an integer
+     * @throws Exception	when a wrong field number is specified
      */
     public int getIntegerField(int number) throws Exception
     {
@@ -148,7 +159,10 @@ public class Row implements Serializable
     
     /**
      * returns a long field from the array of fields
-     * throws an exception if the returned value is not an integer 
+     *  
+     * @param number		the number of the field to get
+     * @return				the field as a long
+     * @throws Exception	when a wrong field number is specified
      */
     public long getLongField(int number) throws Exception
     {
@@ -161,7 +175,10 @@ public class Row implements Serializable
     
     /**
      * returns a double field from the array of fields
-     * throws an exception if the returned value is not an integer 
+     * 
+     * @param number		the number of the field to get
+     * @return				the field as a double
+     * @throws Exception	when a wrong field number is specified
      */
     public double getDoubleField(int number) throws Exception
     {
@@ -174,7 +191,10 @@ public class Row implements Serializable
 
     /**
      * returns a float field from the array of fields
-     * throws an exception if the returned value is not an integer 
+     *  
+     * @param number		the number of the field to get
+     * @return				the field as a float
+     * @throws Exception	when a wrong field number is specified
      */
     public float getFloatField(int number) throws Exception
     {
@@ -187,7 +207,10 @@ public class Row implements Serializable
 
     /**
      * returns a boolean field from the array of fields
-     * throws an exception if the returned value is not a boolean 
+     *  
+     * @param number		the number of the field to get
+     * @return				the field as a boolean
+     * @throws Exception	when a wrong field number is specified
      */
     public boolean getBooleanField(int number) throws Exception
     {
@@ -200,6 +223,8 @@ public class Row implements Serializable
 
     /**
      * returns the id of the row object
+     * 
+     * @return	the id of the row
      */
     public long getId()
     {
@@ -208,6 +233,8 @@ public class Row implements Serializable
     
     /**
      * sets the id of the row object
+     * 
+     * @param id	the id of the row
      */
     public void setId(long id)
     {
@@ -215,8 +242,9 @@ public class Row implements Serializable
     }
     
     /**
-     * returns the line as it was retrieved from the originating
-     * ascii file
+     * returns the line as it was retrieved from the originating input file
+     * 
+     * @return	the complete line as read from an input file
      */
     public String getLine()
     {
@@ -232,14 +260,19 @@ public class Row implements Serializable
         return buffer.toString();
     }
     
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString()
     {
     	return getLine();
     }
     
     /**
-     * returns the seperator that was used to devide the fields from
-     * each other
+     * returns the separator that was used to divide the fields from each other
+     * 
+     * @return	the separator used to separate fields from each other
      */
     public String getSeperator()
     {
@@ -247,8 +280,9 @@ public class Row implements Serializable
     }
     
     /**
-     * sets the seperator that was used to devide the fields from
-     * each other
+     * sets the separator that is used to divide the fields from each other
+     * 
+     * @param seperator		separator to be used
      */
     public void setSeperator(String seperator)
     {

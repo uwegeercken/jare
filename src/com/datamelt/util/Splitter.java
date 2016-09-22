@@ -83,6 +83,9 @@ public class Splitter
 	 * an external xml file.
 	 * pass the name of the file to this method. the xml file will
 	 * be parsed, so that the layout can be used.
+	 * 
+	 * @param fileName		the name of the row definition file
+	 * @throws Exception	exception when the file was not found
 	 */
 	public void setRowDefinitionFile(String fileName) throws Exception
 	{
@@ -91,9 +94,11 @@ public class Splitter
 	}
 
 	/**
-	 * returns a Row object, containing the fields that the row
-	 * consists of. the line argument is a line (or row) from an 
-	 * ASCII file.
+	 * Gets a row object by specifying a line of data
+	 * 
+	 * @param line			a line of data
+	 * @return				a row object
+	 * @throws Exception	exception when no row definition file is defined
 	 */
 	public Row getRow(String line) throws Exception
 	{
@@ -106,9 +111,12 @@ public class Splitter
 	}
 	
 	/**
-	 * returns a RowFieldCollection object, containing the fields that the row
-	 * consists of. the line argument is a line (row) from an 
-	 * ASCII file.
+	 * Gets a RowFieldCollection object, containing the fields that the row
+	 * consists of. the line argument is a line (row) from an ASCII file.
+	 * 
+	 * @param line			a line of data
+	 * @return				a row field collection object
+	 * @throws Exception	exception when no row definition file is defined
 	 */
 	public RowFieldCollection getRowFieldCollection(String line) throws Exception
 	{
