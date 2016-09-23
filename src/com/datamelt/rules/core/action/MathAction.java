@@ -99,13 +99,12 @@ public class MathAction
 	
 	public long subtractValues(XmlAction action, Date value, Date value2) throws Exception
 	{
-		// difference is in milliseconds
-		long difference = Math.abs(value.getTime() - value2.getTime());
+		// difference is in seconds
+		long difference = (Math.abs(value.getTime() - value2.getTime()))/1000;
 		
 		if(difference>0)
 		{
-			// devide by 1000 to return seconds
-			return difference / 1000;
+			return difference;
 		}
 		else
 		{
