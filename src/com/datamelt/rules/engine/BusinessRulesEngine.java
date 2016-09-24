@@ -56,7 +56,7 @@ import com.datamelt.util.Splitter;
  * rules defined in the xml file(s) are instantiated using java reflection.
  * usually the return value of a method is compared to an expected value. or
  * two object are compared against each other. or the return value is compared
- * against a fix condition such as 'not null'. * 
+ * against a fix condition such as 'not null'. 
  * <p>
  * the getRuleDefinition method returns a simple readable representation and overview
  * of the rule logic.
