@@ -1,7 +1,7 @@
 jare
 ====
 
-Version 0.78
+Version 0.79
 
 Java Rule Engine source files.
 
@@ -14,7 +14,7 @@ There is a web application available, which allows to compose the rule and actio
 
 Additionally, there is also a Plugin available for the popular and highly sophisticated ETL tool from Pentaho called PDI (previously called Kettle). This plugin enables the ETL developer to get rid of the business logic in the ETL process. If the rules change, the code does not need to be touched. This enhances quality and also transparency: the business user usually has no understanding of ETL processes; with the Web application for the maintenance of the rules and the complex rule logic the user has a central place to work with the rules without the need for coding rules and without the need for IT to change the ETL process.
 
-You may download the jar library which contains the sources compiled with Java 1.6
+You may download the jar library which contains the sources compiled with Java 1.6.
 
 Please send your feedback and help to enhance the tool.
 
@@ -36,4 +36,4 @@ Please send your feedback and help to enhance the tool.
 uwe geercken
 uwe.geercken@web.de
 
-last update: 2016-07-08
+last update: 2016-09-25
