@@ -254,5 +254,15 @@ public class DateAction
 		return sdf.format(cal.getTime());
 	}
 
+	/**
+	 * method will add the given number of minutes to the provided date
+	 */
+	public Date addMinutes(XmlAction action, Date date, long minutes)
+	{
+		final long ONE_MINUTE_IN_MILLISECONDS = 60000;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds + (minutes * ONE_MINUTE_IN_MILLISECONDS));
 
+	}
 }
