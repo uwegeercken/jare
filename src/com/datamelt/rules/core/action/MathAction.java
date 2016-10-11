@@ -113,6 +113,21 @@ public class MathAction
 
 	}
 	
+	public long remainderValue(XmlAction action, long value, long value2)
+	{
+		return value % value2;
+	}
+	
+	public long remainderValue(XmlAction action, long value, int value2)
+	{
+		return value % value2;
+	}
+	
+	public int remainderValue(XmlAction action, int value, int value2)
+	{
+		return value % value2;
+	}
+	
 	public long multiplyValues(XmlAction action, int value, int value2) throws Exception
 	{
 		return value * value2;
