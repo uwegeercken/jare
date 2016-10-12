@@ -2,6 +2,7 @@ package com.datamelt.rules.core.action;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Random;
 
 import com.datamelt.rules.core.XmlAction;
 
@@ -281,6 +282,13 @@ public class MathAction
 	public int roundValue(XmlAction action, float value) throws Exception
 	{
 		return Math.round(value);
+	}
+	
+	public int randomValue(XmlAction action, int min, int max)
+	{
+		Random rand = new Random();
+
+	    return rand.nextInt((max - min) + 1) + min;
 	}
 	
 	public double cosValue(XmlAction action, double value) throws Exception
