@@ -65,6 +65,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the description of the group 
+     * 
+     * @return the description of the rulegroup
      */
     public String getDescription()
     {
@@ -73,6 +75,8 @@ public class RuleGroup implements Serializable
     
     /**
      * sets the description of the group 
+     * 
+     * @param description 	the description of the rulegroup
      */
     public void setDescription(String description)
     {
@@ -81,6 +85,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the valid from string of the group 
+     * 
+     * @return 	the valid from date of the group
      */
     public String getValidFrom()
     {
@@ -89,6 +95,8 @@ public class RuleGroup implements Serializable
     
     /**
      * sets the valid from string of the group 
+     * 
+     * param validFrom	the valid from date of the group
      */
     public void setValidFrom(String validFrom)
     {

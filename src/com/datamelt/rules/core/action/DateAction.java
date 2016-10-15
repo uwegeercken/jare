@@ -5,7 +5,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.datamelt.rules.core.XmlAction;
-
+/**
+ * Class containing possible actions that are related to dates.
+ * 
+ * Actions belong to a rulegroup and are execute depending on the status of rulegroup - if it passed or failed (or both).
+ *
+ * @author uwe geercken
+ * 
+ */
 public class DateAction
 {
 	
@@ -32,7 +39,7 @@ public class DateAction
 		return cal.getTime();
 	}
 	/**
-	 * method will set the value of the relevant object to the actual date.
+	 * method will set the value of the relevant object to the current date.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
 	 */

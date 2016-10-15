@@ -36,6 +36,7 @@ public class RuleExecutionResult implements Serializable
     /**
      * constructor including the timestamp of when the rule was executed
      * 
+     * @param timestamp		the timestamp for the execution result
      */
     public RuleExecutionResult(String timestamp)
     {
@@ -45,6 +46,11 @@ public class RuleExecutionResult implements Serializable
     /**
      * constructor for this class using the timestamp, the rule and a label
      * for the rule used during output.
+     * 
+     * @param timestamp		the timestamp for the execution result
+     * @param rule			the rule belonging to the execution result
+     * @param objectLabel	the label for the object
+     * @param subgroupId	the id of the subgroup
      */
     public RuleExecutionResult(String timestamp, XmlRule rule, String objectLabel, String subgroupId)
     {
@@ -56,6 +62,8 @@ public class RuleExecutionResult implements Serializable
 
     /**
      * returns the rule that was executed 
+     * 
+     * @return		the rule executed
      */
     public XmlRule getRule()
     {
@@ -64,6 +72,8 @@ public class RuleExecutionResult implements Serializable
     
     /**
      * sets the rule that was executed 
+     * 
+     * @param rule 	the rule that was executed
      */
     public void setRule(XmlRule rule)
     {
@@ -71,7 +81,9 @@ public class RuleExecutionResult implements Serializable
     }
     
     /**
-     * returns the first object that was constructed 
+     * gets the first object that was constructed 
+     * 
+     * @return 	the first object that was constructed
      */
     public Object getResultObject1()
     {
@@ -80,6 +92,8 @@ public class RuleExecutionResult implements Serializable
     
     /**
      * sets the first object that was executed 
+     * 
+     * @param result 	the first object that was constructed
      */
     public void setResultObject1(Object result)
     {
@@ -88,6 +102,8 @@ public class RuleExecutionResult implements Serializable
     
     /**
      * gets the second object that was executed 
+     * 
+     * @return 	the second object that was constructed
      */
     public Object getResultObject2()
     {
@@ -96,6 +112,8 @@ public class RuleExecutionResult implements Serializable
     
     /**
      * sets the second object that was executed 
+     * 
+     * @param result 	the second object that was constructed
      */
     public void setResultObject2(Object result)
     {
@@ -107,6 +125,7 @@ public class RuleExecutionResult implements Serializable
      * this method returns the message assigned to the rule. at the same time variables in the message text
      * are replaced with values from the objects that were constructed.
      * 
+     * @return 	the appropriate message belonging to the rule with placeholders replaced by actual values
      */
     public String getMessage()
     {
@@ -226,6 +245,8 @@ public class RuleExecutionResult implements Serializable
     /**
      * returns the object label that was assign for use
      * during output
+     * 
+     * @return	the label of the object
      */
     public String getObjectLabel()
     {
@@ -235,6 +256,8 @@ public class RuleExecutionResult implements Serializable
     /**
      * sets the object label that will be used
      * during output
+     * 
+     * @param objectLabel	the label of the object
      */
     public void setObjectLabel(String objectLabel)
     {
@@ -242,7 +265,9 @@ public class RuleExecutionResult implements Serializable
     }
 
     /**
-     * returns the timestamp that was assign to this object 
+     * returns the timestamp that was assign to rule execution result
+     * 
+     * @return 	the timestamp of the rule execution result
      */
     public String getTimestamp()
     {
@@ -252,6 +277,8 @@ public class RuleExecutionResult implements Serializable
     /**
      * returns if the rule that belongs to this result failed or passed
      * the test 
+     * 
+     * @return	indicator if the rule failed or passed
      */
     public int getFailed()
     {
@@ -261,6 +288,8 @@ public class RuleExecutionResult implements Serializable
     /**
      * returns if the rule that belongs to this result failed or passed
      * the test 
+     * 
+     * @return	indicator if the rule failed or passed
      */
     public boolean isFailed()
     {
@@ -269,6 +298,8 @@ public class RuleExecutionResult implements Serializable
     
     /** returns a string expression meaning [true] or [false]
      *  depending if the rule that belongs to this result passed or failed. 
+     *  
+     *  @return 	indicator if the rule passed or failed as true or false
      */
     public String getFailedAsString()
     {
@@ -276,11 +307,21 @@ public class RuleExecutionResult implements Serializable
         
     }
 
+    /**
+     * get the id of the subgroup which the rule belongs to
+     * 
+     * @return the id of the subgroup
+     */
 	public String getSubgroupId() 
 	{
 		return subgroupId;
 	}
 
+	/**
+     * set the id of the subgroup which the rule belongs to
+     * 
+     * @param subgroupId	the id of the subgroup
+     */
 	public void setSubgroupId(String subgroupId) 
 	{
 		this.subgroupId = subgroupId;

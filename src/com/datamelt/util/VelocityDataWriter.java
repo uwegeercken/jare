@@ -43,7 +43,11 @@ public class VelocityDataWriter
     private Hashtable <String,Object>objects= new Hashtable<String,Object>();
     
     /**
-     * constructor for velocity datawriter class expects the path and the name of a template 
+     * constructor for velocity datawriter class expects the path and the name of a template
+     * 
+     * @param templatePath		the path to the location of the template file
+     * @param templateName		the name of the template file
+     * @throws Exception		exception if the template engine can not be initialized
      */
     public VelocityDataWriter(String templatePath, String templateName) throws Exception
     {
@@ -59,7 +63,10 @@ public class VelocityDataWriter
     
     /**
      * re-initialises the datawriter with a new template. this is useful
-     * to re-use an existing datawriter object 
+     * to re-use an existing datawriter object
+     * 
+     * @param templateName	the name of the velocity template to be used
+     * @throws Exception	exception if the template was not found
      */
     public void reInit(String templateName) throws Exception
     {
@@ -82,7 +89,9 @@ public class VelocityDataWriter
     }
     
     /**
-     * sets the output stream of the writer 
+     * sets the output stream of the writer
+     * 
+     * @param out		the printstream to be used
      */
     public void setOutputStream(PrintStream out)
     {
@@ -93,6 +102,9 @@ public class VelocityDataWriter
      * add an object to a hashtable of objects so that they can be processed
      * at a later stage. the objectName argument will be that name which is
      * used in the velocity template to identify the object 
+     * 
+     * @param objectName	the name of the object to be added
+     * @param object		the object to be added
      */
     public void addObject(String objectName, Object object)
     {
@@ -103,6 +115,8 @@ public class VelocityDataWriter
      * add an object to a hashtable of objects so that they can be processed
      * at a later stage. the object gets a default name of: dbObject which
      * identifies it in a velocity template 
+     * 
+     * @param object		the object to be added
      */
 	public void addObject(Object object)
 	{
@@ -112,6 +126,9 @@ public class VelocityDataWriter
 	/**
 	 * merges all objects that have been passed to this writer with the given
 	 * template and returns the resulting string representation. 
+	 * 
+	 * @return				the String representation from the merge of the objects and the template
+	 * @throws Exception	exception if the merge of the objects and the template was unsuccessful
 	 */
 	public String merge() throws Exception
 	{
@@ -135,6 +152,11 @@ public class VelocityDataWriter
 	 * first merges the objects that have been passed to this datawriter object
 	 * with the velocity template and then writes the output to the given path
 	 * and file. the filename is amended to contain the current timestamp.
+	 * 
+	 * @param path			the path where the file shall be written
+	 * @param fileName		the name of the file that shall be produced
+	 * @throws Exception	exception if the file can not be produced
+	 * 
 	 */
     public void write(String path, String fileName) throws Exception
     {
@@ -153,6 +175,8 @@ public class VelocityDataWriter
 	 * first merges the objects that have been passed to this datawriter object
 	 * with the velocity template and then writes the output to the given
 	 * outputstream
+	 * 
+	 * @throws Exception		exception if the file can not be produced
 	 */
     public void write() throws Exception
     {
@@ -162,7 +186,10 @@ public class VelocityDataWriter
 
     /**
      * adjusts a given path to that it has a trailing forward slash
-     * in case in is missing it 
+     * in case it does not have a trailing forward slash.
+     * 
+     *  @param path		a given path
+     *  @return			the path with a trailing slash character
      */
     private String adjustPath(String path)
 	{
@@ -178,6 +205,7 @@ public class VelocityDataWriter
 
 	/**
      * the path to the velocity templates
+     * 
 	 * @return path to the templates
 	 */
 	public String getTemplatePath()
@@ -187,14 +215,18 @@ public class VelocityDataWriter
 
 	/**
 	 * sets the path where the template may be found
+	 * 
+	 * @param path	the path to the folder where the templates are located
 	 */
 	public void setTemplatePath(String path)
 	{
-		templatePath = path;
+		this.templatePath = path;
 	}
 
 	/**
 	 * returns the name of the template
+	 * 
+	 * @return 	the name of the template in use
 	 */
 	public String getTemplateName()
 	{
@@ -203,10 +235,12 @@ public class VelocityDataWriter
 
 	/**
 	 * sets the name of the template to be used
+	 * 
+	 * @param templateName	the name of the template to be used
 	 */
-	public void setTemplateName(String string)
+	public void setTemplateName(String templateName)
 	{
-		templateName = string;
+		this.templateName = templateName;
 	}
 
 }

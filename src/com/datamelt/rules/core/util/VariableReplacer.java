@@ -10,7 +10,7 @@ import java.util.Properties;
 
 /**
  * class does simple replacement of one value with the other.
- * purpose is to avoid duplication of data that is frequently
+ * purpose is to avoid duplication of values that are frequently
  * used in rules.
  * 
  * the user specifies a variable in the xml rule file instead
@@ -30,7 +30,9 @@ public class VariableReplacer
     
     /*
      * constructor requires the full path and name of the file
-     * to load
+     * to load/use
+     * 
+     * @param	filename	the name of the file containing the mappings
      */
     public VariableReplacer(String filename) throws Exception
     {
@@ -42,7 +44,9 @@ public class VariableReplacer
     /*
      * returns the value from the properties file
      * corresponding to the key parameter.
-     * if non is found
+     * 
+     * @param key		the key to lookup from the file
+     * @return			the related value for the given key
      */
     public String getValue(String key)throws Exception
     {
@@ -66,14 +70,20 @@ public class VariableReplacer
     }
     
     /**
+     * gets the name of the replacements file is use
      * 
-     * returns the name of the replacements file
+     * @return		the name of the replacement file
      */
     public String getFilename()
     {
         return filename;
     }
     
+    /**
+     * gets the number of variables/keys used in the replacement file
+     * 
+     * @return		number of variables/keys
+     */
     public int getNumberOfVariables()
     {
     	if(properties!=null)

@@ -30,6 +30,10 @@ public class Parameter implements Serializable
     /**
      * constructor for creating a parameter. expects the type of the
      * parameter and the value 
+     * 
+     * @param type			the type of the parameter
+     * @param value			the value of the parameter
+     * @throws SAXException	exception if the type of the parameter is undefined
      */
     public Parameter(String type, String value) throws SAXException
     {
@@ -45,7 +49,12 @@ public class Parameter implements Serializable
     
     /**
      * constructor for creating a parameter. expects the type of the
-     * parameter and the value 
+     * parameter and the value
+     * 
+     * @param type				the type of the parameter
+     * @param value				the value of the parameter
+     * @param isSetterValue		indicator if the parameter is belonging to a setter method
+ 
      */
     public Parameter(String type, String value, boolean isSetterValue)
     {
@@ -56,6 +65,8 @@ public class Parameter implements Serializable
     
     /**
      * returns the type of the parameter 
+     * 
+     * @return 	the type of the parameter
      */
     public String getType()
     {
@@ -64,6 +75,8 @@ public class Parameter implements Serializable
     
     /**
      * sets the type of the parameter 
+     * 
+     * @param type		the type of the parameter
      */
     public void setType(String type)
     {
@@ -72,6 +85,8 @@ public class Parameter implements Serializable
     
     /**
      * returns the value of the parameter 
+     * 
+     * @return 	the value of the parameter
      */
     public String getValue()
     {
@@ -80,6 +95,8 @@ public class Parameter implements Serializable
 
     /**
      * sets the value of the parameter 
+     * 
+     * @param value		sets the value of the parameter
      */
     public void setValue(String value)
     {
@@ -88,6 +105,8 @@ public class Parameter implements Serializable
 
     /**
      * returns the boolean value indicating, if the parameter value is used to set a value.
+     * 
+     * @return	indicator if it is a setter value
      * 
      */
 	public boolean isSetterValue()
@@ -98,6 +117,7 @@ public class Parameter implements Serializable
 	/**
 	 * sets if the parameter is a parameter of a method, used to set a value 
 	 * 
+	 * @param isSetterValue		sets the indicator if the parameter is used to set a value
 	 */
 	public void setSetterValue(boolean isSetterValue)
 	{

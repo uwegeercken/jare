@@ -10,7 +10,14 @@ import com.datamelt.rules.core.ActionObject;
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ClassUtility;
 import com.datamelt.util.FieldNotFoundException;
-
+/**
+ * class to execute one or a list of actions. An action is executed against a given object.
+ * 
+ * Actions belong to a rulegroup and are execute depending on the status of rulegroup - if it passed or failed (or both).
+ *
+ * @author uwe geercken
+ * 
+ */
 public class Action implements Serializable
 {
 	private Object object;
@@ -20,6 +27,13 @@ public class Action implements Serializable
 	
 	public static final long serialVersionUID = 1964070320;
 	
+	/**
+	 * constructor to define the object used for the action and additional settings
+     *
+     * @param ruleGroupFailed 		indicator if the related rulegroup failed
+     * @param object	 			the object to use
+     * @param outputAfterActions	indicator if the result should be output after execution of the action
+     */
 	public Action(int ruleGroupFailed,Object object,boolean outputAfterActions)
 	{
 		this.object = object;
@@ -27,6 +41,12 @@ public class Action implements Serializable
 		this.outputAfterActions = outputAfterActions;
 	}
 	
+	/**
+	 * Executes a list of XmlAction objects
+	 * 
+	 * @param actions 		the list of actions
+     * @return				the number of actions executed
+     */
 	public int executeActions(ArrayList<XmlAction> actions) throws Exception
 	{
 			int counter=0;
@@ -46,6 +66,11 @@ public class Action implements Serializable
 			return counter;
 	}
 	
+	/**
+	 * Executes a single XmlAction objects
+	 * 
+	 * @param action 		the action to execute
+     */
 	public void executeAction(XmlAction action) throws Exception
 	{
 		Method methodSetterObject = null;
@@ -154,21 +179,41 @@ public class Action implements Serializable
         }
 	}
 	
+	/**
+	 * gets the object that is used for this action 
+	 * 
+	 * @return			the object of the action 
+	 */
 	public Object getObject()
 	{
 		return object;
 	}
 
+	/**
+	 * sets the object that is used for this action 
+	 * 
+	 * @param object 		the object of the action
+	 */
 	public void setObject(Object object)
 	{
 		this.object = object;
 	}
 
+	/**
+	 * gets the printstream that is used for this action 
+	 * 
+	 * @return			the printstream used 
+	 */
 	public PrintStream getPrintStream()
 	{
 		return stream;
 	}
 
+	/**
+	 * sets the printstream that is used for this action 
+	 * 
+	 * @param stream 		the printstream to be used for the action
+	 */
 	public void setPrintStream(PrintStream stream)
 	{
 		this.stream = stream;

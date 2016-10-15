@@ -1,7 +1,14 @@
 package com.datamelt.rules.core.action;
 
 import com.datamelt.rules.core.XmlAction;
-
+/**
+ * Class containing possible actions that are related to string handling.
+ * 
+ * Actions belong to a rulegroup and are execute depending on the status of rulegroup - if it passed or failed (or both).
+ *
+ * @author uwe geercken
+ * 
+ */
 public class StringAction
 {
 	public String setValue(XmlAction action, String value) throws Exception

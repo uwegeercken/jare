@@ -39,6 +39,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * add one result of the executing of the business rule engine
      * to the collection of results
+     * 
+     * @param result	the result of the execution of a rule
      */
     public void add(RuleExecutionResult result)
     {
@@ -53,6 +55,8 @@ public class RuleExecutionCollection implements Serializable
      * add results to the collection in form of an arraylist.
      * the results will be merged with existing results if there are
      * already any
+     * 
+     * @param ruleResults	list of rule execution results to be added
      */
     public void addAll(ArrayList <RuleExecutionResult>ruleResults)
     {
@@ -67,6 +71,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * returns the (array)list of results that were collected when the
      * business rule engine executed rules
+     * 
+     * @return 	a list of rule execution results
      */
     
     public ArrayList<RuleExecutionResult> getResults()
@@ -77,6 +83,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * retrieve a specific entry in the list of
      * results
+     * 
+     * @param index		the index of the rule execution result to retrieve
      */
     public RuleExecutionResult get(int index)
     {
@@ -86,6 +94,10 @@ public class RuleExecutionCollection implements Serializable
     /**
      * retrieve a specific entry in the list of
      * results for a given subgroup id and rule id
+     * 
+     * @param subgroupId	the id of the subgroup
+     * @param ruleId		the id of the rule
+     * @return				the rule execution result for the given subgroup and rule
      */
     public RuleExecutionResult getSubgroupRuleResult(String subgroupId, String ruleId)
     {
@@ -113,6 +125,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * returns the number of results collected when the
      * business rule engine executed rules
+     * 
+     * @return	the number of the rule execution results
      */
     public int size()
     {
@@ -137,7 +151,9 @@ public class RuleExecutionCollection implements Serializable
     
     /**
      * returns the number of rules
-     * that failed during execution of the business rule engine
+     * that ran during execution of the business rule engine
+     * 
+     * @return the number of rules executed
      */
     public long getRulesRunCount()
     {
@@ -147,6 +163,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * returns the number of rules
      * that failed during execution of the business rule engine
+     * 
+     * @return the number of rules that failed during execution
      */
     public long getRulesFailedCount()
     {
@@ -156,6 +174,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * returns the number of rules
      * that failed during execution of the business rule engine
+     * 
+     * @return the number of rules that passed during execution
      */
     public long getRulesPassedCount()
     {
@@ -165,6 +185,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * returns the total number of groups that failed 
      * during execution of the business rule engine
+     * 
+     * @return the number of rulegroups that failed during execution
      */
     public long getFailedGroupsCount()
     {
@@ -174,6 +196,8 @@ public class RuleExecutionCollection implements Serializable
     /**
      * returns the total number of groups that passed 
      * during execution of the business rule engine
+     * 
+     * @return the number of rulegroups that passed during execution
      */
     public long getPassedGroupsCount()
     {
@@ -181,8 +205,10 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
-     * returns the total number of groups that failed 
-     * during execution of the business rule engine
+     * returns the total number of actions that were 
+     * executed by the business rule engine
+     * 
+     * @return the number of actions executed
      */
     public long getActionsExecutedCount()
     {
@@ -191,7 +217,13 @@ public class RuleExecutionCollection implements Serializable
     
     /**
      * returns the total number of groups that where skipped 
-     * during execution of the business rule engine
+     * during execution of the business rule engine.
+     * 
+     * groups that are dependent on other groups are skipped according
+     * to the status (passed/failed) of the execution of the group they
+     * depend on. 
+     * 
+     * @return the number of rulegroups that were skipped during execution
      */
     public long getSkippedGroupsCount()
     {
@@ -230,7 +262,7 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
-     * increases the count of rules
+     * increases the count of rules by one (1)
      * 
      */
     public void increaseRulesRunCount()
@@ -239,7 +271,7 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
-     * increases the count of rules that failed
+     * increases the count of rules that failed by one (1)
      * 
      */
     public void increaseRulesFailedCount()
@@ -248,7 +280,7 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
-     * increases the count of rules that passed
+     * increases the count of rules that passed by one (1)
      * 
      */
     public void increaseRulesPassedCount()
@@ -257,8 +289,9 @@ public class RuleExecutionCollection implements Serializable
     }
 
     /**
-     * add the number of actions executed by a rulegroup
+     * add the number of actions executed by a rulegroup to the counter
      * 
+     * @param number	the number to add to the count of executed actions
      */
     public void addNumberOfActionsExecuted(int number)
     {
@@ -266,8 +299,9 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
-     * add the number of rules run
+     * add the number of rules run to the counter
      * 
+     * @param number	the number to add to the count of rules run
      */
     public void addNumberOfRulesRun(long number)
     {
@@ -275,8 +309,9 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
-     * add the number of rules that failed
+     * add the number of rules that failed to the counter
      * 
+     * @param number	the number to add to the count of failed rules
      */
     public void addNumberOfRulesFailed(long number)
     {
@@ -284,7 +319,9 @@ public class RuleExecutionCollection implements Serializable
     }
     
     /**
-     * add the number of rules that passed
+     * add the number of rules that passed to the counter
+     * 
+     * @param number	the number to add to the count of passed rules
      * 
      */
     public void addNumberOfRulesPassed(long number)
@@ -292,11 +329,21 @@ public class RuleExecutionCollection implements Serializable
     	rulesPassedCount =  rulesPassedCount + number;
     }
 
+    /**
+     * Gets the indicator if the results of the rule execution should be preserved
+     * 
+     * @return	the indicator if results should be preserved
+     */
 	public boolean getPreserveRuleExcecutionResults()
 	{
 		return preserveRuleExcecutionResults;
 	}
 
+	/**
+     * Sets the indicator if the results of the rule execution should be preserved
+     * 
+     * @param preserveRuleExcecutionResults	the indicator if results should be preserved
+     */
 	public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
 	{
 		this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;

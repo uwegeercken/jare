@@ -59,8 +59,11 @@ public class Splitter
 
 	/**
 	 * constructor indicating which type of data file is used:
-	 * a csv file or a fixed length ascii file
+	 * a csv file or a fixed length ASCII file. 
 	 * 
+	 * you can use the defined type constants in this class. 
+	 * 
+	 * @param	type	the type of the ASCII file to use (0 or 1)
 	 */
 	public Splitter(int type)
 	{
@@ -69,8 +72,13 @@ public class Splitter
 	
 	/**
 	 * constructor indicating which type of data file is used:
-	 * a csv file or a fixed length ascii file
+	 * a csv file or a fixed length ASCII file and the field separator
+	 * used in the file to distinguish the fields.
 	 * 
+	 * you can use the defined type constants in this class. 
+	 * 
+	 * @param	type			the type of the ASCII file to use (0 or 1)
+	 * @param	fieldSeperator	the separator that distinguishes the fields
 	 */
 	public Splitter(int type, String fieldSeperator)
 	{
@@ -79,13 +87,13 @@ public class Splitter
 	}
 	
 	/**
-	 * the layout of a fixed length ascii row, can be defined in
-	 * an external xml file.
-	 * pass the name of the file to this method. the xml file will
+	 * the layout of a fixed length ASCII row, can be defined in
+	 * an external XML file.
+	 * pass the name of the file to this method. the XML file will
 	 * be parsed, so that the layout can be used.
 	 * 
 	 * @param fileName		the name of the row definition file
-	 * @throws Exception	exception when the file was not found
+	 * @throws Exception	exception when the file was not found or can not be read
 	 */
 	public void setRowDefinitionFile(String fileName) throws Exception
 	{
@@ -132,17 +140,29 @@ public class Splitter
 	 * returns an array of strings, containing the fields that the row
 	 * consists of. the line argument is a line (or row) from an 
 	 * ASCII file.
+	 * 
+	 * @param line			a line of data
+	 * @return				an array of string values
+	 * @throws Exception	exception if no row definition file is defined
 	 */
 	public String[] getFields(String line) throws Exception
 	{
 		if(type==TYPE_FIXED_LENGTH && parser==null)
 		{
-			throw new Exception("no row definition xml file specified for fixed length ascii file");
+			throw new Exception("no row definition xml file specified for fixed length ASCII file");
 		}
 		return splitRow(line);
 		
 	}
 	
+	/**
+	 * Splits a row of data from an ASCII file into its individual fields
+	 * using the defined field separator.
+	 * 
+	 * @param line			a line of data
+	 * @return				an array of string values
+	 * @throws Exception	exception if the type of the file is undefined
+	 */
 	private String[] splitRow(String line) throws Exception
 	{
 		String [] fields;
@@ -191,6 +211,8 @@ public class Splitter
 	/**
 	 * returns the currently used field seperator that is used as 
 	 * delimiter for a CSV file.
+	 * 
+	 * @return		the field separator currently in use
 	 */
 	public String getFieldSeperator() 
 	{
@@ -200,6 +222,8 @@ public class Splitter
 	/** 
 	 * sets the field seperator that is used to delimit fields of a
 	 * CSV file. default is a semicolon (;)
+	 * 
+	 * @param fieldSeperator		the field seperator to be used to distinguish individual fields
 	 */
 	public void setFieldSeperator(String fieldSeperator) 
 	{
@@ -211,6 +235,8 @@ public class Splitter
 	 * one field from the other. or it can be a fixed length layout, where
 	 * fields have an exact predefined length. in this case an xml file
 	 * with the layout of the fields needs to be defined.
+	 * 
+	 * @return		the type of ASCII file
 	 */
 	public int getType() 
 	{
@@ -220,6 +246,8 @@ public class Splitter
 	/**
 	 * indicates if all input data (fields) from the ascii file should be trimmed (both sides).
 	 * only used for fix-length ascii files
+	 * 
+	 * @return		an indicator if all field values should be trimmed
 	 * 
 	 */
 	public boolean getTrimFields() 
@@ -231,6 +259,7 @@ public class Splitter
 	 * sets if the input data (fields) shall be trimmed (both sides).
 	 * the value will only be used for fixed length ascii fiels.
 	 * 
+	 * @param	trimFields	indicator if all field values should be trimmed
 	 */
 	public void setTrimFields(boolean trimFields)
 	{
@@ -241,6 +270,8 @@ public class Splitter
 	 * indicates if a leading and trailing quote character (") should be removed.
 	 * only used for csv files.
 	 * 
+	 * @return		indicator if all quote characters should be removed
+	 * 
 	 */
 	public boolean getRemoveQuotes() {
 		return removeQuotes;
@@ -250,6 +281,7 @@ public class Splitter
 	 * sets if the leading and trailing quote character (") should be removed.
 	 * only used for csv files.
 	 * 
+	 * @param 	removeQuotes	indication if all quote characters should be removed
 	 */
 	public void setRemoveQuotes(boolean removeQuotes) {
 		this.removeQuotes = removeQuotes;

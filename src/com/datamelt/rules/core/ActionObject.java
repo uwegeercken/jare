@@ -33,6 +33,9 @@ public class ActionObject implements Serializable
     /**
      * constructor using the classname, name of the method to execute and the return
      * type of the method
+     * 
+     * @param className		the name of the class of the action object
+     * @param methodName	the name of the method to be executed
      */
     public ActionObject(String className, String methodName)
     {
@@ -41,7 +44,9 @@ public class ActionObject implements Serializable
     }
     
      /**
-     * returns the name of the class that is used 
+     * returns the name of the class that is used
+     * 
+     * @return	name of the class
      */
     public String getClassName()
     {
@@ -49,7 +54,9 @@ public class ActionObject implements Serializable
     }
     
     /**
-     * setrs the name of the class, which will be used to instantiate an object 
+     * sets the name of the class, which will be used to instantiate an object
+     * 
+     * @param className		the name of the class to be used
      */
     public void setClassName(String className)
     {
@@ -58,6 +65,8 @@ public class ActionObject implements Serializable
     
     /**
      * returns the name of the method that will be executed
+     * 
+     * @return	name of the method
      */
     public String getMethodName()
     {
@@ -66,6 +75,8 @@ public class ActionObject implements Serializable
     
     /**
      * sets the name of the method that will be executed 
+     * 
+     * @param methodName		the name of the method to be used
      */
     public void setMethodName(String methodName)
     {
@@ -76,6 +87,8 @@ public class ActionObject implements Serializable
     /**
      * sets the list of parameters that have to be passed to the method
      * to execute 
+     * 
+     * @param parameters	a list of parameters to be used with the given method
      */
     public void setParameters(ArrayList<Parameter> parameters)
     {
@@ -84,6 +97,8 @@ public class ActionObject implements Serializable
     
     /**
      * add another parameter to the list of parameters of the method 
+     * 
+     * @param parameter		the parameter to be added
      */
     public void addParameter(Parameter parameter)
     {
@@ -94,6 +109,7 @@ public class ActionObject implements Serializable
 	 * returns the arraylist of parameters belonging to this
 	 * actions object
 	 * 
+	 * @return	a list of parameters used
 	 */
     public ArrayList<Parameter> getParameters()
 	{
@@ -104,6 +120,7 @@ public class ActionObject implements Serializable
 	 * returns a number 0 or 1 indicating if the action object is a getter object,
 	 * which means if the method for this object is used to retrieve a value.
 	 * 
+	 * @return	indicator if the method is a getter method
 	 */
 	public int isGetter()
 	{
@@ -113,17 +130,35 @@ public class ActionObject implements Serializable
 	/**
 	 * sets the value of the isGetter variable. it indicates if the action object
 	 * and the corresponding method is used to get a value or not.
+	 * 
+	 * @param isGetter		indicator if the method is a getter method
 	 */
 	public void setIsGetter(int isGetter)
 	{
 		this.isGetter = isGetter;
 	}
 
+	/**
+	 * returns the type of the object returned from the action.
+	 * 
+	 * Can be String, Date, long, int, etc.
+	 * 
+	 * 
+	 * @return		the type that is returned from the action
+	 */
 	public String getReturnType()
 	{
 		return returnType;
 	}
 
+	/**
+	 * sets the type of the object returned from the action.
+	 * 
+	 * Can be String, Date, long, int, etc.
+	 * 
+	 * 
+	 * @param returnType		the type that is returned from the action
+	 */
 	public void setReturnType(String returnType) 
 	{
 		this.returnType = returnType;

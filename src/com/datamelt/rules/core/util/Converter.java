@@ -18,6 +18,9 @@ public class Converter
      * converts an integer value to logical value:
      * [and], [or] or [] and provides the result 
      * in form of a string.
+     * 
+     * @param i 		the integer value to convert
+     * @return			the equivalent string representation of the integer value
      */
     public static String convertIntToLogical(int i)
     {
@@ -38,6 +41,9 @@ public class Converter
     /*
      * converts an integer value to boolean value and
      * provides the result in form of a string.
+     * 
+     * @param i 		the integer value to convert
+     * @return			the equivalent string representation of the integer value
      */
     public static String convertIntegerToBooleanString(int i) 
     {

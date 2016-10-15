@@ -5,7 +5,14 @@ import java.util.Date;
 import java.util.Random;
 
 import com.datamelt.rules.core.XmlAction;
-
+/**
+ * Class containing possible actions that are related to mathematical calculations.
+ * 
+ * Actions belong to a rulegroup and are execute depending on the status of rulegroup - if it passed or failed (or both).
+ *
+ * @author uwe geercken
+ * 
+ */
 public class MathAction
 {
 	public int setValue(XmlAction action, int value) throws Exception
