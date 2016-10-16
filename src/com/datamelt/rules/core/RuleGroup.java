@@ -56,6 +56,9 @@ public class RuleGroup implements Serializable
     
     /**
      * constructor for a rule group using its id 
+     * 
+     * @param	id				the id of the rulegroup
+     * @param	description		the description of the rulegroup
      */
     public RuleGroup(String id, String description)
     {
@@ -96,7 +99,7 @@ public class RuleGroup implements Serializable
     /**
      * sets the valid from string of the group 
      * 
-     * param validFrom	the valid from date of the group
+     * @param validFrom	the valid from date of the group
      */
     public void setValidFrom(String validFrom)
     {
@@ -107,6 +110,8 @@ public class RuleGroup implements Serializable
      * checks if the rulegroup is valid on today's date by comparing
      * the valid from and valid until settings
      * 
+     * @return				indicator if the rulegroup is valid
+     * @throws Exception	throws exception if the date object can not be instantiated
      */
     public boolean isValid() throws Exception
 	{
@@ -144,6 +149,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the valid until string of the group 
+     * 
+     * @return	the date until which the group is valid
      */
     public String getValidUntil()
     {
@@ -152,6 +159,8 @@ public class RuleGroup implements Serializable
     
     /**
      * sets the valid until string of the group 
+     * 
+     * @param	validUntil	the date until which the rulegroup is valid
      */
     public void setValidUntil(String validUntil)
     {
@@ -160,6 +169,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the id of the group 
+     * 
+     * @return	the id of the rulegroup
      */
     public String getId()
     {
@@ -167,7 +178,9 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * stes the id of the group 
+     * sets the id of the group
+     * 
+     * @param	id	the id of the rulegroup 
      */
     public void setId(String id)
     {
@@ -176,6 +189,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the collection of subgroups that belong to the group 
+     * 
+     * @return	a collection of subgroups
      */
     public RuleSubGroupCollection getSubGroupCollection()
     {
@@ -184,6 +199,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the subgroups that are in a collection of subgroups that belong to the group 
+     * 
+     * @return	a list of subgroups
      */
     public ArrayList <RuleSubGroup>getSubGroups()
     {
@@ -191,7 +208,9 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * sets the collection of subgroups that belong to the group 
+     * sets the collection of subgroups that belong to the group
+     * 
+     * @param	collection of subgroups
      */
     public void setSubGroups(RuleSubGroupCollection collection)
     {
@@ -200,6 +219,10 @@ public class RuleGroup implements Serializable
     
     /**
      * this method is used to run all rules in all subgroups.
+     * 
+     * @param	objectLabel		the label used for the object
+     * @param	object			the object to use
+     * @throws	Exception		throws an exception if the rulegroup or action can not be executed
      */
     public void runRules(String objectLabel,Object object)throws Exception
     {
@@ -219,6 +242,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the total number of rules over all subgroups
+     * 
+     * @return		the number of rules of the rulegroup
      */
     public int getNumberOfRules()
     {
@@ -233,6 +258,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the total number of actions of this group
+     * 
+     * @return		the number of actions of the rulegroup
      */
     public int getNumberOfActions()
     {
@@ -240,7 +267,10 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * returns the total number of actions of this group
+     * returns the total number of actions executed of this group
+     * 
+     * @return	the number of actions executed
+     * 
      */
     public int getNumberOfActionsExecuted()
     {
@@ -248,8 +278,9 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * returns the number of rules that failed over all
-     * subgroups
+     * returns the number of rules that failed over all subgroups
+     * 
+     * @return		the number of rules run
      */
     public long getNumberOfRulesRun()
     {
@@ -263,8 +294,9 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * returns the number of rules that failed over all
-     * subgroups
+     * returns the number of rules that failed over all subgroups
+     * 
+     * @return	the number of rules that failed
      */
     public long getNumberOfRulesFailed()
     {
@@ -278,8 +310,9 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * returns the number of rules that passed over all
-     * subgroups
+     * returns the number of rules that passed over all subgroups
+     * 
+     * @return	the number of rules passed
      */
     public long getNumberOfRulesPassed()
     {
@@ -293,8 +326,9 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * returns a collection of results from all subgroups and rules
-     * that ran.
+     * returns a collection of results from all subgroups and rules that ran
+     * 
+     * @return	the collection of rule execution results
      */
     public RuleExecutionCollection getExecutionCollection()
     {
@@ -310,6 +344,11 @@ public class RuleGroup implements Serializable
         return collection;
     }
     
+    /**
+     * returns the results list of the rule execution collection
+     * 
+     * @return	a list of results
+     */
     public ArrayList <RuleExecutionResult>getResults()
     {
         return getExecutionCollection().getResults();
@@ -333,6 +372,8 @@ public class RuleGroup implements Serializable
      * in total one can say that the subgroups are chained together using the logical operators. the result is an
      * indicator, if the complete group failed (0) or not (1).
      * 
+     * @return				indicator if the rulegroup failed
+     * @throws	Exception	exception if the result could not be determined
      */
     public int getFailed() throws Exception
     {
@@ -378,7 +419,10 @@ public class RuleGroup implements Serializable
     }
     
     /** returns a string expression meaning [true] or [false]
-     *  depending if the group passed or failed. 
+     *  depending if the group passed or failed.
+     *  
+     *   @return				indicator if the rulegroup failed
+     *   @throws	Exception	exception if the reult could not be determined
      */
     public String getFailedAsString() throws Exception
     {
@@ -387,10 +431,16 @@ public class RuleGroup implements Serializable
     }
     
     /**
-     * group returns (0 or 1) if two groups fail when you connect them
+     * returns (0 or 1) if two subgroups fail when you connect them
      * using the defined condition [and] or [or]
      * 
-     * is used to detect the condition when chaining groups together 
+     * used to evaluate the result when chaining groups together 
+     * 
+     * @param	group1Failed	indicator if the first subgroup failed
+     * @param	group2Failed	indicator if the second subgroup failed
+     * @param	operator		the operator how the subgroups are connected to each other
+     * @return					indicator if the chained subgroups failed
+     * 
      */
     private int getFailed(int group1Failed, int group2Failed, int operator)
     {
@@ -419,6 +469,11 @@ public class RuleGroup implements Serializable
         }
     }
     
+    /**
+     * creates a string representation of the logic of a rulegroup
+     * 
+     * @return	the logic of a rulegroup in a textual representation
+     */
     public String getRuleLogic()
     {
         StringBuffer buffer = new StringBuffer("(");
@@ -451,6 +506,8 @@ public class RuleGroup implements Serializable
     /**
      * specifies if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
+     * 
+     * @return	the output type
      */
     public int getOutputType()
     {
@@ -460,6 +517,8 @@ public class RuleGroup implements Serializable
     /**
      * sets if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
+     * 
+     * @param	outputType	the output type
      */
     public void setOutputType(int outputType)
     {
@@ -468,6 +527,8 @@ public class RuleGroup implements Serializable
     
     /**
      * returns the format of the timestamp used for timestamp formating
+     * 
+     * @return	the format of the timestamp
      */
     public String getTimestampFormat()
     {
@@ -477,6 +538,8 @@ public class RuleGroup implements Serializable
     /**
      * sets the format of the timestamp used for timestamp formating.
      * follows the rules of the java.text.SimpleDateFormat class
+     * 
+     * @param	timestampFormat		the format to use for the timestamp
      */
     public void setTimestampFormat(String timestampFormat)
     {
@@ -485,6 +548,8 @@ public class RuleGroup implements Serializable
 
     /**
      * add an action to this group that shall be executed
+     * 
+     * @param	action	the action to add
      */
     
     public void addAction(XmlAction action)
@@ -492,6 +557,7 @@ public class RuleGroup implements Serializable
     	actions.add(action);
     }
 
+    
 	public boolean getOutputAfterActions()
 	{
 		return outputAfterActions;

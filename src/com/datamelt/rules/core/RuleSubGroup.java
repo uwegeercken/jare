@@ -107,7 +107,10 @@ public class RuleSubGroup implements Serializable
      * the rule is not a boolean, an exception is thrown.
      * 
      * all results running the rule engine are put in a collection, containing the rule that was run and the object the rule ran against.
-     */
+     * 
+     * @param	objectLabel		the label of the object
+     * @param	object			the object to use
+     */	
     public void runRules(String objectLabel, Object object) throws Exception
     {
         // clear the list of errors
@@ -375,6 +378,11 @@ public class RuleSubGroup implements Serializable
     /**
      * before the method can be invoked, an array of objects has to be created. these will be passed into
      * the method and with these objects/values the method will be executed.
+     * 
+     * @param	rule			the rule to use
+     * @param	result			the first object to use
+     * @param	resultObject2	the second object to use
+     * @return					an array of objects/arguments to pass to the method
      */
     private Object[] createRuleMethodArguments(XmlRule rule, Object result, Object resultObject2) throws Exception
     {
@@ -448,7 +456,7 @@ public class RuleSubGroup implements Serializable
      * if the rules are connected with an 'and', then all rules must pass for the subgroup to pass.
      * if they are connected with an 'or' condition, then at least one must pass for the subgroup to pass.
      * 
-     * returns [1] if failed or [0] if the subgroup did not fail
+     * @return	 [1] if failed or [0] if the subgroup passed
      */
     public int getFailed()
     {
@@ -485,6 +493,8 @@ public class RuleSubGroup implements Serializable
     
     /** returns a string expression meaning [true] or [false]
      *  depending if the subgroup passed or failed. 
+     *  
+     *  @return		indicator if the subgroup failed
      */
     public String getFailedAsString() throws Exception
     {

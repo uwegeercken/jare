@@ -30,6 +30,10 @@ public class RuleObject implements Serializable
     /**
      * constructor using the classname, name of the method to execute and the return
      * type of the method
+     * 
+     * @param	className			the name of the class to instantiate
+     * @param	methodName			the name of the method to execute
+     * @param	methodReturnType	the return type of the method
      */
     public RuleObject(String className, String methodName, String methodReturnType)
     {
@@ -41,6 +45,12 @@ public class RuleObject implements Serializable
     /**
      * constructor using the classname, name of the method to execute and the return
      * type of the method, the parameter that has to be passed to the method and its type
+     * 
+     * @param	className			the name of the class to instantiate
+     * @param	methodName			the name of the method to execute
+     * @param	methodReturnType	the return type of the method
+     * @param	parameter			the parameter to be passed
+     * @param	parameterType		the type of the parameter
      */
     public RuleObject(String className, String methodName, String methodReturnType, String parameter, String parameterType)
     {
@@ -53,6 +63,8 @@ public class RuleObject implements Serializable
 
     /**
      * returns the name of the class that is used 
+     * 
+     * @return	the name of the class
      */
     public String getClassName()
     {
@@ -60,7 +72,9 @@ public class RuleObject implements Serializable
     }
     
     /**
-     * setrs the name of the class, which will be used to instantiate an object 
+     * sets the name of the class, which will be used to instantiate an object
+     * 
+     *  @param	className	the name of the class
      */
     public void setClassName(String className)
     {
@@ -69,6 +83,8 @@ public class RuleObject implements Serializable
     
     /**
      * returns the name of the method that will be executed
+     * 
+     * @return	the name of the method
      */
     public String getMethodName()
     {
@@ -77,6 +93,8 @@ public class RuleObject implements Serializable
     
     /**
      * sets the name of the method that will be executed 
+     * 
+     * @param	methodName	the name of the method to execute
      */
     public void setMethodName(String methodName)
     {
@@ -85,6 +103,8 @@ public class RuleObject implements Serializable
     
     /**
      * returns the type that the method will return 
+     * 
+     * @return 	the return type of the method
      */
     public String getMethodReturnType()
     {
@@ -93,13 +113,19 @@ public class RuleObject implements Serializable
     
     /**
      * sets the return type of the method 
+     * 
+     * @param methodReturnType 	the return type of the method
      */
     public void setMethodReturnType(String methodReturnType)
     {
         this.methodReturnType = methodReturnType;
     }
     
-    //gets the parameter that has to be passed to the method
+    /**
+     * gets the parameter that has to be passed to the method
+     * 
+     * @return	the parameter to be passed
+     */
     public String getParameter()
     {
         return parameter;
@@ -107,6 +133,8 @@ public class RuleObject implements Serializable
     
     /**
      * sets the parameter that will be passed to the method 
+     * 
+     * @param	parameter	the parameter to be passed
      */
     public void setParameter(String parameter)
     {
@@ -115,6 +143,8 @@ public class RuleObject implements Serializable
     
     /**
      * returns the type of the parameter that will be passed to the method 
+     * 
+     * @return		the type of the parameter
      */
     public String getParameterType()
     {
@@ -123,6 +153,8 @@ public class RuleObject implements Serializable
     
     /**
      * sets the type of the parameter that will be passed to the method 
+     * 
+     * @param	parameterType		the type of the parameter
      */
     public void setParameterType(String parameterType)
     {

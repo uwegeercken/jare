@@ -24,7 +24,7 @@ public class RuleExecutionCollection implements Serializable
     private long rulesPassedCount = 0;
     // carries the number of failed groups
     private long failedGroupsCount = 0;
- // carries the number of passed groups
+    // carries the number of passed groups
     private long passedGroupsCount = 0;
     // carries the number of skipped groups because the dependent rulegroup
     // did not have to expected result (passed/failed)
@@ -85,6 +85,7 @@ public class RuleExecutionCollection implements Serializable
      * results
      * 
      * @param index		the index of the rule execution result to retrieve
+     * @return			a rule execution result
      */
     public RuleExecutionResult get(int index)
     {

@@ -30,6 +30,9 @@ public class RuleMessage implements Serializable
     /**
      * constructor using the type of the message (failed or passed) and the
      * text of the message 
+     * 
+     * @param	type	the type of the message
+     * @param	text	the text of the message
      */
     public RuleMessage(int type, String text)
     {
@@ -39,6 +42,8 @@ public class RuleMessage implements Serializable
     
     /**
      * constructor using the type of the message (failed or passed)
+     * 
+     * @param	type	the type of the message
      */
     public RuleMessage(int type)
     {
@@ -47,6 +52,8 @@ public class RuleMessage implements Serializable
     
     /**
      * used to retrieve the text of the message 
+     * 
+     * @return	the text of the message
      */
     public String getText()
     {
@@ -55,6 +62,8 @@ public class RuleMessage implements Serializable
     
     /**
      * sets the text of the message 
+     * 
+     * @param	text	the message to use
      */
     public void setText(String text)
     {
@@ -62,7 +71,11 @@ public class RuleMessage implements Serializable
     }
     
     /**
-     * returns the type (passed or failed) of the message 
+     * rules always have two messages one message if the rule fails and one if it passes.
+     * method returns the type (passed or failed) of the message 
+     * 
+     * 
+     * @return	the type of the message
      */
     public int getType()
     {
