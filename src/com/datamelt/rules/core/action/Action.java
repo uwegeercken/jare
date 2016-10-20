@@ -46,6 +46,7 @@ public class Action implements Serializable
 	 * 
 	 * @param actions 		the list of actions
      * @return				the number of actions executed
+     * @throws	Exception	exception if the action could not be executed
      */
 	public int executeActions(ArrayList<XmlAction> actions) throws Exception
 	{
@@ -69,7 +70,8 @@ public class Action implements Serializable
 	/**
 	 * Executes a single XmlAction objects
 	 * 
-	 * @param action 		the action to execute
+	 * @param 	action 		the action to execute
+	 * @throws	Exception	exception if the action could not be executed
      */
 	public void executeAction(XmlAction action) throws Exception
 	{

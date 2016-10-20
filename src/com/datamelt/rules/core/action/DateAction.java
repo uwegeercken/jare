@@ -15,14 +15,30 @@ import com.datamelt.rules.core.XmlAction;
  */
 public class DateAction
 {
-	
+	// the default date format used whenever no other format is specified
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	
+	/**
+	 * sets the date to the given date
+	 * 
+	 * @param action 		the action use
+	 * @param value			the value to set
+	 * @return				date
+	 * @throws Exception	exception in date handling
+	 */
 	public Date setValue(XmlAction action, Date value) throws Exception
 	{
 		return value;
 	}
 	
+	/**
+	 * sets the date to the given date
+	 * 
+	 * @param action		the action to use
+	 * @param value			the value to set
+	 * @return				the date in the default format
+	 * @throws Exception	exception in date parsing
+	 */
 	public Date setValue(XmlAction action, String value) throws Exception
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
@@ -31,6 +47,15 @@ public class DateAction
 		return cal.getTime();
 	}
 
+	/**
+	 * sets the date to the given date
+	 * 
+	 * @param action		the action to use
+	 * @param value			the value to set
+	 * @param dateFormat	the format to use for the date
+	 * @return				the date in the default format
+	 * @throws Exception	exception in date parsing
+	 */
 	public Date setValue(XmlAction action, String value, String dateFormat) throws Exception
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -42,6 +67,10 @@ public class DateAction
 	 * method will set the value of the relevant object to the current date.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+	 * @param action		the action to use
+	 * @param dateFormat	the format to use for the date
+	 * @return				the date as a string in the default format
 	 */
 	public String setTodayDate(XmlAction action,String dateFormat)
 	{
@@ -51,6 +80,9 @@ public class DateAction
 	
 	/**
 	 * method will set the value of the relevant object to the current date.
+	 * 
+	 * @param action		the action to use
+	 * @return				the date in the default format
 	 */
 	public Date setTodayDate(XmlAction action)
 	{
@@ -62,6 +94,12 @@ public class DateAction
 	 * the specified number of days offset.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+ 	 * @param action		the action to use
+	 * @param dateFormat	the format to use for the date
+	 * @param daysOffset	the number of days offset from today
+
+	 * @return	todays date in the given format as a string
 	 */
 	public String setTodayDate(XmlAction action,String dateFormat, int daysOffset)
 	{
@@ -75,6 +113,11 @@ public class DateAction
 	 * method will set the value of the relevant object to the date of the
 	 * last day of the month.
 	 * The default date format will be used to format the returned string
+	 * 
+	 * @param action		the action to use
+	 * @param year			the year used for calculation
+	 * @param month			the month used for calculation
+	 * @return	todays date in the default format as a string
 	 */
 	public String setLastDayOfMonth(XmlAction action,int year, int month)
 	{
@@ -92,6 +135,9 @@ public class DateAction
 	/**
 	 * method will set the value of the relevant object to the date of the
 	 * last day of the current month.
+	 * 
+	 * @param action		the action to use
+	 * @return				last day of the current month
 	 */
 	public Date setLastDayOfMonth(XmlAction action)
 	{
@@ -107,6 +153,10 @@ public class DateAction
 	 * last day of the month.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved
+	 * @return				last day of the month of the given date
 	 */
 	public Date setLastDayOfMonth(XmlAction action,Date date)
 	{
@@ -123,6 +173,12 @@ public class DateAction
 	 * last day of the month.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+	 * @param action		the action to use
+	 * @param year			the year to use	 
+	 * @param month			the month to use
+	 * @param dateFormat	the date format to use
+	 * @return				last day of the given year and month in the given format as a string
 	 */
 	public String setLastDayOfMonth(XmlAction action,int year, int month,String dateFormat)
 	{
@@ -141,6 +197,11 @@ public class DateAction
 	 * method will set the value of the relevant object to the date of the
 	 * first day of the month.
 	 * The default date format will be used to format the returned string
+	 * 
+	 * @param action		the action to use
+	 * @param year			the year to use	 
+	 * @param month			the month to use
+	 * @return				first day of the given year and month in the default format
 	 */
 	public String setFirstDayOfMonth(XmlAction action,int year, int month)
 	{
@@ -157,6 +218,9 @@ public class DateAction
 	/**
 	 * method will set the value of the relevant object to the date of the
 	 * first day of the current month.
+	 * 
+	 * @param action		the action to use
+	 * @return				first day of the current month
 	 */
 	public Date setFirstDayOfMonth(XmlAction action)
 	{
@@ -171,6 +235,10 @@ public class DateAction
 	 * first day of the month.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @return				first day of the month of the given date
 	 */
 	public Date setFirstDayOfMonth(XmlAction action,Date date)
 	{
@@ -186,6 +254,12 @@ public class DateAction
 	 * first day of the month.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+	 * @param action		the action to use
+	 * @param year			the year to use	 
+	 * @param month			the month to use
+	 * @param dateFormat	the date format to use
+	 * @return				first day of the month of the given year and month in the specified format
 	 */
 	public String setFirstDayOfMonth(XmlAction action,int year, int month,String dateFormat)
 	{
@@ -203,6 +277,11 @@ public class DateAction
 	 * method will set the value of the relevant object to the date of the
 	 * mid day of the month.
 	 * The default date format will be used to format the returned string
+	 * 
+	 * @param action		the action to use
+	 * @param year			the year to use	 
+	 * @param month			the month to use
+	 * @return				mid day of the month of the given year and month
 	 */
 	public String setMidDayOfMonth(XmlAction action,int year, int month)
 	{
@@ -219,6 +298,9 @@ public class DateAction
 	/**
 	 * method will set the value of the relevant object to the date of the
 	 * mid day of the current month.
+	 * 
+	 * @param action		the action to use
+	 * @return				mid day of the month of the current date
 	 */
 	public Date setMidDayOfMonth(XmlAction action)
 	{
@@ -233,6 +315,10 @@ public class DateAction
 	 * mid day of the month.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @return				mid day of the month of the given date
 	 */
 	public Date setMidDayOfMonth(XmlAction action,Date date)
 	{
@@ -248,6 +334,12 @@ public class DateAction
 	 * mid day of the month.
 	 * the dateFormat parameter is used to specify the date format according
 	 * to the specification defined in the SimpleDateFormat class.
+	 * 
+	 * @param action		the action to use
+	 * @param year			the year to use	 
+	 * @param month			the month to use
+	 * @param dateFormat	the date format to use
+	 * @return				mid day of the month of the given year and month in the specified format as a string
 	 */
 	public String setMidDayOfMonth(XmlAction action,int year, int month,String dateFormat)
 	{
@@ -263,6 +355,11 @@ public class DateAction
 
 	/**
 	 * method will add the given number of minutes to the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of minutes to add
+	 * @return				the given date plus the given minutes as a date
 	 */
 	public Date addMinutes(XmlAction action, Date date, long minutes)
 	{

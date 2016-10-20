@@ -49,7 +49,7 @@ public class Parameter implements Serializable
     
     /**
      * constructor for creating a parameter. expects the type of the
-     * parameter and the value
+     * parameter, the value and an indicator if it is a setter value
      * 
      * @param type				the type of the parameter
      * @param value				the value of the parameter
@@ -70,7 +70,7 @@ public class Parameter implements Serializable
      */
     public String getType()
     {
-        return type;
+        return type; 
     }
     
     /**

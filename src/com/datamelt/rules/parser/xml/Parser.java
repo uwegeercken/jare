@@ -116,7 +116,9 @@ public class Parser extends DefaultHandler implements ContentHandler
 	/**
 	 * constructor for a parser object that is used to parse a rule definition
 	 * xml file. pass a VariableReplacer object to this constructor, which
-	 * will be used to replace variables in the xml rule file with actual values. 
+	 * will be used to replace variables in the xml rule file with actual values.
+	 * 
+	 * @param	replacer	the replacer object
 	 */
     public Parser(VariableReplacer replacer)
     {
@@ -126,6 +128,9 @@ public class Parser extends DefaultHandler implements ContentHandler
     /**
      * pass a filename of an xml rule definition file to this method, which will
      * in turn be parsed using SAX. 
+     * 
+     * @param	filename	the xml file to parse
+     * @throws	Exception	exception if the xml file cannot be located or parsed
      */
     public void parse(String filename) throws Exception
     {
@@ -152,7 +157,10 @@ public class Parser extends DefaultHandler implements ContentHandler
     
     /**
      * pass an inputstream of a xml file to this method, which will
-     * in turn be parsed using SAX. 
+     * in turn be parsed using SAX.
+     * 
+     *  @param	stream		the input stream to use for parsing
+     *  @throws	Exception	exception during parsing the xml file
      */
     public void parse(InputStream stream) throws Exception
     {
@@ -500,6 +508,8 @@ public class Parser extends DefaultHandler implements ContentHandler
     /**
      * returns an arraylist of groups that have been constructed by parsing
      * a xml rule definition file 
+     * 
+     * @return	list of rulegroups
      */
     public ArrayList<RuleGroup> getGroups()
     {

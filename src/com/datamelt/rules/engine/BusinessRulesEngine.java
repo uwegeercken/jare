@@ -125,6 +125,8 @@ public class BusinessRulesEngine
 
     /** 
      * returns the version and revision of the business rule engine
+     * 
+     * @return		the version and revision of the engine
      */
     public static String getVersion()
     {
@@ -132,7 +134,9 @@ public class BusinessRulesEngine
     }
     
     /** 
-     * returns the version and revision of the business rule engine
+     * returns the last date of an update of the business rule engine
+     * 
+     * @return		the last updated date
      */
     public static String getLastUpdateDate()
     {
@@ -143,6 +147,9 @@ public class BusinessRulesEngine
      * engine can be instantiated by passing the filename
      * the file will be parsed and all rules
      * will be collected
+     * 
+     * @param		rulesFilename	path and name of the xml rule file
+     * @exception	Exception		exception when the file(s) could not be located or parsed
      */
     public BusinessRulesEngine(String rulesFilename) throws Exception
     {
@@ -155,6 +162,10 @@ public class BusinessRulesEngine
      * the file will be parsed and all rules will be collected
      * the properties file is an external file that is used
      * to define several parameters used by the engine
+     * 
+     * @param		rulesFilename	the path and name of the XML rule file
+     * @param		propertiesFile	the path and name of the properties file
+     * @exception	Exception		exception when the file were not found or could not be processed
      */
     public BusinessRulesEngine(String rulesFilename,String propertiesFile) throws Exception
     {
@@ -170,6 +181,9 @@ public class BusinessRulesEngine
      * engine can be instantiated by passing an array of files
      * the files will be parsed and all rules from all files
      * will be collected
+     * 
+     * @param		rulesFiles		an array of rule xml files
+     * @exception	Exception		exception when the file(s) could not be located or parsed
      */
     public BusinessRulesEngine(File[] rulesFiles) throws Exception
     {
@@ -185,6 +199,9 @@ public class BusinessRulesEngine
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
+     * 
+     * @param		zipFile			path and name of the zip file
+     * @exception	Exception		exception when the file could not be located or parsed
      */
     public BusinessRulesEngine(ZipFile zipFile) throws Exception
     {
@@ -205,6 +222,10 @@ public class BusinessRulesEngine
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
+     * 
+     * @param		zipFile			path and name of the zip file
+     * @param		propertiesFile	path and name of the properties file
+     * @exception	Exception		exception when the file could not be located or parsed
      */
     public BusinessRulesEngine(ZipFile zipFile, String propertiesFile) throws Exception
     {
@@ -231,6 +252,10 @@ public class BusinessRulesEngine
      * 
      * the files will be parsed and all rules from all relevant files
      * will be collected
+	 *
+     * @param		zipFile			path and name of the zip file
+     * @param		ruleFiles		array containing the rulefile names to process
+     * @exception	Exception		exception when the file could not be located or parsed
      */
     public BusinessRulesEngine(ZipFile zipFile, String[] ruleFiles) throws Exception
     {
@@ -258,6 +283,10 @@ public class BusinessRulesEngine
      * will be collected
      * the properties file is an external file that is used
      * to define several parameters used by the engine
+     * 
+     * @param		rulesFiles		an array of rule xml files
+     * @param		propertiesFile	path and name of the properties file
+     * @exception	Exception		exception when the file(s) could not be located or parsed
      */
     public BusinessRulesEngine(File[] rulesFiles, String propertiesFile) throws Exception
     {
@@ -275,6 +304,10 @@ public class BusinessRulesEngine
     /**
      * method runs the rules for all groups and subgroups
      * against the object with the given label
+     * 
+     * @param		objectLabel		the label to use for the object
+     * @param		object			the actual object to use
+     * @throws		Exception		exception running the rule against the object
      */
     public void run(String objectLabel, Object object)throws Exception
     {
@@ -333,6 +366,9 @@ public class BusinessRulesEngine
      * for all objects of the collection.
      * objectLabel is used to label the result of a rule in the output
      * so that it can be identified.
+     * 
+     * @param		objects			a collection of objects to run the rule against
+     * @throws		Exception		exception running the rule against the object
      */
     public void run(Collection<Object> objects) throws Exception
     {
@@ -356,6 +392,10 @@ public class BusinessRulesEngine
      * method runs the rules for all groups and subgroups.
      * the csv file is parsed, split into rows and fields
      * using the defined field separator.
+     * 
+     * @param		csvfileName		the CSV file to use
+     * @param		fieldSeperator	the seperator between the fields/columns in the csv file
+     * @throws		Exception		exception running the rule against the object
      */
     public void run(String csvfileName,String fieldSeperator) throws Exception
     {
@@ -389,6 +429,7 @@ public class BusinessRulesEngine
     	reader.close();
     }
     
+
     private void prioritizeRuleGroups()
     {
         // the prioritizer will make sure that all rulegroups that other rulegroups
@@ -401,6 +442,9 @@ public class BusinessRulesEngine
      * method runs the rules for all groups and subgroups
      * against the object.
      * a default label for the objects will be used.
+     * 
+     * @param		object		the object to run the rule against
+     * @exception	Exception	exception when the rule could not be run
      */
     public void run(Object object)throws Exception
     {
@@ -414,6 +458,9 @@ public class BusinessRulesEngine
         run(label, object);
     }
     
+    /**
+     * applies settings to the rulegroup
+     */
     private void applyGroupSettings()
     {
     	for(int i=0;i<groups.size();i++)
@@ -427,6 +474,9 @@ public class BusinessRulesEngine
     
     /**
      * method is used to parse the given xml file
+     * 
+     * @param		filename	path and name of the xml file
+     * @exception	Exception	exception when the xml file could not be parsed
      */
     private void parseXmlFile(String filename)throws Exception
     {
@@ -444,6 +494,9 @@ public class BusinessRulesEngine
     
     /**
      * method is used to parse the given xml input stream
+     * 
+     * @param		stream		the input stream to parse from
+     * @exception	Exception	exception when the inputstream could not be parsed
      */
     private void parseXmlInputStream(InputStream stream)throws Exception
     {
@@ -459,17 +512,29 @@ public class BusinessRulesEngine
     
     /**
      * method returns a collection of results from all groups and subgroups
+     * 
+     * @return	collection of rule excecution results
      */
     public RuleExecutionCollection getRuleExecutionCollection()
     {
         return executionCollection;
     }
     
+    /**
+     * indicator if the execution results should be preserved or not
+     * 
+     * @return indicator if results are preserved
+     */
     public boolean getPreserveRuleExcecutionResults()
     {
     	return executionCollection.getPreserveRuleExcecutionResults();
     }
     
+    /**
+     * indicator if the execution results should be preserved or not
+     * 
+     * @param	preserveRuleExcecutionResults indicator if results shall be preserved
+     */
     public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
     {
     	this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;
@@ -478,6 +543,8 @@ public class BusinessRulesEngine
     
     /**
      * method returns the list of groups as defined in the xml file
+     * 
+     * @return	list of rulegroups
      */
     public ArrayList<RuleGroup> getGroups()
     {
@@ -487,6 +554,9 @@ public class BusinessRulesEngine
     /**
      * method returns the a group identified by it's id
      * as defined in the xml file
+     * 
+     * @param	groupId	the id of the group
+     * @return			the rulegroup
      */
     public RuleGroup getGroupById(String groupId)
     {
@@ -512,6 +582,8 @@ public class BusinessRulesEngine
     
     /**
      * method returns the number of rules from all groups and subgroups
+     * 
+     * @return	number of rules
      */
     public long getNumberOfRules()
     {
@@ -526,6 +598,8 @@ public class BusinessRulesEngine
     
     /**
      * method returns the number of actions from all groups
+     * 
+     * @return	number of actions
      */
     public long getNumberOfActions()
     {
@@ -545,6 +619,8 @@ public class BusinessRulesEngine
     
     /**
      * method returns the number of failed rules from all groups and subgroups
+     * 
+     * @return number of failed rules
      */
     public long getNumberOfRulesFailed()
     {
@@ -553,6 +629,8 @@ public class BusinessRulesEngine
     
     /**
      * method returns the number of passed rules from all groups and subgroups
+     * 
+     * @return number of passed rules
      */
     public long getNumberOfRulesPassed()
     {
@@ -561,6 +639,9 @@ public class BusinessRulesEngine
     
     /**
      * method returns the number of groups that failed
+     * 
+     * @return					number of groups failed
+     * @exception	Exception	exception when the value could not be determined
      */
     public long getNumberOfGroupsFailed() throws Exception
     {
@@ -569,6 +650,9 @@ public class BusinessRulesEngine
     
     /**
      * method returns the number of groups that failed
+     * 
+     * @return 					number of passed groups
+     * @exception	Exception	exception when the value could not be determined
      */
     public long getNumberOfGroupsPassed() throws Exception
     {
@@ -576,7 +660,13 @@ public class BusinessRulesEngine
     }
 
     /**
-     * method returns the number of groups that were skipped
+     * method returns the number of groups that were skipped.
+     * 
+     * groups may be skipped when they depend on another group and the execution
+     * result (failed/passed) of that group is different than the expected result.
+     * 
+     * @return 					number of skipped groups
+     * @exception	Exception	exception when the value could not be determined
      */
     public long getNumberOfGroupsSkipped() throws Exception
     {
@@ -585,6 +675,9 @@ public class BusinessRulesEngine
 
     /**
      * method returns the total number of groups
+     * 
+     * @return 					number of groups
+     * @exception	Exception	exception when the value could not be determined
      */
     public long getNumberOfGroups() throws Exception
     {
@@ -592,7 +685,10 @@ public class BusinessRulesEngine
     }
     
     /**
-     * method returns the total number of groups
+     * method returns the total number of executed groups
+     * 
+     * @return 					number of executed groups
+     * @exception	Exception	exception when the value could not be determined
      */
     public long getNumberOfExecutedGroups() throws Exception
     {
@@ -602,6 +698,8 @@ public class BusinessRulesEngine
     /**
      * returns if the method: 'run' has been invoked or not,
      * meaning if the ruleengine ran or not.
+     * 
+     * @return the status of the rule engine
      */
     public boolean getStatus()
     {
@@ -613,6 +711,10 @@ public class BusinessRulesEngine
      * 
      * the subgroup(s) will be parsed and the logic will be chained together
      * using brackets for an easier overview.
+     * 
+     * @param		groupId			the id of the group
+     * @return 						the rule logic in a textual form
+     * @exception	Exception		exception when the logic could not be constructed
      */
     public String getRuleLogic(String groupId) throws Exception
     {
@@ -641,6 +743,10 @@ public class BusinessRulesEngine
      * 
      * the subgroup(s) will be parsed and the logic will be chained together
      * using brackets for an easier overview.
+     * 
+     * @param		index		the index of the rulegroup
+     * @return					the rule logic in a textual expression
+     * @exception	Exception	exception when the logic could not be constructed
      */
     public String getRuleLogic(int index)throws Exception
     {
@@ -659,6 +765,8 @@ public class BusinessRulesEngine
      * returns the replacer object. the replacer is used
      * to replace placeholders in the xml files with actual
      * values.
+     * 
+     * @return		replacer object
      */
     public VariableReplacer getReplacer()
     {
@@ -669,6 +777,8 @@ public class BusinessRulesEngine
      * sets the replacer object, which is used to replace variables specified
      * in the xml files with real values as specified in an external
      * properties file.
+     * 
+     * @param	replacer	a variable replacer object
      */
     public void setReplacer(VariableReplacer replacer)
     {
@@ -678,6 +788,8 @@ public class BusinessRulesEngine
     /**
     * this label will be used - together with a running number - for all objects (that are to be tested)
     * to identify them in the output
+    * 
+    * @return	the label used for the objects
      */
     public String getObjectsLabel()
     {
@@ -687,6 +799,8 @@ public class BusinessRulesEngine
     /**
      * set the label to a different one, if you want to modify, how the object
      * is identified during ourput.
+     * 
+     * @param	objectsLabel	the label for the objects
      */
     public void setObjectsLabel(String objectsLabel)
     {
@@ -697,6 +811,8 @@ public class BusinessRulesEngine
      * the objectlabel that is used to identify an object in output additionally has a running
      * number.
      * the format of this number is returned here.
+     * 
+     * @return		number format of the object label
      */
     public String getObjectLabelNumberFormat()
     {
@@ -707,6 +823,8 @@ public class BusinessRulesEngine
      * the objectlabel that is used to identify an object in output additionally has a running
      * number.
      * specifiy a different format here that will be used during output.
+     * 
+     * @param	format	number format of the object label
      */
     public void setObjectLabelNumberFormat(String format)
     {
@@ -716,6 +834,8 @@ public class BusinessRulesEngine
     /**
      * specifies if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
+     * 
+     * @return		the selected output type
      */
     public int getOutputType()
     {
@@ -725,6 +845,8 @@ public class BusinessRulesEngine
     /**
      * sets if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
+     * 
+     * @param	outputType	the selected output type
      */
     public void setOutputType(int outputType)
     {
@@ -733,6 +855,8 @@ public class BusinessRulesEngine
     
     /**
      * returns the format of the timestamp used for timestamp formating
+     * 
+     * @return		format of the timestamp
      */
     public String getTimestampFormat()
     {
@@ -742,6 +866,8 @@ public class BusinessRulesEngine
     /**
      * sets the format of the timestamp used for timestamp formating.
      * follows the rules of the java.text.SimpleDateFormat class
+     * 
+     * @param	timestampFormat	format of the timestamp
      */
     public void setTimestampFormat(String timestampFormat)
     {
@@ -750,6 +876,9 @@ public class BusinessRulesEngine
     
     /**
      * load the properties for the rule engine from the given filename
+     * 
+     * @param		filename		name of the properties file
+     * @exception	Exception		exception when the file could not be loaded
      */
     private void loadProperties(String filename) throws Exception
 	{

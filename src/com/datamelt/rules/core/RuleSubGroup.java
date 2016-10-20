@@ -110,6 +110,7 @@ public class RuleSubGroup implements Serializable
      * 
      * @param	objectLabel		the label of the object
      * @param	object			the object to use
+     * @throws	Exception		exeption if the rules can not be run
      */	
     public void runRules(String objectLabel, Object object) throws Exception
     {
@@ -383,6 +384,7 @@ public class RuleSubGroup implements Serializable
      * @param	result			the first object to use
      * @param	resultObject2	the second object to use
      * @return					an array of objects/arguments to pass to the method
+     * @throws	Exception		exception if the arguments of the rule method can not be created
      */
     private Object[] createRuleMethodArguments(XmlRule rule, Object result, Object resultObject2) throws Exception
     {
@@ -494,7 +496,8 @@ public class RuleSubGroup implements Serializable
     /** returns a string expression meaning [true] or [false]
      *  depending if the subgroup passed or failed. 
      *  
-     *  @return		indicator if the subgroup failed
+     *  @return				indicator if the subgroup failed
+     *  @throws	Exception	exception if the string can not be constructed
      */
     public String getFailedAsString() throws Exception
     {
@@ -505,6 +508,8 @@ public class RuleSubGroup implements Serializable
     /**
      * returns a collection of errors that occurred
      * when running the rules
+     * 
+     * @return	the rule execution collection
      */
     public RuleExecutionCollection getExecutionCollection()
     {
@@ -519,6 +524,8 @@ public class RuleSubGroup implements Serializable
     /**
      * returns the number of rules that failed
      * when running them for this subgroup
+     * 
+     * @return	the number of rules that failed in the subgroup
      */
     public long getNumberOfRulesFailed()
     {
@@ -528,6 +535,8 @@ public class RuleSubGroup implements Serializable
     /**
      * returns the number of rules that passed
      * when running them for this subgroup
+     * 
+     * @return	the number of rules that passed in the subgroup
      */
     public long getNumberOfRulesPassed()
     {
@@ -536,6 +545,8 @@ public class RuleSubGroup implements Serializable
     
     /**
      * returns the number of rules
+     * 
+     * @return	the number of rules that ran in the subgroup
      */
     public long getNumberOfRulesRun()
     {
@@ -546,6 +557,8 @@ public class RuleSubGroup implements Serializable
      * returns the integer representation of how
      * the rules of a subgroup are logically connected
      * with each other: [0] meaning [AND] or [1] meaning [OR]
+     * 
+     * @return	the logical operator that connects the rules in the subgroup
      */
     public int getLogicalOperatorRules()
     {
@@ -556,6 +569,8 @@ public class RuleSubGroup implements Serializable
      * returns the string representation of how
      * the rules of a subgroup are logically connected
      * with each other: [and] or [or]
+     * 
+     * @return	the logical operator - as a string - that connects the rules in the subgroup
      */
     public String getLogicalOperatorRulesAsString()
     {
@@ -572,6 +587,8 @@ public class RuleSubGroup implements Serializable
     /**
      * set the value of how the rules of a subgroup are
      * logically connected with each other: [0] or [1]
+     * 
+     * @param	logicalOperator		the logical operator used to connect the rules
      */
     public void setLogicalOperatorRules(int logicalOperator)
     {
@@ -582,6 +599,8 @@ public class RuleSubGroup implements Serializable
      * set the value of how the rules of a subgroup are
      * logically connected with each other.
      * must be either [and] or [or]
+     * 
+     * @param	operatorRules		the logical operator used to connect the rules
      */
     public void setLogicalOperatorRules(String operatorRules)
     {
@@ -597,7 +616,9 @@ public class RuleSubGroup implements Serializable
     
     /**
      * returns the integer representation - [0] or [1]
-     * of how this subgroup is connected to the previous subgroup.
+     * of how this subgroup is connected to the PREVIOUS subgroup.
+     * 
+     * @return		the logical operator used to connect the subgroups
      */
     public int getLogicalOperatorSubGroup()
     {
@@ -607,6 +628,8 @@ public class RuleSubGroup implements Serializable
     /**
      * returns the String representation - [and] or [or]
      * of how this subgroup is connected to the previous subgroup.
+     * 
+     * @return		the logical operator - as a string - used to connect the subgroups
      */
     public String getLogicalOperatorSubGroupAsString()
     {
@@ -627,6 +650,8 @@ public class RuleSubGroup implements Serializable
     /**
      * set the value of how the subgroup is logically connected
      * to the previous one: [0] or [1]
+     * 
+     * @param	logicalOperator		the logical operator used to connect the subgroups
      */
     public void setLogicalOperatorSubGroup(int logicalOperator)
     {
@@ -636,6 +661,8 @@ public class RuleSubGroup implements Serializable
     /**
      * set the value of how the subgroup is logically connected
      * to the previous one: [and] or [or]
+     * 
+     * @param	operator		the logical operator used to connect the subgroups
      */
     public void setLogicalOperatorSubGroup(String operator)
     {
@@ -669,6 +696,8 @@ public class RuleSubGroup implements Serializable
     /**
      * specifies if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
+     * 
+     * @return		the output type
      */
     public int getOutputType()
     {
@@ -678,6 +707,8 @@ public class RuleSubGroup implements Serializable
     /**
      * sets if all rule results should be output (2), only for failed rules (0),
      * only for passed rules (1). default is 0.
+     * 
+     * @param	outputType the output type to use
      */
     public void setOutputType(int outputType)
     {
@@ -686,6 +717,8 @@ public class RuleSubGroup implements Serializable
     
     /**
      * returns the format of the timestamp used for timestamp formating
+     * 
+     * @return	the definition of the format of the timestamp
      */
     public String getTimestampFormat()
     {
@@ -695,17 +728,31 @@ public class RuleSubGroup implements Serializable
     /**
      * sets the format of the timestamp used for timestamp formating.
      * follows the rules of the java.text.SimpleDateFormat class
+     * 
+     * @param	timestampFormat	the format of the timestamp
      */
     public void setTimestampFormat(String timestampFormat)
     {
         this.timestampFormat = timestampFormat;
     }
 
+    /**
+     * indicator if the results of the rule execution is preserved/kept
+     * or not
+     * 
+     * @return	indicator if results are preserved
+     */
 	public boolean isPreserveRuleExcecutionResults()
 	{
 		return preserveRuleExcecutionResults;
 	}
 
+    /**
+     * indicator if the results of the rule execution is preserved/kept
+     * or not
+     * 
+     * @param	preserveRuleExcecutionResults	indicator if results should be preserved
+     */
 	public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
 	{
 		this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;

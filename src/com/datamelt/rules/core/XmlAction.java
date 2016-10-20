@@ -34,6 +34,9 @@ public class XmlAction implements Serializable
 
 	/**
      * Constructor using the id and description of the rule. 
+     * 
+     * @param	id			the id of the action
+     * @param	description	the description of the action
      */
     public XmlAction(String id, String description)
     {
@@ -44,6 +47,7 @@ public class XmlAction implements Serializable
 	/**
 	 * returns the name of the action class to run
 	 * 
+	 * @return	the name of the class
 	 */
 	
 	public String getClassName()
@@ -54,6 +58,8 @@ public class XmlAction implements Serializable
 	/**
 	 * sets the name of the action class to run
 	 * 
+	 * @param className	the name of the class
+	 * 
 	 */
 	public void setClassName(String className)
 	{
@@ -63,6 +69,8 @@ public class XmlAction implements Serializable
 	 /**
      * returns the list of parameters that have to be passed to the method
      * to execute 
+     * 
+     * @return	the list of parameters for this action
      */
     public ArrayList <Parameter>getParameters()
     {
@@ -72,6 +80,8 @@ public class XmlAction implements Serializable
     /**
      * sets the list of parameters that have to be passed to the method
      * to execute 
+     * 
+     * @param	parameters	the list of parameters for this action
      */
     public void setParameters(ArrayList<Parameter> parameters)
     {
@@ -79,7 +89,9 @@ public class XmlAction implements Serializable
     }
     
     /**
-     * add another parameter to the list of parameters of the method 
+     * add another parameter to the list of parameters of the method
+     * 
+     * @param	parameter	the parameter to add
      */
     public void addParameter(Parameter parameter)
     {
@@ -88,6 +100,8 @@ public class XmlAction implements Serializable
 
     /**
      * indicator when the action will run: if the group passed or if it failed
+     * 
+     * @return	indicator when the action will be run
      * 
      */
 	public int getExecuteIf()
@@ -99,6 +113,8 @@ public class XmlAction implements Serializable
 	 * sets the indicator when the action should run: if the group passed or if
 	 * the group failed
 	 * 
+	 * @param	executeIf	indicator when the action will be run
+	 * 
 	 */
 	public void setExecuteIf(int executeIf)
 	{
@@ -108,6 +124,7 @@ public class XmlAction implements Serializable
 	/**
 	 * returns the name of the method to run
 	 * 
+	 * @return	the name of the method to run
 	 */
 	public String getMethodName()
 	{
@@ -117,6 +134,8 @@ public class XmlAction implements Serializable
 	/**
 	 * sets the name of the method to run
 	 * 
+	 * @param	methodName	name of the method to run
+	 * 
 	 */
 	public void setMethodName(String methodName)
 	{
@@ -124,9 +143,10 @@ public class XmlAction implements Serializable
 	}
 	
 	/**
-	 * returns the list of objects that have been collected from the xml file
+	 * returns the list of objects to get data that have been collected from the xml file
 	 * and are required to run the action
 	 * 
+	 * @return	the list of getter objects
 	 */
 	public ArrayList<ActionObject> getActionGetterObjects()
 	{
@@ -134,9 +154,10 @@ public class XmlAction implements Serializable
 	}
 
 	/**
-	 * returns the list of objects that have been collected from the xml file
+	 * returns the list of objects to set (modify) data that have been collected from the xml file
 	 * and are required to run the action
 	 * 
+	 * 	@return	the list of setter objects
 	 */
 	public ActionObject getActionSetterObject()
 	{
@@ -144,7 +165,9 @@ public class XmlAction implements Serializable
 	}
 
 	/**
-	 * sets the list of objects that are required to run the relevant actions
+	 * sets the list of getter objects that are required to run the relevant actions
+	 * 
+	 * @param	actionGetterObjects	list of getter objects
 	 * 
 	 */
 	public void setActionGetterObjects(ArrayList<ActionObject> actionGetterObjects)
@@ -155,6 +178,8 @@ public class XmlAction implements Serializable
 	/**
 	 * adds an action object to the list of objects required to run the action
 	 * 
+	 * @param	actionGetterObject	the getter object to add
+	 * 
 	 */
 	public void addActionGetterObject(ActionObject actionGetterObject)
 	{
@@ -164,6 +189,7 @@ public class XmlAction implements Serializable
 	/**
 	 * removes an object from the list of action objects
 	 * 
+	 * @param	index	the index of the getter object to remove
 	 */
 	public void removeActionGetterObject(int index)
 	{
@@ -174,6 +200,7 @@ public class XmlAction implements Serializable
 	 * returns the index number of that parameter that is defined as
 	 * the value to set the object to.
 	 * 
+	 * @return	the index of the value
 	 */
 	public int getActionObjectSetterValueIndex()
 	{
@@ -192,29 +219,53 @@ public class XmlAction implements Serializable
 		return found;
 	}
 
+	/**
+	 * sets the object that is used for setting/updating data
+	 * 
+	 * @param actionSetterObject the object used for setting data
+	 */
 	public void setActionSetterObject(ActionObject actionSetterObject)
 	{
 		this.actionSetterObject = actionSetterObject;
 	}
 	
+	/**
+	 * the description of the action
+	 * 
+	 * @return	the description of the action
+	 */
 	public String getDescription()
     {
         return description;
     }
     
+	/**
+	 * sets the description of the action
+	 * 
+	 * @param description the description of the action
+	 */
     public void setDescription(String description)
     {
         this.description = description;
     }
     
+    /**
+     * the id of the action
+     * 
+     * @return	the id of the action
+     */
     public String getId()
     {
         return id;
     }
     
+    /**
+     * sets the id of the action
+     * 
+     * @param id the id of the action
+     */
     public void setId(String id)
     {
         this.id = id;
     }
-	
 }

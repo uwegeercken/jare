@@ -104,6 +104,8 @@ public class RowDefinitionParser extends DefaultHandler implements ContentHandle
     
     /**
      * returns the number of fields 
+     * 
+     * @return	the number of fields
      */
     public int getNumberOfFields()
     {

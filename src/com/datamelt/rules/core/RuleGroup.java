@@ -22,7 +22,7 @@ import com.datamelt.rules.core.util.Converter;
  * using [and] or [or] conditions.
  * 
  * rule groups are defined in xml files. one xml file can only contain one group. one
- * can also say, that one rule (and therefor one file) defines a rule scenario of 
+ * can also say, that one rulegroup (and therefore one file) defines a rule scenario of 
  * a number of rules (one to many rules).
  * 
  * @author uwe geercken
@@ -55,7 +55,7 @@ public class RuleGroup implements Serializable
     public static final long serialVersionUID = 1964070331;
     
     /**
-     * constructor for a rule group using its id 
+     * constructor for a rule group using its id and description
      * 
      * @param	id				the id of the rulegroup
      * @param	description		the description of the rulegroup

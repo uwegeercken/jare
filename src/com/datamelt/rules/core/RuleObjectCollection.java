@@ -20,27 +20,50 @@ public class RuleObjectCollection implements Serializable
 	private ArrayList<RuleObject> ruleObjects = new ArrayList<RuleObject>();
     
 	public static final long serialVersionUID = 1964070335;
-	
+	/**
+	 * adds a rule object to the collection of rule objects
+	 * 
+	 * @param ruleObject	the rule object
+	 */
     public void add(RuleObject ruleObject)
     {
         ruleObjects.add(ruleObject);
     }
     
+    /**
+     * gets a rule object from the collection
+     * 
+     * @param index		the index of the rule object in the collection
+     * @return			the rule object
+     */
     public RuleObject get(int index)
     {
         return (RuleObject)ruleObjects.get(index);
     }
     
+    /**
+     * remove the rule object from the collection
+     * 
+     * @param index		the index of the rule object in the collection
+     */
     public void remove(int index)
     {
         ruleObjects.remove(index);
     }
     
+    /**
+     * clears the collection
+     */
     public void clear()
     {
         ruleObjects.clear();
     }
     
+    /**
+     * gets the number of elements in the collection of rule objects
+     * 
+     * @return	the number of rule objects
+     */
     public int size()
     {
         return ruleObjects.size();

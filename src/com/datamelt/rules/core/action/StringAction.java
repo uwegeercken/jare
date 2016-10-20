@@ -157,6 +157,11 @@ public class StringAction
 	/**
 	 * method will add leading zeros to the objects value until the objects length
 	 * is the same as specified in the length argument
+	 * 
+	 * @param	action		the action to use
+	 * @param	value		the string to use
+	 * @param	length		the desired length of the result returned
+	 * @return				string with leading zeros
 	 */
 	public String addLeadingZeros(XmlAction action,String value, int length)
 	{
@@ -170,6 +175,11 @@ public class StringAction
 	/**
 	 * method will add leading spaces to the objects value until the objects length
 	 * is the same as specified in the length argument
+	 * 
+	 * @param	action		the action to use
+	 * @param	value		the string to use
+	 * @param	length		the desired length of the result returned
+	 * @return				string with leading spaces
 	 */
 	public String addLeadingSpaces(XmlAction action,String value, int length)
 	{
@@ -180,16 +190,37 @@ public class StringAction
 		return value;
 	}
 	
+	/**
+	 * removes leading and trailing spaces fron the string
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to trim
+	 * @return			the trimmed string
+	 */
 	public String trimValue(XmlAction action,String value)
 	{
 		return value.trim();
 	}
 	
+	/**
+	 * sets all characters to upper case
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the string all upper case
+	 */
 	public String upperCaseValue(XmlAction action,String value)
 	{
 		return value.toUpperCase();
 	}
 
+	/**
+	 * sets all characters to lower case
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the string all lower case
+	 */
 	public String lowerCaseValue(XmlAction action,String value)
 	{
 		return value.toLowerCase();

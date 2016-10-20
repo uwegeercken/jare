@@ -54,6 +54,7 @@ public class MySqlConnection
      * @param port		 	the port the database server listens on
      * @param userid	 	the id of the user - with appropriate right
      * @param password	 	the password of the user
+     * @throws	Exception	exception if the connection can not be established
      */
 	public MySqlConnection(String hostname,String databaseName,int port,String userid, String password) throws Exception
 	{
@@ -74,6 +75,7 @@ public class MySqlConnection
      * @param databaseName 	the name of the database to use
      * @param userid	 	the id of the user - with appropriate right
      * @param password	 	the password of the user
+     * @throws	Exception	exception if the connection can not be established
      */
 	public MySqlConnection(String hostname,String databaseName,String userid, String password) throws Exception
 	{
@@ -92,6 +94,7 @@ public class MySqlConnection
      * @param databaseName 	the name of the database to use
      * @param userid	 	the id of the user - with appropriate right
      * @param password	 	the password of the user
+     * @throws	Exception	exception if the connection can not be established
      */
 	public MySqlConnection(String databaseName,String userid, String password) throws Exception
 	{
@@ -107,6 +110,7 @@ public class MySqlConnection
 	 * of hostname, databasename, userid and password. 
      *
      * @return				a connection object
+     * @throws Exception	exception if a connection could not be established
      */
 	public Connection getConnection() throws Exception
 	{
@@ -117,8 +121,9 @@ public class MySqlConnection
 	/**
 	 * Executes the given SQL statement and returns the results.
 	 * 
-	 * @param sql 		the SQL statement to execute
-     * @return			a ResultSet containing the results of the query
+	 * @param sql 			the SQL statement to execute
+     * @return				a ResultSet containing the results of the query
+     * @throws	Exception	if the SQL statement could not be executed
      */
 	public ResultSet getResultSet(String sql) throws Exception
 	{
@@ -139,6 +144,7 @@ public class MySqlConnection
      * @param resultsetConcurrency	the equivalent type of the RecordSet class
      * @param sql 					the SQL statement to execute
      * @return						a ResultSet containing the results of the query
+     * @throws	Exception			exception if the SQL statement could not be executed
      */
 	public ResultSet getResultSet(int resultsetType, int resultsetConcurrency,String sql) throws Exception
 	{
@@ -155,8 +161,9 @@ public class MySqlConnection
 	/**
 	 * Creates a prepared statement object for the given SQL statement 
 	 * 
-     * @param sql 		the SQL statement to execute
-     * @return			a prepared statement
+     * @param sql 			the SQL statement to execute
+     * @return				a prepared statement
+     * @throws	Exception	exception if the SQL statement could not be executed
      */
 	public PreparedStatement getPreparedStatement(String sql) throws Exception
 	{
@@ -178,7 +185,8 @@ public class MySqlConnection
 	 * if a record is inserted into a table and the table has an autoincrement
 	 * column then the id of this autoincrement column will be returned. 
 	 * 
-     * @return			the id of the last inserted record
+     * @return				the id of the last inserted record
+     * @throws	Exception	exception if the last_insert_id could not be evaluated
      */
 	public long getLastInsertId() throws Exception
 	{
@@ -194,6 +202,7 @@ public class MySqlConnection
 	 * commit() method has to be used explicitly to write changes to the database
 	 * 
      * @param status 		indicator if autocommit shall be used or not
+     * @throws	Exception	exception if autocommit can not be set
      */
 	public void setAutoCommit(boolean status) throws Exception
 	{
@@ -201,7 +210,9 @@ public class MySqlConnection
 	}
 	
 	/**
-	 * closes the connection object. 
+	 * closes the connection object.
+	 * 
+	 * @throws	Exception	exception if the connection could not be closed
 	 */
 	public void close() throws Exception
 	{
@@ -210,6 +221,8 @@ public class MySqlConnection
 	
 	/**
 	 * commits a transaction that has been started 
+	 * 
+	 * @throws	Exception	exception if the transaction could not be committed
 	 */
 	public void commit() throws Exception
 	{
@@ -220,6 +233,8 @@ public class MySqlConnection
 	 * rolls back a transaction that has been started. this mean
 	 * that all changes belonging to this transaction will NOT be
 	 * applied to the database. 
+	 * 
+	 * @throws	Exception	exception if the transaction could not be rolled back
 	 */
 	public void rollback() throws Exception
 	{
@@ -228,6 +243,8 @@ public class MySqlConnection
 
 	/**
 	 * connect to the server using the given parameters 
+	 * 
+	 * @throws	Exception	exception if the connection could not be established
 	 */
 	private void connect() throws Exception
 	{
@@ -313,5 +330,4 @@ public class MySqlConnection
 	{
 		this.port = port;
 	}
-	
 }
