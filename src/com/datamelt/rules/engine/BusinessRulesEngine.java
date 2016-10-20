@@ -71,9 +71,9 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.79";
-	private static final String REVISION = "6";
-	private static final String LAST_UPDATE = "2016-10-11";
+	private static final String VERSION = "0.80";
+	private static final String REVISION = "1";
+	private static final String LAST_UPDATE = "2016-10-20";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
