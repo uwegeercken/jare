@@ -25,7 +25,6 @@ import com.datamelt.rules.core.RuleExecutionCollection;
 import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.core.util.VariableReplacer;
 import com.datamelt.util.FileUtility;
-import com.datamelt.util.Row;
 import com.datamelt.util.RowFieldCollection;
 import com.datamelt.util.RuleGroupPrioritizer;
 import com.datamelt.util.Splitter;
@@ -421,7 +420,7 @@ public class BusinessRulesEngine
 	        {
 	        	line = line.replace("\"","");
 		        // get a row object containing the fields and data
-	        	 RowFieldCollection row = splitter.getRowFieldCollection(line); 
+	        	RowFieldCollection row = splitter.getRowFieldCollection(line); 
 		        // run rules on this data
 		        run("row: " + counter, row);
 		        counter++;
