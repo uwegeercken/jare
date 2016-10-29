@@ -178,7 +178,14 @@ public class RowFieldCollection implements Serializable
      */
     public void addField(String fieldName, Object fieldValue)
     {
-    	fields.add(new RowField(fieldName, fieldValue));
+    	if(fieldValue!=null)
+    	{
+    		fields.add(new RowField(fieldName, fieldValue));
+    	}
+    	else
+    	{
+    		fields.add(new RowField(fieldName));
+    	}
     }
     
     /**
