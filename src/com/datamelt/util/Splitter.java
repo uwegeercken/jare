@@ -2,6 +2,9 @@ package com.datamelt.util;
 
 import com.datamelt.util.Field;
 import com.datamelt.util.Row;
+
+import java.util.Arrays;
+
 import com.datamelt.rules.parser.xml.RowDefinitionParser;
 
 /**
@@ -40,17 +43,27 @@ public class Splitter
 	private boolean trimFields                      = true;
 	private boolean removeQuotes                    = false;
 	
+	// the separator that is used to divide the individual fields from each other
     public static final String SEPERATOR_SEMICOLON 	= ";";
     public static final String SEPERATOR_COMMA     	= ",";
     public static final String SEPERATOR_TAB     	= "\t";
     
-    //default field seperator
+    public static final String FIELDTYPE_STRING    	= "string";
+    public static final String FIELDTYPE_INTEGER   	= "integer";
+    public static final String FIELDTYPE_LONG    	= "long";
+    public static final String FIELDTYPE_DATE    	= "date";
+    public static final String FIELDTYPE_FLOAT    	= "float";
+    public static final String FIELDTYPE_DOUBLE    	= "double";
+    public static final String FIELDTYPE_BOOLEAN   	= "boolean";
+    public static final String FIELDTYPE_BIGDECIMAL	= "bigdecimal";
+    
+    //default field separator
     private String fieldSeperator 					= SEPERATOR_SEMICOLON;
 	private RowDefinitionParser parser = null;
 	
 	/** 
 	 * default constructor using the default type
-	 * which is a comma seperated field 
+	 * which is a comma separated field 
 	 *
 	 */
 	public Splitter()
@@ -59,7 +72,7 @@ public class Splitter
 
 	/**
 	 * constructor indicating which type of data file is used:
-	 * a csv file or a fixed length ASCII file. 
+	 * a CSV file or a fixed length ASCII file. 
 	 * 
 	 * you can use the defined type constants in this class. 
 	 * 
@@ -72,7 +85,7 @@ public class Splitter
 	
 	/**
 	 * constructor indicating which type of data file is used:
-	 * a csv file or a fixed length ASCII file and the field separator
+	 * a CSV file or a fixed length ASCII file and the field separator
 	 * used in the file to distinguish the fields.
 	 * 
 	 * you can use the defined type constants in this class. 
@@ -142,10 +155,10 @@ public class Splitter
 	 * ASCII file.
 	 * 
 	 * @param line			a line of data
-	 * @return				an array of string values
+	 * @return				an array of objects
 	 * @throws Exception	exception if no row definition file is defined
 	 */
-	public String[] getFields(String line) throws Exception
+	public Object[] getFields(String line) throws Exception
 	{
 		if(type==TYPE_FIXED_LENGTH && parser==null)
 		{
@@ -156,48 +169,87 @@ public class Splitter
 	}
 	
 	/**
+	 * returns an array of strings, containing the fields that the row
+	 * consists of. the line argument is a line (or row) from an 
+	 * ASCII file.
+	 * 
+	 * The types argument is an array of field types corresponding to
+	 * the individual fields. Field types (string, integer, date, etc) are
+	 * defined as constants in this class
+	 * 
+	 * @param line			a line of data
+	 * @param types			an array of types corresponding to the individual fields
+	 * @return				an array of objects
+	 * @throws Exception	exception if no row definition file is defined
+	 */
+	public Object[] getFields(String line,String[] types) throws Exception
+	{
+		if(type==TYPE_FIXED_LENGTH && parser==null)
+		{
+			throw new Exception("no row definition xml file specified for fixed length ASCII file");
+		}
+		Object[] fields = splitRow(line);
+		for(int i=0;i<fields.length;i++)
+		{
+			if(fields[i]==null)
+			{
+				fields[i]="";
+			}
+			fields[i] = ClassUtility.getObject(types[i], (String)fields[i]);
+		}
+		return fields;
+		
+	}
+	
+	/**
 	 * Splits a row of data from an ASCII file into its individual fields
 	 * using the defined field separator.
 	 * 
 	 * @param line			a line of data
-	 * @return				an array of string values
+	 * @return				an array of objects
 	 * @throws Exception	exception if the type of the file is undefined
 	 */
-	private String[] splitRow(String line) throws Exception
+	private Object[] splitRow(String line) throws Exception
 	{
 		String [] fields;
+		Object[] objects;
 		if(type==TYPE_COMMA_SEPERATED)
 		{
 			fields = line.split(fieldSeperator,-1);
+			objects = new Object[fields.length];	 
 			if(removeQuotes)
 			{
 				for(int i=0;i<fields.length;i++)
 				{
 					if(fields[i].startsWith("\"") && fields[i].endsWith("\""));
 					{
-						fields[i] = fields[i].substring(1,fields[i].length()-1);
+						objects[i] = fields[i].substring(1,fields[i].length()-1);
 					}
 				}
 			}
 			else
 			{
-				
+				for(int i=0;i<fields.length;i++)
+				{
+					objects[i] = fields[i];
+				}
 			}
 		}
 		else if(type==TYPE_FIXED_LENGTH)
 		{
 			fields = new String[parser.getFields().size()];
+			objects = new Object[fields.length];
 			for(int i=0;i<parser.getFields().size();i++)
 			{
 				Field field = (Field)parser.getFields().get(i);
 				String fieldValue = line.substring(field.getStart(),field.getStart()+field.getLength());
 				if(trimFields)
 				{
-					fields[i]=fieldValue.trim();
+					objects[i]=fieldValue.trim();
 				}
 				else
 				{
-					fields[i]=fieldValue;
+					objects[i]=fieldValue;
 				}
 			}
 		}
@@ -205,7 +257,7 @@ public class Splitter
 		{
 			throw new Exception("undefined row type");
 		}
-		return fields;
+		return objects;
 	}
 
 	/**

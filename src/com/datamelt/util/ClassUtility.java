@@ -93,44 +93,45 @@ public class ClassUtility
      * 
      * @param type		the name of the type according to constants defined in this class		
      * @param value		the value for the object to be created
-     * @return			an object corresponding to the type and value specified
+     * @return			an object corresponding to the type and value specified. return null if type is unknown or a conversion can not be done.
      */
     public static Object getObject(String type, String value)
     {
-        if(type.equals(TYPE_INTEGER))
+        if(type.toLowerCase().equals(TYPE_INTEGER))
         {
             int i = Integer.parseInt(value);
             return Integer.valueOf(i);
         }
-        else if(type.equals(TYPE_LONG))
+        else if(type.toLowerCase().equals(TYPE_LONG))
         {
             long l = Long.parseLong(value);
             return  Long.valueOf(l);
         }
-        else if(type.equals(TYPE_STRING))
+        else if(type.toLowerCase().equals(TYPE_STRING))
         {
             return  value;
         }
-        else if(type.equals(TYPE_BOOLEAN))
+        else if(type.toLowerCase().equals(TYPE_BOOLEAN))
         {
             boolean b = Boolean.parseBoolean(value);
             return  Boolean.valueOf(b);
         }
-        else if(type.equals(TYPE_DOUBLE))
+        else if(type.toLowerCase().equals(TYPE_DOUBLE))
         {
             double d = Double.parseDouble(value);
             return  Double.valueOf(d);
         }
-        else if(type.equals(TYPE_FLOAT))
+        else if(type.toLowerCase().equals(TYPE_FLOAT))
         {
             float f = Float.parseFloat(value);
             return  Float.valueOf(f);
         }
-        else if(type.equals(TYPE_BIGDECIMAL))
+        else if(type.toLowerCase().equals(TYPE_BIGDECIMAL))
         {
             return  new BigDecimal(value);
         }
-        else if(type.equals(TYPE_DATE))
+        // try to convert the value to a datetime value first
+        else if(type.toLowerCase().equals(TYPE_DATE))
         {
         	SimpleDateFormat sdtf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         	try
@@ -138,6 +139,7 @@ public class ClassUtility
         		Date d = sdtf.parse(value);
                 return  d;
         	}
+        	// if it dows not work, try to make a date from the value
         	catch(Exception ex)
         	{
         		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

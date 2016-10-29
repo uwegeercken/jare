@@ -65,7 +65,35 @@ public class RowFieldCollection implements Serializable
     {
         for(int i=0;i<fieldnames.length;i++)
         {
-        	addField(new RowField(fieldnames[i], fields[i]));
+        	if(i<fields.length)
+        	{
+        		addField(new RowField(fieldnames[i], fields[i]));
+        	}
+        	else
+        	{
+        		addField(new RowField(fieldnames[i]));
+        	}
+        }
+    }
+    
+    /**
+     * constructor that takes an array of field names and an array of strings as parameter 
+     *  
+     * @param fieldnames	an array of fields
+     * @param fields		an array of field values
+     */
+    public RowFieldCollection(Object fieldnames[],Object[] fields)
+    {
+        for(int i=0;i<fieldnames.length;i++)
+        {
+        	if(i<fields.length)
+        	{
+        		addField(new RowField(fieldnames[i], fields[i]));
+        	}
+        	else
+        	{
+        		addField(new RowField(fieldnames[i]));
+        	}
         }
     }
     
@@ -79,7 +107,14 @@ public class RowFieldCollection implements Serializable
     {
         for(int i=0;i<fieldnames.length;i++)
         {
-        	addField(new RowField(fieldnames[i], fields[i]));
+        	if(i<fields.length)
+        	{
+        		addField(new RowField(fieldnames[i], fields[i]));
+        	}
+        	else
+        	{
+        		addField(new RowField(fieldnames[i]));
+        	}
         }
     }
     
@@ -92,7 +127,14 @@ public class RowFieldCollection implements Serializable
     {
         for(int i=0;i<fields.length;i++)
         {
-        	addField(new RowField(DEFAULT_FIELDNAME +"_" + i, fields[i]));
+        	if(i<fields.length)
+        	{
+        		addField(new RowField(DEFAULT_FIELDNAME +"_" + i, fields[i]));
+        	}
+        	else
+        	{
+        		addField(new RowField(DEFAULT_FIELDNAME +"_" + i));
+        	}
         }
     }
     
