@@ -20,7 +20,7 @@ import org.apache.velocity.app.VelocityEngine;
 
 
  /** 
- * Utility class to write objects to a ASCII based format.
+ * Utility class to merge objects and a Apche Velocity template to a ASCII based output.
  * 
  * The format will be specified in external velocity templates.
  * 
@@ -62,7 +62,7 @@ public class VelocityDataWriter
     }
     
     /**
-     * re-initialises the datawriter with a new template. this is useful
+     * re-initializes the datawriter with a new template. this is useful
      * to re-use an existing datawriter object
      * 
      * @param templateName	the name of the velocity template to be used

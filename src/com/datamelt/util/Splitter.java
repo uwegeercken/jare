@@ -3,8 +3,6 @@ package com.datamelt.util;
 import com.datamelt.util.Field;
 import com.datamelt.util.Row;
 
-import java.util.Arrays;
-
 import com.datamelt.rules.parser.xml.RowDefinitionParser;
 
 /**
@@ -150,7 +148,7 @@ public class Splitter
 	}
 	
 	/**
-	 * returns an array of strings, containing the fields that the row
+	 * returns an array of objects, containing the fields that the row
 	 * consists of. the line argument is a line (or row) from an 
 	 * ASCII file.
 	 * 
@@ -294,8 +292,8 @@ public class Splitter
 	{
 		return type;
 	}
-
-	/**
+	
+	 /**
 	 * indicates if all input data (fields) from the ascii file should be trimmed (both sides).
 	 * only used for fix-length ascii files
 	 * 

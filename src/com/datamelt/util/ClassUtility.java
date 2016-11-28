@@ -139,13 +139,13 @@ public class ClassUtility
         		Date d = sdtf.parse(value);
                 return  d;
         	}
-        	// if it dows not work, try to make a date from the value
+        	// if it does not work, try to make a date from the value
         	catch(Exception ex)
         	{
         		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             	try
             	{
-            		Date d = sdtf.parse(value);
+            		Date d = sdf.parse(value);
                     return  d;
             	}
             	catch(Exception ex2)
