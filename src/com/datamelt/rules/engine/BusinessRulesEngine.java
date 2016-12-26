@@ -72,8 +72,8 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION = "0.80";
-	private static final String REVISION = "2";
-	private static final String LAST_UPDATE = "2016-10-29";
+	private static final String REVISION = "3";
+	private static final String LAST_UPDATE = "2016-12-26";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -685,14 +685,14 @@ public class BusinessRulesEngine
     }
     
     /**
-     * method returns the total number of executed groups
+     * method returns the total number of executed groups - excluding the skipped groups
      * 
      * @return 					number of executed groups
      * @exception	Exception	exception when the value could not be determined
      */
     public long getNumberOfExecutedGroups() throws Exception
     {
-    	return groups.size();
+    	return groups.size() - getNumberOfGroupsSkipped();
     }
     
     /**
