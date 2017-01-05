@@ -205,7 +205,7 @@ public class RuleSubGroup implements Serializable
             		throw new Exception("error rule: [" + rule.getId() + "] invoking method: " + ex.getMessage());
             	}
 	            
-	            // the result of the invokation must be a boolean
+	            // the result of the invocation must be a boolean
 	            if(executeRuleResult instanceof Boolean)
 	            {
 	            	// create a result object
