@@ -99,12 +99,26 @@ public class ClassUtility
     {
         if(type.toLowerCase().equals(TYPE_INTEGER))
         {
-            int i = Integer.parseInt(value);
+        	int i=0;
+        	try
+        	{
+        		i = Integer.parseInt(value);
+        	}
+        	catch(Exception ex)
+        	{
+        	}
             return Integer.valueOf(i);
         }
         else if(type.toLowerCase().equals(TYPE_LONG))
         {
-            long l = Long.parseLong(value);
+        	long l=0;
+        	try
+        	{
+        		l = Long.parseLong(value);
+        	}
+        	catch(Exception ex)
+        	{
+        	}
             return  Long.valueOf(l);
         }
         else if(type.toLowerCase().equals(TYPE_STRING))
@@ -113,22 +127,51 @@ public class ClassUtility
         }
         else if(type.toLowerCase().equals(TYPE_BOOLEAN))
         {
-            boolean b = Boolean.parseBoolean(value);
+            boolean b= false;
+            try
+            {
+            	b = Boolean.parseBoolean(value);
+            }
+            catch(Exception ex)
+        	{
+        	}
             return  Boolean.valueOf(b);
         }
         else if(type.toLowerCase().equals(TYPE_DOUBLE))
         {
-            double d = Double.parseDouble(value);
+            double d=0;
+            try
+            {
+            	d = Double.parseDouble(value);
+            }
+            catch(Exception ex)
+        	{
+        	}
             return  Double.valueOf(d);
         }
         else if(type.toLowerCase().equals(TYPE_FLOAT))
         {
-            float f = Float.parseFloat(value);
+            float f = 0;
+            try
+            {
+            	f = Float.parseFloat(value);
+            }
+            catch(Exception ex)
+        	{
+        	}
             return  Float.valueOf(f);
         }
         else if(type.toLowerCase().equals(TYPE_BIGDECIMAL))
         {
-            return  new BigDecimal(value);
+        	BigDecimal bd= new BigDecimal(0);
+        	try
+        	{
+        		bd = new BigDecimal(value);
+        	}
+        	catch(Exception ex)
+        	{
+        	}
+            return  bd;
         }
         // try to convert the value to a datetime value first
         else if(type.toLowerCase().equals(TYPE_DATE))
