@@ -354,6 +354,22 @@ public class DateAction
 	}
 
 	/**
+	 * method will add the given number of seconds to the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of seconds to add
+	 * @return				the given date plus the given seconds as a date
+	 */
+	public Date addSeconds(XmlAction action, Date date, long seconds)
+	{
+		final long ONE_SECOND_IN_MILLISECONDS = 1000;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds + (seconds * ONE_SECOND_IN_MILLISECONDS));
+	}
+	
+	/**
 	 * method will add the given number of minutes to the provided date
 	 * 
 	 * @param action		the action to use
@@ -367,6 +383,102 @@ public class DateAction
 		
 		long dateInMilliseconds = date.getTime();
 	    return new Date(dateInMilliseconds + (minutes * ONE_MINUTE_IN_MILLISECONDS));
-
 	}
+
+	/**
+	 * method will add the given number of hours to the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of hours to add
+	 * @return				the given date plus the given hours as a date
+	 */
+	public Date addHours(XmlAction action, Date date, long hours)
+	{
+		final long ONE_HOUR_IN_MILLISECONDS = 60000 * 60 ;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds + (hours * ONE_HOUR_IN_MILLISECONDS));
+	}
+	
+	/**
+	 * method will add the given number of days to the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of days to add
+	 * @return				the given date plus the given days as a date
+	 */
+	public Date addDays(XmlAction action, Date date, long days)
+	{
+		final long ONE_DAY_IN_MILLISECONDS = 60000 * 60 * 24;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds + (days * ONE_DAY_IN_MILLISECONDS));
+	}
+
+	/**
+	 * method will subtract the given number of seconds from the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of seconds to subtract
+	 * @return				the given date minus the given seconds as a date
+	 */
+	public Date subtractSeconds(XmlAction action, Date date, long seconds)
+	{
+		final long ONE_SECOND_IN_MILLISECONDS = 1000;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds - (seconds * ONE_SECOND_IN_MILLISECONDS));
+	}
+	
+	/**
+	 * method will subtract the given number of minutes from the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of minutes to subtract
+	 * @return				the given date minus the given minutes as a date
+	 */
+	public Date subtractMinutes(XmlAction action, Date date, long minutes)
+	{
+		final long ONE_MINUTE_IN_MILLISECONDS = 60000;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds - (minutes * ONE_MINUTE_IN_MILLISECONDS));
+	}
+
+	/**
+	 * method will subtract the given number of hours from the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of hours to subtract
+	 * @return				the given date minus the given hours as a date
+	 */
+	public Date subtractHours(XmlAction action, Date date, long hours)
+	{
+		final long ONE_HOUR_IN_MILLISECONDS = 60000 * 60 ;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds - (hours * ONE_HOUR_IN_MILLISECONDS));
+	}
+	
+	/**
+	 * method will subtract the given number of days from the provided date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved	 
+	 * @param minutes		number of days to add
+	 * @return				the given date subtract the given days as a date
+	 */
+	public Date subtractDays(XmlAction action, Date date, long days)
+	{
+		final long ONE_DAY_IN_MILLISECONDS = 60000 * 60 * 24;
+		
+		long dateInMilliseconds = date.getTime();
+	    return new Date(dateInMilliseconds - (days * ONE_DAY_IN_MILLISECONDS));
+	}
+
 }
