@@ -429,11 +429,13 @@ public class BusinessRulesEngine
     	reader.close();
     }
     
-
+    /**
+     *  the prioritizer will make sure that all rulegroups that other rulegroups
+     *  depend on will be executed first.
+     *	   
+     */
     private void prioritizeRuleGroups()
     {
-        // the prioritizer will make sure that all rulegroups that other rulegroups
-        // depend on will be executed first
         RuleGroupPrioritizer prioritizer = new RuleGroupPrioritizer(groups);
         groups = prioritizer.getPrioritizedList();
     }

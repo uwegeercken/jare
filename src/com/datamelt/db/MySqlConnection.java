@@ -105,6 +105,28 @@ public class MySqlConnection
 		
 		connect();
 	}
+	
+	/**
+	 * constructor to create a connection using hostname, port, databaseName, userid and password.
+     *
+     * @param hostname 		the name of the server where the mysql server runs
+     * @param port		 	the port of the server where the mysql server runs
+     * @param databaseName 	the name of the database to use
+     * @param userid	 	the id of the user - with appropriate right
+     * @param password	 	the password of the user
+     * @throws	Exception	exception if the connection can not be established
+     */
+	public MySqlConnection(String hostname, int port,String databaseName, String userid, String password) throws Exception
+	{
+		this.userid = userid;
+		this.password = password;
+		this.hostname = hostname;
+		this.databaseName = databaseName;
+		this.port = port;
+		
+		connect();
+	}
+	
 	/**
 	 * returns a java.sql.Connection object using the given parameters
 	 * of hostname, databasename, userid and password. 
