@@ -358,7 +358,7 @@ public class DateAction
 	 * 
 	 * @param action		the action to use
 	 * @param date			the date involved	 
-	 * @param minutes		number of seconds to add
+	 * @param seconds		number of seconds to add
 	 * @return				the given date plus the given seconds as a date
 	 */
 	public Date addSeconds(XmlAction action, Date date, long seconds)
@@ -390,7 +390,7 @@ public class DateAction
 	 * 
 	 * @param action		the action to use
 	 * @param date			the date involved	 
-	 * @param minutes		number of hours to add
+	 * @param hours		number of hours to add
 	 * @return				the given date plus the given hours as a date
 	 */
 	public Date addHours(XmlAction action, Date date, long hours)
@@ -406,7 +406,7 @@ public class DateAction
 	 * 
 	 * @param action		the action to use
 	 * @param date			the date involved	 
-	 * @param minutes		number of days to add
+	 * @param days		number of days to add
 	 * @return				the given date plus the given days as a date
 	 */
 	public Date addDays(XmlAction action, Date date, long days)
@@ -422,7 +422,7 @@ public class DateAction
 	 * 
 	 * @param action		the action to use
 	 * @param date			the date involved	 
-	 * @param minutes		number of seconds to subtract
+	 * @param seconds		number of seconds to subtract
 	 * @return				the given date minus the given seconds as a date
 	 */
 	public Date subtractSeconds(XmlAction action, Date date, long seconds)
@@ -454,7 +454,7 @@ public class DateAction
 	 * 
 	 * @param action		the action to use
 	 * @param date			the date involved	 
-	 * @param minutes		number of hours to subtract
+	 * @param hours		number of hours to subtract
 	 * @return				the given date minus the given hours as a date
 	 */
 	public Date subtractHours(XmlAction action, Date date, long hours)
@@ -470,7 +470,7 @@ public class DateAction
 	 * 
 	 * @param action		the action to use
 	 * @param date			the date involved	 
-	 * @param minutes		number of days to add
+	 * @param days		number of days to add
 	 * @return				the given date subtract the given days as a date
 	 */
 	public Date subtractDays(XmlAction action, Date date, long days)
