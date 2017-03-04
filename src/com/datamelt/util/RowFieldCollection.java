@@ -1,14 +1,21 @@
-/* All code by Datamelt.com.
- * 
- * Use of this software and code is only allowed after
- * prior permission by Datamelt.com.
- * 
- * All intellectual property rights remain with Datamelt.com.
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
  *
- * Created on 13.01.2005
- * Author uwe geercken
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
-
 package com.datamelt.util;
 
 import java.io.Serializable;
@@ -612,6 +619,226 @@ public class RowFieldCollection implements Serializable
     	}
     }
 
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,String value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,BigInteger value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,BigDecimal value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,Object value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,int value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,long value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,boolean value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,float value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,double value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
+    /**
+     * sets the field value of the field by specifying its index and value
+     *  
+     * @param index			the index of the field
+     * @param value			the value of the field
+     * @throws Exception	exception when the field was not found
+     */
+    public void setFieldValue(int index,Date value) throws Exception
+    {
+   		if(index>=0 && index < fields.size())
+    	{
+   			RowField field = fields.get(index);
+   			field.setValue(value);
+   			field.setUpdated(true);
+   			collectionUpdated=true;
+   		}
+   		else
+    	{
+    		throw new FieldNotFoundException("field with index: [" + index + "] not found");
+    	}
+    }
+    
     /**
      * sets if the field has been updated
      *  

@@ -1,8 +1,22 @@
 /*
- * All intellectual property rights remain with Datamelt.com.
- * Created on 07.11.2006
- * all code by uwe geercken
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
+
 package com.datamelt.rules.engine;
 
 import java.io.BufferedReader;
@@ -1060,9 +1074,8 @@ public class BusinessRulesEngine
     	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv");
     	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv -s=; -v");
     	System.out.println();
-    	System.out.println("published as open source under the GPL. read the licence notice");
-    	System.out.println("all code by uwe geercken, 2006-2016. uwe.geercken@web.de");
-    	System.out.println("published under GPL3");
+    	System.out.println("published as open source under the Apache License. read the licence notice");
+    	System.out.println("all code by uwe geercken, 2006-2017. uwe.geercken@web.de");
     	System.out.println();
     }
     
