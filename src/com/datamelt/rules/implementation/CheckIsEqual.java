@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.datamelt.util.ClassUtility;
+
 /**
  * Checks if a given string is equal to another string, if two numbers are equal or if two dates are equal.
  * <p>
@@ -196,9 +198,32 @@ public class CheckIsEqual extends GenericCheck
      */
     public static boolean evaluate(boolean value1, boolean value2)
     {
-        return value1==value2; 
+        return value1 == value2; 
     }
     
+    /**
+     * Evaluates if a boolean value and a string value - converted to a boolean value - are equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are equal
+     */
+    public static boolean evaluate(boolean value1, String value2)
+    {
+        return value1 == (Boolean)ClassUtility.getObject(ClassUtility.TYPE_BOOLEAN, value2); 
+    }
+    
+    /**
+     * Evaluates if a string - converted to a boolean value - value and a boolean value are equal
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are equal
+     */
+    public static boolean evaluate(String value1, boolean value2)
+    {
+        return value2 == (Boolean)ClassUtility.getObject(ClassUtility.TYPE_BOOLEAN, value1); 
+    }
     
     /**
      * Evaluates if two string values are equal.

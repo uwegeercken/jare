@@ -56,7 +56,7 @@ public class RuleEngineServerObject implements Serializable
      
      public RuleEngineServerObject(String[] header, String[] fields, int outputType)
      {
-    	 this.fields = new RowFieldCollection(header, fields);
+    	 this.fields = new RowFieldCollection(header,fields);
     	 this.outputType = outputType;
      }
      

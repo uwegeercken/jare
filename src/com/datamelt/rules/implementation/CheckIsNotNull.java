@@ -31,7 +31,8 @@ import java.util.Date;
 public class CheckIsNotNull extends GenericCheck
 {
 	/**
-     * Evaluates if a string value is not null
+     * Evaluates if a string value is not null or if
+     * the literal value is not  equal to "null".
      * 
      * @param value		the value for comparison
      * @return			indication if the value is not null

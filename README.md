@@ -1,7 +1,7 @@
 jare
 ====
 
-Version 0.79
+Version 0.82
 
 Java Rule Engine source files.
 
@@ -19,7 +19,7 @@ You may download the jar library which contains the sources compiled with Java 1
 Please send your feedback and help to enhance the tool.
 
     Copyright (C) 2008-2017  Uwe Geercken
-    
+
 
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -42,4 +42,4 @@ Please send your feedback and help to enhance the tool.
 uwe geercken
 uwe.geercken@web.de
 
-last update: 2017-03-04
+last update: 2017-05-26

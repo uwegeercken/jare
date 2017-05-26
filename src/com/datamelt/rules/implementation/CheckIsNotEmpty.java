@@ -30,7 +30,9 @@ package com.datamelt.rules.implementation;
 public class CheckIsNotEmpty extends GenericCheck
 {
 	/**
-     * Evaluates if a string is not empty
+     * Evaluates if a string is not empty.
+     * 
+     * if the string is null this method will return false.
      * 
      * @param value	the value to evaluate
      * @return		indication if the given string is empty

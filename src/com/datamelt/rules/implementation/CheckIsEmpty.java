@@ -31,7 +31,9 @@ public class CheckIsEmpty extends GenericCheck
 {
     
     /**
-     * Evaluates if a string is empty
+     * Evaluates if a string is empty.
+     * 
+     * if the string is null this method will return true.
      * 
      * @param value	the value to evaluate
      * @return		indication if the given string is empty
@@ -51,7 +53,7 @@ public class CheckIsEmpty extends GenericCheck
         }
         else
         {
-        	return false;
+        	return true;
         }
     }
     

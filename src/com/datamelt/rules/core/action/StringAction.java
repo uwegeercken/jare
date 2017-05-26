@@ -67,6 +67,26 @@ public class StringAction
 		return value + value2;
 	}
 	
+	public String concatValues(XmlAction action, int value, String value2) throws Exception
+	{
+		return value + value2;
+	}
+	
+	public String concatValues(XmlAction action, long value, String value2) throws Exception
+	{
+		return value + value2;
+	}
+	
+	public String concatValues(XmlAction action, float value, String value2) throws Exception
+	{
+		return value + value2;
+	}
+	
+	public String concatValues(XmlAction action, double value, String value2) throws Exception
+	{
+		return value + value2;
+	}
+
 	public String concatValues(XmlAction action, String value, int value2) throws Exception
 	{
 		return value + value2;
@@ -108,6 +128,26 @@ public class StringAction
 	}
 	
 	public String concatValues(XmlAction action, String value, double value2, String seperator) throws Exception
+	{
+		return value + seperator + value2;
+	}
+	
+	public String concatValues(XmlAction action, int value, String value2, String seperator) throws Exception
+	{
+		return value + seperator + value2;
+	}
+	
+	public String concatValues(XmlAction action, long value, String value2, String seperator) throws Exception
+	{
+		return value + seperator + value2;
+	}
+	
+	public String concatValues(XmlAction action, float value, String value2, String seperator) throws Exception
+	{
+		return value + seperator + value2;
+	}
+	
+	public String concatValues(XmlAction action, double value, String value2, String seperator) throws Exception
 	{
 		return value + seperator + value2;
 	}

@@ -85,9 +85,9 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.80";
+	private static final String VERSION = "0.82";
 	private static final String REVISION = "3";
-	private static final String LAST_UPDATE = "2017-01-05";
+	private static final String LAST_UPDATE = "2017-05-26";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -162,6 +162,9 @@ public class BusinessRulesEngine
      * the file will be parsed and all rules
      * will be collected
      * 
+     * Rulegroups are prioritized to execute those groups first, that
+     * other groups depend on.
+     * 
      * @param		rulesFilename	path and name of the xml rule file
      * @exception	Exception		exception when the file(s) could not be located or parsed
      */
@@ -176,6 +179,9 @@ public class BusinessRulesEngine
      * the file will be parsed and all rules will be collected
      * the properties file is an external file that is used
      * to define several parameters used by the engine
+     * 
+     * Rulegroups are prioritized to execute those groups first, that
+     * other groups depend on.
      * 
      * @param		rulesFilename	the path and name of the XML rule file
      * @param		propertiesFile	the path and name of the properties file
@@ -194,7 +200,10 @@ public class BusinessRulesEngine
     /**
      * engine can be instantiated by passing an array of files
      * the files will be parsed and all rules from all files
-     * will be collected
+     * will be collected.
+     * 
+     * Rulegroups are prioritized to execute those groups first, that
+     * other groups depend on.
      * 
      * @param		rulesFiles		an array of rule xml files
      * @exception	Exception		exception when the file(s) could not be located or parsed
@@ -213,6 +222,9 @@ public class BusinessRulesEngine
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
+     * 
+     * Rulegroups are prioritized to execute those groups first, that
+     * other groups depend on.
      * 
      * @param		zipFile			path and name of the zip file
      * @exception	Exception		exception when the file could not be located or parsed
@@ -236,6 +248,9 @@ public class BusinessRulesEngine
      * rule files.
      * the files will be parsed and all rules from all files
      * will be collected
+     * 
+     * Rulegroups are prioritized to execute those groups first, that
+     * other groups depend on.
      * 
      * @param		zipFile			path and name of the zip file
      * @param		propertiesFile	path and name of the properties file
@@ -267,6 +282,9 @@ public class BusinessRulesEngine
      * the files will be parsed and all rules from all relevant files
      * will be collected
 	 *
+	 * Rulegroups are prioritized to execute those groups first, that
+     * other groups depend on.
+     * 
      * @param		zipFile			path and name of the zip file
      * @param		ruleFiles		array containing the rulefile names to process
      * @exception	Exception		exception when the file could not be located or parsed
@@ -295,8 +313,12 @@ public class BusinessRulesEngine
      * engine can be instantiated by passing an array of files
      * the files will be parsed and all rules from all files
      * will be collected
+     * 
      * the properties file is an external file that is used
      * to define several parameters used by the engine
+     * 
+     * Rulegroups are prioritized to execute those groups first, that
+     * other groups depend on.
      * 
      * @param		rulesFiles		an array of rule xml files
      * @param		propertiesFile	path and name of the properties file
@@ -331,47 +353,138 @@ public class BusinessRulesEngine
         {
         	// get the next group
             RuleGroup group = groups.get(i);
+
+            run(group,objectLabel,object);            
+        }
+    }
+    
+    /**
+     * method runs the rules for a given rule group by specifying the group id.
+     * against the object with the given label.
+     * 
+     * Only the given rulegroup will be executed. Note that if the given rulegroup depends
+     * on another group result (passed/failed), then that rulegroup shall be execute first. 
+     * 
+     * The compare of the rulegroup name is not case sensitive.
+     * 
+     * @param		rulegroupName	the name of the rulegroup to run
+     * @param		objectLabel		the label to use for the object
+     * @param		object			the actual object to use
+     * @throws		Exception		exception running the rule against the object
+     */
+    public void run(String rulegroupName, String objectLabel, Object object)throws Exception
+    {
+        status = STATUS_ENGINE_EXECUTED;
+        
+        for(int i=0;i<groups.size();i++)
+        {
+        	// get the next group
+            RuleGroup group = groups.get(i);
             
-            // we reset the skipped flag of the group here
-            group.setSkipped(0);
-            RuleGroup dependentRuleGroup;
-            // per default each rulegroup will be run
-            boolean runGroup = true;
-            // check if we have a dependent rulegroup
-            if(group.getDependentRuleGroupId()!=null && !group.getDependentRuleGroupId().equals(""))
+            // check if the name of the group corresponds to the specified name
+            if(group.getId().toLowerCase().equals(rulegroupName.toLowerCase()))
             {
-            	// get the dependent group from the list of groups
-            	dependentRuleGroup = getGroupById(group.getDependentRuleGroupId());
-            	// don't run the group if the dependent group does not exist or does not have the correct status (passed/failed)
-            	if(dependentRuleGroup!=null && dependentRuleGroup.getFailed()!=group.getDependentRuleGroupExecuteIf())
-            	{
-            		runGroup= false;
-            		group.setSkipped(1);
-            		executionCollection.increaseSkippedGroupCount();
-            	}
+            	run(group,objectLabel,object);
             }
-            if(runGroup)
+        }
+    }
+    
+    /**
+     * method runs the rules for a given array of rule groups by specifying the group names.
+     * against the object with the given label.
+     * 
+     * The rulegroups will be executed in the order that they appear in the project zip file, but
+     * in any case those groups other groups depend on are executed first.
+     * 
+     * Only the given rulegroup will be executed. Note that if the given rulegroup depends
+     * on another group result (passed/failed), then that rulegroup shall be execute first. 
+     * 
+     * The compare of the rulegroup name is not case sensitive.
+     * 
+     * @param		rulegroupNames	array of names of the rulegroups to run
+     * @param		objectLabel		the label to use for the object
+     * @param		object			the actual object to use
+     * @throws		Exception		exception running the rule against the object
+     */
+    public void run(String[] rulegroupNames, String objectLabel, Object object)throws Exception
+    {
+        status = STATUS_ENGINE_EXECUTED;
+        
+        for(int i=0;i<groups.size();i++)
+        {
+        	// get the next group
+            RuleGroup group = groups.get(i);
+            
+            // loop over the array of rule groups
+            for(int j=0;j<rulegroupNames.length;j++)
             {
-	            group.runRules(objectLabel, object);
-	            if(group.getFailed()==1) // group failed
+	            String rulegroupName = rulegroupNames[j];
+	            // check if the name of the group corresponds to the specified name
+	            if(group.getId().toLowerCase().equals(rulegroupName.toLowerCase()))
 	            {
-	            	// increase the counter of failed groups
-	            	executionCollection.increaseFailedGroupCount();
+	            	run(group,objectLabel,object);
 	            }
-	            else
-	            {
-	            	// increase the counter of failed groups
-	            	executionCollection.increasePassedGroupCount();
-	            	
-	            }
-	            // execution results will be added unless the preserveRuleExcecutionResults is set to false
-	            executionCollection.addAll(group.getExecutionCollection().getResults());
-	            // add the number of executed actions by the rulegroup
-	            executionCollection.addNumberOfActionsExecuted(group.getNumberOfActionsExecuted());
-	            executionCollection.addNumberOfRulesRun(group.getNumberOfRulesRun());
-	            executionCollection.addNumberOfRulesFailed(group.getNumberOfRulesFailed());
-	            executionCollection.addNumberOfRulesPassed(group.getNumberOfRulesPassed());
             }
+        }
+    }
+
+    /**
+     * method runs the rules for a given rule group against the object with the given label.
+     * 
+     * if you run a single rule group and it is depending on another rule group
+     * make sure that the rule group it depends on is run first - a check on the result
+     * of the group it depends on (passed/failed) will be made in this method to determine if the
+     * rule group should run.
+     * 
+     * @param		group			the rule group to run
+     * @param		objectLabel		the label to use for the object
+     * @param		object			the actual object to use
+     * @throws		Exception		exception running the rule against the object
+     */
+    public void run(RuleGroup group, String objectLabel, Object object)throws Exception
+    {
+        // we reset the skipped flag of the group here
+    	// a group may be skipped if it depends on another rulegroup
+    	// and that groups execution result is not as expected
+        group.setSkipped(0);
+        
+        // per default each rulegroup will be run
+        boolean runGroup = true;
+        // check if we have a dependent rulegroup
+        if(group.getDependentRuleGroupId()!=null && !group.getDependentRuleGroupId().equals(""))
+        {
+        	// get the dependent group from the list of groups
+        	RuleGroup dependentRuleGroup = getGroupById(group.getDependentRuleGroupId());
+        	// don't run the group if the dependent group does not exist or does not have the correct status (passed/failed)
+        	if(dependentRuleGroup!=null && dependentRuleGroup.getFailed()!=group.getDependentRuleGroupExecuteIf())
+        	{
+        		runGroup= false;
+        		group.setSkipped(1);
+        		// increase the counter for the skipped rule groups
+        		executionCollection.increaseSkippedGroupCount();
+        	}
+        }
+        if(runGroup)
+        {
+            group.runRules(objectLabel, object);
+            if(group.getFailed()==1) // group failed
+            {
+            	// increase the counter of failed groups
+            	executionCollection.increaseFailedGroupCount();
+            }
+            else
+            {
+            	// increase the counter of failed groups
+            	executionCollection.increasePassedGroupCount();
+            	
+            }
+            // execution results will be added unless the preserveRuleExcecutionResults is set to false
+            executionCollection.addAll(group.getExecutionCollection().getResults());
+            // add the number of executed actions by the rulegroup
+            executionCollection.addNumberOfActionsExecuted(group.getNumberOfActionsExecuted());
+            executionCollection.addNumberOfRulesRun(group.getNumberOfRulesRun());
+            executionCollection.addNumberOfRulesFailed(group.getNumberOfRulesFailed());
+            executionCollection.addNumberOfRulesPassed(group.getNumberOfRulesPassed());
         }
     }
     
@@ -408,7 +521,7 @@ public class BusinessRulesEngine
      * using the defined field separator.
      * 
      * @param		csvfileName		the CSV file to use
-     * @param		fieldSeperator	the seperator between the fields/columns in the csv file
+     * @param		fieldSeperator	the separator between the fields/columns in the csv file
      * @throws		Exception		exception running the rule against the object
      */
     public void run(String csvfileName,String fieldSeperator) throws Exception
@@ -422,7 +535,7 @@ public class BusinessRulesEngine
 	    long counter=0;
     	
 	    // splitter object will split the row from the datafile into
-        // its fields using - in this case - the default semicolon (;) seperator
+        // its fields using the default semicolon (;) separator
         Splitter splitter = new Splitter(Splitter.TYPE_COMMA_SEPERATED, fieldSeperator);
 
     	while ((line=reader.readLine())!=null)
@@ -657,9 +770,8 @@ public class BusinessRulesEngine
      * method returns the number of groups that failed
      * 
      * @return					number of groups failed
-     * @exception	Exception	exception when the value could not be determined
      */
-    public long getNumberOfGroupsFailed() throws Exception
+    public long getNumberOfGroupsFailed()
     {
     	return executionCollection.getFailedGroupsCount();
     }
@@ -668,9 +780,8 @@ public class BusinessRulesEngine
      * method returns the number of groups that failed
      * 
      * @return 					number of passed groups
-     * @exception	Exception	exception when the value could not be determined
      */
-    public long getNumberOfGroupsPassed() throws Exception
+    public long getNumberOfGroupsPassed() 
     {
     	return executionCollection.getPassedGroupsCount();
     }
@@ -682,9 +793,8 @@ public class BusinessRulesEngine
      * result (failed/passed) of that group is different than the expected result.
      * 
      * @return 					number of skipped groups
-     * @exception	Exception	exception when the value could not be determined
      */
-    public long getNumberOfGroupsSkipped() throws Exception
+    public long getNumberOfGroupsSkipped()
     {
     	return executionCollection.getSkippedGroupsCount();
     }
@@ -693,9 +803,8 @@ public class BusinessRulesEngine
      * method returns the total number of groups
      * 
      * @return 					number of groups
-     * @exception	Exception	exception when the value could not be determined
      */
-    public long getNumberOfGroups() throws Exception
+    public long getNumberOfGroups()
     {
     	return groups.size();
     }
@@ -704,9 +813,8 @@ public class BusinessRulesEngine
      * method returns the total number of executed groups - excluding the skipped groups
      * 
      * @return 					number of executed groups
-     * @exception	Exception	exception when the value could not be determined
      */
-    public long getNumberOfExecutedGroups() throws Exception
+    public long getNumberOfExecutedGroups()
     {
     	return groups.size() - getNumberOfGroupsSkipped();
     }

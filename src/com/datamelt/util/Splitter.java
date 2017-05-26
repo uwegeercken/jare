@@ -185,7 +185,7 @@ public class Splitter
 	}
 	
 	/**
-	 * returns an array of strings, containing the fields that the row
+	 * returns an array of objects, containing the fields that the row
 	 * consists of. the line argument is a line (or row) from an 
 	 * ASCII file.
 	 * 
@@ -195,7 +195,7 @@ public class Splitter
 	 * 
 	 * @param line			a line of data
 	 * @param types			an array of types corresponding to the individual fields
-	 * @return				an array of objects
+	 * @return				an array of objects corresponding to the types
 	 * @throws Exception	exception if no row definition file is defined
 	 */
 	public Object[] getFields(String line,String[] types) throws Exception

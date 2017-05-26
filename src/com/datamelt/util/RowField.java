@@ -38,6 +38,8 @@ public class RowField implements Serializable
 	
 	public static final long serialVersionUID = 1964070313;
 	
+    public static final String DEFAULT_FIELDNAME 	= "field";
+	
 	/**
      * constructor that takes the name of the field as argument. because no object/value is
      * specified, the object/value is set to null 

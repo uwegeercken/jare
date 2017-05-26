@@ -43,109 +43,91 @@ public class RowFieldCollection implements Serializable
     private boolean collectionUpdated;
     private boolean rowFailed=false;
     private ArrayList<RowField> fields = new ArrayList<RowField>();
-    
-    public static final String DEFAULT_FIELDNAME = "field";
+    private HeaderRow header;
     
     public static final long serialVersionUID = 1964070314;
     
+    /**
+     * empty default constructor
+     * 
+     */
     public RowFieldCollection()
     {
     }
     
     /**
-     * constructor that takes an array of fields as parameter
+     * constructor that takes an array of field names as parameter
+     * 
+     * the field names define the names of the fields of the row
      *  
-     * @param fields	array of fields
+     * @param fieldNames	an array of field names
+     */
+    public RowFieldCollection(String[] fieldNames)
+    {
+    	header = new HeaderRow(fieldNames);
+    }
+    
+    /**
+     * constructor that takes an array of row fields as parameter.
+     * 
+     * as no header fields are specified here, the fields will be added with a default name
+     *  
+     * @param fields	array of row fields
      */
     public RowFieldCollection(ArrayList<RowField> fields)
     {
-        this.fields = fields;
+        setFields(fields);
     }
     
     /**
-     * constructor that takes an array of field names and an array of strings as parameter 
+     * constructor that takes an array of field names and an array of values as parameter.
+     * RowField objects will be created and added the the list of fields. 
      *  
-     * @param fieldnames	an array of fields
+     * @param fieldNames	an array of field names
      * @param fields		an array of field values
      */
-    public RowFieldCollection(String fieldnames[],String[] fields)
+    public RowFieldCollection(String[] fieldNames,String[] fields)
     {
-        for(int i=0;i<fieldnames.length;i++)
-        {
-        	if(i<fields.length)
-        	{
-        		addField(new RowField(fieldnames[i], fields[i]));
-        	}
-        	else
-        	{
-        		addField(new RowField(fieldnames[i]));
-        	}
-        }
+    	header = new HeaderRow(fieldNames);
+    	setFields(fields);
     }
     
     /**
-     * constructor that takes an array of field names and an array of strings as parameter 
+     * constructor that takes an array of field names and an array of values as parameter.
+     * RowField object will be created and added the the list of fields. 
      *  
-     * @param fieldnames	an array of fields
+     * @param header		the header row
      * @param fields		an array of field values
      */
-    public RowFieldCollection(Object fieldnames[],Object[] fields)
+    public RowFieldCollection(HeaderRow header,String[] fields)
     {
-        for(int i=0;i<fieldnames.length;i++)
-        {
-        	if(i<fields.length)
-        	{
-        		addField(new RowField(fieldnames[i], fields[i]));
-        	}
-        	else
-        	{
-        		addField(new RowField(fieldnames[i]));
-        	}
-        }
+    	this.header = header;
+    	setFields(fields);
     }
     
     /**
-     * constructor that takes an array of field names and an array of values as parameter
+     * constructor that takes an array of field names and an array of values as parameter.
+     * RowField object will be created and added the the list of fields.
      *  
-     * @param fieldnames	an array of fields
+     * @param header		the header row
      * @param fields		an array of field values
      */
-    public RowFieldCollection(String fieldnames[],Object[] fields)
+    public RowFieldCollection(HeaderRow header,Object[] fields)
     {
-        for(int i=0;i<fieldnames.length;i++)
-        {
-        	if(i<fields.length)
-        	{
-        		addField(new RowField(fieldnames[i], fields[i]));
-        	}
-        	else
-        	{
-        		addField(new RowField(fieldnames[i]));
-        	}
-        }
+    	this.header = header;
+        setFields(fields);
     }
     
     /**
      * constructor that takes an array of objects as parameter
      *  
-     * @param fields	array of fields as objects
+     * @param fields	array of fields values
      */
     public RowFieldCollection(Object[] fields)
     {
-        for(int i=0;i<fields.length;i++)
-        {
-        	if(i<fields.length)
-        	{
-        		addField(new RowField(DEFAULT_FIELDNAME +"_" + i, fields[i]));
-        	}
-        	else
-        	{
-        		addField(new RowField(DEFAULT_FIELDNAME +"_" + i));
-        	}
-        }
+    	setFields(fields);
     }
     
-
     /**
      * returns the array of fields that belong to the given row object
      *  
@@ -167,12 +149,54 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
+     * sets the array of fields that belong to the given row object.
+     * if we have field names (a header) then the number of fields in the header will steer the number of fields.
+     * 
+     * if we have no field names (header) then the fields will get the name: DEFAULT_FIELDNAME plus an underbar character plus a running number (e.g. field_3)
+     *  
+     * @param fields	an array of objects
+     */
+    public void setFields(Object[] fields)
+    {
+    	// clear the existing list of fields
+    	this.fields.clear();
+    	
+    	String[] headerFields = header.getFieldNames();
+    	
+    	// if the static fieldNames array is defined
+    	if(headerFields!=null)
+    	{
+	    	for(int i=0;i<headerFields.length;i++)
+	        {
+	    		// only add field if there is one. this could happen if the array of field names
+	    		// specified more fields than the actual row has
+	    		if(i<fields.length)
+	        	{
+	    			this.fields.add(new RowField(headerFields[i], fields[i]));
+	        	}
+	        }
+    	} 
+    	// otherwise give each field a default name and a running number
+    	else
+    	{
+    		for(int i=0;i<fields.length;i++)
+            {
+    			this.fields.add(new RowField(RowField.DEFAULT_FIELDNAME +"_" + i, fields[i]));
+            }
+    	}
+    }
+    
+    /**
      * Add a field to the array of fields.
      * 
      * @param field		a field to be added
      */
     public void addField(RowField field)
     {
+    	// field needs to be added to the list of header fields
+    	header.addField(field.getName());
+    	
+    	// add the field to the list of fields
     	fields.add(field);
     }
     
@@ -185,6 +209,10 @@ public class RowFieldCollection implements Serializable
      */
     public void addField(String fieldName, Object fieldValue)
     {
+    	// field needs to be added to the list of header fields    	
+    	header.addField(fieldName);
+    	
+    	// add the field to the list of fields
     	if(fieldValue!=null)
     	{
     		fields.add(new RowField(fieldName, fieldValue));
@@ -276,19 +304,10 @@ public class RowFieldCollection implements Serializable
      */
     public RowField getField(String name) throws Exception
     {
-    	int found=-1;
-    	for(int i=0;i<fields.size();i++)
+    	int fieldIndex = header.getFieldIndex(name);
+    	if(fieldIndex>=0)
     	{
-    		RowField field = fields.get(i);
-    		if(field.getName().equals(name))
-    		{
-    			found = i;
-    			break;
-    		}
-    	}
-    	if(found> -1)
-    	{
-    		return fields.get(found);
+    		return fields.get(fieldIndex);
     	}
     	else
     	{
@@ -306,23 +325,15 @@ public class RowFieldCollection implements Serializable
      */
     public Object getFieldValue(String name) throws Exception
     {
-    	int found=-1;
-    	for(int i=0;i<fields.size();i++)
+    	Integer fieldIndex = header.getFieldIndex(name);
+    	if(fieldIndex>=0)
     	{
-    		RowField field = fields.get(i);
-    		if(field.getName().equals(name))
-    		{
-    			found = i;
-    			break;
-    		}
-    	}
-    	if(found> -1)
-    	{
-    		return fields.get(found).getValue();
+    		return fields.get(fieldIndex).getValue();
     	}
     	else
     	{
     		throw new FieldNotFoundException("field: [" + name + "] not found");
+
     	}
     }
     
@@ -900,7 +911,7 @@ public class RowFieldCollection implements Serializable
 	}
 
 	/**
-	 * Stes the indicator if the row failed.
+	 * Sets the indicator if the row failed.
 	 * 
 	 * @param rowFailed		boolean value if the row failed
 	 */
@@ -916,12 +927,14 @@ public class RowFieldCollection implements Serializable
 	 */
 	public String getFieldNames()
 	{
-		String[] fieldNames = new String[fields.size()];
-		for(int i=0;i<fields.size();i++) 
-    	{
-			fieldNames[i]=fields.get(i).getName();
-    	}
-		return Arrays.toString(fieldNames);
+		if(header.getFieldNames()!=null && header.getFieldNames().length>0)
+		{
+			return Arrays.toString(header.getFieldNames());
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	/**
@@ -945,4 +958,35 @@ public class RowFieldCollection implements Serializable
     	}
 		return Arrays.toString(fieldValues);
 	}
+
+	/**
+	 * Sets the header row for the fields.
+	 * 
+	 * If there is a header row available, it should be set before assigning the fields to this collection.
+	 * 
+	 * @param fieldNames		names of the fields of the header row
+	 */
+	public void setFieldNames(String[] fieldNames)
+	{
+		header = new HeaderRow(fieldNames);
+	}
+
+	public HeaderRow getHeader()
+	{
+		return header;
+	}
+
+	/**
+	 * Sets the header row names for the fields.
+	 * 
+	 * If there is a header row available, it should be set before assigning the fields to this collection.
+	 * 
+	 * @param header		HeaderRow object defining the header fields
+	 */
+	public void setHeader(HeaderRow header)
+	{
+		this.header = header;
+	}
+	
+	
 }
