@@ -147,7 +147,7 @@ public class RuleSubGroup implements Serializable
             }
             catch(FieldNotFoundException fnfe)
             {
-            	throw new FieldNotFoundException("error rule: [" + rule.getId() + "] creating field object: "+ fnfe.getMessage());
+            	throw new FieldNotFoundException("error rule: [" + rule.getId() + "] - field not found: "+ fnfe.getMessage());
             }
             catch(InvocationTargetException ite)
             {
@@ -169,7 +169,7 @@ public class RuleSubGroup implements Serializable
             	}
             	catch(FieldNotFoundException fnfe)
                 {
-                	throw new FieldNotFoundException("error rule: [" + rule.getId() + "] creating field object: "+ fnfe.getMessage());
+                	throw new FieldNotFoundException("error rule: [" + rule.getId() + "] - field not found: "+ fnfe.getMessage());
                 }
                 catch(InvocationTargetException ite)
                 {
@@ -215,7 +215,7 @@ public class RuleSubGroup implements Serializable
             	}
             	catch(Exception ex)
             	{
-            		throw new Exception("error rule: [" + rule.getId() + "] invoking method: " + ex.getMessage());
+            		throw new Exception("error invoking method on rule: [" + rule.getId() + "]: " + ex.getMessage());
             	}
 	            
 	            // the result of the invocation must be a boolean
@@ -395,73 +395,76 @@ public class RuleSubGroup implements Serializable
      * 
      * @param	rule			the rule to use
      * @param	result			the first object to use
-     * @param	resultObject2	the second object to use
+     * @param	result2			the second object to use
      * @return					an array of objects/arguments to pass to the method
      * @throws	Exception		exception if the arguments of the rule method can not be created
      */
-    private Object[] createRuleMethodArguments(XmlRule rule, Object result, Object resultObject2) throws Exception
+    private Object[] createRuleMethodArguments(XmlRule rule, Object result, Object result2) throws Exception
     {
-        Object[] objects = null;
-        // when value und type der rule leer/null sind, bedeutet dies, dass kein expected value
-        // erwartet wird. d.h es werden nicht zwei werte miteinander verglichen, sondern lediglich ein
-        // wert geprüft.
-        // beispiel: test auf <null> eines wertes.
-        //
+        // if the expected type/value are null/empty and the number of objects of the rule is 1
+        // then we are not comparing two values but only one: e.g. a test for <null> of a given value.
+
+    	Object[] objects = null;
+    	
+        // check how many objects we have defined in the rule
+        int numberOfObjects = rule.getRuleObjects().size();
+        // check if we have an expected value
         if(rule.getExpectedValueRuleType()!=null && rule.getExpectedValueRule()!=null)
         {
-            // create an array of classes
-            // with at least 2 parameters
-	        // based on the number of parameters
-	        objects = new Object[2 + rule.getParameters().size()];
-	
-	        // the actual value goes into the first parameter
-	        objects[0] = result;
-	        
-            // get the correct class for the expected value
-            objects[1] = ClassUtility.getObject(rule.getExpectedValueRuleType(),rule.getExpectedValueRule());
-
-            // get all additional parameters of the method
-	        // and create an equivalent class
-	        for (int i=0;i<rule.getParameters().size();i++)
-	        {
-	            Parameter parameter = (Parameter)rule.getParameters().get(i);
-	            objects[2+i]= ClassUtility.getObject(parameter.getType(),parameter.getValue());
-	        }
+        	numberOfObjects++;
+        }
+        
+        // total number of objects is the number of objects plus the additional parameters
+        objects = new Object[numberOfObjects + rule.getParameters().size()];
+        
+        // get the actual type of the first object
+        String resultType = ClassUtility.getObjectType(result);
+        
+        // we always have at least one object.
+        // if the actual type and the type defined in the rule are different
+        // then convert/cast the object
+        if(!resultType.equals(rule.getRuleObjects().get(0).getMethodReturnType()))
+        {
+        	objects[0] = ClassUtility.getObject(rule.getRuleObjects().get(0).getMethodReturnType(),(String)result);	
         }
         else
         {
-            if(rule.getRuleObjects().size()==1)
+        	objects[0] = result;
+        }
+
+        // if we have an expected value
+        if(rule.getExpectedValueRuleType()!=null && rule.getExpectedValueRule()!=null)
+        {
+            // get the object for the expected value
+            objects[1] = ClassUtility.getObject(rule.getExpectedValueRuleType(),rule.getExpectedValueRule());
+        }
+        else
+        {
+            if(rule.getRuleObjects().size()==2)
 	        {
-	            // create an array of classes
-	            // with at least 2 parameters
-		        // based on the number of parameters
-		        objects = new Object[1 + rule.getParameters().size()];
-		
-		        // the actual value goes into the first parameter
-		        objects[0] = result;
-	        }
-            else
-            {
-                // create an array of classes
-	            // with at least 2 parameters
-		        // based on the number of parameters
-		        objects = new Object[2 + rule.getParameters().size()];
-		
-		        // the actual value goes into the first parameter
-		        objects[0] = result;
-		        
-		        // the expected value goes into the second parameter
-		        objects[1] = resultObject2;
+            	// get the actual type of the second object
+                String resultType2 = ClassUtility.getObjectType(result2);
+                
+                // if the actual type and the type defined in the rule are different
+                // then convert/cast the object
+                if(!resultType2.equals(rule.getRuleObjects().get(1).getMethodReturnType()))
+                {
+                	objects[1] = ClassUtility.getObject(rule.getRuleObjects().get(1).getMethodReturnType(),(String)result2);
+                }
+                else
+                {
+                	objects[1] = result2;
+                }
             }
-	        // get all additional parameters of the method
-	        // and create an equivalent class
-	        for (int i=0;i<rule.getParameters().size();i++)
-	        {
-	            Parameter parameter = (Parameter)rule.getParameters().get(i);
-	            objects[objects.length-rule.getParameters().size()+i]= ClassUtility.getObject(parameter.getType(),parameter.getValue());
-	        }
         }
         
+        // get all additional parameters of the rule 
+        // and create an equivalent class for each of them
+        for (int i=0;i<rule.getParameters().size();i++)
+        {
+            Parameter parameter = (Parameter)rule.getParameters().get(i);
+            objects[numberOfObjects+i]= ClassUtility.getObject(parameter.getType(),parameter.getValue());
+        }
         return objects;
     }
     

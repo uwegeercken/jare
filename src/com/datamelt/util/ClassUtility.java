@@ -221,6 +221,51 @@ public class ClassUtility
         }
     }
     
+    /**
+     * evaluates which class type the relevant object is
+     * 
+     * @param object	an object		
+     * @return			the type of the object
+     */
+    public static String getObjectType(Object object) throws Exception
+    {
+    	if(object instanceof String)
+    	{
+    		return TYPE_STRING;
+    	}
+    	else if(object instanceof Integer)
+    	{
+    		return TYPE_INTEGER;
+    	}
+    	else if(object instanceof Long)
+    	{
+    		return TYPE_LONG;
+    	}
+    	else if(object instanceof Float)
+    	{
+    		return TYPE_FLOAT;
+    	}
+    	else if(object instanceof Double)
+    	{
+    		return TYPE_DOUBLE;
+    	}
+    	else if(object instanceof BigDecimal)
+    	{
+    		return TYPE_BIGDECIMAL;
+    	}
+    	else if(object instanceof Boolean)
+    	{
+    		return TYPE_BOOLEAN;
+    	}
+    	else if(object instanceof Date)
+    	{
+    		return TYPE_DATE;
+    	}
+    	else
+    	{
+    		throw new Exception("object has an invalid field type");
+    	}
+    }
     
     /**
      * Invokes the method on the given object and with the specified parameters.
