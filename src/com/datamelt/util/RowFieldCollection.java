@@ -43,7 +43,7 @@ public class RowFieldCollection implements Serializable
     private boolean collectionUpdated;
     private boolean rowFailed=false;
     private ArrayList<RowField> fields = new ArrayList<RowField>();
-    private HeaderRow header;
+    private HeaderRow header = new HeaderRow();
     
     public static final long serialVersionUID = 1964070314;
     
@@ -194,7 +194,10 @@ public class RowFieldCollection implements Serializable
     public void addField(RowField field)
     {
     	// field needs to be added to the list of header fields
-    	header.addField(field.getName());
+    	if(header!=null)
+    	{
+    		header.addField(field.getName());
+    	}
     	
     	// add the field to the list of fields
     	fields.add(field);
@@ -210,7 +213,10 @@ public class RowFieldCollection implements Serializable
     public void addField(String fieldName, Object fieldValue)
     {
     	// field needs to be added to the list of header fields    	
-    	header.addField(fieldName);
+    	if(header!=null)
+    	{
+    		header.addField(fieldName);
+    	}
     	
     	// add the field to the list of fields
     	if(fieldValue!=null)

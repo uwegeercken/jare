@@ -42,9 +42,18 @@ public class HeaderRow implements Serializable
     // the array of field names if used to quickly find a field by its index
     
     //private String[] fieldNames;
-    private ArrayList<String> fieldNames;
+    private ArrayList<String> fieldNames = new ArrayList<String>();
     
     public static final long serialVersionUID 		= 1964070327;
+    
+    /**
+     * default constructor
+     * 
+     */
+    public HeaderRow()
+    {
+
+    }
     
     /**
      * constructor that takes a complete header row as parameter
