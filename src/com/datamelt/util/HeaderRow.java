@@ -224,4 +224,14 @@ public class HeaderRow implements Serializable
     {
         return separator;
     }
+
+    /**
+     * defines the separator to be used 
+     * 
+     * @param separator		the separator character
+     */
+	public void setSeparator(String separator)
+	{
+		this.separator = separator;
+	}
 }
