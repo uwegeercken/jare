@@ -224,8 +224,9 @@ public class ClassUtility
     /**
      * evaluates which class type the relevant object is
      * 
-     * @param object	an object		
-     * @return			the type of the object
+     * @param object		an object		
+     * @return				the type of the object
+     * @throws Exception	when a wrong field type was detected
      */
     public static String getObjectType(Object object) throws Exception
     {
