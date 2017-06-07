@@ -86,12 +86,12 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION = "0.82";
-	private static final String REVISION = "4";
-	private static final String LAST_UPDATE = "2017-05-28";
+	private static final String REVISION = "5";
+	private static final String LAST_UPDATE = "2017-06-07";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
-    // indicator if the ruleengine ran
+    // indicator if the rule engine ran
     private int status;
     
     // used to replace variables in xml rule files by actual values from a file
@@ -649,6 +649,86 @@ public class BusinessRulesEngine
         return executionCollection;
     }
     
+    /**
+     * method returns a boolean indicating if the rule group failed.
+     * in case a group with the given id is not found returns false.
+     * 
+     * you can evaluate if a group failed or not after the business
+     * rule engine was run.
+     * 
+     * @param	groupId		the id of the group
+     * @return				indicator if the rule group failed
+     */
+    public boolean getRuleGroupFailed(String groupId)
+    {
+    	boolean failed = false;
+    	for(int i=0;i<groups.size();i++)
+    	{
+    		RuleGroup group = groups.get(i);
+    		if(group.getId().toLowerCase().equals(groupId.toLowerCase()))
+    		{
+    			if(group.getFailed()==1)
+    			{
+    				failed = true;
+    			}
+    			else
+    			{
+    				failed = false;
+    			}
+    			break;
+    		}
+    	}
+    	return failed;
+    }
+    
+    /**
+     * checks if any - at least one - of the groups in an array of rule group ids failed. 
+     * 
+     * a check of each group of the array is done, if it failed. if the group does not exist then
+     * the result for that group will be returned as false.
+     * 
+     * you can evaluate if a group failed or not after the business
+     * rule engine was run.
+
+     * @param	 groupIds	an array of group ids
+     * @return				indicator if any of the groups failed
+     */
+    public boolean getRuleGroupsFailed(String[] groupIds)
+    {
+    	boolean failed = false;
+    	for(int i=0;i<groupIds.length;i++)
+    	{
+    		boolean groupFailed = getRuleGroupFailed(groupIds[i]);
+    		
+    		if(groupFailed)
+    		{
+    			failed = true;
+    		}
+    	}
+    	return failed;
+    }
+    
+    /**
+     * method returns a boolean indicating if the rule group exists.
+     * 
+     * @param	groupId		the id of the group
+     * @return				indicator if the rule group exists
+     */
+    public boolean getRuleGroupExists(String groupId)
+    {
+    	boolean exists = false;
+    	for(int i=0;i<groups.size();i++)
+    	{
+    		RuleGroup group = groups.get(i);
+    		if(group.getId().toLowerCase().equals(groupId.toLowerCase()))
+    		{
+   				exists = true;
+    			break;
+    		}
+    	}
+    	return exists;
+    }
+
     /**
      * indicator if the execution results should be preserved or not
      * 

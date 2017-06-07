@@ -387,7 +387,7 @@ public class RuleGroup implements Serializable
      * @return				indicator if the rulegroup failed
      * @throws	Exception	exception if the result could not be determined
      */
-    public int getFailed() throws Exception
+    public int getFailed()
     {
         int failed=0;
         

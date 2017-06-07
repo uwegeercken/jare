@@ -30,7 +30,7 @@ import com.datamelt.rules.core.util.Converter;
  * parts of this class are the rule itself, the involved objects
  * that were constructed from the xml definition file.
  * 
- * for identifying the object in the output an objectlabel - a simple string -
+ * for identifying the object in the output an object label - a simple string -
  * is used. a timestamp is assigned when the rule was executed.
  * 
  * @author uwe geercken

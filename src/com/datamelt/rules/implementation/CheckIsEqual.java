@@ -214,6 +214,58 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
+     * Evaluates if a boolean value and an integer value - converted to a boolean value - are equal.
+     * 
+     * An integer of value 1 is converted to a boolean true, an integer of value 0 is converted to a
+     * boolean false. In all other cases false is returned.
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are equal
+     */
+    public static boolean evaluate(boolean value1, int value2)
+    {
+        if(value2 == 1)
+        {
+        	return value1 == true;
+        }
+        else if(value2==0)
+        {
+        	return value1 == false;
+        }
+        else
+        {
+        	return false;
+        }
+    }
+    
+    /**
+     * Evaluates if a boolean value and an integer value - converted to a boolean value - are equal.
+     * 
+     * An integer of value 1 is converted to a boolean true, an integer of value 0 is converted to a
+     * boolean false. In all other cases false is returned.
+     * 
+     * @param value1	first value for comparison
+     * @param value2	second value for comparison
+     * @return			indication if the two values are equal
+     */
+    public static boolean evaluate(int value1, boolean value2)
+    {
+        if(value1 == 1)
+        {
+        	return value2 == true;
+        }
+        else if(value1==0)
+        {
+        	return value2 == false;
+        }
+        else
+        {
+        	return false;
+        }
+    }
+    
+    /**
      * Evaluates if a string - converted to a boolean value - value and a boolean value are equal
      * 
      * @param value1	first value for comparison
