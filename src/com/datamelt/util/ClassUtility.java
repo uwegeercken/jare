@@ -262,6 +262,10 @@ public class ClassUtility
     	{
     		return TYPE_DATE;
     	}
+    	else if(object == null)
+    	{
+    		return null;
+    	}
     	else
     	{
     		throw new Exception("object has an invalid field type");
@@ -448,4 +452,34 @@ public class ClassUtility
         //Object object = cl.newInstance();
     	return cl.getMethod(actionObject.getMethodName(),parameterTypes);
     }
+    
+    /**
+     * Get all methods of a class.
+     * 
+     * @param className			the name of the class, including package information
+     * @return					an array of methods for the given class
+     * @throws Exception		throws an exception if the class was not found
+     */
+    public static Method[] getMethods(String className) throws Exception
+	{
+		Class <?> check = Class.forName(className);
+		return check.getMethods();
+	}
+
+    /**
+     * Get the checkId of a check class.
+     * 
+     * The id of a check in the database uniquely identifies the check and should not change
+     * as the business rules are based on them.
+     * 
+     * @param className			the name of the class
+     * @return					the static checkId of the class
+     * @throws Exception		throws an exception if the class was not found or the field is undefined
+     */
+    public static long getCheckId(String className) throws Exception
+	{
+		Class <?> check = Class.forName(className);
+		java.lang.reflect.Field field = check.getField("checkId");
+		return field.getLong(null);
+	}
 }

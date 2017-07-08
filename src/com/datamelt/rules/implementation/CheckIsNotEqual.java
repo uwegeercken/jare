@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.datamelt.util.CheckAnnotation;
 import com.datamelt.util.ClassUtility;
 
 /**
@@ -34,8 +35,14 @@ import com.datamelt.util.ClassUtility;
  * 
  * @author uwe geercken
  */
+
+@CheckAnnotation(name="Check is not equal", description="Check if values are not equal",nameDescriptive="is not equal to",checkSingleField=0)
 public class CheckIsNotEqual extends GenericCheck
 {
+	
+    // unique id of this check. used to generate methods for the maintenance tool database 
+    public static final long checkId = 2;
+
 	/**
      * Evaluates if two integer values are not equal
      * 

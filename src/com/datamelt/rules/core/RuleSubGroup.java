@@ -423,7 +423,7 @@ public class RuleSubGroup implements Serializable
         // we always have at least one object.
         // if the actual type and the type defined in the rule are different
         // then convert/cast the object
-        if(!resultType.equals(rule.getRuleObjects().get(0).getMethodReturnType()))
+        if(resultType!=null && !resultType.equals(rule.getRuleObjects().get(0).getMethodReturnType()))
         {
         	objects[0] = ClassUtility.getObject(rule.getRuleObjects().get(0).getMethodReturnType(),(String)result);	
         }

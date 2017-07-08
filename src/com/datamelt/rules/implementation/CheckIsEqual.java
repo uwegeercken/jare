@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
 import com.datamelt.util.ClassUtility;
 
 /**
@@ -34,10 +36,14 @@ import com.datamelt.util.ClassUtility;
  * 
  * @author uwe geercken
  */
+
+@CheckAnnotation(name="Check is equal", description="Check for equality of values",nameDescriptive="is equal to",checkSingleField=0)
 public class CheckIsEqual extends GenericCheck
 {
-    
-    /**
+    // unique id of this check. used to generate methods for the maintenance tool database 
+    public static final long checkId = 1;
+	
+	/**
      * Evaluates if two long values are equal
      * 
      * @param value1	first value for comparison
@@ -76,7 +82,7 @@ public class CheckIsEqual extends GenericCheck
     }
     
     /**
-     * Evaluates if an integer value and an long value are equal
+     * Evaluates if an integer value and a long value are equal
      * 
      * @param value1	first value for comparison
      * @param value2	second value for comparison
@@ -208,6 +214,7 @@ public class CheckIsEqual extends GenericCheck
      * @param value2	second value for comparison
      * @return			indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="The String value is converted to a boolean value")
     public static boolean evaluate(boolean value1, String value2)
     {
         return value1 == (Boolean)ClassUtility.getObject(ClassUtility.TYPE_BOOLEAN, value2); 
@@ -223,6 +230,7 @@ public class CheckIsEqual extends GenericCheck
      * @param value2	second value for comparison
      * @return			indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="The integer value is converted to a boolean value")
     public static boolean evaluate(boolean value1, int value2)
     {
         if(value2 == 1)
@@ -249,6 +257,7 @@ public class CheckIsEqual extends GenericCheck
      * @param value2	second value for comparison
      * @return			indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="The integer value is converted to a boolean value")
     public static boolean evaluate(int value1, boolean value2)
     {
         if(value1 == 1)
@@ -272,6 +281,7 @@ public class CheckIsEqual extends GenericCheck
      * @param value2	second value for comparison
      * @return			indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="The String value is converted to a boolean value")
     public static boolean evaluate(String value1, boolean value2)
     {
         return value2 == (Boolean)ClassUtility.getObject(ClassUtility.TYPE_BOOLEAN, value1); 
@@ -285,6 +295,7 @@ public class CheckIsEqual extends GenericCheck
      * @param ignoreCase	indication if the case of the values shall be ignored for comparison
      * @return				indication if the two values are equal
      */
+    @CheckMethodAnnotation(noteParameter={"Indicator if the String values shall be compared case sensitive"})
     public static boolean evaluate(String value1, String value2, boolean ignoreCase)
     {
     	if(value1!=null && value2 !=null)
@@ -326,6 +337,7 @@ public class CheckIsEqual extends GenericCheck
      * @param value2		second value for comparison
      * @return				indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="Values are compared case sensitive")
     public static boolean evaluate(String value1, String value2)
     {
     	if(value1!=null && value2 !=null)
@@ -346,6 +358,7 @@ public class CheckIsEqual extends GenericCheck
      * @param format		the format of both dates according to the SimpleDateFormat class
      * @return				indication if the two values are equal
      */
+    @CheckMethodAnnotation(noteParameter={"Specify a date format for the comparison of the values"})
     public static boolean evaluate(String value1, String value2, String format)
     {
         
@@ -382,6 +395,7 @@ public class CheckIsEqual extends GenericCheck
      * @param format		the format of the date provided as string according to the SimpleDateFormat class
      * @return				indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="String is converted to a date and values are compared using the given date format")
     public static boolean evaluate(Date date1, String value2, String format)
     {
         
@@ -413,6 +427,7 @@ public class CheckIsEqual extends GenericCheck
      * @param value2		second value for comparison
      * @return				indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="String is converted to a date and values are compared using the default date format")
     public static boolean evaluate(Date date1, String value2)
     {
         
@@ -444,6 +459,7 @@ public class CheckIsEqual extends GenericCheck
      * @param date2			second value for comparison
      * @return				indication if the two values are equal
      */
+    @CheckMethodAnnotation(note="Values are compared using the default date format")
     public static boolean evaluate(Date date1, Date date2)
     {
     	SimpleDateFormat sdf = new SimpleDateFormat(CheckConstants.DEFAULT_DATE_FORMAT);
@@ -470,6 +486,7 @@ public class CheckIsEqual extends GenericCheck
      * @param format		the format of the date provided as string according to the SimpleDateFormat class
      * @return				indication if the two values are equal
      */
+    @CheckMethodAnnotation(noteParameter={"Specify a date format for the comparison of the values"})
     public static boolean evaluate(Date date1, Date date2, String format)
     {
     	SimpleDateFormat sdf = new SimpleDateFormat(format);
