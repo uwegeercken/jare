@@ -21,6 +21,8 @@ package com.datamelt.rules.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.datamelt.rules.core.util.MappingCollection;
+
 /**
  * this class holds the information for a specific action as defined in the xml file
  * 
@@ -49,6 +51,10 @@ public class XmlAction implements Serializable
 	// list of objects required to invoke the method
 	private ArrayList<ActionObject> actionGetterObjects = new ArrayList<ActionObject>();
 	private ActionObject actionSetterObject = null;
+    
+	// the collection of maps containing key/value pairs
+    private MappingCollection mappingCollection;
+
 
 	/**
      * Constructor using the id and description of the rule. 
@@ -286,4 +292,16 @@ public class XmlAction implements Serializable
     {
         this.id = id;
     }
+
+	public MappingCollection getMappingCollection()
+	{
+		return mappingCollection;
+	}
+
+	public void setMappingCollection(MappingCollection mappingCollection)
+	{
+		this.mappingCollection = mappingCollection;
+	}
+    
+    
 }

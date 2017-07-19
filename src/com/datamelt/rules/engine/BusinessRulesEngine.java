@@ -37,6 +37,7 @@ import java.util.zip.ZipFile;
 import com.datamelt.rules.parser.xml.Parser;
 import com.datamelt.rules.core.RuleExecutionCollection;
 import com.datamelt.rules.core.RuleGroup;
+import com.datamelt.rules.core.util.MappingCollection;
 import com.datamelt.rules.core.util.VariableReplacer;
 import com.datamelt.util.FileUtility;
 import com.datamelt.util.RowFieldCollection;
@@ -86,8 +87,8 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION = "0.82";
-	private static final String REVISION = "5";
-	private static final String LAST_UPDATE = "2017-06-07";
+	private static final String REVISION = "6";
+	private static final String LAST_UPDATE = "2017-07-19";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -132,6 +133,8 @@ public class BusinessRulesEngine
 
     // name of the replacements file
     private String replacementsFile;
+    // the collection of mappings. contains key/values from multiple mapping files
+    private MappingCollection mappingCollection = new MappingCollection();
     // contains the results of the execution of the rules
     private RuleExecutionCollection executionCollection = new RuleExecutionCollection();
     // indicated if the results of the rule execution should be kept
@@ -447,6 +450,9 @@ public class BusinessRulesEngine
     	// a group may be skipped if it depends on another rulegroup
     	// and that groups execution result is not as expected
         group.setSkipped(0);
+        
+        // set the collection of maps containing key/value pairs
+        group.setMappingCollection(mappingCollection);
         
         // per default each rulegroup will be run
         boolean runGroup = true;
@@ -1275,6 +1281,11 @@ public class BusinessRulesEngine
 	public String getReplacementsFile()
 	{
 		return replacementsFile;
+	}
+	
+	public MappingCollection getMappingCollection()
+	{
+		return mappingCollection;
 	}
 
 }

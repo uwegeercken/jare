@@ -111,7 +111,7 @@ public class RuleSubGroup implements Serializable
      * value from the object is retrieved.
      * next an object from the business rule (from the xml file) is created using reflection
      * and the value is retrieved.
-     * then any additional parameters (from the xml file) are transformed into objects, again
+     * then any additional parameters from the rule are transformed into objects, again
      * using reflection.
      * lastly, both values (objects) plus the additional parameters (objects) are passed to the [evaluate] method
      * of an object that extends the GenericCheck class.
@@ -123,7 +123,7 @@ public class RuleSubGroup implements Serializable
      * 
      * @param	objectLabel		the label of the object
      * @param	object			the object to use
-     * @throws	Exception		exeption if the rules can not be run
+     * @throws	Exception		exception if the rules can not be run
      */	
     public void runRules(String objectLabel, Object object) throws Exception
     {

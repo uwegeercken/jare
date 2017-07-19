@@ -19,6 +19,7 @@
 package com.datamelt.rules.core.action;
 
 import com.datamelt.rules.core.XmlAction;
+
 /**
  * Class containing possible actions that are related to string handling.
  * 
@@ -37,6 +38,19 @@ public class StringAction
 	public String replaceValue(XmlAction action, String value, String regex, String replacement) throws Exception
 	{
 		return value.replaceAll(regex, replacement);
+	}
+	
+	public String replaceValueFromMap(XmlAction action, String originalValue, String filename) throws Exception
+	{
+		String value = action.getMappingCollection().getValue(filename, originalValue);
+		if(value!=null)
+		{
+			return value;
+		}
+		else
+		{
+			return originalValue;
+		}
 	}
 	
 	public String subStringValue(XmlAction action, String value, String untilString)

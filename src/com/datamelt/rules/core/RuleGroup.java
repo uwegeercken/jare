@@ -27,6 +27,7 @@ import java.util.Date;
 import com.datamelt.rules.core.RuleSubGroupCollection;
 import com.datamelt.rules.core.action.Action;
 import com.datamelt.rules.core.util.Converter;
+import com.datamelt.rules.core.util.MappingCollection;
 
 /**
  * Rules are organized in groups and subgroups. Subgroups can contain multiple rules
@@ -58,6 +59,8 @@ public class RuleGroup implements Serializable
     private RuleSubGroupCollection subGroupCollection = new RuleSubGroupCollection();
     // list of all action that shall be excuted for this group
     private ArrayList <XmlAction>actions = new ArrayList<XmlAction>();
+    // mapping collection containing maps of key/values pairs
+    private MappingCollection mappingCollection;
     
     private static final int OPERATOR_AND = 0;
     
@@ -247,8 +250,10 @@ public class RuleGroup implements Serializable
             subGroup.runRules(objectLabel, object);
         }
         // execute all actions on this object
-        // the mothod gives back the number of actions that were executed
         Action action = new Action(this.getFailed(), object, outputAfterActions);
+        // set the collection of maps containing key/value pairs
+        action.setMappingCollection(mappingCollection);
+        // the method gives back the number of actions that were executed
         numberOfActionsExecuted = action.executeActions(actions);
     }
     
@@ -385,7 +390,6 @@ public class RuleGroup implements Serializable
      * indicator, if the complete group failed (0) or not (1).
      * 
      * @return				indicator if the rulegroup failed
-     * @throws	Exception	exception if the result could not be determined
      */
     public int getFailed()
     {
@@ -623,6 +627,11 @@ public class RuleGroup implements Serializable
 	public void setSkipped(int skipped)
 	{
 		this.skipped = skipped;
+	}
+	
+	public void setMappingCollection(MappingCollection collection)
+	{
+		this.mappingCollection = collection;
 	}
     
 }

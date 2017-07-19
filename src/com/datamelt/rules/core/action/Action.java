@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import com.datamelt.rules.core.ActionObject;
 import com.datamelt.rules.core.XmlAction;
+import com.datamelt.rules.core.util.MappingCollection;
 import com.datamelt.util.ClassUtility;
 import com.datamelt.util.FieldNotFoundException;
 /**
@@ -42,6 +43,7 @@ public class Action implements Serializable
 	private int ruleGroupFailed;
 	private PrintStream stream;
 	private boolean outputAfterActions;
+	private MappingCollection mappingCollection;
 	
 	public static final long serialVersionUID = 1964070320;
 	
@@ -74,6 +76,7 @@ public class Action implements Serializable
 				XmlAction action = actions.get(i);
 				if(ruleGroupFailed==action.getExecuteIf() || action.getExecuteIf()==XmlAction.TYPE_ALWAYS)
 				{
+					action.setMappingCollection(mappingCollection);
 					executeAction(action);
 					counter++;
 				}
@@ -239,5 +242,13 @@ public class Action implements Serializable
 		this.stream = stream;
 	}
 
-	
+	public MappingCollection getMappingCollection()
+	{
+		return mappingCollection;
+	}
+
+	public void setMappingCollection(MappingCollection mappingCollection)
+	{
+		this.mappingCollection = mappingCollection;
+	}
 }
