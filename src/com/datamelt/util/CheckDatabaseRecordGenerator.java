@@ -59,7 +59,7 @@ public class CheckDatabaseRecordGenerator
 		for(int f=0;f<className.length;f++)
 		{
 			ArrayList<String> statements = generator.createAllMethodSql(packageName, className[f].trim());
-			String checkStatement = generator.createCheckSql(packageName,className[f]);
+			String checkStatement = generator.createCheckSql(packageName,className[f].trim());
 			System.out.println(checkStatement);
 			for(int i=0;i<statements.size();i++)
 			{

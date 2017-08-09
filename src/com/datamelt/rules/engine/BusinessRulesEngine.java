@@ -76,8 +76,6 @@ import com.datamelt.util.Splitter;
  * the getRuleDefinition method returns a simple readable representation and overview
  * of the rule logic.
  * <p>
- * published under GPL3
- * <p>
  * please read the available documentation.</p>
  * 
  * @author uwe geercken - uwe.geercken@web.de - Copyright 2008-2017
@@ -88,7 +86,7 @@ public class BusinessRulesEngine
 	// the version of the business rule engine
 	private static final String VERSION = "0.82";
 	private static final String REVISION = "6";
-	private static final String LAST_UPDATE = "2017-07-19";
+	private static final String LAST_UPDATE = "2017-08-09";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();

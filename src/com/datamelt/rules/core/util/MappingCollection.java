@@ -26,7 +26,7 @@ import java.util.Map;
 /**
 * collection containing maps of key/value pairs.
 * 
-* these maps can be used to replace the original value of a row of data by a value defined in a mapping file. The mapping file
+* these maps can be used to replace - using an action - the original value with a value defined in a mapping file. The mapping file
 * is identified by it's filename.
 * 
 * @author uwe geercken
@@ -39,7 +39,7 @@ public class MappingCollection implements Serializable
 	private Map <String,KeyValueMap> maps = new HashMap<String,KeyValueMap>();
 	
 	/*
-	 * gets a KeyValueMap from the maps
+	 * gets a KeyValueMap from a hashmap
 	 * 
 	 * @param filename 	the path and filename of the mapping file
      * @return			KeyValueMap containing all key/value mappings
