@@ -84,12 +84,14 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION = "0.82";
-	private static final String REVISION = "6";
-	private static final String LAST_UPDATE = "2017-08-09";
+	private static final String VERSION = "0.83";
+	private static final String REVISION = "1";
+	private static final String LAST_UPDATE = "2017-09-22";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
+    // contains all groups, subgroups and rules that have been parsed from one or more files
+    private ArrayList<String> referenceFieldNames = new ArrayList<String>();
     // indicator if the rule engine ran
     private int status;
     
@@ -354,7 +356,10 @@ public class BusinessRulesEngine
         {
         	// get the next group
             RuleGroup group = groups.get(i);
-
+            
+            // apply settings of ruleengine to the group
+            applyGroupSettings(group);
+            // run the group
             run(group,objectLabel,object);            
         }
     }
@@ -385,6 +390,9 @@ public class BusinessRulesEngine
             // check if the name of the group corresponds to the specified name
             if(group.getId().toLowerCase().equals(rulegroupName.toLowerCase()))
             {
+            	// apply settings of ruleengine to the group
+            	applyGroupSettings(group);
+            	// run the group
             	run(group,objectLabel,object);
             }
         }
@@ -423,6 +431,9 @@ public class BusinessRulesEngine
 	            // check if the name of the group corresponds to the specified name
 	            if(group.getId().toLowerCase().equals(rulegroupName.toLowerCase()))
 	            {
+	            	// apply settings of ruleengine to the group
+	            	applyGroupSettings(group);
+	            	// run the group
 	            	run(group,objectLabel,object);
 	            }
             }
@@ -470,7 +481,8 @@ public class BusinessRulesEngine
         }
         if(runGroup)
         {
-            group.runRules(objectLabel, object);
+            applyGroupSettings(group);
+        	group.runRules(objectLabel, object);
             if(group.getFailed()==1) // group failed
             {
             	// increase the counter of failed groups
@@ -572,6 +584,18 @@ public class BusinessRulesEngine
     }
     
     /**
+     *  clears/empties the collection of execution results which are created when running the ruleengine.
+     *  
+     *  also clears all statistics collected such as number of rules, number of groups and rules failed, etc.
+     *  
+     *	   
+     */
+    public void clear()
+    {
+        executionCollection.clear();
+    } 
+    
+    /**
      * method runs the rules for all groups and subgroups
      * against the object.
      * a default label for the objects will be used.
@@ -592,17 +616,15 @@ public class BusinessRulesEngine
     }
     
     /**
-     * applies settings to the rulegroup
+     * applies settings of the ruleengine to one rulegroup
+     * 
+     * @param	group	a rulegroup
      */
-    private void applyGroupSettings()
+    private void applyGroupSettings(RuleGroup group)
     {
-    	for(int i=0;i<groups.size();i++)
-    	{
-    		RuleGroup group = groups.get(i);
     		group.setTimestampFormat(timestampFormat);
             group.setOutputType(outputType);
             group.setPreserveRuleExcecutionResults(preserveRuleExcecutionResults);
-    	}
     }
     
     /**
@@ -619,10 +641,8 @@ public class BusinessRulesEngine
         Parser parser = new Parser(replacer);
         parser.parse(filename); 
         
-        // get the created xmlrule arraylist from the parser
-        // and add them to the list
         groups.addAll(parser.getGroups());
-        applyGroupSettings();
+        referenceFieldNames.addAll(parser.getReferenceFieldNames());
     }
     
     /**
@@ -640,7 +660,7 @@ public class BusinessRulesEngine
         parser.parse(stream); 
         
         groups.addAll(parser.getGroups());
-        applyGroupSettings();
+        referenceFieldNames.addAll(parser.getReferenceFieldNames());
     }
     
     /**
@@ -762,6 +782,16 @@ public class BusinessRulesEngine
     public ArrayList<RuleGroup> getGroups()
     {
         return groups;
+    }
+    
+    /**
+     * method returns the list of reference fields as defined in the xml file
+     * 
+     * @return	list of row fields
+     */
+    public ArrayList<String> getReferenceFieldNames()
+    {
+        return referenceFieldNames;
     }
     
     /**

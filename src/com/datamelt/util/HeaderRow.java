@@ -94,6 +94,17 @@ public class HeaderRow implements Serializable
     }
     
     /**
+     * constructor that takes an arraylist of names of fields as parameter 
+     * 
+     * @param fieldNames	arraylist of names of fields
+     */
+    public HeaderRow(ArrayList<String> fieldNames)
+    {
+    	this.fieldNames = fieldNames;
+    	addToFieldNamesHashMap(fieldNames);
+    }
+    
+    /**
      * add fields to the list of fields 
      * 
      * @param fieldNames	array of names of fields
@@ -105,6 +116,22 @@ public class HeaderRow implements Serializable
 	    	for (int i=0;i<fieldNames.length;i++)
 	    	{
 	    		fields.put(fieldNames[i].trim(),i);
+	    	}
+    	}
+    }
+    
+    /**
+     * add fields to the list of fields 
+     * 
+     * @param fieldNames	arraylist of names of fields
+     */
+    private void addToFieldNamesHashMap(ArrayList<String> fieldNames)
+    {
+    	if(fieldNames!=null)
+    	{
+	    	for (int i=0;i<fieldNames.size();i++)
+	    	{
+	    		fields.put(fieldNames.get(i).trim(),i);
 	    	}
     	}
     }

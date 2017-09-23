@@ -25,18 +25,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericRecord;
+
 /**
  * the RowFieldCollection class represents a container with RowField objects.
  * 
- * a RowField object hold the information of the name and value of a field, both
- * as a string.
- * 
- * The value of the field that is not a string can be retrieved using the available
- * methods such as e.g. getIntegerFieldValue().
+ * a RowField object holds the information of the name and value of a field.
  * 
  * @author uwe geercken
  */
-
 public class RowFieldCollection implements Serializable
 {
 	private long id;
@@ -94,7 +92,7 @@ public class RowFieldCollection implements Serializable
     
     /**
      * constructor that takes an array of field names and an array of values as parameter.
-     * RowField object will be created and added the the list of fields. 
+     * RowField objects will be created and added the the list of fields. 
      *  
      * @param header		the header row
      * @param fields		an array of field values
@@ -106,16 +104,59 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * constructor that takes an array of field names and an array of values as parameter.
-     * RowField object will be created and added the the list of fields.
+     * constructor that takes a HeaderRow and an array of objects/values as parameter.
+     * RowField objects will be created and added the the list of fields.
      *  
-     * @param header		the header row
+     * @param header		the header row object
      * @param fields		an array of field values
      */
     public RowFieldCollection(HeaderRow header,Object[] fields)
     {
     	this.header = header;
         setFields(fields);
+    }
+    
+    /**
+     * constructor that takes an array of field names and an array of objects/values as parameter.
+     * RowField objects will be created and added the the list of fields.
+     *  
+     * @param header		the array of field names
+     * @param fields		an array of field values
+     */
+    public RowFieldCollection(String[] fieldNames,Object[] fields)
+    {
+    	this.header = new HeaderRow(fieldNames);
+        setFields(fields);
+    }
+    
+    /**
+     * constructor that takes an array of field names and an array of objects/values as parameter.
+     * RowField objects will be created and added the the list of fields.
+     *  
+     * @param header		the array of field names
+     * @param fields		an array of field values
+     */
+    public RowFieldCollection(ArrayList<String> fieldNames,Object[] fields)
+    {
+    	this.header = new HeaderRow(fieldNames);
+        setFields(fields);
+    }
+    
+    /**
+     * constructor that takes an avro generic record and the avro schema as parameter.
+     * RowField objects will be created and added the the list of fields.
+     *  
+     * @param record		an avro record
+     * @param fields		the avro schema corresponding to the record
+     */
+    public RowFieldCollection(GenericRecord record, Schema schema) throws Exception
+    {
+    	AvroSchemaUtility schemaUtility = new AvroSchemaUtility(schema);
+    	String[] fieldNames = schemaUtility.getFieldNames();
+    	Object[] objects = schemaUtility.getGenericRecordData(record);
+    	
+    	this.header = new HeaderRow(fieldNames);
+        setFields(objects);
     }
     
     /**
@@ -266,6 +307,15 @@ public class RowFieldCollection implements Serializable
     public void removeField(int index)
     {
    		fields.remove(index);
+    }
+    
+    /**
+     * Remove all fields from the array of fields.
+     * 
+     */
+    public void removeFields()
+    {
+   		fields.clear();
     }
 
     /**

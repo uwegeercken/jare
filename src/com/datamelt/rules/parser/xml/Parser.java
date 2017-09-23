@@ -41,6 +41,7 @@ import com.datamelt.rules.core.RuleSubGroup;
 import com.datamelt.rules.core.XmlRule;
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.rules.core.util.VariableReplacer;
+import com.datamelt.util.RowField;
 
 /**
  * this parser is used to parse rule definition files. rule files have to be
@@ -55,6 +56,7 @@ import com.datamelt.rules.core.util.VariableReplacer;
 public class Parser extends DefaultHandler implements ContentHandler
 {
     private ArrayList<RuleGroup>groups = new ArrayList<RuleGroup>();
+    private ArrayList<String>referenceFieldNames = new ArrayList<String>();
     
     private VariableReplacer replacer;
     
@@ -117,6 +119,9 @@ public class Parser extends DefaultHandler implements ContentHandler
     private static final String TAG_ACTION_PARAMETERTYPE  				= "type";
     private static final String TAG_ACTION_PARAMETERVALUE 				= "value";
     private static final String TAG_ACTION_EXECUTEIF	  				= "executeif";
+    
+    private static final String TAG_REFERENCE_FIELD		  				= "field";
+    private static final String TAG_REFERENCE_FIELD_NAME  				= "name";
     
     private static final String TAG_TYPE_TRUE   = "true";
         
@@ -466,6 +471,14 @@ public class Parser extends DefaultHandler implements ContentHandler
             Parameter para = new Parameter(atts.getValue(TAG_PARAMETER_TYPE),parameterValue);
             xmlRule.addParameter(para);
         }
+        
+        if(qName.equals(TAG_REFERENCE_FIELD))
+        {
+            if(atts.getValue(TAG_REFERENCE_FIELD_NAME) !=null)
+            {
+            	referenceFieldNames.add(atts.getValue(TAG_REFERENCE_FIELD_NAME));
+            }
+        }
 	  }
 
     public void endElement( String namespaceURI, String localName, String qName )
@@ -527,5 +540,16 @@ public class Parser extends DefaultHandler implements ContentHandler
     public ArrayList<RuleGroup> getGroups()
     {
         return groups;
+    }
+    
+    /**
+     * returns an arraylist of fields that have been constructed by parsing
+     * a xml rule definition file 
+     * 
+     * @return	list of fields
+     */
+    public ArrayList<String> getReferenceFieldNames()
+    {
+        return referenceFieldNames;
     }
 }

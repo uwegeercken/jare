@@ -772,6 +772,7 @@ public class RuleSubGroup implements Serializable
 	public void setPreserveRuleExcecutionResults(boolean preserveRuleExcecutionResults)
 	{
 		this.preserveRuleExcecutionResults = preserveRuleExcecutionResults;
+		this.executionCollection.setPreserveRuleExcecutionResults(preserveRuleExcecutionResults);
 	}
 
 }
