@@ -35,6 +35,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import com.datamelt.rules.parser.xml.Parser;
+import com.datamelt.rules.core.ReferenceField;
 import com.datamelt.rules.core.RuleExecutionCollection;
 import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.core.util.MappingCollection;
@@ -91,7 +92,7 @@ public class BusinessRulesEngine
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
     // contains all groups, subgroups and rules that have been parsed from one or more files
-    private ArrayList<String> referenceFieldNames = new ArrayList<String>();
+    private ArrayList<ReferenceField> referenceFields = new ArrayList<ReferenceField>();
     // indicator if the rule engine ran
     private int status;
     
@@ -642,7 +643,7 @@ public class BusinessRulesEngine
         parser.parse(filename); 
         
         groups.addAll(parser.getGroups());
-        referenceFieldNames.addAll(parser.getReferenceFieldNames());
+        referenceFields.addAll(parser.getReferenceFields());
     }
     
     /**
@@ -660,7 +661,7 @@ public class BusinessRulesEngine
         parser.parse(stream); 
         
         groups.addAll(parser.getGroups());
-        referenceFieldNames.addAll(parser.getReferenceFieldNames());
+        referenceFields.addAll(parser.getReferenceFields());
     }
     
     /**
@@ -787,11 +788,11 @@ public class BusinessRulesEngine
     /**
      * method returns the list of reference fields as defined in the xml file
      * 
-     * @return	list of row fields
+     * @return	list of reference fields
      */
-    public ArrayList<String> getReferenceFieldNames()
+    public ArrayList<ReferenceField> getReferenceFields()
     {
-        return referenceFieldNames;
+        return referenceFields;
     }
     
     /**

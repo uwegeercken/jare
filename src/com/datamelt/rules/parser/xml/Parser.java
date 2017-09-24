@@ -34,6 +34,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.datamelt.rules.core.ActionObject;
 import com.datamelt.rules.core.Parameter;
+import com.datamelt.rules.core.ReferenceField;
 import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.core.RuleMessage;
 import com.datamelt.rules.core.RuleObject;
@@ -41,7 +42,6 @@ import com.datamelt.rules.core.RuleSubGroup;
 import com.datamelt.rules.core.XmlRule;
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.rules.core.util.VariableReplacer;
-import com.datamelt.util.RowField;
 
 /**
  * this parser is used to parse rule definition files. rule files have to be
@@ -56,7 +56,7 @@ import com.datamelt.util.RowField;
 public class Parser extends DefaultHandler implements ContentHandler
 {
     private ArrayList<RuleGroup>groups = new ArrayList<RuleGroup>();
-    private ArrayList<String>referenceFieldNames = new ArrayList<String>();
+    private ArrayList<ReferenceField>referenceFields = new ArrayList<ReferenceField>();
     
     private VariableReplacer replacer;
     
@@ -122,6 +122,9 @@ public class Parser extends DefaultHandler implements ContentHandler
     
     private static final String TAG_REFERENCE_FIELD		  				= "field";
     private static final String TAG_REFERENCE_FIELD_NAME  				= "name";
+    private static final String TAG_REFERENCE_FIELD_NAME_DESCRIPTIVE	= "namedescriptive";
+    private static final String TAG_REFERENCE_FIELD_DESCRIPTION			= "description";
+    private static final String TAG_REFERENCE_FIELD_JAVA_TYPE_ID		= "javatypeid";
     
     private static final String TAG_TYPE_TRUE   = "true";
         
@@ -474,10 +477,25 @@ public class Parser extends DefaultHandler implements ContentHandler
         
         if(qName.equals(TAG_REFERENCE_FIELD))
         {
-            if(atts.getValue(TAG_REFERENCE_FIELD_NAME) !=null)
+            ReferenceField field = new ReferenceField();
+        	if(atts.getValue(TAG_REFERENCE_FIELD_NAME) !=null)
             {
-            	referenceFieldNames.add(atts.getValue(TAG_REFERENCE_FIELD_NAME));
+            	field.setName(atts.getValue(TAG_REFERENCE_FIELD_NAME));
             }
+        	if(atts.getValue(TAG_REFERENCE_FIELD_NAME_DESCRIPTIVE) !=null)
+            {
+            	field.setNameDescriptive(atts.getValue(TAG_REFERENCE_FIELD_NAME_DESCRIPTIVE));
+            }
+        	if(atts.getValue(TAG_REFERENCE_FIELD_DESCRIPTION) !=null)
+            {
+            	field.setDescription(atts.getValue(TAG_REFERENCE_FIELD_DESCRIPTION));
+            }
+        	if(atts.getValue(TAG_REFERENCE_FIELD_JAVA_TYPE_ID) !=null)
+            {
+            	field.setJavaTypeId(Integer.parseInt(atts.getValue(TAG_REFERENCE_FIELD_JAVA_TYPE_ID)));
+            }
+        	referenceFields.add(field);
+
         }
 	  }
 
@@ -548,8 +566,8 @@ public class Parser extends DefaultHandler implements ContentHandler
      * 
      * @return	list of fields
      */
-    public ArrayList<String> getReferenceFieldNames()
+    public ArrayList<ReferenceField> getReferenceFields()
     {
-        return referenceFieldNames;
+        return referenceFields;
     }
 }
