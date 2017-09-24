@@ -19,7 +19,16 @@ package com.datamelt.rules.core;
  * under the License.
  */ 
 
-
+/**
+ * Defines a reference field as it is used and output by the BusinessRulesMaintenance Tool.
+ * 
+ * It basically defines one field of a row of fields from a record (e.g. a line from a CSV file).
+ * 
+ * The field has a name and Java type assigned to it. The ruleengine will use this information
+ * to correctly process the value of the field.
+ * 
+ * @author uwe geercken
+ */
 public class ReferenceField
 {
 	public static final int FIELD_TYPE_ID_STRING		= 1;

@@ -28,6 +28,8 @@ import java.util.Date;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 
+import com.datamelt.rules.core.ReferenceField;
+
 /**
  * the RowFieldCollection class represents a container with RowField objects.
  * 
@@ -56,7 +58,9 @@ public class RowFieldCollection implements Serializable
     /**
      * constructor that takes an array of field names as parameter
      * 
-     * the field names define the names of the fields of the row
+     * the field names define the names of the fields of the row. make sure that
+     * before running the ruleengine values are assigned to the fields using one of the 
+     * setFields() methods
      *  
      * @param fieldNames	an array of field names
      */
@@ -68,7 +72,7 @@ public class RowFieldCollection implements Serializable
     /**
      * constructor that takes an array of row fields as parameter.
      * 
-     * as no header fields are specified here, the fields will be added with a default name
+     * the row fields have a name of the field and the value in form of an object
      *  
      * @param fields	array of row fields
      */
@@ -120,7 +124,7 @@ public class RowFieldCollection implements Serializable
      * constructor that takes an array of field names and an array of objects/values as parameter.
      * RowField objects will be created and added the the list of fields.
      *  
-     * @param header		the array of field names
+     * @param fieldNames	the array of field names
      * @param fields		an array of field values
      */
     public RowFieldCollection(String[] fieldNames,Object[] fields)
@@ -133,7 +137,7 @@ public class RowFieldCollection implements Serializable
      * constructor that takes an array of field names and an array of objects/values as parameter.
      * RowField objects will be created and added the the list of fields.
      *  
-     * @param header		the array of field names
+     * @param fieldNames	the array of field names
      * @param fields		an array of field values
      */
     public RowFieldCollection(ArrayList<String> fieldNames,Object[] fields)
@@ -147,7 +151,8 @@ public class RowFieldCollection implements Serializable
      * RowField objects will be created and added the the list of fields.
      *  
      * @param record		an avro record
-     * @param fields		the avro schema corresponding to the record
+     * @param schema		the avro schema corresponding to the record
+     * @throws Exception	thrown when the complex type of the schema is not equal to [RECORD]
      */
     public RowFieldCollection(GenericRecord record, Schema schema) throws Exception
     {
@@ -271,6 +276,35 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
+     * method that takes an array of reference fields and the objects as parameter.
+     * 
+     * the reference fields usually have been parsed/read from the rules project file
+     * by the BusinessRulesEngine instance - if there are reference fields defined for
+     * the project. Use the getReferenceFields() method on the BusinessRulesEngine to get them.
+     * 
+     * make sure that the sequence of fields correspond to the sequence of objects, so field 1
+     * corresponds to object 1, field 2 corresponds to object 2, etc.
+     *  
+     * @param fields	array of reference fields
+     * @param objects	array of objects
+     */
+    public void addFields(ArrayList<ReferenceField> fields, Object[] objects)
+    {
+    	if(fields!=null && fields.size()>0)
+    	{
+	    	for(int i=0;i<fields.size();i++)
+	    	{
+	    		ReferenceField referenceField = fields.get(i);
+	    		if(objects!=null && objects[i]!=null)
+	    		{
+	    			RowField rowField = new RowField(referenceField.getName(),objects[i]);
+	    			this.fields.add(rowField);
+	    		}
+	    	}
+    	}
+    }
+    
+    /**
      * Remove a field from the array of fields.
      * 
      * @param fieldName					the name of the field to remove
@@ -354,9 +388,12 @@ public class RowFieldCollection implements Serializable
     /**
      * returns a field from the array of fields  by specifying its name.
      * 
+     * if no fieldnames are assigned and the field name is not found an exception
+     * is thrown. consider using the index of the field instead by using the getField(int) method.
+     * 
      * @param name			the name of the field to retrieve
      * @return				a field from the array
-     * @throws Exception	when the field was not found
+     * @throws Exception	when the field was not found by it's name
      */
     public RowField getField(String name) throws Exception
     {

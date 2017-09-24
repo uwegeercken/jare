@@ -27,7 +27,7 @@ import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.util.Utf8;
 
 /**
- * utility class to simplify the retrieval of fields and data/fields of an Avro file.
+ * utility class to simplify the retrieval of fields and data of an Avro file.
  * 
  * 
  * @author uwe geercken
@@ -76,8 +76,14 @@ public class AvroSchemaUtility
 	
 	/**
 	 * retrieves the type of the field from an Avro schema
+	 * 
+	 * the type of a field is defined in the Avro schema. The type can have one or two values:
+	 * either it has simply a single type of string, int, float, etc. (see Avro documentation for possible types)
+	 * or it can have the type or "null". If more than these two types are defined, this method will throw an
+	 * exception, as the type can not be defined. Otherwise the method will return the type (string, int, etc.).
 	 *  
 	 * @param schemaField	the Avro schema field
+	 * @throws Exception	exception thrown when a field has more than two possible types
 	 * @return				the Avro type of the field
 	 */
 	public Type getFieldType(Field schemaField) throws Exception
@@ -103,7 +109,7 @@ public class AvroSchemaUtility
 				// we have more than two types
 				else
 				{
-					throw new Exception("field: [" + schemaField.name() + "] has more than two possible types - can not determine type");
+					throw new Exception("field: [" + schemaField.name() + "] has more than two possible values for the type - can not determine type");
 				}
 		    }
 		}

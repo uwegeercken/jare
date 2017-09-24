@@ -66,10 +66,17 @@ import com.datamelt.util.Splitter;
  * rule xml files can also be put into a zip archive. the program will process
  * the zip file and read all rule xml files from it.
  * <p>
+ * The Business Rules Maintenance Tool, a web application to orchestrate the business logic
+ * into projects, rulesgroups, rules and actions generates a zip file containing all logic
+ * which can then be used together with the rule engine. The zip file contains the mentioned
+ * xml files, so using the web application you will not have to write them by hand. In this
+ * case, also any available reference fields - a definition of which fields are available from
+ * the data record - are parsed from the zip file.
+  * <p>
  * the rules are executed against the data using a certain check or condition.
  * these are defined in classes implementing the GenericCheck interface.
  * <p>
- * rules defined in the xml file(s) are instantiated using java reflection.
+ * rules defined in the xml file(s), or zip file are instantiated using java reflection.
  * usually the return value of a method is compared to an expected value. or
  * two object are compared against each other. or the return value is compared
  * against a fix condition such as 'not null'. 
@@ -77,7 +84,14 @@ import com.datamelt.util.Splitter;
  * the getRuleDefinition method returns a simple readable representation and overview
  * of the rule logic.
  * <p>
- * please read the available documentation.</p>
+ * before running the ruleengine it needs data to run the rules against. use one of the
+ * various run methods to pass objects to the engine. the object could be any object but
+ * needs to correspond to the object class defined in the rules project (file). The method to be
+ * used is also defined in the project. Using the class and the method, the data is retrieved from
+ * the object and passed to the ruleengine.
+ * <p>
+ * please read the available documentation.
+ * </p>
  * 
  * @author uwe geercken - uwe.geercken@web.de - Copyright 2008-2017
  * 
