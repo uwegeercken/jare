@@ -53,6 +53,19 @@ public class StringAction
 		}
 	}
 	
+	public String replaceValueFromList(XmlAction action, int index, String list) throws Exception
+	{
+		String values[] = list.split(",");
+		if(values!=null && values.length>0 && index < values.length)
+		{
+			return values[index].trim();
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
 	public String subStringValue(XmlAction action, String value, String untilString)
 	{
 		int pos = value.indexOf(untilString);
