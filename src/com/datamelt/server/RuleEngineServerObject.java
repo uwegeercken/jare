@@ -34,6 +34,7 @@ public class RuleEngineServerObject implements Serializable
      private boolean passed=false;
      private long groupsPassed;
      private long totalGroups;
+     private long groupsSkipped;
      private long rulesPassed;
      private long totalRules;
      private long totalActions;
@@ -92,9 +93,17 @@ public class RuleEngineServerObject implements Serializable
 	public long getTotalGroups() {
 		return totalGroups;
 	}
-
+	
 	public void setTotalGroups(long totalGroups) {
 		this.totalGroups = totalGroups;
+	}
+	
+	public long getGroupsSkipped() {
+		return groupsSkipped;
+	}
+
+	public void setGroupsSkipped(long groupsSkipped) {
+		this.groupsSkipped = groupsSkipped;
 	}
 
 	public long getRulesPassed() {
@@ -181,5 +190,4 @@ public class RuleEngineServerObject implements Serializable
 	{
 		this.totalActions = totalActions;
 	}
-	
 }

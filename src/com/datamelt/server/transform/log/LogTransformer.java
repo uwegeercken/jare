@@ -29,9 +29,9 @@ import com.datamelt.util.VelocityDataWriter;
 
 public class LogTransformer extends Transformer 
 {
-	private static final String PROPERTY_OUPUT_FILENAME = "output.filename";
-	private static final String PROPERTY_TEMPLATE_FOLDER = "template.folder";
-	private static final String PROPERTY_TEMPLATE_FILENAME = "template.filename";
+	private static final String PROPERTY_OUPUT_FILENAME 	= "output.filename";
+	private static final String PROPERTY_TEMPLATE_FOLDER 	= "template.folder";
+	private static final String PROPERTY_TEMPLATE_FILENAME 	= "template.filename";
 	
 	private BufferedWriter writer;
 	private VelocityDataWriter dataWriter;

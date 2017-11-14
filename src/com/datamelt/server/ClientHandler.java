@@ -27,7 +27,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.zip.ZipFile;
 
 import com.datamelt.rules.core.RuleGroup;
@@ -47,13 +49,17 @@ public class ClientHandler extends Thread
     private Transformer transformer;
     private DataOutputStream outputStream;
     
-    private static final String RESPONSE_UPTIME = "uptime";
-    private static final String RESPONSE_RULEFILE = "rulefile";
-    private static final String RESPONSE_EXIT = "exit";
-    private static final String RESPONSE_ROWSPROCESSED = "rowsprocessed";
-    private static final String RESPONSE_RELOAD = "reload";
-    private static final String RESPONSE_PROCESSID = "processid";
-
+    private static final String RESPONSE_UPTIME 			= "uptime";
+    private static final String RESPONSE_RULEFILE 			= "rulefile";
+    private static final String RESPONSE_EXIT 				= "exit";
+    private static final String RESPONSE_ROWSPROCESSED 		= "rowsprocessed";
+    private static final String RESPONSE_RELOAD 			= "reload";
+    private static final String RESPONSE_PROCESSID 			= "processid";
+    private static final String RESPONSE_RULEENGINE_VERSION	= "processid";
+    private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
+    
+    private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
+    
     ClientHandler(String processId, Socket socket, String ruleFileFolder, String ruleFile, Transformer transformer) throws Exception
     {
     	this.clientStart = System.currentTimeMillis();
@@ -96,6 +102,7 @@ public class ClientHandler extends Thread
 	                
 	                outputStream.writeLong(ruleEngine.getNumberOfGroups());
 	                outputStream.writeLong(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
+	                outputStream.writeLong(ruleEngine.getNumberOfGroupsSkipped());
 	                outputStream.writeLong(ruleEngine.getNumberOfRules());
 	                outputStream.writeLong(ruleEngine.getNumberOfRulesPassed());
 	                outputStream.writeLong(ruleEngine.getNumberOfActions());
@@ -104,6 +111,7 @@ public class ClientHandler extends Thread
 	                // set the fields of the object by using the results from the rule engine
 	                serverObject.setTotalGroups(ruleEngine.getNumberOfGroups());
 	                serverObject.setGroupsPassed(ruleEngine.getNumberOfGroups() - ruleEngine.getNumberOfGroupsFailed());
+	                serverObject.setGroupsSkipped(ruleEngine.getNumberOfGroupsSkipped());
 	                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
 	                serverObject.setRulesPassed(ruleEngine.getNumberOfRulesPassed());
 	                serverObject.setTotalActions(ruleEngine.getNumberOfActions());
@@ -124,7 +132,7 @@ public class ClientHandler extends Thread
             		if(serverObject.equals(RESPONSE_EXIT))
             		{
             			// write response message
-    	                String responseMessage = "client requested exit - stopping thread...";
+    	                String responseMessage = sdf.format(new Date()) + " - client requested exit - stopping thread...";
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
@@ -140,42 +148,49 @@ public class ClientHandler extends Thread
             			// create a new instance of the rule engine
             			ruleEngine = new BusinessRulesEngine(new ZipFile(ruleFileFolder + ruleFile));
             			
-    	                String responseMessage = "client requested reload rule file: " + ruleFileFolder + ruleFile;
+    	                String responseMessage = sdf.format(new Date()) + " - client requested reload of rule file: " + ruleFileFolder + ruleFile;
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_UPTIME))
             		{
-    	                String responseMessage = "thread running since: " + getRunTime();
+    	                String responseMessage = sdf.format(new Date()) + " - thread running since: " + getRunTime();
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_ROWSPROCESSED))
             		{
-    	                String responseMessage = "rows processed: " + rowsProcessed;
+    	                String responseMessage = sdf.format(new Date()) + " - rows processed: " + rowsProcessed;
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_PROCESSID))
             		{
-    	                String responseMessage = processId;
+    	                String responseMessage = sdf.format(new Date()) + " - " + processId;
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_RULEFILE))
             		{
-    	                String responseMessage = "running rule file: " + ruleFileFolder + ruleFile;
+    	                String responseMessage = sdf.format(new Date()) + " - running rule file: " + ruleFileFolder + ruleFile;
+    	                sendMessage(responseMessage);
+    	                
+    	                System.out.println(responseMessage);
+            		}
+            		else if(serverObject.equals(RESPONSE_RULEENGINE_VERSION))
+            		{
+    	                String responseMessage = sdf.format(new Date()) + " - ruleengine version: " + BusinessRulesEngine.getVersion();
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
             		}
             		else
             		{
-    	                String responseMessage = "unknown request: " + serverObject;
+    	                String responseMessage = sdf.format(new Date()) + " - unknown request: " + serverObject;
     	                sendMessage(responseMessage);
     	                
     	                System.out.println(responseMessage);
@@ -183,7 +198,7 @@ public class ClientHandler extends Thread
             	}
             	else
             	{
-            		String responseMessage = "unknown or unhandled object received: ";
+            		String responseMessage = sdf.format(new Date()) + " - unknown or unhandled object received: ";
 	                sendMessage(responseMessage);
 	                
 	                System.out.println(responseMessage);

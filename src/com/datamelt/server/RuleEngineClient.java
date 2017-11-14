@@ -47,9 +47,9 @@ public class RuleEngineClient
 	private long resetInterval=1000;
 	private long counter=0;
 	
-	public static final int OUTPUT_TYPE_ALL_GROUPS = 0;
-	public static final int OUTPUT_TYPE_FAILED_GROUPS_ONLY = 1;
-	public static final int OUTPUT_TYPE_PASSED_GROUPS_ONLY = 2;
+	public static final int OUTPUT_TYPE_ALL_GROUPS 			= 0;
+	public static final int OUTPUT_TYPE_FAILED_GROUPS_ONLY 	= 1;
+	public static final int OUTPUT_TYPE_PASSED_GROUPS_ONLY 	= 2;
 	
 	public RuleEngineClient(String server, int port) throws UnknownHostException, IOException
 	{
@@ -107,6 +107,7 @@ public class RuleEngineClient
        	RuleEngineServerObject response = new RuleEngineServerObject();
        	response.setTotalGroups(inputStream.readLong());
        	response.setGroupsPassed(inputStream.readLong());
+       	response.setGroupsSkipped(inputStream.readLong());
        	response.setTotalRules(inputStream.readLong());
        	response.setRulesPassed(inputStream.readLong());
        	response.setTotalActions(inputStream.readLong());
@@ -200,5 +201,4 @@ public class RuleEngineClient
 	{
 		return counter;
 	}
-
 }

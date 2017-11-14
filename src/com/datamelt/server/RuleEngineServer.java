@@ -42,16 +42,21 @@ public class RuleEngineServer extends Thread
     private int port;
     private String propertiesFileFullname;
     
-    private static final String PROPERTIES_FILE = "server.properties";
+    private static final String PROPERTIES_FILE 			= "server.properties";
     
-    private static final String PROPERTY_PORT = "server.port";
-    private static final String PROPERTY_FOLDER_RULEFILE = "rulefile.folder";
-    private static final String PROPERTY_RULEFILE = "rulefile.name";
-    private static final String PROPERTY_TRANSFORMER = "transformer.classname";
+    private static final String PROPERTY_PORT 				= "server.port";
+    private static final String PROPERTY_FOLDER_RULEFILE 	= "rulefile.folder";
+    private static final String PROPERTY_RULEFILE 			= "rulefile.name";
+    private static final String PROPERTY_TRANSFORMER 		= "transformer.classname";
 
-    private static final int DEFAULT_PORT = 9000;
-    private static final String DEFAULT_FOLDER_RULEFOLDER = ".";
-    private static final String DEFAULT_RULEFILE = "rules.zip";
+    private static final int 	DEFAULT_PORT 				= 9000;
+    private static final String DEFAULT_FOLDER_RULEFOLDER 	= ".";
+    private static final String DEFAULT_RULEFILE 			= "rules.zip";
+    
+    private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
+    
+    private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
+    
     
     private RuleEngineServer() throws Exception
     {
@@ -153,23 +158,23 @@ public class RuleEngineServer extends Thread
     	
     	if(FileUtility.fileExists(server.ruleFileFolder, server.ruleFile))
     	{
-    		System.out.println("using properties from: " + server.propertiesFileFullname);
-    		System.out.println("running rule engine file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
+    		System.out.println(sdf.format(new Date()) + " - using properties from: " + server.propertiesFileFullname);
+    		System.out.println(sdf.format(new Date()) + " - running rule engine file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
     		if(server.transformer!=null)
     		{
-    			System.out.println("output with transformer: " + server.transformer.getClass());
+    			System.out.println(sdf.format(new Date()) + " - output with transformer: " + server.transformer.getClass());
     		}
     		else
     		{
-    			System.out.println("no transformer defined: no ouput generated");
+    			System.out.println(sdf.format(new Date()) + " - no transformer defined: no ouput generated");
     		}
     		server.start();
-            System.out.println("waiting on: " + server.serverSocket.getInetAddress() + ", port: " + server.port + " for connections");
+            System.out.println(sdf.format(new Date()) +  " - waiting on: " + server.serverSocket.getInetAddress() + ", port: " + server.port + " for connections");
 
     	}
     	else
     	{
-    		System.out.println("error: file not found or is not a file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
+    		System.out.println(sdf.format(new Date()) + " - error: file not found or is not a file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
     	}
     }
     
@@ -182,7 +187,7 @@ public class RuleEngineServer extends Thread
             try 
             {
                 final Socket socketToClient = serverSocket.accept();
-                System.out.println("client connected from: " + socketToClient.getInetAddress());
+                System.out.println(sdf.format(new Date()) + " - client connected from: " + socketToClient.getInetAddress());
                 ClientHandler clientHandler = new ClientHandler(getProcessId(),socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer);
                 clientHandler.start();
             }
@@ -212,7 +217,6 @@ public class RuleEngineServer extends Thread
 	
 	private String getProcessId()
 	{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		return ruleFile + "_" + sdf.format(new Date());
 	}
 }

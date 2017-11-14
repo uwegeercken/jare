@@ -80,7 +80,7 @@ public class AvroSchemaUtility
 	 * the type of a field is defined in the Avro schema. The type can have one or two values:
 	 * either it has simply a single type of string, int, float, etc. (see Avro documentation for possible types)
 	 * or it can have the type or "null". If more than these two types are defined, this method will throw an
-	 * exception, as the type can not be defined. Otherwise the method will return the type (string, int, etc.).
+	 * exception, as the type can not be determined. Otherwise the method will return the type (string, int, etc.).
 	 *  
 	 * @param schemaField	the Avro schema field
 	 * @throws Exception	exception thrown when a field has more than two possible types
