@@ -20,7 +20,6 @@ package com.datamelt.server;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,18 +30,17 @@ import com.datamelt.util.RowFieldCollection;
 
 public class RuleEngineClient
 {
-	// the server adress - default is 127.0.0.1
+	// the server address - default is 127.0.0.1
 	private String server="127.0.0.1";
 	// the port the server runs on - default 9000
 	private int port=9000;
 	// output type for rule results from the rule engine
 	private int outputType =1;
-	// the output stream to the server
-	private ObjectOutputStream outStream;
 	// the socket to the server
 	private Socket socket;
 	
-	private DataInputStream inputStream;
+	private ObjectOutputStream outputStream;
+	private ObjectInputStream inputStream;
 	
 	private long resetInterval=1000;
 	private long counter=0;
@@ -69,13 +67,18 @@ public class RuleEngineClient
 	private void init() throws UnknownHostException, IOException
 	{
 		getServerSocket(server, port);
-		getOutputStream(socket);
-		inputStream = new DataInputStream(getDataInputStream(socket));
+		outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+		// flush MUST be called - otherwise the stream is blocking!
+		outputStream.flush();
+		inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+		
+		
 	}
 	
-	public RuleEngineServerObject getServerObject(RowFieldCollection fields) throws IOException
+	public RuleEngineServerObject getServerObject(RowFieldCollection fields) throws Exception
 	{
 		sendObject(fields);
+		
 		return receiveObject();
 	}
 	
@@ -92,60 +95,40 @@ public class RuleEngineClient
 		
 		counter ++;
 		// send the object to the server
-       	
-		outStream.writeObject(object);
-       	outStream.flush();
+		
+		outputStream.writeObject(object);
+       	outputStream.flush();
        	if(counter % resetInterval==0)
        	{
-       		outStream.reset();
+       		outputStream.reset();
        	}
 	}
 	
-	private RuleEngineServerObject receiveObject() throws IOException
+	private RuleEngineServerObject receiveObject() throws Exception
 	{
-		//DataInputStream inputStream = new DataInputStream(getDataInputStream(socket));
-       	RuleEngineServerObject response = new RuleEngineServerObject();
+		/*RuleEngineServerObject response = new RuleEngineServerObject();
        	response.setTotalGroups(inputStream.readLong());
-       	response.setGroupsPassed(inputStream.readLong());
+       	response.setGroupsFailed(inputStream.readLong());
        	response.setGroupsSkipped(inputStream.readLong());
        	response.setTotalRules(inputStream.readLong());
-       	response.setRulesPassed(inputStream.readLong());
+       	response.setRulesFailed(inputStream.readLong());
        	response.setTotalActions(inputStream.readLong());
-       	return response;	
+       	*/
+		RuleEngineServerObject object = (RuleEngineServerObject)inputStream.readObject();
+       	return object;
 	}
 	
 	private void sendMessageObject(String message) throws IOException
 	{
 		// send the message to the server
-       	outStream.writeObject(message);
-       	outStream.flush();
+		outputStream.writeObject(message);
+       	outputStream.flush();
 	}
 	
 	private String receiveMessageObject() throws IOException, ClassNotFoundException
 	{
-		// get an input stream from the server
-       	ObjectInputStream inputStream = getObjectInputStream(socket);
-       	
 		// create a response object from the object we received from the server
         return (String)inputStream.readObject();
-	}
-	
-	private void getOutputStream(Socket socket) throws IOException
-	{
-		// create an output stream to the server
-		outStream =  new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-	}
-	
-	private DataInputStream getDataInputStream(Socket socket) throws IOException
-	{
-       	// create an inputstream from the server
-		return new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-	}
-	
-	private ObjectInputStream getObjectInputStream(Socket socket) throws IOException
-	{
-       	// create an inputstream from the server
-		return new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 	}
 	
 	private void getServerSocket(String server, int port) throws UnknownHostException, IOException
@@ -164,7 +147,7 @@ public class RuleEngineClient
 	
 	public void closeOutputStream() throws IOException
 	{
-		outStream.close();
+		//outputStream.close();
 	}
 	
 	public String getServer() 

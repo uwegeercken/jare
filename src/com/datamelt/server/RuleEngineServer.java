@@ -41,6 +41,7 @@ public class RuleEngineServer extends Thread
     private Transformer transformer;
     private int port;
     private String propertiesFileFullname;
+    private long serverStart;
     
     private static final String PROPERTIES_FILE 			= "server.properties";
     
@@ -156,6 +157,9 @@ public class RuleEngineServer extends Thread
     		}
     	}
     	
+    	server.serverStart = System.currentTimeMillis();
+    	System.out.println(sdf.format(new Date()) + " - server start...");
+    	
     	if(FileUtility.fileExists(server.ruleFileFolder, server.ruleFile))
     	{
     		System.out.println(sdf.format(new Date()) + " - using properties from: " + server.propertiesFileFullname);
@@ -166,11 +170,10 @@ public class RuleEngineServer extends Thread
     		}
     		else
     		{
-    			System.out.println(sdf.format(new Date()) + " - no transformer defined: no ouput generated");
+    			System.out.println(sdf.format(new Date()) + " - no transformer defined: no ruleengine ouput generated");
     		}
     		server.start();
             System.out.println(sdf.format(new Date()) +  " - waiting on: " + server.serverSocket.getInetAddress() + ", port: " + server.port + " for connections");
-
     	}
     	else
     	{
@@ -188,7 +191,7 @@ public class RuleEngineServer extends Thread
             {
                 final Socket socketToClient = serverSocket.accept();
                 System.out.println(sdf.format(new Date()) + " - client connected from: " + socketToClient.getInetAddress());
-                ClientHandler clientHandler = new ClientHandler(getProcessId(),socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer);
+                ClientHandler clientHandler = new ClientHandler(getProcessId(),socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer,serverStart);
                 clientHandler.start();
             }
             catch (Exception e)

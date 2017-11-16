@@ -32,17 +32,17 @@ public class RuleEngineServerObject implements Serializable
      private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
      private RuleExecutionCollection ruleExecutionCollection;
      private boolean passed=false;
-     private long groupsPassed;
+     private long groupsFailed;
      private long totalGroups;
      private long groupsSkipped;
-     private long rulesPassed;
+     private long rulesFailed;
      private long totalRules;
      private long totalActions;
      private int outputType;
      private String objectLabel;
      private String processId;
      
-     public static final long serialVersionUID = 2000000;
+     public static final long serialVersionUID = 200003;
      
      public RuleEngineServerObject() 
      {
@@ -82,12 +82,12 @@ public class RuleEngineServerObject implements Serializable
 		return fields;
 	}
 
-	public long getGroupsPassed() {
-		return groupsPassed;
+	public long getGroupsFailed() {
+		return groupsFailed;
 	}
-
-	public void setGroupsPassed(long groupsPassed) {
-		this.groupsPassed = groupsPassed;
+	
+	public void setGroupsFailed(long groupsFailed) {
+		this.groupsFailed = groupsFailed;
 	}
 
 	public long getTotalGroups() {
@@ -106,12 +106,12 @@ public class RuleEngineServerObject implements Serializable
 		this.groupsSkipped = groupsSkipped;
 	}
 
-	public long getRulesPassed() {
-		return rulesPassed;
+	public long getRulesFailed() {
+		return rulesFailed;
 	}
 
-	public void setRulesPassed(long rulesPassed) {
-		this.rulesPassed = rulesPassed;
+	public void setRulesFailed(long rulesFailed) {
+		this.rulesFailed = rulesFailed;
 	}
 
 	public long getTotalRules() {

@@ -42,6 +42,7 @@ public class JsonTransformer extends Transformer
 	private static final String PROPERTY_MONGODB_COLLECTION = "mongodb.collection";
 	
 	private MongoCollection collection;
+	MongoClient client;
 	
 	public JsonTransformer() throws Exception
 	{
@@ -60,7 +61,7 @@ public class JsonTransformer extends Transformer
 			ServerAddress server = new ServerAddress(serverArray[i],Integer.parseInt(portArray[i]));
 			servers.add(server);
 		}
-		MongoClient client;
+		
 		String user = getProperties().get(PROPERTY_MONGODB_USER).toString().trim();
 		String password = getProperties().get(PROPERTY_MONGODB_PASSWORD).toString().trim();
 		if(user!=null && user.length()>0 && password!=null && password.length()>0)
