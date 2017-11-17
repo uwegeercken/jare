@@ -22,7 +22,6 @@ import java.util.Arrays;
 
 import com.datamelt.server.ClientHandler;
 import com.datamelt.server.RuleEngineClient;
-import com.datamelt.util.RowFieldCollection;
 
 /**
  * utility class which can be used to send messages to a running rule engine server.
@@ -39,6 +38,8 @@ public class RuleEngineClientMessage
     private static String hostname							= "localhost";
     private static int port									= 9000;
     private static String message;
+    
+    private static final String RESPONSE_EXIT 				= "exit";
     
 	public static void main(String[] args) throws Exception
 	{
@@ -60,7 +61,10 @@ public class RuleEngineClientMessage
 			    	
 					String response = client.getServerObject(message);
 			    	System.out.println("server response: " + response);
-
+			    	
+			    	// send an exit signal
+			    	client.getServerObject(RESPONSE_EXIT);
+			    	
 					// cleanup
 			    	client.closeOutputStream();
 				    client.closeSocket();
@@ -117,7 +121,6 @@ public class RuleEngineClientMessage
 		System.out.println("Valid messages are:");
 		System.out.println("- uptime       : request response on the uptime of the Jare rule engine server");
 		System.out.println("- rulefile     : request response on the name of the rule engine project file in use");
-		System.out.println("- exit         : request the client to stop/exit");
 		System.out.println("- reload       : request the Jare rule engine server to reload the rule engine project file in use");
 		System.out.println("- rowsprocessed: request response on the total number of rows processed of the Jare rule engine server");
 		System.out.println("- processid    : request response on the Java process id of the Jare rule engine server");

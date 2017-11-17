@@ -49,17 +49,19 @@ public class ClientHandler extends Thread
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     
-    public static final String[] MESSAGES					= {"uptime","rulefile","exit","rowsprocessed","reload","processid","version","groups","hello"};
+    // list of possible messages
+    // the "exit" message is explicitly excluded here
+    public static final String[] MESSAGES					= {"uptime","rulefile","rowsprocessed","reload","processid","version","groups","hello"};
     
-    public static final String RESPONSE_UPTIME 				= "uptime";
-    public static final String RESPONSE_RULEFILE 			= "rulefile";
-    public static final String RESPONSE_EXIT 				= "exit";
-    public static final String RESPONSE_ROWSPROCESSED 		= "rowsprocessed";
-    public static final String RESPONSE_RELOAD 				= "reload";
-    public static final String RESPONSE_PROCESSID 			= "processid";
-    public static final String RESPONSE_RULEENGINE_VERSION	= "version";
-    public static final String RESPONSE_NUMBER_OF_GROUPS	= "groups";
-    public static final String RESPONSE_HELLO				= "hello client";
+    private static final String RESPONSE_UPTIME 				= "uptime";
+    private static final String RESPONSE_RULEFILE 			= "rulefile";
+    private static final String RESPONSE_EXIT 				= "exit";
+    private static final String RESPONSE_ROWSPROCESSED 		= "rowsprocessed";
+    private static final String RESPONSE_RELOAD 				= "reload";
+    private static final String RESPONSE_PROCESSID 			= "processid";
+    private static final String RESPONSE_RULEENGINE_VERSION	= "version";
+    private static final String RESPONSE_NUMBER_OF_GROUPS	= "groups";
+    private static final String RESPONSE_HELLO				= "hello client";
     
     private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
