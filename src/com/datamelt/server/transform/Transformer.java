@@ -18,6 +18,7 @@
  */
 package com.datamelt.server.transform;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -44,6 +45,11 @@ public abstract class Transformer
 	public void setProperties(Properties properties) 
 	{
 		this.properties = properties;
+	}
+	
+	public SimpleDateFormat getSimpleDateFormat(String format)
+	{
+		return new SimpleDateFormat(format);
 	}
 	
 }

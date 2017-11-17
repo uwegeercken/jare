@@ -106,14 +106,6 @@ public class RuleEngineClient
 	
 	private RuleEngineServerObject receiveObject() throws Exception
 	{
-		/*RuleEngineServerObject response = new RuleEngineServerObject();
-       	response.setTotalGroups(inputStream.readLong());
-       	response.setGroupsFailed(inputStream.readLong());
-       	response.setGroupsSkipped(inputStream.readLong());
-       	response.setTotalRules(inputStream.readLong());
-       	response.setRulesFailed(inputStream.readLong());
-       	response.setTotalActions(inputStream.readLong());
-       	*/
 		RuleEngineServerObject object = (RuleEngineServerObject)inputStream.readObject();
        	return object;
 	}

@@ -59,7 +59,7 @@ public class ClientHandler extends Thread
     public static final String RESPONSE_PROCESSID 			= "processid";
     public static final String RESPONSE_RULEENGINE_VERSION	= "version";
     public static final String RESPONSE_NUMBER_OF_GROUPS	= "groups";
-    public static final String RESPONSE_HELLO				= "hello";
+    public static final String RESPONSE_HELLO				= "hello client";
     
     private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
@@ -84,7 +84,7 @@ public class ClientHandler extends Thread
         }
         
         this.outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        // flush MUST be calles after creating the output stream, otherwise the stream blocks
+        // flush MUST be called after creating the output stream, otherwise the stream blocks
         outputStream.flush();
         this.inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
     }
@@ -113,13 +113,6 @@ public class ClientHandler extends Thread
 	                // count the processed rows
 	                rowsProcessed++;
 	                
-	                /*outputStream.writeLong(ruleEngine.getNumberOfGroups());
-	                outputStream.writeLong(ruleEngine.getNumberOfGroupsFailed());
-	                outputStream.writeLong(ruleEngine.getNumberOfGroupsSkipped());
-	                outputStream.writeLong(ruleEngine.getNumberOfRules());
-	                outputStream.writeLong(ruleEngine.getNumberOfRulesFailed());
-	                outputStream.writeLong(ruleEngine.getNumberOfActions());
-	                */
 	                outputStream.writeObject(serverObject);
 	                outputStream.flush();
 

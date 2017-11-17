@@ -21,6 +21,7 @@ package com.datamelt.server.transform.log;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.server.RuleEngineServerObject;
@@ -35,6 +36,8 @@ public class LogTransformer extends Transformer
 	
 	private BufferedWriter writer;
 	private VelocityDataWriter dataWriter;
+	
+	private static String DATETIME_FORMAT 						= "yyyy-MM-dd HH:mm:ss"; 
 	
 	public LogTransformer() throws Exception
 	{
@@ -58,9 +61,10 @@ public class LogTransformer extends Transformer
 		{
 			for(int i=0;i<groups.size();i++)
 			{
+				dataWriter.addObject("timestamp",getSimpleDateFormat(DATETIME_FORMAT).format(new Date()));
 				dataWriter.addObject("serverobject" , serverObject);
 				dataWriter.addObject("group" , groups.get(i));
-				writer.write(dataWriter.merge());
+				writer.append(dataWriter.merge());
 				dataWriter.clearObjects();
 			}
 		}
