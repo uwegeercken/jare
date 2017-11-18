@@ -110,25 +110,27 @@ public class ClientHandler extends Thread
 	                ruleEngine.setOutputType(serverObject.getOutputType());
 	                
 	                // run the rule engine
-	                ruleEngine.run(serverObject.getFields().getFieldValues(), serverObject.getFields());
+	                ruleEngine.run("row_" + rowsProcessed + "_" + sdf.format(new Date()), serverObject.getFields());
 	                
 	                // count the processed rows
 	                rowsProcessed++;
 	                
-	             // set the fields of the object by using the results from the rule engine
+	                // set the fields of the object by using the results from the rule engine
 	                serverObject.setTotalGroups(ruleEngine.getNumberOfGroups());
 	                serverObject.setGroupsFailed(ruleEngine.getNumberOfGroupsFailed());
 	                serverObject.setGroupsSkipped(ruleEngine.getNumberOfGroupsSkipped());
 	                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
 	                serverObject.setRulesFailed(ruleEngine.getNumberOfRulesFailed());
 	                serverObject.setTotalActions(ruleEngine.getNumberOfActions());
-	                //serverObject.setRuleGroups(ruleEngine.getGroups());
 	                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
 	                serverObject.setProcessId(processId);
-	                //serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());
 	                
 	                outputStream.writeObject(serverObject);
 	                outputStream.flush();
+	                
+	                // add additional information of the rule engine to the server object for output purposes
+	                serverObject.setRuleGroups(ruleEngine.getGroups());
+	                serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());
 	                
 	                // output the results
 	                output(serverObject,ruleEngine.getGroups());

@@ -191,7 +191,7 @@ public class RuleEngineServer extends Thread
             {
                 final Socket socketToClient = serverSocket.accept();
                 System.out.println(sdf.format(new Date()) + " - client connected from: " + socketToClient.getInetAddress());
-                ClientHandler clientHandler = new ClientHandler(getProcessId(),socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer,serverStart);
+                ClientHandler clientHandler = new ClientHandler(getProcessId(socketToClient.getInetAddress().toString()),socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer,serverStart);
                 clientHandler.start();
             }
             catch (Exception e)
@@ -218,8 +218,8 @@ public class RuleEngineServer extends Thread
 		return properties.getProperty(key);
 	}
 	
-	private String getProcessId()
+	private String getProcessId(String clientInetAddress)
 	{
-		return ruleFile + "_" + sdf.format(new Date());
+		return "client-" + clientInetAddress + "-" + ruleFile + "_" + sdf.format(new Date());
 	}
 }
