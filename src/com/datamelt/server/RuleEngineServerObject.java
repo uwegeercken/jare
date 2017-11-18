@@ -22,14 +22,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.datamelt.rules.core.RuleExecutionCollection;
-import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.util.RowField;
 import com.datamelt.util.RowFieldCollection;
 
 public class RuleEngineServerObject implements Serializable
 {
      private RowFieldCollection fields;
-     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
      private RuleExecutionCollection ruleExecutionCollection;
      private boolean passed=false;
      private long groupsFailed;
@@ -122,20 +120,6 @@ public class RuleEngineServerObject implements Serializable
 		this.totalRules = totalRules;
 	}
 
-	public ArrayList<RuleGroup> getRuleGroups() {
-		return groups;
-	}
-
-	public void setRuleGroups(ArrayList<RuleGroup> groups)
-	{
-		this.groups = groups;
-	}
-	
-	public void addRuleGroup(RuleGroup group)
-	{
-		groups.add(group);
-	}
-
 	public RuleExecutionCollection getRuleExecutionCollection() 
 	{
 		return ruleExecutionCollection;
@@ -154,11 +138,6 @@ public class RuleEngineServerObject implements Serializable
 	public void setOutputType(int outputType) 
 	{
 		this.outputType = outputType;
-	}
-
-	public ArrayList<RuleGroup> getGroups() 
-	{
-		return groups;
 	}
 
 	public String getObjectLabel()

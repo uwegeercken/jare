@@ -39,8 +39,6 @@ public class RuleEngineClientMessage
     private static int port									= 9000;
     private static String message;
     
-    private static final String RESPONSE_EXIT 				= "exit";
-    
 	public static void main(String[] args) throws Exception
 	{
 		if(args.length!=3 && args.length!=1)
@@ -63,7 +61,7 @@ public class RuleEngineClientMessage
 			    	System.out.println("server response: " + response);
 			    	
 			    	// send an exit signal
-			    	client.getServerObject(RESPONSE_EXIT);
+			    	client.getServerObject(ClientHandler.RESPONSE_EXIT);
 			    	
 					// cleanup
 			    	client.closeOutputStream();

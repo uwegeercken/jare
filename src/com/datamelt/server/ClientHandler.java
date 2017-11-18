@@ -53,15 +53,15 @@ public class ClientHandler extends Thread
     // the "exit" message is explicitly excluded here
     public static final String[] MESSAGES					= {"uptime","rulefile","rowsprocessed","reload","processid","version","groups","hello"};
     
-    private static final String RESPONSE_UPTIME 				= "uptime";
-    private static final String RESPONSE_RULEFILE 			= "rulefile";
-    private static final String RESPONSE_EXIT 				= "exit";
-    private static final String RESPONSE_ROWSPROCESSED 		= "rowsprocessed";
-    private static final String RESPONSE_RELOAD 				= "reload";
-    private static final String RESPONSE_PROCESSID 			= "processid";
-    private static final String RESPONSE_RULEENGINE_VERSION	= "version";
-    private static final String RESPONSE_NUMBER_OF_GROUPS	= "groups";
-    private static final String RESPONSE_HELLO				= "hello client";
+    public static final String RESPONSE_UPTIME 				= "uptime";
+    public static final String RESPONSE_RULEFILE 			= "rulefile";
+    public static final String RESPONSE_EXIT 				= "exit";
+    public static final String RESPONSE_ROWSPROCESSED 		= "rowsprocessed";
+    public static final String RESPONSE_RELOAD 				= "reload";
+    public static final String RESPONSE_PROCESSID 			= "processid";
+    public static final String RESPONSE_RULEENGINE_VERSION	= "version";
+    public static final String RESPONSE_NUMBER_OF_GROUPS	= "groups";
+    public static final String RESPONSE_HELLO				= "hello client";
     
     private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
@@ -115,20 +115,20 @@ public class ClientHandler extends Thread
 	                // count the processed rows
 	                rowsProcessed++;
 	                
-	                outputStream.writeObject(serverObject);
-	                outputStream.flush();
-
-	                // set the fields of the object by using the results from the rule engine
+	             // set the fields of the object by using the results from the rule engine
 	                serverObject.setTotalGroups(ruleEngine.getNumberOfGroups());
 	                serverObject.setGroupsFailed(ruleEngine.getNumberOfGroupsFailed());
 	                serverObject.setGroupsSkipped(ruleEngine.getNumberOfGroupsSkipped());
 	                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
 	                serverObject.setRulesFailed(ruleEngine.getNumberOfRulesFailed());
 	                serverObject.setTotalActions(ruleEngine.getNumberOfActions());
-	                serverObject.setRuleGroups(ruleEngine.getGroups());
+	                //serverObject.setRuleGroups(ruleEngine.getGroups());
 	                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
 	                serverObject.setProcessId(processId);
-	                serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());	
+	                //serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());
+	                
+	                outputStream.writeObject(serverObject);
+	                outputStream.flush();
 	                
 	                // output the results
 	                output(serverObject,ruleEngine.getGroups());
