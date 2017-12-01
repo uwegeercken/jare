@@ -61,7 +61,7 @@ public class ClientHandler extends Thread
     public static final String RESPONSE_PROCESSID 			= "processid";
     public static final String RESPONSE_RULEENGINE_VERSION	= "version";
     public static final String RESPONSE_NUMBER_OF_GROUPS	= "groups";
-    public static final String RESPONSE_HELLO				= "hello client";
+    public static final String RESPONSE_HELLO				= "hello";
     
     private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
@@ -129,6 +129,7 @@ public class ClientHandler extends Thread
 	                outputStream.flush();
 	                
 	                // add additional information of the rule engine to the server object for output purposes
+	                // we don't send these back to the client
 	                serverObject.setRuleGroups(ruleEngine.getGroups());
 	                serverObject.setRuleExecutionCollection(ruleEngine.getRuleExecutionCollection());
 	                
@@ -209,7 +210,7 @@ public class ClientHandler extends Thread
             		}
             		else if(serverObject.equals(RESPONSE_HELLO))
             		{
-    	                sendMessage(RESPONSE_HELLO);
+    	                sendMessage(RESPONSE_HELLO + " client");
             		}
             		else
             		{
