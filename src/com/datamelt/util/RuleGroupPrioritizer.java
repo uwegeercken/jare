@@ -85,6 +85,27 @@ public class RuleGroupPrioritizer
 			}
 		}
 		
+		// We will next add groups to the final array in the order of depedence to handle multiple chaining
+		// It will add a group to the array when it either doesn't depend on another rule 
+		// or it depends on a rule we have already added.
+		// The last condition in the second while loop makes sure it exits if there is a circular reference
+		// it will just start adding groups and work its way from that point.
+		ArrayList<String> addedDepIds = new ArrayList<String>();
+		addedDepIds.add("");
+		while (dependentGroups.size() > 1)
+		{		
+			int t = 0;
+			RuleGroup group = dependentGroups.get(t);
+			while(group.getDependentRuleGroupId()!=null && !addedDepIds.contains(group.getDependentRuleGroupId()) && t<dependentGroups.size()) 																	
+			{
+				t++;
+				group = dependentGroups.get(t);
+			}
+			prioritizedGroups.add(group);
+			addedDepIds.add(group.getId()); 
+			dependentGroups.remove(t);
+		}
+
 		// first we have a list of rulegroups that other groups depend on
 		// these will need to be executed first
 		prioritizedGroups.addAll(dependentGroups);

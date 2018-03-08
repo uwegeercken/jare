@@ -485,8 +485,8 @@ public class BusinessRulesEngine
         {
         	// get the dependent group from the list of groups
         	RuleGroup dependentRuleGroup = getGroupById(group.getDependentRuleGroupId());
-        	// don't run the group if the dependent group does not exist or does not have the correct status (passed/failed)
-        	if(dependentRuleGroup!=null && dependentRuleGroup.getFailed()!=group.getDependentRuleGroupExecuteIf())
+        	// don't run the group if the dependent group does not exist or does not have the correct status (passed/failed) or dependent group was skipped
+        	if(dependentRuleGroup!=null && (dependentRuleGroup.getFailed()!=group.getDependentRuleGroupExecuteIf() || dependentRuleGroup.getSkipped()==1))
         	{
         		runGroup= false;
         		group.setSkipped(1);
