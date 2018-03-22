@@ -52,5 +52,49 @@ public class CheckNotContains extends GenericCheck
         	return false;
         }
     }
+    /**
+   	 * Checks if a string is NOT contained in another string and ignores or does not ignore
+   	 * the case of the values.
+   	 *
+        * @param value 		the first value for comparison
+        * @param compareValue 	the second value for comparison - to compare against the first value
+        * @param ignoreCase	indication if the case of the values shall be ignored for comparison
+        * @return				indication if the compareValue is contained in the value
+        */
+       public static boolean evaluate(String value,String compareValue, boolean ignoreCase)
+       {
+       	if(value!=null && compareValue!=null)
+           {
+   	    	if(ignoreCase)
+   	        {
+   		    	int pos = value.toLowerCase().indexOf(compareValue.toLowerCase());
+   		        if(pos>-1)
+   		        {
+   		            return false; 
+   		        }
+   		        else
+   		        {
+   		            return true;
+   		        }
+   	        }
+   	        else
+   	        {
+   		    	int pos = value.indexOf(compareValue);
+   		        if(pos>-1)
+   		        {
+   		            return false; 
+   		        }
+   		        else
+   		        {
+   		            return true;
+   		        }
+   	        }
+           }
+           else
+           {
+           	return false;
+           }
+
+   	}
     
 }
