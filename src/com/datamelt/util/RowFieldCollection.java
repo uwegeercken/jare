@@ -410,6 +410,27 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
+     * returns indicator if a field exists in the collection.
+     * 
+     * 
+     * @param name			the name of the field to retrieve
+     * @return				boolean indicating
+     */
+    public boolean existField(String name)
+    {
+    	int fieldIndex = -1;
+    	try
+    	{
+    		fieldIndex = header.getFieldIndex(name);
+    		return fieldIndex>-1;
+    	}
+    	catch(Exception ex)
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
      * returns the field value from the array of fields by specifying its name
      *  
      * @param name			the name of the field
@@ -1079,6 +1100,20 @@ public class RowFieldCollection implements Serializable
 	public void setHeader(HeaderRow header)
 	{
 		this.header = header;
+	}
+	
+	public String toString()
+	{
+		StringBuffer buffer = new StringBuffer();
+		for(int i=0;i<fields.size();i++)
+		{
+			buffer.append(fields.get(i).toString());
+			if(i<fields.size()-1)
+			{
+				buffer.append(", ");
+			}
+		}
+		return buffer.toString();
 	}
 	
 	

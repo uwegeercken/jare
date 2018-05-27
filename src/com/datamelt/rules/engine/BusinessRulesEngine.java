@@ -1283,7 +1283,7 @@ public class BusinessRulesEngine
     
     public static void help()
     {
-    	System.out.println("BusinessRulesEngine. program to process business rules defined in xml format");
+		System.out.println("BusinessRulesEngine. program to process business rules defined in xml format");
     	System.out.println("against data from a file or a database.");
     	System.out.println("Provide either a zipfile which contains the business rules or specify a folder");
     	System.out.println("where the busness rules are located.");
@@ -1312,8 +1312,9 @@ public class BusinessRulesEngine
     	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv -s=; -v");
     	System.out.println();
     	System.out.println("published as open source under the Apache License. read the licence notice");
-    	System.out.println("all code by uwe geercken, 2006-2017. uwe.geercken@web.de");
+    	System.out.println("all code by uwe geercken, 2006-2018. uwe.geercken@web.de");
     	System.out.println();
+
     }
     
 	public String getObjectsLabelNumberFormat()
