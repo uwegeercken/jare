@@ -8,7 +8,7 @@ Java Rule Engine source files.
 The Rule Engine allows to implement business rules in a central location and outside the code - be it a web application, a standalone application, an ETL tool or any other java based tool - so that, if the rules change the code does not have to change - only the rules change.
 That establishes a proper division of responsibilities between business users and IT.
 
-Version 0.73 comes with redesigned classes to setup the rule engine as a client/server application. The rule engine runs in server mode and waits for connections from clients to process data. If you want to output the results of the ruleengine you need to add the apache velocity jar file to the classpath. If you want to store the results in mongodb then you will need the mongodb jdbc jar file and the jongo and jackson jar files.
+Version 0.73 comes with redesigned classes to setup the rule engine as a client/server application (if desired). The rule engine runs in server mode and waits for connections from clients to process data. If you want to output the results of the ruleengine you need to add the apache velocity jar file to the classpath. If you want to store the results in mongodb then you will need the mongodb jdbc jar file and the jongo and jackson jar files.
 
 A web application is available, which allows to compose the rule and action logic in an easy and user friendly way. Very complex scenarios are possible by combining rules with "and" and "or" conditions and by grouping them together.
 
@@ -18,7 +18,7 @@ You may download the jar library which contains the sources compiled with Java 1
 
 Please send your feedback and help to enhance the tool.
 
-    Copyright (C) 2008-2017  Uwe Geercken
+    Copyright (C) 2008-2018  Uwe Geercken
 
 
  Licensed to the Apache Software Foundation (ASF) under one
@@ -42,4 +42,5 @@ Please send your feedback and help to enhance the tool.
 uwe geercken
 uwe.geercken@web.de
 
-last update: 2017-10-21
+last update: 2018-05-27
+

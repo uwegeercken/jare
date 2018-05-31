@@ -24,6 +24,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
 
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
@@ -134,6 +135,24 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
+     * constructor that takes an map of field names and objects/values as parameter.
+     * RowField objects will be created and added the the list of fields.
+     *  
+     * @param fieldNames	the array of field names
+     * @param fields		an array of field values
+     */
+    public RowFieldCollection(Map <String,Object> fields)
+    {
+    	this.header = new HeaderRow();
+    	for(String key : fields.keySet())
+    	{
+    		header.addField(key);
+    	
+    	}
+        setFields(fields);
+    }
+    
+    /**
      * constructor that takes an array of field names and an array of objects/values as parameter.
      * RowField objects will be created and added the the list of fields.
      *  
@@ -195,6 +214,20 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
+     * adds the map of field names and field values to the rowfield collection
+     *  
+     * @param fields	map of key/value pairs
+     */
+    public void setFields(Map<String, Object> fields)
+    {
+    	for(String key : fields.keySet())
+    	{
+    		Object value = fields.get(key);
+    		this.fields.add(new RowField(key, value));
+    	}
+    }
+    
+    /**
      * sets the array of fields that belong to the given row object.
      * if we have field names (a header) then the number of fields in the header will steer the number of fields.
      * 
@@ -202,7 +235,7 @@ public class RowFieldCollection implements Serializable
      *  
      * @param fields	an array of objects
      */
-    public void setFields(Object[] fields)
+    public void setFields(Object[] fieldValues)
     {
     	// clear the existing list of fields
     	this.fields.clear();
@@ -216,18 +249,18 @@ public class RowFieldCollection implements Serializable
 	        {
 	    		// only add field if there is one. this could happen if the array of field names
 	    		// specified more fields than the actual row has
-	    		if(i<fields.length)
+	    		if(i<fieldValues.length)
 	        	{
-	    			this.fields.add(new RowField(headerFields[i], fields[i]));
+	    			this.fields.add(new RowField(headerFields[i], fieldValues[i]));
 	        	}
 	        }
     	} 
     	// otherwise give each field a default name and a running number
     	else
     	{
-    		for(int i=0;i<fields.length;i++)
+    		for(int i=0;i<fieldValues.length;i++)
             {
-    			this.fields.add(new RowField(RowField.DEFAULT_FIELDNAME +"_" + i, fields[i]));
+    			this.fields.add(new RowField(RowField.DEFAULT_FIELDNAME +"_" + i, fieldValues[i]));
             }
     	}
     }
