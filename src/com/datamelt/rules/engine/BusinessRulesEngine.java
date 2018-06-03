@@ -99,9 +99,9 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION 	= "0.83";
-	private static final String REVISION 	= "6";
-	private static final String LAST_UPDATE = "2018-05-31";
+	private static final String VERSION 	= "0.84";
+	private static final String REVISION 	= "1";
+	private static final String LAST_UPDATE = "2018-06-02";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -138,6 +138,15 @@ public class BusinessRulesEngine
     public static final int OUTPUT_TYPE_FAILED_AND_PASSED         = 2;
     public static final int OUTPUT_TYPE_NO_OUTPUT		          = 3;
     
+    // status of the rulegroups
+    public static final int RULEGROUP_STATUS_MODE_MINIMUM_NUMBER		= 0;
+    public static final int RULEGROUP_STATUS_MODE_AT_LEAST_ONE_FAILED	= 1;
+    public static final int RULEGROUP_STATUS_MODE_ALL_FAILED 			= 2;
+    public static final int RULEGROUP_STATUS_MODE_NOT_ALL_FAILED		= 3;
+    public static final int RULEGROUP_STATUS_MODE_AT_LEAST_ONE_PASSED	= 4;
+    public static final int RULEGROUP_STATUS_MODE_ALL_PASSED 			= 5;
+    public static final int RULEGROUP_STATUS_MODE_NOT_ALL_PASSED		= 6;
+    
     // status of the engine
     private static final int STATUS_ENGINE_EXECUTED               = 1;
     
@@ -146,6 +155,10 @@ public class BusinessRulesEngine
     private static final String PROPERTY_OBJECT_LABEL 				 = "object_label";
     private static final String PROPERTY_OBJECT_LABEL_FORMAT		 = "object_label_format";
 
+    
+    
+    
+    
     // name of the replacements file
     private String replacementsFile;
     // the collection of mappings. contains key/values from multiple mapping files
@@ -906,7 +919,18 @@ public class BusinessRulesEngine
     }
     
     /**
-     * method returns the number of groups that failed
+     * method returns if the number of groups that failed is greater
+     * than the specified value
+     * 
+     * @return					if the number of failed groups is greater than the given value
+     */
+    public boolean compareNumberOfGroupsFailedGreaterThan(int value)
+    {
+    	return executionCollection.getFailedGroupsCount()> value;
+    }
+    
+    /**
+     * method returns the number of groups that passed
      * 
      * @return 					number of passed groups
      */
@@ -915,6 +939,71 @@ public class BusinessRulesEngine
     	return executionCollection.getPassedGroupsCount();
     }
 
+    /**
+     * method returns if the number of groups that passed is greater
+     * than the specified value
+     * 
+     * @return					if the number of passed groups is greater than the given value
+     */
+    public boolean compareNumberOfGroupsPassedGreaterThan(int value)
+    {
+    	return executionCollection.getPassedGroupsCount()> value;
+    }
+    
+    /**
+     * evaluates if the specified mode is true or false in regards to
+     * the number of rulegroups passed or failed.
+     * 
+     * Modes are "at least one failed", "all failed", "Not all failed",
+     * "at least one passed", "all passed" and "not all passed".
+     * 
+     * @param mode		the desired mode to compare to
+     * @return			indicator if the mode is true or false
+     */
+    public boolean getRuleGroupsStatus(int mode)
+    {
+    	if(mode==RULEGROUP_STATUS_MODE_AT_LEAST_ONE_FAILED)
+    	{
+    		return getNumberOfGroupsFailed()>0;
+    	}
+    	else if(mode==RULEGROUP_STATUS_MODE_ALL_FAILED)
+    	{
+    		return getNumberOfGroupsPassed()==0;
+    	}
+    	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_FAILED)
+    	{
+    		return getNumberOfGroupsFailed()>0 && getNumberOfGroupsFailed()<getNumberOfGroups();
+    	}
+    	else if(mode==RULEGROUP_STATUS_MODE_AT_LEAST_ONE_PASSED)
+    	{
+    		return getNumberOfGroupsPassed()>0;
+    	}
+    	else if(mode==RULEGROUP_STATUS_MODE_ALL_PASSED)
+    	{
+    		return getNumberOfGroupsFailed()==0;
+    	}
+    	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_PASSED)
+    	{
+    		return getNumberOfGroupsPassed()>0 && getNumberOfGroupsPassed()<getNumberOfGroups();
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * evaluates if the number of groups failed is equal or larger
+     * than the specified value
+     * 
+     * @param 	value	the minimum number of failed rulegroups
+     * @return			if the number of failed rulegroups is equal or larger
+     */
+    public boolean getRuleGroupsMinimumNumberFailed(int value)
+    {
+    	return getNumberOfGroupsFailed()>= value;
+    }
+    
     /**
      * method returns the number of groups that were skipped.
      * 

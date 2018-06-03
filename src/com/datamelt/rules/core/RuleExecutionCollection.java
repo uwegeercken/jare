@@ -87,7 +87,6 @@ public class RuleExecutionCollection implements Serializable
      * 
      * @return 	a list of rule execution results
      */
-    
     public ArrayList<RuleExecutionResult> getResults()
     {
         return results;
