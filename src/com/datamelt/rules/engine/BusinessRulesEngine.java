@@ -100,8 +100,8 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION 	= "0.84";
-	private static final String REVISION 	= "1";
-	private static final String LAST_UPDATE = "2018-06-02";
+	private static final String REVISION 	= "3";
+	private static final String LAST_UPDATE = "2018-07-04";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -201,8 +201,7 @@ public class BusinessRulesEngine
      */
     public BusinessRulesEngine(String rulesFilename) throws Exception
     {
-        parseXmlFile(rulesFilename);
-        prioritizeRuleGroups();
+    	reloadRuleFile(rulesFilename);
     }
 
     /**
@@ -224,8 +223,7 @@ public class BusinessRulesEngine
         {
             loadProperties(propertiesFile);
         }
-        parseXmlFile(rulesFilename);
-        prioritizeRuleGroups();
+        reloadRuleFile(rulesFilename);
     }
     
     /**
@@ -241,11 +239,7 @@ public class BusinessRulesEngine
      */
     public BusinessRulesEngine(File[] rulesFiles) throws Exception
     {
-        for(int i=0;i<rulesFiles.length;i++)
-        {
-            parseXmlFile(rulesFiles[i].getPath());
-        }
-        prioritizeRuleGroups();
+    	reloadRuleFile(rulesFiles);
     }
     
     /**
@@ -262,16 +256,7 @@ public class BusinessRulesEngine
      */
     public BusinessRulesEngine(ZipFile zipFile) throws Exception
     {
-        for(Enumeration<?> entries = zipFile.entries();entries.hasMoreElements();)
-        {
-            ZipEntry entry = (ZipEntry)entries.nextElement();
-            if(!entry.isDirectory())
-            {
-            	parseXmlInputStream(zipFile.getInputStream(entry));
-            }
-        }
-        zipFile.close();
-        prioritizeRuleGroups();
+        reloadZipFile(zipFile);
     }
     
     /**
@@ -293,16 +278,8 @@ public class BusinessRulesEngine
         {
             loadProperties(propertiesFile);
         }
-        for(Enumeration<?> entries = zipFile.entries();entries.hasMoreElements();)
-        {
-            ZipEntry entry = (ZipEntry)entries.nextElement();
-            if(!entry.isDirectory())
-            {
-            	parseXmlInputStream(zipFile.getInputStream(entry));
-            }
-        }
-        zipFile.close();
-        prioritizeRuleGroups();
+    	
+    	reloadZipFile(zipFile);
     }
     
     /**
@@ -361,11 +338,7 @@ public class BusinessRulesEngine
         {
             loadProperties(propertiesFile);
         }
-        for(int i=0;i<rulesFiles.length;i++)
-        {
-            parseXmlFile(rulesFiles[i].getPath());
-        }
-        prioritizeRuleGroups();
+        reloadRuleFile(rulesFiles);
     }
     
     /**
@@ -560,6 +533,65 @@ public class BusinessRulesEngine
     }
     
     /**
+     * reloads the rule project zip file for a running BusinessRulesEngine instance.
+     * 
+     * @param zipFile		path and name of the zip file
+     * @throws Exception	exception when the file could not be located or parsed
+     */
+    public void reloadZipFile(ZipFile zipFile) throws Exception
+    {
+    	clear();
+    	groups.clear();
+        referenceFields.clear();
+        
+    	for(Enumeration<?> entries = zipFile.entries();entries.hasMoreElements();)
+        {
+            ZipEntry entry = (ZipEntry)entries.nextElement();
+            if(!entry.isDirectory())
+            {
+            	parseXmlInputStream(zipFile.getInputStream(entry));
+            }
+        }
+        zipFile.close();
+        prioritizeRuleGroups();
+    }
+    
+    /**
+     * reloads the rule xml file for a running BusinessRulesEngine instance
+     * 
+     * @param rulesFilename		path and name of the xml rule file
+     * @throws Exception		exception when the file could not be located or parsed
+     */
+    public void reloadRuleFile(String rulesFilename) throws Exception
+    {
+    	clear();
+    	groups.clear();
+        referenceFields.clear();
+        
+        parseXmlFile(rulesFilename);
+        prioritizeRuleGroups();
+    }
+    
+    /**
+     * reloads the rule xml file for a running BusinessRulesEngine instance
+     * 
+     * @param rulesFilename		path and name of the xml rule file
+     * @throws Exception		exception when the file could not be located or parsed
+     */
+    public void reloadRuleFile(File[] rulesFiles) throws Exception
+    {
+    	clear();
+    	groups.clear();
+        referenceFields.clear();
+        
+        for(int i=0;i<rulesFiles.length;i++)
+        {
+            parseXmlFile(rulesFiles[i].getPath());
+        }
+        prioritizeRuleGroups();
+    }
+    
+    /**
      * method runs the rules for all groups and subgroups.
      * the csv file is parsed, split into rows and fields
      * using the defined field separator.
@@ -663,9 +695,7 @@ public class BusinessRulesEngine
      */
     private void parseXmlFile(String filename)throws Exception
     {
-        // create a parser object to parse
-        // the xml file
-        
+        // create a parser object to parse the xml file
         Parser parser = new Parser(replacer);
         parser.parse(filename); 
         
@@ -681,9 +711,7 @@ public class BusinessRulesEngine
      */
     private void parseXmlInputStream(InputStream stream)throws Exception
     {
-        // create a parser object to parse
-        // the xml input stream
-        
+        // create a parser object to parse the xml input stream
         Parser parser = new Parser(replacer);
         parser.parse(stream); 
         

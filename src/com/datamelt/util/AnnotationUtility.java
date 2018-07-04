@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 
 /**
  * Utility class to compare two methods and if the type of the first two arguments are the same,
- * returns the methos with the most additional parameters.
+ * returns the method with the most additional parameters.
  * 
  * @author uwe geercken
  *

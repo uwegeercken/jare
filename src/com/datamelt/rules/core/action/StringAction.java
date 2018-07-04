@@ -89,6 +89,50 @@ public class StringAction
 		return value.substring(beginIndex, endIndex);
 	}
 	
+	public String maskValue(XmlAction action, String value, String mask, int beginIndex)
+	{
+		StringBuffer maskedString = new StringBuffer();
+		for(int i=0;i<value.length();i++)
+		{
+			if(i<beginIndex && beginIndex<value.length())
+			{
+				maskedString.append(value.substring(i,i+1));
+			}
+			else
+			{
+				maskedString.append(mask);
+			}
+		}
+		return maskedString.toString();
+	}
+	
+	public String maskValue(XmlAction action, String value, String mask, int beginIndex, int endIndex)
+	{
+		StringBuffer maskedString = new StringBuffer();
+		for(int i=0;i<value.length();i++)
+		{
+			if((i<beginIndex || i>= endIndex) && beginIndex<value.length() && endIndex<value.length())
+			{
+				maskedString.append(value.substring(i,i+1));
+			}
+			else
+			{
+				maskedString.append(mask);
+			}
+		}
+		return maskedString.toString();
+	}
+	
+	public String maskValue(XmlAction action, String value, String mask)
+	{
+		StringBuffer maskedString = new StringBuffer();
+		for(int i=0;i<value.length();i++)
+		{
+			maskedString.append(mask);
+		}
+		return maskedString.toString();
+	}
+	
 	public String concatValues(XmlAction action, String value, String value2) throws Exception
 	{
 		return value + value2;
