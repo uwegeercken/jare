@@ -92,45 +92,67 @@ public class StringAction
 	public String maskValue(XmlAction action, String value, String mask, int beginIndex)
 	{
 		StringBuffer maskedString = new StringBuffer();
-		for(int i=0;i<value.length();i++)
+		if(value!=null && mask!=null)
 		{
-			if(i<beginIndex && beginIndex<value.length())
+			for(int i=0;i<value.length();i++)
 			{
-				maskedString.append(value.substring(i,i+1));
+				if(i<beginIndex && beginIndex<value.length())
+				{
+					maskedString.append(value.substring(i,i+1));
+				}
+				else
+				{
+					maskedString.append(mask);
+				}
 			}
-			else
-			{
-				maskedString.append(mask);
-			}
+			return maskedString.toString();
 		}
-		return maskedString.toString();
+		else
+		{
+			return value;
+		}
+		
 	}
 	
 	public String maskValue(XmlAction action, String value, String mask, int beginIndex, int endIndex)
 	{
 		StringBuffer maskedString = new StringBuffer();
-		for(int i=0;i<value.length();i++)
+		if(value!=null && mask!=null)
 		{
-			if((i<beginIndex || i>= endIndex) && beginIndex<value.length() && endIndex<value.length())
+			for(int i=0;i<value.length();i++)
 			{
-				maskedString.append(value.substring(i,i+1));
+				if((i<beginIndex || i>= endIndex) && beginIndex<value.length() && endIndex<value.length())
+				{
+					maskedString.append(value.substring(i,i+1));
+				}
+				else
+				{
+					maskedString.append(mask);
+				}
 			}
-			else
-			{
-				maskedString.append(mask);
-			}
+			return maskedString.toString();
 		}
-		return maskedString.toString();
+		else
+		{
+			return value;
+		}
 	}
 	
 	public String maskValue(XmlAction action, String value, String mask)
 	{
 		StringBuffer maskedString = new StringBuffer();
-		for(int i=0;i<value.length();i++)
+		if(value!=null && mask!=null)
 		{
-			maskedString.append(mask);
+			for(int i=0;i<value.length();i++)
+			{
+				maskedString.append(mask);
+			}
+			return maskedString.toString();
 		}
-		return maskedString.toString();
+		else
+		{
+			return value;
+		}
 	}
 	
 	public String concatValues(XmlAction action, String value, String value2) throws Exception
