@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.core.action;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 import com.datamelt.rules.core.XmlAction;
 
 /**
@@ -375,5 +378,55 @@ public class StringAction
 	public String lowerCaseValue(XmlAction action,String value)
 	{
 		return value.toLowerCase();
+	}
+	
+	/**
+	 * encrypts a given value with the specified key
+	 * 
+	 * returns the original value if the encryption failed.
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the encrypted string
+	 */
+	public String encryptValue(XmlAction action,String value,String key) 
+	{
+		try
+		{
+			SecretKeySpec skeyspec = new SecretKeySpec(key.getBytes(),"Blowfish");
+			Cipher cipher = Cipher.getInstance("Blowfish");
+			cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
+			byte[] encrypted = cipher.doFinal(value.getBytes());
+			return new String(encrypted);
+		} 
+		catch (Exception e) 
+		{
+			return value;
+		}
+	}
+	
+	/**
+	 * decrypts a given value with the specified key.
+	 * 
+	 * returns the original value if the decryption failed.
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the decrypted string
+	 */
+	public String decryptValue(XmlAction action,String value,String key)
+	{
+		try 
+		{
+			SecretKeySpec skeyspec=new SecretKeySpec(key.getBytes(),"Blowfish");
+			Cipher cipher=Cipher.getInstance("Blowfish");
+			cipher.init(Cipher.DECRYPT_MODE, skeyspec);
+			byte[] decrypted=cipher.doFinal(value.getBytes());
+			return new String(decrypted);
+		} 
+		catch (Exception e) 
+		{
+			return value;
+		}
 	}
 }
