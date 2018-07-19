@@ -20,6 +20,7 @@ package com.datamelt.rules.core.action;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import com.datamelt.rules.core.XmlAction;
 
@@ -396,8 +397,9 @@ public class StringAction
 			SecretKeySpec skeyspec = new SecretKeySpec(key.getBytes(),"Blowfish");
 			Cipher cipher = Cipher.getInstance("Blowfish");
 			cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
-			byte[] encrypted = cipher.doFinal(value.getBytes());
-			return new String(encrypted);
+			byte[] encrypted = cipher.doFinal(value.getBytes("UTF-8"));
+			String encryptedString = DatatypeConverter.printHexBinary(encrypted);
+			return encryptedString;
 		} 
 		catch (Exception e) 
 		{
@@ -421,8 +423,9 @@ public class StringAction
 			SecretKeySpec skeyspec=new SecretKeySpec(key.getBytes(),"Blowfish");
 			Cipher cipher=Cipher.getInstance("Blowfish");
 			cipher.init(Cipher.DECRYPT_MODE, skeyspec);
-			byte[] decrypted=cipher.doFinal(value.getBytes());
-			return new String(decrypted);
+			byte[] valueBytes = DatatypeConverter.parseHexBinary(value);
+			byte[] decrypted = cipher.doFinal(valueBytes);
+			return new String(decrypted, "UTF-8");
 		} 
 		catch (Exception e) 
 		{
