@@ -133,7 +133,7 @@ public class RuleEngineClientMessage
     	System.out.println("example: RuleEngineClientMessage -h=localhost -p=9000 -m=uptime");
     	System.out.println();
     	System.out.println("published as open source under the Apache License. read the licence notice");
-    	System.out.println("all code by uwe geercken, 2006-2017. uwe.geercken@web.de");
+    	System.out.println("all code by uwe geercken, 2006-2018. uwe.geercken@web.de");
     	System.out.println();
 	}
 

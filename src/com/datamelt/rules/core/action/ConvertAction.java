@@ -87,4 +87,81 @@ public class ConvertAction
 			return 0.0f;	
 		}
 	}
+	
+	/**
+	 * converts a given string of four characters which represent hour and minutes in
+	 * the format "hhmm" to an integer value.
+	 * 
+	 * example 0133 = 1 hour, 33 minutes = 93 minutes
+	 * 
+	 * @param action 		the action to use
+	 * @param value			the value to convert
+	 * @return				integer
+	 * @throws Exception	when the string can not be converted
+	 */
+	public int fourDigitTimetoMinutes(XmlAction action, String value) throws Exception
+	{
+		try
+		{
+			String hours;
+			String minutes;
+			if(value!=null && !value.trim().equals("") && value.length()==4)
+			{
+				hours = value.substring(0,2);
+				minutes = value.substring(2,4);
+			}
+			else
+			{
+				 hours = "00";
+				 minutes = "00";
+			}
+			int totalMinutes = 60 * Integer.parseInt(hours) + Integer.parseInt(minutes);
+			
+			return totalMinutes;
+		}
+		catch(Exception ex)
+		{
+			return 0;	
+		}
+	}
+	
+	/**
+	 * converts a given string of five characters which represent hour and minutes in
+	 * the format "hh:mm" to an integer value. The third character is the delimiter between
+	 * hours and minutes.
+	 * 
+	 * example 30:26 = 30 hours, 26 minutes = 1826 minutes
+	 * 
+	 * @param action 		the action to use
+	 * @param value			the value to convert
+	 * @return				integer
+	 * @throws Exception	when the string can not be converted
+	 */
+	public int fiveDigitTimetoMinutes(XmlAction action, String value) throws Exception
+	{
+		try
+		{
+			String hours;
+			String minutes;
+			if(value!=null && !value.trim().equals("") && value.length()==5)
+			{
+				hours = value.substring(0,2);
+				minutes = value.substring(3,5);
+			}
+			else
+			{
+				 hours = "00";
+				 minutes = "00";
+			}
+			int totalMinutes = 60 * Integer.parseInt(hours) + Integer.parseInt(minutes);
+			
+			return totalMinutes;
+		}
+		catch(Exception ex)
+		{
+			return 0;	
+		}
+	}
+	
+	
 }
