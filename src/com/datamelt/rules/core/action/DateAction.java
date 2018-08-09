@@ -57,12 +57,19 @@ public class DateAction
 	 * @return				the date in the default format
 	 * @throws Exception	exception in date parsing
 	 */
-	public Date setValue(XmlAction action, String value) throws Exception
+	public Date setValue(XmlAction action, String value)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(sdf.parse(value));
-		return cal.getTime();
+		try
+		{
+			cal.setTime(sdf.parse(value));
+			return cal.getTime();
+		}
+		catch(Exception ex)
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -74,12 +81,19 @@ public class DateAction
 	 * @return				the date in the default format
 	 * @throws Exception	exception in date parsing
 	 */
-	public Date setValue(XmlAction action, String value, String dateFormat) throws Exception
+	public Date setValue(XmlAction action, String value, String dateFormat)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(sdf.parse(value));
-		return cal.getTime();
+		try
+		{
+			cal.setTime(sdf.parse(value));
+			return cal.getTime();
+		}
+		catch(Exception ex)
+		{
+			return null;
+		}
 	}
 	/**
 	 * method will set the value of the relevant object to the current date.

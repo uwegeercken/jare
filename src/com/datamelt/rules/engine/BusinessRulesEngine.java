@@ -100,7 +100,7 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION 	= "0.84";
-	private static final String REVISION 	= "8";
+	private static final String REVISION 	= "9";
 	private static final String LAST_UPDATE = "2018-08-09";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
