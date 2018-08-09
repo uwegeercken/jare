@@ -36,16 +36,36 @@ public class StringAction
 {
 	public String setValue(XmlAction action, String value) throws Exception
 	{
+		if(value==null)
+		{
+			value="";
+		}
 		return value;
 	}
 	
 	public String replaceValue(XmlAction action, String value, String regex, String replacement) throws Exception
 	{
+		if(value==null)
+		{
+			value="";
+		}
+		if(regex==null)
+		{
+			regex="";
+		}
+		if(replacement==null)
+		{
+			replacement="";
+		}
 		return value.replaceAll(regex, replacement);
 	}
 	
 	public String replaceValueFromMap(XmlAction action, String originalValue, String filename) throws Exception
 	{
+		if(originalValue==null)
+		{
+			originalValue="";
+		}
 		String value = action.getMappingCollection().getValue(filename, originalValue);
 		if(value!=null)
 		{
@@ -59,6 +79,10 @@ public class StringAction
 	
 	public String replaceValueFromList(XmlAction action, int index, String list) throws Exception
 	{
+		if(list==null)
+		{
+			list="";
+		}
 		String values[] = list.split(",");
 		if(values!=null && values.length>0 && index < values.length)
 		{
@@ -72,6 +96,14 @@ public class StringAction
 	
 	public String subStringValue(XmlAction action, String value, String untilString)
 	{
+		if(value==null)
+		{
+			value="";
+		}
+		if(untilString==null)
+		{
+			untilString="";
+		}
 		int pos = value.indexOf(untilString);
 		if (pos>-1)
 		{
@@ -85,11 +117,19 @@ public class StringAction
 	
 	public String subStringValue(XmlAction action, String value, int beginIndex)
 	{
+		if(value==null)
+		{
+			value="";
+		}
 		return value.substring(beginIndex);
 	}
 	
 	public String subStringValue(XmlAction action, String value, int beginIndex, int endIndex)
 	{
+		if(value==null)
+		{
+			value="";
+		}
 		return value.substring(beginIndex, endIndex);
 	}
 	
@@ -161,151 +201,355 @@ public class StringAction
 	
 	public String concatValues(XmlAction action, String value, String value2) throws Exception
 	{
+		if(value==null)
+		{
+			value="";
+		}
+		if(value2==null)
+		{
+			value2="";
+		}
 		return value + value2;
 	}
 	
 	public String concatValues(XmlAction action, int value, String value2) throws Exception
 	{
+		if(value2==null)
+		{
+			value2="";
+		}
 		return value + value2;
 	}
 	
 	public String concatValues(XmlAction action, long value, String value2) throws Exception
 	{
+		if(value2==null)
+		{
+			value2="";
+		}
 		return value + value2;
 	}
 	
 	public String concatValues(XmlAction action, float value, String value2) throws Exception
 	{
+		if(value2==null)
+		{
+			value2="";
+		}
 		return value + value2;
 	}
 	
 	public String concatValues(XmlAction action, double value, String value2) throws Exception
 	{
-		return value + value2;
+		if(value2==null)
+		{
+			value2 = "";
+		}
+		return "" + value + value2;
 	}
 
 	public String concatValues(XmlAction action, String value, int value2) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
 		return value + value2;
 	}
 	
 	public String concatValues(XmlAction action, String value, long value2) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
 		return value + value2;
 	}
 	
 	public String concatValues(XmlAction action, String value, float value2) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
 		return value + value2;
 	}
 	
 	public String concatValues(XmlAction action, String value, double value2) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
 		return value + value2;
 	}
 
 	public String concatValues(XmlAction action, String value, String value2, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(value2==null)
+		{
+			value2 = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, String value, int value2, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, String value, long value2, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, String value, float value2, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, String value, double value2, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, int value, String value2, String seperator) throws Exception
 	{
-		return value + seperator + value2;
+		if(value2==null)
+		{
+			value2 = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
+		return "" + value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, long value, String value2, String seperator) throws Exception
 	{
-		return value + seperator + value2;
+		if(value2==null)
+		{
+			value2 = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
+		return "" + value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, float value, String value2, String seperator) throws Exception
 	{
-		return value + seperator + value2;
+		if(value2==null)
+		{
+			value2 = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
+		return "" + value + seperator + value2;
 	}
 	
 	public String concatValues(XmlAction action, double value, String value2, String seperator) throws Exception
 	{
-		return value + seperator + value2;
+		if(value2==null)
+		{
+			value2 = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
+		return "" + value + seperator + value2;
 	}
 	
 	public String appendValue(XmlAction action, String value, String appendValue) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(appendValue==null)
+		{
+			appendValue = "";
+		}
 		return value + appendValue;
 	}
 	
 	public String appendValue(XmlAction action, String value, String appendValue, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(appendValue==null)
+		{
+			appendValue = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + appendValue;
 	}
 	
 	public String appendValue(XmlAction action, String value, int appendValue) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
 		return value + appendValue;
 	}
 	
 	public String appendValue(XmlAction action, String value, int appendValue, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + appendValue;
 	}
 	
 	public String appendValue(XmlAction action, String value, long appendValue) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
 		return value + appendValue;
 	}
 	
 	public String appendValue(XmlAction action, String value, long appendValue, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return value + seperator + appendValue;
 	}
 	
 	public String prependValue(XmlAction action, String value, String prependValue) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(prependValue==null)
+		{
+			prependValue = "";
+		}
 		return prependValue + value;
 	}
 
 	public String prependValue(XmlAction action, String value, int prependValue, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return prependValue + seperator + value;
 	}
 
 	public String prependValue(XmlAction action, String value, int prependValue) throws Exception
 	{
-		return prependValue + value;
+		if(value==null)
+		{
+			value = "";
+		}
+		return "" + prependValue + value;
 	}
 
 	public String prependValue(XmlAction action, String value, long prependValue, String seperator) throws Exception
 	{
-		return prependValue + seperator + value;
+		if(value==null)
+		{
+			value = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
+		return "" + prependValue + seperator + value;
 	}
 
 	public String prependValue(XmlAction action, String value, long prependValue) throws Exception
 	{
-		return prependValue + value;
+		if(value==null)
+		{
+			value = "";
+		}
+		return "" + prependValue + value;
 	}
 
 	public String prependValue(XmlAction action, String value, String prependValue, String seperator) throws Exception
 	{
+		if(value==null)
+		{
+			value = "";
+		}
+		if(prependValue==null)
+		{
+			prependValue = "";
+		}
+		if(seperator==null)
+		{
+			seperator = "";
+		}
 		return prependValue + seperator + value;
 	}
 
@@ -338,6 +582,10 @@ public class StringAction
 	 */
 	public String addLeadingSpaces(XmlAction action,String value, int length)
 	{
+		if(value==null)
+		{
+			value="";
+		}
 		while(value.length()<length)
 		{
 			value = " " + value;
@@ -354,6 +602,10 @@ public class StringAction
 	 */
 	public String trimValue(XmlAction action,String value)
 	{
+		if(value==null)
+		{
+			value="";
+		}
 		return value.trim();
 	}
 	
@@ -366,6 +618,10 @@ public class StringAction
 	 */
 	public String upperCaseValue(XmlAction action,String value)
 	{
+		if(value==null)
+		{
+			value="";
+		}
 		return value.toUpperCase();
 	}
 
@@ -378,6 +634,10 @@ public class StringAction
 	 */
 	public String lowerCaseValue(XmlAction action,String value)
 	{
+		if(value==null)
+		{
+			value="";
+		}
 		return value.toLowerCase();
 	}
 	
@@ -392,6 +652,14 @@ public class StringAction
 	 */
 	public String encryptValue(XmlAction action,String value,String key) 
 	{
+		if(value==null)
+		{
+			value="";
+		}
+		if(key==null)
+		{
+			key="";
+		}
 		try
 		{
 			SecretKeySpec skeyspec = new SecretKeySpec(key.getBytes(),"Blowfish");
@@ -418,6 +686,14 @@ public class StringAction
 	 */
 	public String decryptValue(XmlAction action,String value,String key)
 	{
+		if(value==null)
+		{
+			value="";
+		}
+		if(key==null)
+		{
+			key="";
+		}
 		try 
 		{
 			SecretKeySpec skeyspec=new SecretKeySpec(key.getBytes(),"Blowfish");

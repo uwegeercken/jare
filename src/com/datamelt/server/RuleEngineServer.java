@@ -54,7 +54,7 @@ public class RuleEngineServer extends Thread
     private static final String DEFAULT_FOLDER_RULEFOLDER 	= ".";
     private static final String DEFAULT_RULEFILE 			= "rules.zip";
     
-    private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
+    private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd HH:mm:ss";
     
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
     

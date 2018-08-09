@@ -100,8 +100,8 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION 	= "0.84";
-	private static final String REVISION 	= "6";
-	private static final String LAST_UPDATE = "2018-07-28";
+	private static final String REVISION 	= "8";
+	private static final String LAST_UPDATE = "2018-08-09";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -126,7 +126,7 @@ public class BusinessRulesEngine
     // used for putting a timestamp in the output file name
     private String timestampFormat = TIMESTAMP_FORMAT_DEFAULT;
     
-    private static final String TIMESTAMP_FORMAT_DEFAULT          = "yyyy-MM-dd hh:mm:ss";
+    private static final String TIMESTAMP_FORMAT_DEFAULT          = "yyyy-MM-dd HH:mm:ss";
     
     // will be used for labeling in output files
     private static final String OBJECT_LABEL_DEFAULT              = "object"; 
@@ -1168,7 +1168,7 @@ public class BusinessRulesEngine
     
     /**
      * set the label to a different one, if you want to modify, how the object
-     * is identified during ourput.
+     * is identified during output.
      * 
      * @param	objectsLabel	the label for the objects
      */
@@ -1178,7 +1178,7 @@ public class BusinessRulesEngine
     }
     
     /**
-     * the objectlabel that is used to identify an object in output additionally has a running
+     * the objects label that is used to identify an object in output additionally has a running
      * number.
      * the format of this number is returned here.
      * 

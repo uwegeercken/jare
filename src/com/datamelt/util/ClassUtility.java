@@ -194,7 +194,7 @@ public class ClassUtility
         // try to convert the value to a datetime value first
         else if(type.toLowerCase().equals(TYPE_DATE))
         {
-        	SimpleDateFormat sdtf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        	SimpleDateFormat sdtf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         	try
         	{
         		Date d = sdtf.parse(value);

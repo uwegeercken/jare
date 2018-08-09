@@ -63,7 +63,7 @@ public class ClientHandler extends Thread
     public static final String RESPONSE_NUMBER_OF_GROUPS	= "groups";
     public static final String RESPONSE_HELLO				= "hello";
     
-    private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd hh:mm:ss";
+    private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd HH:mm:ss";
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
     
     ClientHandler(String processId, Socket socket, String ruleFileFolder, String ruleFile, Transformer transformer, long serverStart) throws Exception

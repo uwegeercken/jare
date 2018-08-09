@@ -2,6 +2,15 @@ package com.datamelt.rules.core.action;
 
 import com.datamelt.rules.core.XmlAction;
 
+/**
+ * Class containing actions that are related to the conversion of values.
+ * 
+ * Actions belong to a rulegroup and are execute depending on the status of rulegroup - if it passed or failed (or both).
+ *
+ * @author uwe geercken
+ * 
+ */
+
 public class ConvertAction
 {
 	/**
