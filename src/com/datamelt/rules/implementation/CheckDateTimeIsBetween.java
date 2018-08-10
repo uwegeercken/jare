@@ -56,12 +56,17 @@ public class CheckDateTimeIsBetween extends GenericCheck
     	
     	int totalTime1Seconds = 0;
     	int totalTime2Seconds = 0;
-    	
-    	String[] times = timeValues.split(",");
-        
-        String time1 = times[0].trim();
-        String time2 = times[1].trim();
-        
+
+        String time1 = "";
+        String time2 = "";
+
+    	if(timeValues!=null)
+    	{
+	    	String[] times = timeValues.split(",");
+	        
+	        time1 = times[0].trim();
+	        time2 = times[1].trim();
+    	}
     	if(time1.length()==8)
     	{
     	

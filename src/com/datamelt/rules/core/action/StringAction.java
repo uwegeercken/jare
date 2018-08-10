@@ -564,6 +564,10 @@ public class StringAction
 	 */
 	public String addLeadingZeros(XmlAction action,String value, int length)
 	{
+		if(value==null)
+		{
+			value = "";
+		}
 		while(value.length()<length)
 		{
 			value = "0" + value;

@@ -98,6 +98,19 @@ public class ConvertAction
 	}
 	
 	/**
+	 * converts a given string to an float value
+	 * 
+	 * @param action 		the action to use
+	 * @param value			the value to convert
+	 * @return				float
+	 * @throws Exception	when the string can not be converted
+	 */
+	public String toString(XmlAction action, int value) throws Exception
+	{
+		return "" + value;
+	}
+	
+	/**
 	 * converts a given string of four characters which represent hour and minutes in
 	 * the format "hhmm" to an integer value.
 	 * 

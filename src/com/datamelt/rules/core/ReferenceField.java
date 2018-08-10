@@ -33,12 +33,12 @@ public class ReferenceField
 {
 	public static final int FIELD_TYPE_ID_STRING		= 1;
 	public static final int FIELD_TYPE_ID_INTEGER		= 2;
-	public static final int FIELD_TYPE_ID_FLOAT		= 3;
+	public static final int FIELD_TYPE_ID_FLOAT			= 3;
 	public static final int FIELD_TYPE_ID_DOUBLE		= 4;
 	public static final int FIELD_TYPE_ID_BOOLEAN		= 5;
-	public static final int FIELD_TYPE_ID_LONG		= 6;
+	public static final int FIELD_TYPE_ID_LONG			= 6;
 	public static final int FIELD_TYPE_ID_BIGDECIMAL	= 7;
-	public static final int FIELD_TYPE_ID_DATE		= 8;
+	public static final int FIELD_TYPE_ID_DATE			= 8;
 	
 	public static final String[] FIELDTYPES = {"string","integer","float", "double","boolean","long","bigdecimal","date"};
 	
