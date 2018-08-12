@@ -52,6 +52,28 @@ public class DateAction
 	/**
 	 * sets the date to the given date
 	 * 
+	 * @param action 		the action use
+	 * @param value			the value to set
+	 * @return				date
+	 * @throws Exception	exception in date handling
+	 */
+	public String setValue(XmlAction action, Date value, String dateFormat) throws Exception
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+		try
+		{
+			return sdf.format(value);
+		}
+		catch(Exception ex)
+		{
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * sets the date to the given date
+	 * 
 	 * @param action		the action to use
 	 * @param value			the value to set
 	 * @return				the date in the default format
@@ -95,6 +117,34 @@ public class DateAction
 			return null;
 		}
 	}
+	
+	/**
+	 * sets the date to the given date and returns it in the specified format
+	 * as a string
+	 * 
+	 * @param action		the action to use
+	 * @param value			the value to set
+	 * @param dateFormat	the format to use for the date
+	 * @param returnFormat	the  return format to use for the date
+	 * @return				the date in the specified format
+	 * @throws Exception	exception in date parsing
+	 */
+	public String setValue(XmlAction action, String value, String dateFormat, String returnFormat)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+		SimpleDateFormat sdfReturn = new SimpleDateFormat(returnFormat);
+		Calendar cal = Calendar.getInstance();
+		try
+		{
+			cal.setTime(sdf.parse(value));
+			return sdfReturn.format(cal.getTime());
+		}
+		catch(Exception ex)
+		{
+			return null;
+		}
+	}
+	
 	/**
 	 * method will set the value of the relevant object to the current date.
 	 * the dateFormat parameter is used to specify the date format according

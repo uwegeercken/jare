@@ -98,12 +98,12 @@ public class ConvertAction
 	}
 	
 	/**
-	 * converts a given string to an float value
+	 * converts a given int to a string value
 	 * 
 	 * @param action 		the action to use
 	 * @param value			the value to convert
-	 * @return				float
-	 * @throws Exception	when the string can not be converted
+	 * @return				String
+	 * @throws Exception	when the int can not be converted
 	 */
 	public String toString(XmlAction action, int value) throws Exception
 	{
