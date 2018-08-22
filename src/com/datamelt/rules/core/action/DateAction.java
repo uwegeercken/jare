@@ -50,7 +50,7 @@ public class DateAction
 	}
 	
 	/**
-	 * sets the date to the given date
+	 * sets the date to the given date and returns it as a String value
 	 * 
 	 * @param action 		the action use
 	 * @param value			the value to set
@@ -143,6 +143,77 @@ public class DateAction
 		{
 			return null;
 		}
+	}
+	
+	/**
+	 * calculates the number of minutes from a decimal representation of hours.
+	 * 
+	 * note that the seconds part (if present) will be stripped away.
+	 * 
+	 * example: 41.5 hours = 41*60 minutes + 0.5 * 60 minutes
+	 * 
+	 * @param action		the action to use
+	 * @param value			the value to convert
+	 * @return				the number of minutes calculated
+	 */
+	public long decimalHoursToMinutes(XmlAction action, float value)
+	{
+		int hours = (int) value;
+		int minutes = (int) (value * 60) % 60;
+		return hours * 60 + minutes;
+	}
+	
+	/**
+	 * calculates the hours and minutes from a decimal representation of hours and outputs
+	 * the result as a string formatted as: hh:mm
+	 * 
+	 * note that the seconds part (if present) will be stripped away.
+	 * 
+	 * example: 41.5 hours = 41:30
+	 * 
+	 * @param action		the action to use
+	 * @param value			the value to convert
+	 * @return				the hours and minutes formatted as a string
+	 */
+	public String decimalHoursToHoursMinutes(XmlAction action, float value)
+	{
+		int hours = (int) value;
+		int minutes = (int) (value * 60) % 60;
+		return hours + ":" + minutes;
+	}
+	
+	/**
+	 * calculates the number of seconds from a decimal representation of hours.
+	 * 
+	 * @param action		the action to use
+	 * @param value			the value to convert
+	 * @return				the number of seconds calculated
+	 */
+	public long decimalHoursToSeconds(XmlAction action, float value)
+	{
+		int hours = (int) value;
+		int minutes = (int) (value * 60) % 60;
+		int seconds = (int) (value * (60*60)) % 60;
+		
+		return hours * 3600 + minutes * 60 + seconds;
+	}
+	
+	/**
+	 * calculates the hours and minutes and seconds from a decimal representation of hours and outputs
+	 * the result as a string formatted as: hh:mm:ss
+	 * 
+	 * example: 41.5 hours = 41:30:00
+	 * 
+	 * @param action		the action to use
+	 * @param value			the value to convert
+	 * @return				the hours and minutes and seconds formatted as a string
+	 */
+	public String decimalHoursToHoursMinutesSeconds(XmlAction action, float value)
+	{
+		int hours = (int) value;
+		int minutes = (int) (value * 60) % 60;
+		int seconds = (int) (value * (60*60)) % 60;
+		return hours + ":" + minutes + ":" + seconds;
 	}
 	
 	/**
@@ -248,6 +319,114 @@ public class DateAction
 	    cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 		
 		return cal.getTime();
+	}
+	
+	/**
+	 * method will set the value of the relevant object to the year of the given date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved
+	 * @return				the year value of the given date
+	 */
+	public int setYear(XmlAction action, Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		return cal.get(Calendar.YEAR);
+	}
+	
+	/**
+	 * method will set the value of the relevant object to the month of the given date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved
+	 * @return				the month value of the given date
+	 */
+	public int setMonth(XmlAction action, Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		return cal.get(Calendar.MONTH);
+	}
+	
+	/**
+	 * method will set the value of the relevant object to the week of year of the given date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved
+	 * @return				the week of year value of the given date
+	 */
+	public int setWeek(XmlAction action, Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		return cal.get(Calendar.WEEK_OF_YEAR);
+	}
+	
+	/**
+	 * method will set the value of the relevant object to the day of week of the given date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved
+	 * @return				the day of week value of the given date
+	 */
+	public int setDayOfWeek(XmlAction action, Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+	
+		return cal.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	/**
+	 * method will set the value of the relevant object to the day of week of the given date
+	 * 
+	 * @param action			the action to use
+	 * @param date				the date involved
+	 * @param firstDayOfWeek	the day which starts the week
+	 * @return					the day of week value of the given date
+	 */
+	public int setDayOfWeek(XmlAction action, Date date, int firstDayOfWeek)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.setFirstDayOfWeek(firstDayOfWeek);
+		
+		return cal.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	/**
+	 * method will set the value of the relevant object to the quarter of the year of the given date
+	 * 
+	 * @param action		the action to use
+	 * @param date			the date involved
+	 * @return				the quarter of the year value of the given date
+	 */
+	public int setQuarter(XmlAction action, Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		int month =  cal.get(Calendar.MONTH);
+		if(month<=3)
+		{
+			return 1;
+		}
+		else if(month <=6)
+		{
+			return 2;
+		}
+		else if(month <=9)
+		{
+			return 3;
+		}
+		else
+		{
+			return 4;
+		}
 	}
 	
 	/**

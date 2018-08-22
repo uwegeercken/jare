@@ -35,6 +35,32 @@ public class ConvertAction
 	}
 	
 	/**
+	 * converts a given double value to an integer value
+	 * 
+	 * @param action 		the action to use
+	 * @param value			the value to convert
+	 * @return				integer
+	 * @throws Exception	when the double value can not be converted
+	 */
+	public int toInteger(XmlAction action, double value) throws Exception
+	{
+			return (int)value;
+	}
+	
+	/**
+	 * converts a given float value to an integer value
+	 * 
+	 * @param action 		the action to use
+	 * @param value			the value to convert
+	 * @return				integer
+	 * @throws Exception	when the float value can not be converted
+	 */
+	public int toInteger(XmlAction action, float value) throws Exception
+	{
+			return (int)value;
+	}
+	
+	/**
 	 * converts a given string to an long value
 	 * 
 	 * @param action 		the action to use

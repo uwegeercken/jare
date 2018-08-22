@@ -315,6 +315,26 @@ public class MathAction
 		return Math.round(value);
 	}
 	
+	public int moduloValue(XmlAction action, int value, int moduloValue) throws Exception
+	{
+		return value % moduloValue;
+	}
+	
+	public long moduloValue(XmlAction action, long value, long moduloValue) throws Exception
+	{
+		return value % moduloValue;
+	}
+	
+	public double floorValue(XmlAction action, double value) throws Exception
+	{
+		return Math.floor(value);
+	}
+	
+	public double ceilValue(XmlAction action, double value) throws Exception
+	{
+		return Math.ceil(value);
+	}
+	
 	public int randomValue(XmlAction action, int min, int max)
 	{
 		Random rand = new Random();
