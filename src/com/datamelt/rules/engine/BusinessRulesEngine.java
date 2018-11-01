@@ -100,8 +100,8 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION 	= "0.84";
-	private static final String REVISION 	= "12";
-	private static final String LAST_UPDATE = "2018-08-12";
+	private static final String REVISION 	= "13";
+	private static final String LAST_UPDATE = "2018-11-01";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -985,6 +985,13 @@ public class BusinessRulesEngine
      * Modes are "at least one failed", "all failed", "Not all failed",
      * "at least one passed", "all passed" and "not all passed".
      * 
+     * - "at least one failed" means that the number of failed rulegroups is greater zero
+     * - "all failed" means that none of the rulegroups passed
+     * - "not all failed" means that the number of failed rulegroups is smaller than the total number of rulegroups. also true if none of the the rulegroups failed.
+     * - "at least one passed" means that the number of passed rulegroups is greater than zero
+     * - "all passed" means that the number of failed rulegroups is equal to zero
+     * - "not all passed" means that the number of passed rulegroups is smaller than the total number of rulegroups. also true if none of the the rulegroups passed.
+     * 
      * @param mode		the desired mode to compare to
      * @return			indicator if the mode is true or false
      */
@@ -1000,7 +1007,7 @@ public class BusinessRulesEngine
     	}
     	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_FAILED)
     	{
-    		return getNumberOfGroupsFailed()>0 && getNumberOfGroupsFailed()<getNumberOfGroups();
+    		return getNumberOfGroupsFailed()<getNumberOfGroups();
     	}
     	else if(mode==RULEGROUP_STATUS_MODE_AT_LEAST_ONE_PASSED)
     	{
@@ -1012,7 +1019,7 @@ public class BusinessRulesEngine
     	}
     	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_PASSED)
     	{
-    		return getNumberOfGroupsPassed()>0 && getNumberOfGroupsPassed()<getNumberOfGroups();
+    		return getNumberOfGroupsPassed()<getNumberOfGroups();
     	}
     	else
     	{
