@@ -33,7 +33,10 @@ import java.sql.ResultSet;
  * 
  * Data from the database is read, Row objects are constructed and
  * are run against the rule engine using rules as defined in a rule
- * xml file.
+ * xml or zip file.
+ * 
+ * Pass a ruleengine project zip file created with the Business Rules
+ * Maintenance Web Tool.
  * 
  * @author uwe geercken
  */

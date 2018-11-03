@@ -148,11 +148,19 @@ public class RuleExecutionCollection implements Serializable
     
     /**
      * method clears the list of results that was built when the
-     * business rule engine executed rules
+     * business rule engine executed rules. also clears the counters
      */
     public void clear()
     {
         results.clear();
+        clearCounters();
+    }
+
+    /**
+     * method clears the various counters
+     */
+    public void clearCounters() 
+    {
         rulesRunCount = 0;
         rulesFailedCount = 0;
         rulesPassedCount = 0;

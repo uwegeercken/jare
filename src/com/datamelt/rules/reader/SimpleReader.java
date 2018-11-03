@@ -34,6 +34,9 @@ import com.datamelt.util.RowFieldCollection;
  * fields of a record, a Row object is created from it and a rule
  * file is run using the rule engine.
  * 
+ * Pass a ruleengine project zip file created with the Business Rules
+ * Maintenance Web Tool.
+ * 
  * @author uwe geercken
  */
 public class SimpleReader

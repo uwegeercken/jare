@@ -48,6 +48,9 @@ import com.datamelt.util.Splitter;
  * are run against the rule engine using rules as defined in a rule
  * xml file.
  * 
+ * Pass a ruleengine project zip file created with the Business Rules
+ * Maintenance Web Tool.
+ * 
  * @author uwe geercken
  */
 public class TextFileReader
