@@ -59,7 +59,7 @@ public class AvroSchemaUtility
 	}
 
 	/*
-	 * constructor for AvroSchemaUtility object. 
+	 * method to return an array of field types 
 	 * 
 	 * @return		array of field types
 	 */
@@ -136,7 +136,7 @@ public class AvroSchemaUtility
 	}
 	
 	/**
-	 * Collects all values of the avro record for the array of fieldnames
+	 * Collects all values of the avro record for the array of field names
 	 * 
 	 * @param record		an avro record
 	 * @return				array of objects

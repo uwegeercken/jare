@@ -31,7 +31,7 @@ import com.datamelt.rules.core.XmlAction;
 /**
  * Utility class to translate types, retrieve methods and invoke methods on objects
  * 
- * @author uwe
+ * @author uwe geercken
  *
  */
 public class ClassUtility

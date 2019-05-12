@@ -16,7 +16,6 @@
         <lib.velocity.version>2.0</lib.velocity.version>
         <lib.avro.version>1.8.2</lib.avro.version>
         <lib.jongo.version>1.4.0</lib.jongo.version>
-        <lib.mongodb.version>3.5.0</lib.mongodb.version>
     </properties>
 
     <packaging>jar</packaging>
@@ -44,9 +43,6 @@
             <version>${lib.avro.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.jongo/jongo -->
-
-        <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
     </dependencies>
 
     <build>
