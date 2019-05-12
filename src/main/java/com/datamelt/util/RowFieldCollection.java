@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.avro.Schema;
+import org.apache.avro.Schema.Parser;
 import org.apache.avro.generic.GenericRecord;
 
 import com.datamelt.rules.core.ReferenceField;
@@ -167,7 +168,7 @@ public class RowFieldCollection implements Serializable
     
     /**
      * constructor that takes an avro generic record and the avro schema as parameter.
-     * RowField objects will be created and added the the list of fields.
+     * RowField objects will be created and added to the list of fields.
      *  
      * @param record		an avro record
      * @param schema		the avro schema corresponding to the record
@@ -175,6 +176,30 @@ public class RowFieldCollection implements Serializable
      */
     public RowFieldCollection(GenericRecord record, Schema schema) throws Exception
     {
+    	AvroSchemaUtility schemaUtility = new AvroSchemaUtility(schema);
+    	String[] fieldNames = schemaUtility.getFieldNames();
+    	Object[] objects = schemaUtility.getGenericRecordData(record);
+    	
+    	this.header = new HeaderRow(fieldNames);
+        setFields(objects);
+    }
+    
+    /**
+     * constructor that takes an avro generic record and a URL to retrieve the avro schema from.
+     * A HTTP call is made to the given URL to retrieve the schema (in JSON format). The response
+     * is then parsed into an avro schema.
+     *  
+     * RowField objects will be created and added to the list of fields.
+     *  
+     * @param record		an avro record
+     * @param url			the HTTP request to use to retrieve the schema
+     * @throws Exception	thrown when the complex type of the schema is not equal to [RECORD]
+     */
+    public RowFieldCollection(GenericRecord record, String url) throws Exception
+    {
+    	Parser parser = new Schema.Parser();
+    	Schema schema = parser.parse(HttpClient.getResponse(url));
+    	
     	AvroSchemaUtility schemaUtility = new AvroSchemaUtility(schema);
     	String[] fieldNames = schemaUtility.getFieldNames();
     	Object[] objects = schemaUtility.getGenericRecordData(record);
