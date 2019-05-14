@@ -27,7 +27,6 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.avro.Schema;
-import org.apache.avro.Schema.Parser;
 import org.apache.avro.generic.GenericRecord;
 
 import com.datamelt.rules.core.ReferenceField;
