@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.datamelt</groupId>
     <artifactId>jare</artifactId>
-    <version>0.84-SNAPSHOT</version>
+    <version>0.85-SNAPSHOT</version>
 
     <properties>
       
@@ -25,7 +25,7 @@
 
     <dependencies>
     
-    <dependency>
+      <dependency>
          <groupId>org.junit.jupiter</groupId>
          <artifactId>junit-jupiter-api</artifactId>
          <version>${junit.jupiter.version}</version>
@@ -44,26 +44,24 @@
          <scope>test</scope>
       </dependency>
       
-        <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity -->
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>${lib.velocity.version}</version>
-        </dependency> 
+      <dependency>
+          <groupId>org.apache.velocity</groupId>
+          <artifactId>velocity-engine-core</artifactId>
+          <version>${lib.velocity.version}</version>
+      </dependency> 
 
-	<dependency>
-	  <groupId>org.jongo</groupId>
-	  <artifactId>jongo</artifactId>
-	  <version>${lib.jongo.version}</version>
-	  <type>pom</type>
-	</dependency>
+      <dependency>
+        <groupId>org.jongo</groupId>
+        <artifactId>jongo</artifactId>
+        <version>${lib.jongo.version}</version>
+        <type>pom</type>
+      </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
-        <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>${lib.avro.version}</version>
-        </dependency>
+      <dependency>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro</artifactId>
+        <version>${lib.avro.version}</version>
+      </dependency>
 
     </dependencies>
 
