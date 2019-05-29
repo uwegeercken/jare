@@ -452,7 +452,7 @@ public class ClassUtility
         }
         catch(Exception ex)
         {
-        	throw new Exception("error invoking action method: " + action.getClassName() + " with parameters: " + parameterObjects.toString());
+        	throw new Exception("error invoking action: " + action.getClassName() + " method: " + parameterObjects[0].toString());
         }
 		// return the result
         return result;
