@@ -306,7 +306,7 @@ public class ClassUtility
         }
         catch(Exception ex)
         {
-        	throw new Exception("error invoking object method: " + object.getClass().getName() + " with parameters: " + parameterObjects);
+        	throw new Exception("error invoking object: " + object.getClass().getName() + " method: " + method.getName());
         }
         return result;
         
@@ -348,7 +348,7 @@ public class ClassUtility
         }
         catch(Exception ex)
         {
-        	throw new Exception("error invoking object setter method: " + object.getClass().getName() + " with parameters: " + parameterObjects);
+        	throw new Exception("error invoking object: " + object.getClass().getName() + " setter method: " + method.getName());
         }
         return result;
         
@@ -452,7 +452,7 @@ public class ClassUtility
         }
         catch(Exception ex)
         {
-        	throw new Exception("error invoking action: " + action.getClassName() + " method: " + parameterObjects[0].toString());
+        	throw new Exception("error invoking action: " + action.getClassName() + " method: " + methodAction.getName());
         }
 		// return the result
         return result;
