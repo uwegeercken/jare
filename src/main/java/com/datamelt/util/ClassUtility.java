@@ -299,7 +299,17 @@ public class ClassUtility
         	}
         }
         // invoke the method
-        return method.invoke(object,parameterObjects);
+        Object result;
+        try
+        {
+        	result = method.invoke(object,parameterObjects);
+        }
+        catch(Exception ex)
+        {
+        	throw new Exception("error invoking object method: " + object.getClass().getName() + " with parameters: " + parameterObjects);
+        }
+        return result;
+        
     }
     
     /**
@@ -329,8 +339,19 @@ public class ClassUtility
         		parameterObjects[i] = resultObject;
         	}
         }
+
         // invoke the method
-        return method.invoke(object,parameterObjects);
+        Object result;
+        try
+        {
+        	result = method.invoke(object,parameterObjects);
+        }
+        catch(Exception ex)
+        {
+        	throw new Exception("error invoking object setter method: " + object.getClass().getName() + " with parameters: " + parameterObjects);
+        }
+        return result;
+        
     }
     
     /**
@@ -424,7 +445,15 @@ public class ClassUtility
         	parameterObjects[i+numberOfAdditionalParameters] = ClassUtility.getObject(action.getParameters().get(i).getType(), action.getParameters().get(i).getValue());
         }
         // invoke the method of the action object
-        Object result = methodAction.invoke(Class.forName(action.getClassName()).newInstance(),parameterObjects);
+        Object result;
+        try
+        {
+        	result = methodAction.invoke(Class.forName(action.getClassName()).newInstance(),parameterObjects);
+        }
+        catch(Exception ex)
+        {
+        	throw new Exception("error invoking action method: " + action.getClassName() + " with parameters: " + parameterObjects.toString());
+        }
 		// return the result
         return result;
     }

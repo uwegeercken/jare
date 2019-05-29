@@ -2,17 +2,16 @@ package com.datamelt.rules.implementation;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class CheckContainsTest 
 {
-	String value;
+	private static String value;
 	
-	@BeforeEach
-	void init() 
+	@BeforeAll
+	static void init() 
 	{
 		value = "Yesterday Evening everything was fine";
 	}
@@ -88,16 +87,10 @@ class CheckContainsTest
 	@Test
 	void testContainsWithSecondNull() 
 	{
-		String compareValue= "evening";
 		
 		boolean result = CheckContains.evaluate(value, null);
 		
 		assertFalse(result);
 	}
 
-	@AfterEach
-	void tearDown() 
-	{
-		
-	}
 }
