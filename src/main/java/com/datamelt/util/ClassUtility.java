@@ -306,7 +306,12 @@ public class ClassUtility
         }
         catch(Exception ex)
         {
-        	throw new Exception("error invoking object: " + object.getClass().getName() + " method: " + method.getName());
+        	String parametersString ="";
+        	for(int i=1;i< parameters.size();i++)
+            {
+        		parametersString = parametersString + parameters.get(i).toString() + " ";
+            }
+        	throw new Exception("error invoking object: " + object.getClass().getName() + " method: " + method.getName() + " parameters: " + parametersString);
         }
         return result;
         
@@ -348,7 +353,12 @@ public class ClassUtility
         }
         catch(Exception ex)
         {
-        	throw new Exception("error invoking object: " + object.getClass().getName() + " setter method: " + method.getName());
+        	String parametersString ="";
+        	for(int i=1;i< parameters.size();i++)
+            {
+        		parametersString = parametersString + parameters.get(i).toString() + " ";
+            }
+        	throw new Exception("error invoking object: " + object.getClass().getName() + " setter method: " + method.getName() + " parameters: " + parametersString);
         }
         return result;
         
@@ -452,7 +462,12 @@ public class ClassUtility
         }
         catch(Exception ex)
         {
-        	throw new Exception("error invoking action: " + action.getClassName() + " method: " + methodAction.getName());
+        	String parametersString ="";
+        	for(int i=1;i< action.getParameters().size();i++)
+            {
+        		parametersString = parametersString + action.getParameters().toString() + " ";
+            }
+        	throw new Exception("error invoking action: " + action.getClassName() + " method: " + methodAction.getName() + " parameters: " + parametersString);
         }
 		// return the result
         return result;
