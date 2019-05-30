@@ -138,7 +138,6 @@ public class RowFieldCollection implements Serializable
      * constructor that takes an map of field names and objects/values as parameter.
      * RowField objects will be created and added the the list of fields.
      *  
-     * @param fieldNames	the array of field names
      * @param fields		an array of field values
      */
     public RowFieldCollection(Map <String,Object> fields)
@@ -233,7 +232,7 @@ public class RowFieldCollection implements Serializable
      * 
      * if we have no field names (header) then the fields will get the name: DEFAULT_FIELDNAME plus an underbar character plus a running number (e.g. field_3)
      *  
-     * @param fields	an array of objects
+     * @param fieldValues	an array of objects
      */
     public void setFields(Object[] fieldValues)
     {

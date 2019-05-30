@@ -652,6 +652,7 @@ public class StringAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
+	 * @param key		the key to use
 	 * @return			the encrypted string
 	 */
 	public String encryptValue(XmlAction action,String value,String key) 
@@ -686,6 +687,7 @@ public class StringAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
+	 * @param key		the key to use
 	 * @return			the decrypted string
 	 */
 	public String decryptValue(XmlAction action,String value,String key)

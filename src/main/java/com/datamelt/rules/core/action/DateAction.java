@@ -54,6 +54,7 @@ public class DateAction
 	 * 
 	 * @param action 		the action use
 	 * @param value			the value to set
+	 * @param dateFormat	date format to use
 	 * @return				date
 	 * @throws Exception	exception in date handling
 	 */
@@ -77,7 +78,6 @@ public class DateAction
 	 * @param action		the action to use
 	 * @param value			the value to set
 	 * @return				the date in the default format
-	 * @throws Exception	exception in date parsing
 	 */
 	public Date setValue(XmlAction action, String value)
 	{
@@ -101,7 +101,6 @@ public class DateAction
 	 * @param value			the value to set
 	 * @param dateFormat	the format to use for the date
 	 * @return				the date in the default format
-	 * @throws Exception	exception in date parsing
 	 */
 	public Date setValue(XmlAction action, String value, String dateFormat)
 	{
@@ -127,7 +126,6 @@ public class DateAction
 	 * @param dateFormat	the format to use for the date
 	 * @param returnFormat	the  return format to use for the date
 	 * @return				the date in the specified format
-	 * @throws Exception	exception in date parsing
 	 */
 	public String setValue(XmlAction action, String value, String dateFormat, String returnFormat)
 	{

@@ -575,7 +575,7 @@ public class BusinessRulesEngine
     /**
      * reloads the rule xml file for a running BusinessRulesEngine instance
      * 
-     * @param rulesFilename		path and name of the xml rule file
+     * @param rulesFiles		array of rule files with path and name of the xml rule file
      * @throws Exception		exception when the file could not be located or parsed
      */
     public void reloadRuleFile(File[] rulesFiles) throws Exception
@@ -950,7 +950,8 @@ public class BusinessRulesEngine
      * method returns if the number of groups that failed is greater
      * than the specified value
      * 
-     * @return					if the number of failed groups is greater than the given value
+     * @param value		number of groups
+     * @return			if the number of failed groups is greater than the given value
      */
     public boolean compareNumberOfGroupsFailedGreaterThan(int value)
     {
@@ -971,7 +972,8 @@ public class BusinessRulesEngine
      * method returns if the number of groups that passed is greater
      * than the specified value
      * 
-     * @return					if the number of passed groups is greater than the given value
+     * @param value		number of groups
+     * @return			if the number of passed groups is greater than the given value
      */
     public boolean compareNumberOfGroupsPassedGreaterThan(int value)
     {

@@ -8,6 +8,5 @@ com.datamelt.rules.parser.xml
 com.datamelt.rules.reader
 com.datamelt.server
 com.datamelt.server.transform
-com.datamelt.server.transform.json
 com.datamelt.server.transform.log
 com.datamelt.util
