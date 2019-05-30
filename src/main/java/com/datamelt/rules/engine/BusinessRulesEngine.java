@@ -93,15 +93,15 @@ import com.datamelt.util.Splitter;
  * please read the available documentation.
  * </p>
  * 
- * @author uwe geercken - uwe.geercken@web.de - Copyright 2008-2018
+ * @author uwe geercken - uwe.geercken@web.de - Copyright 2008-2019
  * 
  */
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION 	= "0.84";
-	private static final String REVISION 	= "12";
-	private static final String LAST_UPDATE = "2018-11-03";
+	private static final String VERSION 	= "0.86";
+	private static final String REVISION 	= "1";
+	private static final String LAST_UPDATE = "2019-05-30";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
