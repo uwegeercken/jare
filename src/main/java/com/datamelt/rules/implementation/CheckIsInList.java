@@ -39,29 +39,6 @@ import java.util.HashSet;
 
 public class CheckIsInList extends GenericCheck
 {
-	// cache possible values from rule
-	private static HashSet<String> listValues;
-	
-	/**
-	 * cache the possible values in a HashSet but only on the first
-	 * record or row received.
-	 * 
-	 * @param values	A comma separated list of expected values
-	 */
-	private static void fillHashSet(String values)
-	{
-		if(listValues == null)
-		{
-			listValues = new HashSet<String>();
-			
-			String [] valuesArray = values.split(",");
-			for(int i=0;i<valuesArray.length;i++)
-			{
-				listValues.add(valuesArray[i].trim());
-			}
-		}
-	}
-	
     /**
      * Checks if the given string value is contained in a list of values separated by comma.
      * 
@@ -75,7 +52,7 @@ public class CheckIsInList extends GenericCheck
         if(value!=null)
         {
         	fillHashSet(list);
-        	if(listValues.contains(value))
+        	if(getHashSet().contains(value))
         	{
 	        	matches = true;
 	    	}
@@ -99,14 +76,14 @@ public class CheckIsInList extends GenericCheck
     		fillHashSet(list);
         	if(!ignoreCase)
     		{
-	        	if(listValues.contains(value))
+	        	if(getHashSet().contains(value))
 	    		{
 	    			matches = true;
 	    		}
     		}
 	        else
 	        {
-	        	if(listValues.contains(value.toLowerCase())|| listValues.contains(value.toUpperCase()))
+	        	if(getHashSet().contains(value.toLowerCase())|| getHashSet().contains(value.toUpperCase()))
 	    		{
 	    			matches = true;
 	    		}
@@ -128,7 +105,7 @@ public class CheckIsInList extends GenericCheck
     {
     	boolean matches = false;
     	fillHashSet(list);
-    	if(listValues.contains(String.valueOf(value)))
+    	if(getHashSet().contains(String.valueOf(value)))
 		{
 			matches = true;
 
@@ -149,7 +126,7 @@ public class CheckIsInList extends GenericCheck
     {
     	boolean matches = false;
     	fillHashSet(list);
-    	if(listValues.contains(String.valueOf(value)))
+    	if(getHashSet().contains(String.valueOf(value)))
 		{
 			matches = true;
 

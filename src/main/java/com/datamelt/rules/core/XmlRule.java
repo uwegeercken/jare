@@ -160,9 +160,7 @@ public class XmlRule implements Cloneable, Serializable
         this.checkToExecute = checkToExecute;
         try
         {
-        	Object cl = Class.forName(checkToExecute).newInstance();
-        	GenericCheck ch = (GenericCheck)cl;
-            setExecuteCheck(ch.clone());
+            setExecuteCheck(Class.forName(checkToExecute).newInstance());
         }
         catch(Exception ex)
         {

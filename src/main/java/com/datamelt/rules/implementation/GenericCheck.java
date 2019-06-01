@@ -19,6 +19,7 @@
 package com.datamelt.rules.implementation;
 
 import java.io.Serializable;
+import java.util.HashSet;
 
 import com.datamelt.rules.core.XmlRule;
 
@@ -28,18 +29,35 @@ import com.datamelt.rules.core.XmlRule;
  * 
  * @author uwe geercken
  */
-public class GenericCheck implements Cloneable, Serializable
+public class GenericCheck implements Serializable
 {
 	public static final long serialVersionUID = 1964070325;
 	public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
 	
+	private static HashSet<Object> set;
+	
 	/**
-     * method to clone the generic check rule
-     * 
-     * @throws	CloneNotSupportedException	exception if the object can not be cloned
-     */
-    public Object clone() throws CloneNotSupportedException
-    {
-    	return (GenericCheck)super.clone();
-    }
+	 * cache the possible values in a HashSet but only on the first
+	 * record or row received.
+	 * 
+	 * @param values	A comma separated list of expected values
+	 */
+	public static void fillHashSet(String values)
+	{
+		if(set == null)
+		{
+			set = new HashSet<Object>();
+			
+			String [] valuesArray = values.split(",");
+			for(int i=0;i<valuesArray.length;i++)
+			{
+				set.add(valuesArray[i]);
+			}
+		}
+	}
+	
+	public static HashSet<Object> getHashSet()
+	{
+		return set;
+	}
 }
