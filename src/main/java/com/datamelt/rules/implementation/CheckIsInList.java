@@ -22,22 +22,32 @@ import java.util.HashSet;
 
 /**
  * Checks if the given string value is contained in a list of values separated by comma.
- * <p>
- * spaces in the individual values are removed
- * <p>
- * an example for a list would be:
- * <p>
+ * Spaces in the individual values are removed from the beginning and the end.
+ * 
+ * On the first record/row the list of expected values from the rule is cached into a
+ * HashSet for better performance.
+ * 
+ * An example for a list would be:
+ *
  * 		Rome, Paris, New York, Berlin
- * <p>
+ *
  * The first parameter of a given method is always the value of the field that shall be checked. The second parameter is either another field to check against 
  * or an expected value (fixed value) to check against the first value.
  * 
  * @author uwe geercken
  */
+
 public class CheckIsInList extends GenericCheck
 {
+	// cache possible values from rule
 	private static HashSet<String> listValues;
 	
+	/**
+	 * cache the possible values in a HashSet but only on the first
+	 * record or row received.
+	 * 
+	 * @param values	A comma separated list of expected values
+	 */
 	private static void fillHashSet(String values)
 	{
 		if(listValues == null)
@@ -47,7 +57,7 @@ public class CheckIsInList extends GenericCheck
 			String [] valuesArray = values.split(",");
 			for(int i=0;i<valuesArray.length;i++)
 			{
-				listValues.add(valuesArray[i]);
+				listValues.add(valuesArray[i].trim());
 			}
 		}
 	}
@@ -86,26 +96,21 @@ public class CheckIsInList extends GenericCheck
     	boolean matches = false;
     	if(value!=null)
     	{
-	    	String [] values = list.split(",");
-	        for(int i=0;i<values.length;i++)
-	    	{
-	        	if(!ignoreCase)
+    		fillHashSet(list);
+        	if(!ignoreCase)
+    		{
+	        	if(listValues.contains(value))
 	    		{
-		        	if(values[i].trim().equals(value.trim()))
-		    		{
-		    			matches = true;
-		    			break;
-		    		}
+	    			matches = true;
 	    		}
-		        else
-		        {
-		        	if(values[i].trim().toLowerCase().equals(value.trim().toLowerCase()))
-		    		{
-		    			matches = true;
-		    			break;
-		    		}
-		        }
-	    	}
+    		}
+	        else
+	        {
+	        	if(listValues.contains(value.toLowerCase())|| listValues.contains(value.toUpperCase()))
+	    		{
+	    			matches = true;
+	    		}
+	        }
     	}
         return matches;
     }
@@ -122,14 +127,11 @@ public class CheckIsInList extends GenericCheck
     public static boolean evaluate(int value, String list)
     {
     	boolean matches = false;
-    	String [] values = list.split(",");
-        for(int i=0;i<values.length;i++)
-    	{
-        	if(Integer.parseInt(values[i].trim()) == value)
-    		{
-    			matches = true;
-    			break;
-    		}
+    	fillHashSet(list);
+    	if(listValues.contains(String.valueOf(value)))
+		{
+			matches = true;
+
     	}
         return matches;
     }
@@ -146,14 +148,11 @@ public class CheckIsInList extends GenericCheck
     public static boolean evaluate(long value, String list)
     {
     	boolean matches = false;
-    	String [] values = list.split(",");
-        for(int i=0;i<values.length;i++)
-    	{
-        	if(Long.parseLong(values[i].trim()) == value)
-    		{
-    			matches = true;
-    			break;
-    		}
+    	fillHashSet(list);
+    	if(listValues.contains(String.valueOf(value)))
+		{
+			matches = true;
+
     	}
         return matches;
     }
