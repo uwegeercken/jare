@@ -34,7 +34,7 @@ public class GenericCheck implements Serializable
 	public static final long serialVersionUID = 1964070325;
 	public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
 	
-	private static HashSet<Object> set;
+	private static HashSet<String> set;
 	
 	/**
 	 * cache the possible values in a HashSet but only on the first
@@ -46,7 +46,7 @@ public class GenericCheck implements Serializable
 	{
 		if(set == null)
 		{
-			set = new HashSet<Object>();
+			set = new HashSet<String>();
 			
 			String [] valuesArray = values.split(",");
 			for(int i=0;i<valuesArray.length;i++)
@@ -56,7 +56,7 @@ public class GenericCheck implements Serializable
 		}
 	}
 	
-	public static HashSet<Object> getHashSet()
+	public static HashSet<String> getHashSet()
 	{
 		return set;
 	}
