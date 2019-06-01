@@ -20,14 +20,26 @@ package com.datamelt.rules.implementation;
 
 import java.io.Serializable;
 
+import com.datamelt.rules.core.XmlRule;
+
 /**
  * this class is the base class of all classes that check
  * certain conditions in regards to provided values
  * 
  * @author uwe geercken
  */
-public class GenericCheck implements Serializable
+public class GenericCheck implements Cloneable, Serializable
 {
 	public static final long serialVersionUID = 1964070325;
 	public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
+	
+	/**
+     * method to clone the generic check rule
+     * 
+     * @throws	CloneNotSupportedException	exception if the object can not be cloned
+     */
+    public Object clone() throws CloneNotSupportedException
+    {
+    	return (GenericCheck)super.clone();
+    }
 }
