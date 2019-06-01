@@ -99,9 +99,9 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION 	= "0.86";
+	private static final String VERSION 	= "0.87";
 	private static final String REVISION 	= "1";
-	private static final String LAST_UPDATE = "2019-05-30";
+	private static final String LAST_UPDATE = "2019-06-01";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();

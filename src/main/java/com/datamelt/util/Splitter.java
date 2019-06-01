@@ -187,7 +187,7 @@ public class Splitter
 	/**
 	 * returns an array of objects, containing the fields that the row
 	 * consists of. the line argument is a line (or row) from an 
-	 * ASCII file.
+	 s* ASCII file.
 	 * 
 	 * The types argument is an array of field types corresponding to
 	 * the individual fields. Field types (string, integer, date, etc) are

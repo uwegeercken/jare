@@ -96,7 +96,7 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * constructor that takes an array of field names and an array of values as parameter.
+     * constructor that takes a header row (field names) and an array of values as parameter.
      * RowField objects will be created and added the the list of fields. 
      *  
      * @param header		the header row
@@ -138,7 +138,7 @@ public class RowFieldCollection implements Serializable
      * constructor that takes an map of field names and objects/values as parameter.
      * RowField objects will be created and added the the list of fields.
      *  
-     * @param fields		an array of field values
+     * @param fields		map of field names and values
      */
     public RowFieldCollection(Map <String,Object> fields)
     {
@@ -177,11 +177,26 @@ public class RowFieldCollection implements Serializable
     	AvroSchemaUtility schemaUtility = new AvroSchemaUtility(schema);
     	String[] fieldNames = schemaUtility.getFieldNames();
     	Object[] objects = schemaUtility.getGenericRecordData(record);
-    	
     	this.header = new HeaderRow(fieldNames);
         setFields(objects);
     }
     
+    /**
+     * constructor that takes an avro generic record as parameter.
+     * RowField objects will be created and added to the list of fields.
+     *  
+     * @param record		an avro generic record
+     * @throws Exception	thrown when the complex type of the schema is not equal to [RECORD]
+     */
+    public RowFieldCollection(GenericRecord record) throws Exception
+    {
+    	AvroSchemaUtility schemaUtility = new AvroSchemaUtility(record.getSchema());
+    	String[] fieldNames = schemaUtility.getFieldNames();
+    	Object[] objects = schemaUtility.getGenericRecordData(record);
+    	this.header = new HeaderRow(fieldNames);
+        setFields(objects);
+    }
+
     /**
      * constructor that takes an array of objects as parameter
      *  
@@ -193,7 +208,7 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * returns the array of fields that belong to the given row object
+     * returns the array of fields that belongs to the given row object
      *  
      * @return		array of fields
      */
@@ -203,7 +218,7 @@ public class RowFieldCollection implements Serializable
     }
     
     /**
-     * sets the array of fields that belong to the given row object
+     * sets the array of fields that belongs to the given row object
      *  
      * @param fields	sets the fields to the given array
      */
@@ -286,7 +301,7 @@ public class RowFieldCollection implements Serializable
      * Add a field to the array of fields by specifying the name and value.
      * 
      * @param fieldName		the name of the field
-     * @param fieldValue	the valu of the field
+     * @param fieldValue	the value of the field
      */
     public void addField(String fieldName, Object fieldValue)
     {
@@ -1117,6 +1132,11 @@ public class RowFieldCollection implements Serializable
 		header = new HeaderRow(fieldNames);
 	}
 
+	/**
+	 * gives back the header row corresponding to the rowfield collection
+	 * 
+	 * @return	the header row of the collection
+	 */
 	public HeaderRow getHeader()
 	{
 		return header;
@@ -1134,6 +1154,12 @@ public class RowFieldCollection implements Serializable
 		this.header = header;
 	}
 	
+	/**
+	 * gives back name/value combinations of all fields in
+	 * the form of a string
+	 * 
+	 * @return		names and values of all fields
+	 */
 	public String toString()
 	{
 		StringBuffer buffer = new StringBuffer();

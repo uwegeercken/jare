@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import java.util.HashSet;
+
 /**
  * Checks if the given string value is contained in a list of values separated by comma.
  * <p>
@@ -34,6 +36,21 @@ package com.datamelt.rules.implementation;
  */
 public class CheckIsInList extends GenericCheck
 {
+	private static HashSet<String> listValues;
+	
+	private static void fillHashSet(String values)
+	{
+		if(listValues == null)
+		{
+			listValues = new HashSet<String>();
+			
+			String [] valuesArray = values.split(",");
+			for(int i=0;i<valuesArray.length;i++)
+			{
+				listValues.add(valuesArray[i]);
+			}
+		}
+	}
 	
     /**
      * Checks if the given string value is contained in a list of values separated by comma.
@@ -47,14 +64,10 @@ public class CheckIsInList extends GenericCheck
         boolean matches = false;
         if(value!=null)
         {
-        	String [] values = list.split(",");
-	        for(int i=0;i< values.length;i++)
-	    	{
-	        	if(values[i].trim().equals(value.trim()))
-	    		{
-	        		matches = true;
-	    			break;
-	    		}
+        	fillHashSet(list);
+        	if(listValues.contains(value))
+        	{
+	        	matches = true;
 	    	}
         }
         return matches;
