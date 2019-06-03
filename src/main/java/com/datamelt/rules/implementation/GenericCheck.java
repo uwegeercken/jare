@@ -21,8 +21,6 @@ package com.datamelt.rules.implementation;
 import java.io.Serializable;
 import java.util.HashSet;
 
-import com.datamelt.rules.core.XmlRule;
-
 /**
  * this class is the base class of all classes that check
  * certain conditions in regards to provided values
@@ -34,30 +32,15 @@ public class GenericCheck implements Serializable
 	public static final long serialVersionUID = 1964070325;
 	public static final String GENERIC_CHECK_METHOD_EVALUATE = "evaluate";
 	
-	private static HashSet<String> set;
+	private static HashSet<String> valueCache;
 	
-	/**
-	 * cache the possible values in a HashSet but only on the first
-	 * record or row received.
-	 * 
-	 * @param values	A comma separated list of expected values
-	 */
-	public static void fillHashSet(String values)
+	public static void setValueCache(HashSet<String> cache)
 	{
-		if(set == null)
-		{
-			set = new HashSet<String>();
-			
-			String [] valuesArray = values.split(",");
-			for(int i=0;i<valuesArray.length;i++)
-			{
-				set.add(valuesArray[i]);
-			}
-		}
+		valueCache = cache;
 	}
 	
-	public static HashSet<String> getHashSet()
+	public static HashSet<String> getValueCache()
 	{
-		return set;
+		return valueCache;
 	}
 }

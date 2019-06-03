@@ -20,6 +20,7 @@ package com.datamelt.rules.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.datamelt.rules.core.util.Converter;
 import com.datamelt.rules.core.util.XmlActionCollection;
@@ -75,6 +76,10 @@ public class XmlRule implements Cloneable, Serializable
     
     // the class that implements the GenericCheck class
     private GenericCheck executeCheck;
+    
+    // to cache values from rules
+    // these values are passed to the check to increase performance
+    private HashSet<String> valueCache = new HashSet<>();
 
     /**
      * Constructor using the id and description of the rule.
@@ -118,6 +123,9 @@ public class XmlRule implements Cloneable, Serializable
     public void setExpectedValueRule(String value)
     {
         this.expectedValueRule = value;
+        
+        // fill the value cache
+        fillValueCache(value);
     }
     
     /**
@@ -411,5 +419,36 @@ public class XmlRule implements Cloneable, Serializable
 	public void setActions(XmlActionCollection actions)
 	{
 		this.actions = actions;
+	}
+	
+	/**
+	 * cache the possible values in a HashSet if
+	 * we have multiple values
+	 * 
+	 * @param values	String representing a comma separated list of expected values
+	 */
+	private void fillValueCache(String values)
+	{
+		// we only cache if we have more than one value
+		// avoid splitting strings into values over and over again
+		if(values!=null)
+		{
+			String [] valuesArray = values.split(",");
+			if(valuesArray.length>1)
+			{
+				if(valueCache.size()==0)
+				{
+					for(int i=0;i<valuesArray.length;i++)
+					{
+						valueCache.add(valuesArray[i]);
+					}
+				}
+			}
+		}
+	}
+	
+	public HashSet<String> getValueCache()
+	{
+		return valueCache;
 	}
 }

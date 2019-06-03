@@ -139,6 +139,10 @@ public class RuleSubGroup implements Serializable
             // this is the xml rule/business rule as defined in the external xml file
             XmlRule rule = (XmlRule)rulesCollection.getRules().get(i).clone(); 
             
+            // we pass the value cache to the generic check
+            GenericCheck gc = rule.getExecuteCheck();
+            GenericCheck.setValueCache(rule.getValueCache());
+            
             // create object from the object as defined in the xml file
             Object result1=null;
             try

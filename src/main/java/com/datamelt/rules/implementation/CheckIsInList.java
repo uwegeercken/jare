@@ -24,8 +24,8 @@ import java.util.HashSet;
  * Checks if the given string value is contained in a list of values separated by comma.
  * Spaces in the individual values are removed from the beginning and the end.
  * 
- * On the first record/row the list of expected values from the rule is cached into a
- * HashSet for better performance.
+ * the list of expected values from the rule is cached into a HashSet for better performance
+ * if there is more than one value to compare
  * 
  * An example for a list would be:
  *
@@ -51,11 +51,25 @@ public class CheckIsInList extends GenericCheck
         boolean matches = false;
         if(value!=null)
         {
-        	fillHashSet(list);
-        	if(getHashSet().contains(value))
+        	HashSet<String>cache = getValueCache();
+        	// if we have a value in the hashset, it means that we
+    		// have more than 1 value
+        	if(cache.size()>0)
         	{
-	        	matches = true;
+        		if(cache.contains(value))
+        		{
+        			matches = true;
+        		}
 	    	}
+        	// if there is no value in the hashset then we have a single value only
+    		// and we do a simple compare of values
+        	else
+        	{
+        		if(value.equals(list))
+        		{
+        			matches = true;
+        		}
+        	}
         }
         return matches;
     }
@@ -73,21 +87,45 @@ public class CheckIsInList extends GenericCheck
     	boolean matches = false;
     	if(value!=null)
     	{
-    		fillHashSet(list);
-        	if(!ignoreCase)
+    		HashSet<String>cache = getValueCache();
+    		// if we have a value in the hashset, it means that we
+    		// have more than 1 value
+    		if(cache.size()>0)
+        	{
+	    		if(!ignoreCase)
+	    		{
+		        	if(cache.contains(value))
+		    		{
+		    			matches = true;
+		    		}
+	    		}
+		        else
+		        {
+		        	if(cache.contains(value.toLowerCase())|| cache.contains(value.toUpperCase()))
+		    		{
+		    			matches = true;
+		    		}
+		        }
+        	}
+    		// if there is no value in the hashset then we have a single value only
+    		// and we do a simple compare of values
+    		else
     		{
-	        	if(getHashSet().contains(value))
+    			if(!ignoreCase)
 	    		{
-	    			matches = true;
+		        	if(list.equals(value))
+		    		{
+		    			matches = true;
+		    		}
 	    		}
+		        else
+		        {
+		        	if(list.toLowerCase().contentEquals(value.toLowerCase()))
+		    		{
+		    			matches = true;
+		    		}
+		        }
     		}
-	        else
-	        {
-	        	if(getHashSet().contains(value.toLowerCase())|| getHashSet().contains(value.toUpperCase()))
-	    		{
-	    			matches = true;
-	    		}
-	        }
     	}
         return matches;
     }
@@ -104,11 +142,26 @@ public class CheckIsInList extends GenericCheck
     public static boolean evaluate(int value, String list)
     {
     	boolean matches = false;
-    	fillHashSet(list);
-    	if(getHashSet().contains(String.valueOf(value)))
-		{
-			matches = true;
-
+    	HashSet<String>cache = getValueCache();
+    	// if we have a value in the hashset, it means that we
+		// have more than 1 value
+    	if(cache.size()>0)
+    	{
+	    	if(cache.contains(String.valueOf(value)))
+			{
+				matches = true;
+	
+	    	}
+    	}
+    	// if there is no value in the hashset then we have a single value only
+		// and we do a simple compare of values
+    	else
+    	{
+    		if(list.equals(String.valueOf(value)))
+			{
+				matches = true;
+	
+	    	}
     	}
         return matches;
     }
@@ -125,11 +178,26 @@ public class CheckIsInList extends GenericCheck
     public static boolean evaluate(long value, String list)
     {
     	boolean matches = false;
-    	fillHashSet(list);
-    	if(getHashSet().contains(String.valueOf(value)))
-		{
-			matches = true;
-
+    	HashSet<String>cache = getValueCache();
+    	// if we have a value in the hashset, it means that we
+		// have more than 1 value
+    	if(cache.size()>0)
+    	{
+	    	if(cache.contains(String.valueOf(value)))
+			{
+				matches = true;
+	
+	    	}
+    	}
+    	// if there is no value in the hashset then we have a single value only
+		// and we do a simple compare of values
+    	else
+    	{
+    		if(list.equals(String.valueOf(value)))
+			{
+				matches = true;
+	
+	    	}
     	}
         return matches;
     }
