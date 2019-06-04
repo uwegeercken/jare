@@ -17,7 +17,6 @@
 		<junit.jupiter.version>5.3.0</junit.jupiter.version>
         <lib.velocity.version>2.0</lib.velocity.version>
         <lib.avro.version>1.8.2</lib.avro.version>
-        <lib.jongo.version>1.4.0</lib.jongo.version>
     </properties>
 
     <packaging>jar</packaging>
@@ -49,13 +48,6 @@
           <artifactId>velocity-engine-core</artifactId>
           <version>${lib.velocity.version}</version>
       </dependency> 
-
-      <dependency>
-        <groupId>org.jongo</groupId>
-        <artifactId>jongo</artifactId>
-        <version>${lib.jongo.version}</version>
-        <type>pom</type>
-      </dependency>
 
       <dependency>
         <groupId>org.apache.avro</groupId>
