@@ -96,7 +96,7 @@ public class CheckLength extends GenericCheck
     	
     	// be aware, that leading zeros might have been
     	// trimmed from the number
-    	String valueString = "" + value;
+    	String valueString = String.valueOf(value);
     	if(valueString.length()==length)
         {
             return true; 
@@ -120,7 +120,7 @@ public class CheckLength extends GenericCheck
     	
     	// be aware, that leading zeros might have been
     	// trimmed from the number
-    	String valueString = "" + value;
+    	String valueString = String.valueOf(value);
     	if(valueString.length()==length)
         {
             return true; 
@@ -144,7 +144,7 @@ public class CheckLength extends GenericCheck
     	
     	// be aware, that leading zeros might have been
     	// trimmed from the number
-    	String valueString = "" + value;
+    	String valueString = String.valueOf(value);
     	if(valueString.length()==length)
         {
             return true; 

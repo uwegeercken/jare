@@ -3,7 +3,6 @@ package com.datamelt.rules.implementation;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
