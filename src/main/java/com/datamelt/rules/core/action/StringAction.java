@@ -646,6 +646,22 @@ public class StringAction
 	}
 	
 	/**
+	 * returns the hash code of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the has code for the value
+	 */
+	public int hashValue(XmlAction action,String value)
+	{
+		if(value==null)
+		{
+			value="";
+		}
+		return value.hashCode();
+	}
+	
+	/**
 	 * encrypts a given value with the specified key
 	 * 
 	 * returns the original value if the encryption failed.

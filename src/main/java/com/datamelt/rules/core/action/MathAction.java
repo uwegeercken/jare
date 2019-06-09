@@ -495,4 +495,82 @@ public class MathAction
 		double percentageValue = (double)value * percentage / 100;
 		return value + percentageValue;
 	}
+	
+	/**
+	 * returns the hash code of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the has code for the value
+	 */
+	public int hashValue(XmlAction action,int value)
+	{
+		Integer i = new Integer(value);
+		return i.hashCode();
+	}
+	
+	/**
+	 * returns the hash code of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the has code for the value
+	 */
+	public int hashValue(XmlAction action,long value)
+	{
+		Long l = new Long(value);
+		return l.hashCode();
+	}
+	
+	/**
+	 * returns the hash code of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the has code for the value
+	 */
+	public int hashValue(XmlAction action,double value)
+	{
+		Double d = new Double(value);
+		return d.hashCode();
+	}
+	
+	/**
+	 * returns the hash code of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the has code for the value
+	 */
+	public int hashValue(XmlAction action,float value)
+	{
+		Float f = new Float(value);
+		return f.hashCode();
+	}
+	
+	/**
+	 * returns the hash code of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the has code for the value
+	 */
+	public int hashValue(XmlAction action,boolean value)
+	{
+		Boolean b = new Boolean(value);
+		return b.hashCode();
+	}
+	
+	/**
+	 * returns the hash code of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the has code for the value
+	 */
+	public int hashValue(XmlAction action,BigDecimal value)
+	{
+		return value.hashCode();
+	}
+	
 }

@@ -423,7 +423,7 @@ public class XmlRule implements Cloneable, Serializable
 	
 	/**
 	 * cache the possible values in a HashSet if
-	 * we have multiple values
+	 * we have multiple values (more than one)
 	 * 
 	 * @param values	String representing a comma separated list of expected values
 	 */
@@ -431,7 +431,7 @@ public class XmlRule implements Cloneable, Serializable
 	{
 		// we only cache if we have more than one value
 		// avoid splitting strings into values over and over again
-		if(values!=null)
+		if(values!=null && !values.trim().equals(""))
 		{
 			String [] valuesArray = values.split(",");
 			if(valuesArray.length>1)
