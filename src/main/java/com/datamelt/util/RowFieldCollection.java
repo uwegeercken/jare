@@ -167,6 +167,9 @@ public class RowFieldCollection implements Serializable
     /**
      * constructor that takes an avro generic record and the avro schema as parameter.
      * RowField objects will be created and added to the list of fields.
+     * 
+     * This method expects that the schema is NOT part of the record but is defined
+     * separately.
      *  
      * @param record		an avro record
      * @param schema		the avro schema corresponding to the record
@@ -184,6 +187,8 @@ public class RowFieldCollection implements Serializable
     /**
      * constructor that takes an avro generic record as parameter.
      * RowField objects will be created and added to the list of fields.
+     * 
+     * This method expects that the schema comes with the given record.
      *  
      * @param record		an avro generic record
      * @throws Exception	thrown when the complex type of the schema is not equal to [RECORD]
