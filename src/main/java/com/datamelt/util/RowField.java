@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-
 /**
  * the RowField class represents a field defined by a name and its value (in form of an object).
  * 

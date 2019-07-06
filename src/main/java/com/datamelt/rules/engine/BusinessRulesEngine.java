@@ -100,13 +100,14 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION 	= "0.87";
-	private static final String REVISION 	= "1";
-	private static final String LAST_UPDATE = "2019-06-01";
+	private static final String REVISION 	= "2";
+	private static final String LAST_UPDATE = "2019-07-06";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<ReferenceField> referenceFields = new ArrayList<ReferenceField>();
+    
     // indicator if the rule engine ran
     private int status;
     
@@ -189,19 +190,26 @@ public class BusinessRulesEngine
     }
     
     /**
-     * engine can be instantiated by passing the filename
-     * the file will be parsed and all rules
-     * will be collected
+     * engine can be instantiated by passing the filename, the file will be parsed and all rules will be collected.
+     * alternatively the path and name of a folder, which contains the rule files, can be used.
      * 
      * Rulegroups are prioritized to execute those groups first, that
      * other groups depend on.
      * 
-     * @param		rulesFilename	path and name of the xml rule file
+     * @param		rulesFilename	path and name of the xml rule file or of the folder containing the files
      * @exception	Exception		exception when the file(s) could not be located or parsed
      */
     public BusinessRulesEngine(String rulesFilename) throws Exception
     {
-    	reloadRuleFile(rulesFilename);
+    	File folder = new File(rulesFilename);
+    	if(folder.exists() && folder.isDirectory())
+    	{
+   			reloadRuleFileFolder(rulesFilename);
+    	}
+    	else
+    	{
+    		reloadRuleFile(rulesFilename);
+    	}
     }
 
     /**
@@ -587,6 +595,31 @@ public class BusinessRulesEngine
         for(int i=0;i<rulesFiles.length;i++)
         {
             parseXmlFile(rulesFiles[i].getPath());
+        }
+        prioritizeRuleGroups();
+    }
+    
+    /**
+     * reloads all rule xml files from a folder for a running BusinessRulesEngine instance
+     * 
+     * @param folderName		path and name of the folder containing the xml rule file(s)
+     * @throws Exception		exception when the file could not be located or parsed
+     */
+    public void reloadRuleFileFolder(String folderName) throws Exception
+    {
+    	clear();
+    	groups.clear();
+        referenceFields.clear();
+        
+        File folder = new File(folderName);
+        if(folder.exists() && folder.isDirectory())
+        {
+        	String[] files = folder.list();
+        	for(int i=0;i<files.length;i++)
+            {
+        		File file = new File(files[i]);
+                parseXmlFile(file.getPath());
+            }
         }
         prioritizeRuleGroups();
     }
@@ -994,38 +1027,47 @@ public class BusinessRulesEngine
      * "all passed" means that the number of failed rulegroups is equal to zero
      * "not all passed" means that the number of passed rulegroups is smaller than the total number of rulegroups. also true if no rulegroup passed.
      * 
+     * returns always true when the number of rulegroups is zero.
+     * 
      * @param mode		the desired mode to compare to
      * @return			indicator if the mode is true or false
      */
     public boolean getRuleGroupsStatus(int mode)
     {
-    	if(mode==RULEGROUP_STATUS_MODE_AT_LEAST_ONE_FAILED)
+    	if(getNumberOfGroups()>0)
     	{
-    		return getNumberOfGroupsFailed()>0;
-    	}
-    	else if(mode==RULEGROUP_STATUS_MODE_ALL_FAILED)
-    	{
-    		return getNumberOfGroupsPassed()==0;
-    	}
-    	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_FAILED)
-    	{
-    		return getNumberOfGroupsFailed()<getNumberOfGroups();
-    	}
-    	else if(mode==RULEGROUP_STATUS_MODE_AT_LEAST_ONE_PASSED)
-    	{
-    		return getNumberOfGroupsPassed()>0;
-    	}
-    	else if(mode==RULEGROUP_STATUS_MODE_ALL_PASSED)
-    	{
-    		return getNumberOfGroupsFailed()==0;
-    	}
-    	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_PASSED)
-    	{
-    		return getNumberOfGroupsPassed()<getNumberOfGroups();
+	    	if(mode==RULEGROUP_STATUS_MODE_AT_LEAST_ONE_FAILED)
+	    	{
+	    		return getNumberOfGroupsFailed()>0;
+	    	}
+	    	else if(mode==RULEGROUP_STATUS_MODE_ALL_FAILED)
+	    	{
+	    		return getNumberOfGroupsPassed()==0;
+	    	}
+	    	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_FAILED)
+	    	{
+	    		return getNumberOfGroupsFailed()<getNumberOfGroups();
+	    	}
+	    	else if(mode==RULEGROUP_STATUS_MODE_AT_LEAST_ONE_PASSED)
+	    	{
+	    		return getNumberOfGroupsPassed()>0;
+	    	}
+	    	else if(mode==RULEGROUP_STATUS_MODE_ALL_PASSED)
+	    	{
+	    		return getNumberOfGroupsFailed()==0;
+	    	}
+	    	else if(mode==RULEGROUP_STATUS_MODE_NOT_ALL_PASSED)
+	    	{
+	    		return getNumberOfGroupsPassed()<getNumberOfGroups();
+	    	}
+	    	else
+	    	{
+	    		return false;
+	    	}
     	}
     	else
     	{
-    		return false;
+    		return true;
     	}
     }
     

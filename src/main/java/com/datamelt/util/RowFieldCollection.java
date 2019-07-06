@@ -1178,6 +1178,4 @@ public class RowFieldCollection implements Serializable
 		}
 		return buffer.toString();
 	}
-	
-	
 }

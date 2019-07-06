@@ -495,9 +495,8 @@ public class Parser extends DefaultHandler implements ContentHandler
             	field.setJavaTypeId(Integer.parseInt(atts.getValue(TAG_REFERENCE_FIELD_JAVA_TYPE_ID)));
             }
         	referenceFields.add(field);
-
         }
-	  }
+    }
 
     public void endElement( String namespaceURI, String localName, String qName )
     {
