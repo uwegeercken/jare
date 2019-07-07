@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * checks if a given value does not contain another value.
  * 
@@ -31,9 +34,13 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check not contains", description="Check if one String does not contain another String",nameDescriptive="does not contain",checkSingleField=0)
 public class CheckNotContains extends GenericCheck
 {
-    /**
+	// unique id of this check. used to generate methods for the maintenance tool database 
+    public static final long checkId = 2;
+	
+	/**
 	 * Checks if a string is not contained in another string and ignores or does not ignore
 	 * the case of the values.
 	 *
@@ -41,6 +48,7 @@ public class CheckNotContains extends GenericCheck
      * @param compareValue 	the second value for comparison - to compare against the first value
      * @return				indication if the compareValue is not contained in the value
      */
+    @CheckMethodAnnotation(note="The default is to compare the values case sensitive")
     public static boolean evaluate(String value,String compareValue)
     {
         if(value!=null && compareValue!=null)
@@ -70,6 +78,7 @@ public class CheckNotContains extends GenericCheck
      * @param ignoreCase	indication if the case of the values shall be ignored for comparison
      * @return				indication if the compareValue is not contained in the value
      */
+    @CheckMethodAnnotation(note="The default is to compare the values case sensitive",noteParameter={"Ignore case differences during comparison"})
     public static boolean evaluate(String value,String compareValue, boolean ignoreCase)
     {
     	if(value!=null && compareValue!=null)

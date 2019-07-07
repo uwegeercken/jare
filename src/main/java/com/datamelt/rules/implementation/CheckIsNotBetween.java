@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * Checks if one number is not between two given other numbers - excluding the upper and lower limit.
  * <p>
@@ -27,6 +30,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Not Between", description="Checks if a numeric value is not between two given values",nameDescriptive="is not between",checkSingleField=0)
 public class CheckIsNotBetween extends GenericCheck
 {
 	
@@ -38,6 +42,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
      * @return						indication if the first value is not between the upper and lower limit
      */
+	@CheckMethodAnnotation(note="String is comma separated list of lower limit, upper limit")
     public static boolean evaluate(double value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -54,6 +59,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
      * @return						indication if the first value is not between the upper and lower limit
      */
+	@CheckMethodAnnotation(note="String is comma separated list of lower limit, upper limit")
     public static boolean evaluate(float value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -72,6 +78,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueUpperLimit	the upper limit for the comparison
      * @return					indication if the first value is between the upper and lower limit
      */
+    @CheckMethodAnnotation(note="The compare to value is the lower limit",noteParameter={"Parameter 1 defines the upper limit"})
     public static boolean evaluate(int value,int valueLowerLimit, int valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
@@ -85,6 +92,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueUpperLimit	the upper limit for the comparison
      * @return					indication if the first value is between the upper and lower limit
      */
+    @CheckMethodAnnotation(note="The compare to value is the lower limit",noteParameter={"Parameter 1 defines the upper limit"})
     public static boolean evaluate(long value,long valueLowerLimit, long valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
@@ -97,6 +105,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
      * @return						indication if the first value is not between the upper and lower limit
      */
+    @CheckMethodAnnotation(note="String is comma separated list of lower limit, upper limit")
     public static boolean evaluate(int value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -113,6 +122,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueLowerUpperLimit	comma separated list of values for upper and lower limit
      * @return						indication if the first value is not between the upper and lower limit
      */
+    @CheckMethodAnnotation(note="String is comma separated list of lower limit, upper limit")
     public static boolean evaluate(long value,String valueLowerUpperLimit)
     {
     	String[] stringValues= valueLowerUpperLimit.split(",");
@@ -130,6 +140,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueUpperLimit	the upper limit for the comparison
      * @return					indication if the first value is between the upper and lower limit
      */
+    @CheckMethodAnnotation(note="The compare to value is the lower limit",noteParameter={"Parameter 1 defines the upper limit"})
     public static boolean evaluate(double value,double valueLowerLimit, double valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;
@@ -143,6 +154,7 @@ public class CheckIsNotBetween extends GenericCheck
      * @param valueUpperLimit	the upper limit for the comparison
      * @return					indication if the first value is between the upper and lower limit
      */
+    @CheckMethodAnnotation(note="The compare to value is the lower limit",noteParameter={"Parameter 1 defines the upper limit"})
     public static boolean evaluate(float value,float valueLowerLimit, float valueUpperLimit)
     {
         return value<valueLowerLimit || value>valueUpperLimit;

@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * Checks if a string is contained in another string.
  * <p>
@@ -26,6 +29,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Contains", description="Check if one String contains another String",nameDescriptive="contains",checkSingleField=0)
 public class CheckContains extends GenericCheck
 {
 	/**
@@ -35,6 +39,7 @@ public class CheckContains extends GenericCheck
      * @param compareValue 	the second value for comparison - to compare against the first value
      * @return				indication if the compareValue is contained in the value
      */
+	@CheckMethodAnnotation(note="The default is to compare the values case sensitive")
     public static boolean evaluate(String value,String compareValue)
     {
         if(value!=null && compareValue!=null)
@@ -64,6 +69,7 @@ public class CheckContains extends GenericCheck
      * @param ignoreCase	indication if the case of the values shall be ignored for comparison
      * @return				indication if the compareValue is contained in the value
      */
+	@CheckMethodAnnotation(note="The default is to compare the values case sensitive",noteParameter={"Ignore case differences during comparison"})
     public static boolean evaluate(String value,String compareValue, boolean ignoreCase)
     {
     	if(value!=null && compareValue!=null)

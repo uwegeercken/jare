@@ -19,6 +19,9 @@
 package com.datamelt.rules.implementation;
 
 import java.util.Date;
+
+import com.datamelt.util.CheckAnnotation;
+
 import java.util.Calendar;
 
 /**
@@ -32,6 +35,7 @@ import java.util.Calendar;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Date Time Is Between", description="Checks if the time part of a date is between two given time value specified in the format HH:mm:ss (hours, minutes, seconds). Separate the time values using a comma",nameDescriptive="time part is between",checkSingleField=1)
 public class CheckDateTimeIsBetween extends GenericCheck
 {
 	/**

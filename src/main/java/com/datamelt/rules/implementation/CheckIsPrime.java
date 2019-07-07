@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks if a given integer is a prime number
  * <p>
@@ -26,6 +28,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Prime", description="Checks if a number is a prime number",nameDescriptive="is prime",checkSingleField=1)
 public class CheckIsPrime extends GenericCheck
 {
 	/**

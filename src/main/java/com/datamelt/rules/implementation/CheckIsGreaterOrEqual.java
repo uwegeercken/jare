@@ -22,6 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * Checks if one value is greater or equal compared to the other value. In case a string value is used, it checks, if the length of the
  * string if greater or equal to the given length.
@@ -31,6 +34,7 @@ import java.util.Date;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Greater Or Equal", description="Check if a numeric value is greater or equal than the other one. In case of a string checks if the length of a String is greater or equal than the other one",nameDescriptive="is greater or equal than",checkSingleField=0)
 public class CheckIsGreaterOrEqual extends GenericCheck
 {
 	/**
@@ -40,6 +44,7 @@ public class CheckIsGreaterOrEqual extends GenericCheck
      * @param length	the length to compare against
      * @return			indication if the length of the value is greater or equal
      */
+	@CheckMethodAnnotation(note="Checks if the length of the String is greater or equal than the integer value")
     public static boolean evaluate(String value, int length)
     {
         if(value!=null)
@@ -66,6 +71,7 @@ public class CheckIsGreaterOrEqual extends GenericCheck
      * @param length	the length to compare against
      * @return			indication if the length of the value is greater or equal
      */
+	@CheckMethodAnnotation(note="Checks if the length of the String is greater or equal than the long value")
     public static boolean evaluate(String value, long length)
     {
         if(value!=null)
@@ -302,6 +308,7 @@ public class CheckIsGreaterOrEqual extends GenericCheck
      * @param format	the format to be used for the comparison according to the SimpleDateFormat class
      * @return			indication if the first value is greater than the second value
      */
+    @CheckMethodAnnotation(note="Compare two String values that contain dates ",noteParameter={"Provide the date format of the string values"})
     public static boolean evaluate(String value1, String value2, String format)
     {
         
@@ -339,6 +346,7 @@ public class CheckIsGreaterOrEqual extends GenericCheck
      * @param format	the format to be used for the comparison according to the SimpleDateFormat class
      * @return			indication if the first value is greater than the second value
      */
+    @CheckMethodAnnotation(note="Without parameter the String is converted to a Date using the format yyyy-MM-dd",noteParameter={"Provide a date format different from the default"})
     public static boolean evaluate(Date date1, String value2, String format)
     {
         

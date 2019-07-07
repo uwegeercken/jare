@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks if a string of characters does not match a given pattern.
  * <p>
@@ -28,6 +30,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Not Matches", description="Checks if a string does not match another one, using a regular expression pattern",nameDescriptive="not matches",checkSingleField=0)
 public class CheckNotMatches extends GenericCheck
 {
 	/**

@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks if a given string value is numeric by checking if all characters are numbers.
  * <p>
@@ -26,6 +28,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Numeric", description="Checks if a value is numeric where all characters are numbers",nameDescriptive="is numeric",checkSingleField=1)
 public class CheckIsNumeric extends GenericCheck
 {
 	/**

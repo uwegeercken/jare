@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks if a given value contains uppercase characters only.
  * <p>
@@ -26,6 +28,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Uppercase", description="Check if a String contains upper case characters onlyg",nameDescriptive="is uppercase",checkSingleField=1)
 public class CheckIsUppercase extends GenericCheck
 {
     /**

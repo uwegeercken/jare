@@ -20,6 +20,9 @@ package com.datamelt.rules.implementation;
 
 import java.util.HashSet;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * Checks if the given string value is contained in a list of values separated by comma.
  * Spaces in the individual values are removed from the beginning and the end.
@@ -36,7 +39,7 @@ import java.util.HashSet;
  * 
  * @author uwe geercken
  */
-
+@CheckAnnotation(name="Check Is In List", description="Checks if a string is contained in a list of values. The list is represented by a string where the individual values are seperated by a comma",nameDescriptive="is in list",checkSingleField=0)
 public class CheckIsInList extends GenericCheck
 {
     /**
@@ -46,6 +49,7 @@ public class CheckIsInList extends GenericCheck
      * @param list		list of string values separated by commas
      * @return			indication if the value is contained in the list of values
      */
+	@CheckMethodAnnotation(note="Without parameter Strings are compared case sensitive",noteParameter={"Second string is a comma separated list of values"})
     public static boolean evaluate(String value,String list)
     {
         boolean matches = false;
@@ -82,6 +86,7 @@ public class CheckIsInList extends GenericCheck
      * @param ignoreCase	indication if the case of the values shall be ignored for comparison
      * @return				indication if the value is contained in the list of values
      */
+    @CheckMethodAnnotation(note="Without parameter Strings are compared case sensitive",noteParameter={"Define if the comparison ignores case differences"})
     public static boolean evaluate(String value, String list, boolean ignoreCase)
     {
     	boolean matches = false;
@@ -139,6 +144,7 @@ public class CheckIsInList extends GenericCheck
      * @param list		list of integer values separated by commas
      * @return			indication if the value is contained in the list of values
      */
+    @CheckMethodAnnotation(noteParameter={"String is a comma separated list of values"})
     public static boolean evaluate(int value, String list)
     {
     	boolean matches = false;
@@ -175,6 +181,7 @@ public class CheckIsInList extends GenericCheck
      * @param list		list of long values separated by commas
      * @return			indication if the value is contained in the list of values
      */
+    @CheckMethodAnnotation(noteParameter={"String is a comma separated list of values"})
     public static boolean evaluate(long value, String list)
     {
     	boolean matches = false;

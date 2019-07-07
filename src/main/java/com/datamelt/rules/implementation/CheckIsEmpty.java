@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * Checks if a string is empty meaning: it is of zero length and is NOT null.
  * <p>
@@ -27,6 +29,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Empty", description="Checks if a string value is empty, meaning of zero length",nameDescriptive="is empty",checkSingleField=1)
 public class CheckIsEmpty extends GenericCheck
 {
     

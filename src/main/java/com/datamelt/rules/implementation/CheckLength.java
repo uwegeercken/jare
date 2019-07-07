@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks, if the length of the given value (number of digits/characters) is equal to the given length.
  * <p>
@@ -26,6 +28,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Length", description="Checks if a string has a defined length. In case of an integer, checks the number of digits the integer consists of",nameDescriptive="has length",checkSingleField=0)
 public class CheckLength extends GenericCheck
 {
     

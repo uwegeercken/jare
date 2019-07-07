@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks if a given value is greater or equal to zero (0).
  * 
@@ -27,6 +29,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Not Negative Number", description="Checks if a number is greater than or equal to zero",nameDescriptive="not is negativ number",checkSingleField=1)
 public class CheckIsNotNegativeNumber extends GenericCheck
 {
 	/**

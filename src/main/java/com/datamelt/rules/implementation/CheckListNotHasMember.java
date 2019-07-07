@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * checks if a string containing multiple values separated by commas (,) 
  * not contains a given string. spaces between the individual values are removed (trim)
@@ -36,6 +39,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check List Not Has Member", description="Checks if a comma seperated list of values does not contain a given member",nameDescriptive="has not list member",checkSingleField=0)
 public class CheckListNotHasMember extends GenericCheck
 {
 	/**
@@ -45,6 +49,7 @@ public class CheckListNotHasMember extends GenericCheck
      * @param value		the value to compare against
      * @return			indication if the given string is not a member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values")
     public static boolean evaluate(String list, String value)
     {
         boolean matches = false;
@@ -71,6 +76,7 @@ public class CheckListNotHasMember extends GenericCheck
      * @param ignoreCase	indication if the case of the values shall be ignored for comparison
      * @return				indication if the given string is not a member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values",noteParameter={"Ignore case differences during comparison"})
     public static boolean evaluate(String list, String value, boolean ignoreCase)
     {
     	boolean matches = false;
@@ -107,6 +113,7 @@ public class CheckListNotHasMember extends GenericCheck
      * @param value		the value to compare against
      * @return			indication if the given integer is not member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values")
     public static boolean evaluate(String list, int value )
     {
     	boolean matches = false;
@@ -129,6 +136,7 @@ public class CheckListNotHasMember extends GenericCheck
      * @param value		the value to compare against
      * @return			indication if the given long is not member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values")
     public static boolean evaluate(String list, long value)
     {
     	boolean matches = false;

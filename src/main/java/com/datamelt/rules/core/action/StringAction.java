@@ -43,6 +43,11 @@ public class StringAction
 		return value;
 	}
 	
+	public String setNull(XmlAction action, String value) throws Exception
+	{
+		return null;
+	}
+	
 	public String replaceValue(XmlAction action, String value, String regex, String replacement) throws Exception
 	{
 		if(value==null)

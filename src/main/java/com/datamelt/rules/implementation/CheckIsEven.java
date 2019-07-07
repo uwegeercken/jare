@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * Checks if a given number is an even number
  * <p>
@@ -26,6 +28,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Even", description="Checks if a number is an even number",nameDescriptive="is even",checkSingleField=1)
 public class CheckIsEven extends GenericCheck
 {
 	

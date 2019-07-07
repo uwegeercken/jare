@@ -19,6 +19,7 @@
 package com.datamelt.rules.implementation;
 
 import com.datamelt.rules.core.util.Soundex;
+import com.datamelt.util.CheckAnnotation;
 
 /**
  * checks if a string sounds like a given string using the soundex algorithm. 
@@ -28,6 +29,7 @@ import com.datamelt.rules.core.util.Soundex;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Sounds Like", description="Checks if a string sounds like the other, using the soundex algorithm",nameDescriptive="sounds like",checkSingleField=0)
 public class CheckSoundsLike extends GenericCheck
 {
 	/**

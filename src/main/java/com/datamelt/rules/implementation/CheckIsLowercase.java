@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks if a given value contains lowercase characters only.
  * <p>
@@ -26,6 +28,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Lowercase", description="Check if a String contains lower case characters only",nameDescriptive="is lowercase",checkSingleField=1)
 public class CheckIsLowercase extends GenericCheck
 {
     /**

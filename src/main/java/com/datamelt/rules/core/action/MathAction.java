@@ -69,6 +69,36 @@ public class MathAction
 		return value;
 	}
 	
+	public Integer setNull(XmlAction action, int value) throws Exception
+	{
+		return null;
+	}
+	
+	public Long setNull(XmlAction action, long value) throws Exception
+	{
+		return null;
+	}
+	
+	public Float setNull(XmlAction action, float value) throws Exception
+	{
+		return null;
+	}
+	
+	public Double setNull(XmlAction action, double value) throws Exception
+	{
+		return null;
+	}
+	
+	public Boolean setNull(XmlAction action, boolean value) throws Exception
+	{
+		return null;
+	}
+	
+	public BigDecimal setNull(XmlAction action, BigDecimal value) throws Exception
+	{
+		return null;
+	}
+	
 	public int addValues(XmlAction action, int value, int value2) throws Exception
 	{
 		return value + value2;

@@ -27,6 +27,7 @@ import java.util.Date;
 import com.datamelt.rules.core.ActionObject;
 import com.datamelt.rules.core.Parameter;
 import com.datamelt.rules.core.XmlAction;
+import com.datamelt.rules.implementation.GenericCheck;
 
 /**
  * Utility class to translate types, retrieve methods and invoke methods on objects
@@ -501,14 +502,13 @@ public class ClassUtility
      * The id of a check in the database uniquely identifies the check and should not change
      * as the business rules are based on them.
      * 
-     * @param className			the name of the class
+     * @param clazz				the class to use
      * @return					the static checkId of the class
      * @throws Exception		throws an exception if the class was not found or the field is undefined
      */
-    public static long getCheckId(String className) throws Exception
+    public static long getCheckId(Class<GenericCheck> clazz) throws Exception
 	{
-		Class <?> check = Class.forName(className);
-		java.lang.reflect.Field field = check.getField("checkId");
+		java.lang.reflect.Field field = clazz.getField("checkId");
 		return field.getLong(null);
 	}
 }

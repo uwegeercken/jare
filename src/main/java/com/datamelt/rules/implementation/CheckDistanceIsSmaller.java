@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * Checks if the Levenshtein distance between two strings is smaller than a given value.
  * <p>
@@ -27,6 +30,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Distance Is Smaller", description="Checks if the Levenshtein distance between two strings is smaller than a given value",nameDescriptive="is smaller (Levenshtein distance)",checkSingleField=1)
 public class CheckDistanceIsSmaller extends GenericCheck
 {
 	/**
@@ -37,6 +41,7 @@ public class CheckDistanceIsSmaller extends GenericCheck
      * @param value				expected value of the distance between the two strings
      * @return					indication if the Levenshtein distance is smaller than the given value
      */
+	@CheckMethodAnnotation(note="Levenshtein distance between two values",noteParameter={"The value for the distance between the two strings to be evaluated"})
     public static boolean evaluate(String originalString,String compareString, int value )
     {
     	int[][] dp = new int[originalString.length() + 1][compareString.length() + 1];

@@ -20,6 +20,8 @@ package com.datamelt.rules.implementation;
 
 import java.util.Date;
 
+import com.datamelt.util.CheckAnnotation;
+
 /**
  * checks if a given value is NOT NULL or - in case of a string value - checks if its value is not equal to the string 'null' or 'Null'.
  * <p>
@@ -28,6 +30,7 @@ import java.util.Date;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Is Not Null", description="Checks if a value is not null",nameDescriptive="is not null",checkSingleField=1)
 public class CheckIsNotNull extends GenericCheck
 {
 	/**

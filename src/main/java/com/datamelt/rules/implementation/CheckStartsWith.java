@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * Checks if a string starts with a given other string.
  * <p>
@@ -26,6 +29,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check Starts With", description="Check if a String starts with a certain String",nameDescriptive="starts with",checkSingleField=0)
 public class CheckStartsWith extends GenericCheck
 {
 	/**
@@ -35,6 +39,7 @@ public class CheckStartsWith extends GenericCheck
      * @param compareValue	the second value for comparison - to compare against the first value
      * @return				indication if the first value starts with the second value
      */
+	@CheckMethodAnnotation(note="The default is to compare the values case sensitive")
     public static boolean evaluate(String value,String compareValue)
     {
     	if(value!=null && compareValue!=null)
@@ -56,6 +61,7 @@ public class CheckStartsWith extends GenericCheck
      * @param ignoreCase	indication if the case of the values shall be ignored for comparison
      * @return				indication if the first value starts with the second value
      */
+	@CheckMethodAnnotation(note="The default is to compare the values case sensitive",noteParameter={"Ignore case differences during comparison"})
     public static boolean evaluate(String value,String compareValue,boolean ignoreCase)
     {
     	if(value!=null && compareValue!=null)

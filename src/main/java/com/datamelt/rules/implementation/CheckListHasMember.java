@@ -18,6 +18,9 @@
  */
 package com.datamelt.rules.implementation;
 
+import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckMethodAnnotation;
+
 /**
  * Checks if a list of string values separated by commas contains a given string.
  * <p>
@@ -32,6 +35,7 @@ package com.datamelt.rules.implementation;
  * 
  * @author uwe geercken
  */
+@CheckAnnotation(name="Check List Has Member", description="Checks if a comma seperated list of values contains a given member",nameDescriptive="has list member",checkSingleField=0)
 public class CheckListHasMember extends GenericCheck
 {
 	/**
@@ -41,6 +45,7 @@ public class CheckListHasMember extends GenericCheck
      * @param value		the value to compare against
      * @return			indication if the given string is a member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values")
     public static boolean evaluate(String list, String value)
     {
         boolean matches = false;
@@ -67,6 +72,7 @@ public class CheckListHasMember extends GenericCheck
      * @param ignoreCase	indication if the case of the values shall be ignored for comparison
      * @return				indication if the given string is a member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values",noteParameter={"Ignore case differences during comparison"})
     public static boolean evaluate(String list, String value, boolean ignoreCase)
     {
     	boolean matches = false;
@@ -103,6 +109,7 @@ public class CheckListHasMember extends GenericCheck
      * @param value		the value to compare against
      * @return			indication if the given integer is a member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values")
     public static boolean evaluate(String list, int value )
     {
     	boolean matches = false;
@@ -125,6 +132,7 @@ public class CheckListHasMember extends GenericCheck
      * @param value		the value to compare against
      * @return			indication if the given long is a member of the list
      */
+	@CheckMethodAnnotation(note="First String is a comma separated list of values")
     public static boolean evaluate(String list, long value)
     {
     	boolean matches = false;
