@@ -18,24 +18,23 @@
  */
 package com.datamelt.util;
 
+import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-
+import java.lang.annotation.Target;
 /**
- * Annotation for the various checks. Used to generate the records
- * (in sql format) for the business rules maintenance tool database.
+ * Annotation for the various checks. Used to generate a list
+ * of methods (in sql format) for the business rules maintenance tool database.
  * 
  * @author uwe geercken
  *
  */
 @Documented
 @Retention(RUNTIME)
-public @interface CheckAnnotation 
+@Target(METHOD)
+public @interface ActionMethodAnnotation 
 {
-	String name();
-	String description();
-	String nameDescriptive();
-	int checkSingleField() default 0;
+	String note() default "";
 }

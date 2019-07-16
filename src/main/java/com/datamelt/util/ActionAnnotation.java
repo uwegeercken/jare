@@ -25,17 +25,15 @@ import java.lang.annotation.Retention;
 
 /**
  * Annotation for the various checks. Used to generate the records
- * (in sql format) for the business rules maintenance tool database.
+ * from code for the business rules maintenance tool database.
  * 
  * @author uwe geercken
  *
  */
 @Documented
 @Retention(RUNTIME)
-public @interface CheckAnnotation 
+public @interface ActionAnnotation 
 {
-	String name();
 	String description();
-	String nameDescriptive();
-	int checkSingleField() default 0;
+	String methodDisplayname();
 }

@@ -23,6 +23,9 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 import com.datamelt.rules.core.XmlAction;
+import com.datamelt.util.ActionAnnotation;
+import com.datamelt.util.ActionMethodAnnotation;
+import com.datamelt.util.CheckAnnotation;
 
 /**
  * Class containing possible actions that are related to string handling.
@@ -32,8 +35,11 @@ import com.datamelt.rules.core.XmlAction;
  * @author uwe geercken
  * 
  */
-public class StringAction
+
+public
+class StringAction extends GenericAction
 {
+	@ActionAnnotation(description= "Set a value to another value",methodDisplayname="set value (string)")
 	public String setValue(XmlAction action, String value) throws Exception
 	{
 		if(value==null)
@@ -43,11 +49,14 @@ public class StringAction
 		return value;
 	}
 	
+	@ActionAnnotation(description= "Set a value to null",methodDisplayname="set null value (string)")
 	public String setNull(XmlAction action, String value) throws Exception
 	{
 		return null;
 	}
 	
+	@ActionAnnotation(description= "Replace a value by providing a regular expression to search for and a replacement value",methodDisplayname="replace value")
+	@ActionMethodAnnotation(note= "2nd parameter: regular expression, 3rd parameter: replacement")
 	public String replaceValue(XmlAction action, String value, String regex, String replacement) throws Exception
 	{
 		if(value==null)
@@ -65,6 +74,8 @@ public class StringAction
 		return value.replaceAll(regex, replacement);
 	}
 	
+	@ActionAnnotation(description= "Replace value from mapping file",methodDisplayname="replace value from map")
+	@ActionMethodAnnotation(note= "2nd parameter: path and name of the mapping file")
 	public String replaceValueFromMap(XmlAction action, String originalValue, String filename) throws Exception
 	{
 		if(originalValue==null)
@@ -81,7 +92,9 @@ public class StringAction
 			return originalValue;
 		}
 	}
-	
+
+	@ActionAnnotation(description= "Replace value from a list of values",methodDisplayname="replace value from list")
+	@ActionMethodAnnotation(note= "2nd parameter: list of values separated by comma")
 	public String replaceValueFromList(XmlAction action, int index, String list) throws Exception
 	{
 		if(list==null)
@@ -99,6 +112,8 @@ public class StringAction
 		}
 	}
 	
+	@ActionAnnotation(description= "Set a value to the substring of a value",methodDisplayname="substring of value")
+	@ActionMethodAnnotation(note= "2nd parameter: the String up to which the substring shall extend")
 	public String subStringValue(XmlAction action, String value, String untilString)
 	{
 		if(value==null)
@@ -119,7 +134,9 @@ public class StringAction
 			return value;			
 		}
 	}
-	
+
+	@ActionAnnotation(description= "Set a value to the substring of a value",methodDisplayname="substring of value")
+	@ActionMethodAnnotation(note= "2nd parameter: start of the substring")
 	public String subStringValue(XmlAction action, String value, int beginIndex)
 	{
 		if(value==null)
@@ -128,7 +145,9 @@ public class StringAction
 		}
 		return value.substring(beginIndex);
 	}
-	
+
+	@ActionAnnotation(description= "Set a value to the substring of a value",methodDisplayname="substring of value")
+	@ActionMethodAnnotation(note= "2nd parameter: start of substring, 3rd parameter: end of substring")
 	public String subStringValue(XmlAction action, String value, int beginIndex, int endIndex)
 	{
 		if(value==null)
@@ -138,6 +157,8 @@ public class StringAction
 		return value.substring(beginIndex, endIndex);
 	}
 	
+	@ActionAnnotation(description= "Replace value with a mask character",methodDisplayname="mask value")
+	@ActionMethodAnnotation(note= "2nd parameter: mask characters, 3rd parameter: start position")
 	public String maskValue(XmlAction action, String value, String mask, int beginIndex)
 	{
 		StringBuffer maskedString = new StringBuffer();
@@ -163,6 +184,8 @@ public class StringAction
 		
 	}
 	
+	@ActionAnnotation(description= "Replace value with a mask character",methodDisplayname="mask value")
+	@ActionMethodAnnotation(note= "2nd parameter: mask characters, 3rd parameter: start position, 4th parameter: end position")
 	public String maskValue(XmlAction action, String value, String mask, int beginIndex, int endIndex)
 	{
 		StringBuffer maskedString = new StringBuffer();
@@ -187,6 +210,8 @@ public class StringAction
 		}
 	}
 	
+	@ActionAnnotation(description= "Replace value with a mask character",methodDisplayname="mask value")
+	@ActionMethodAnnotation(note= "2nd parameter: mask characters")
 	public String maskValue(XmlAction action, String value, String mask)
 	{
 		StringBuffer maskedString = new StringBuffer();
@@ -204,6 +229,7 @@ public class StringAction
 		}
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, String value2) throws Exception
 	{
 		if(value==null)
@@ -217,6 +243,7 @@ public class StringAction
 		return value + value2;
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, int value, String value2) throws Exception
 	{
 		if(value2==null)
@@ -226,6 +253,7 @@ public class StringAction
 		return value + value2;
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, long value, String value2) throws Exception
 	{
 		if(value2==null)
@@ -235,6 +263,7 @@ public class StringAction
 		return value + value2;
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, float value, String value2) throws Exception
 	{
 		if(value2==null)
@@ -244,6 +273,7 @@ public class StringAction
 		return value + value2;
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, double value, String value2) throws Exception
 	{
 		if(value2==null)
@@ -253,6 +283,7 @@ public class StringAction
 		return "" + value + value2;
 	}
 
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, int value2) throws Exception
 	{
 		if(value==null)
@@ -262,6 +293,7 @@ public class StringAction
 		return value + value2;
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, long value2) throws Exception
 	{
 		if(value==null)
@@ -271,6 +303,7 @@ public class StringAction
 		return value + value2;
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, float value2) throws Exception
 	{
 		if(value==null)
@@ -280,6 +313,7 @@ public class StringAction
 		return value + value2;
 	}
 	
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, double value2) throws Exception
 	{
 		if(value==null)
@@ -289,7 +323,9 @@ public class StringAction
 		return value + value2;
 	}
 
-	public String concatValues(XmlAction action, String value, String value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String concatValues(XmlAction action, String value, String value2, String separator) throws Exception
 	{
 		if(value==null)
 		{
@@ -299,117 +335,134 @@ public class StringAction
 		{
 			value2 = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + value2;
+		return value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, String value, int value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String concatValues(XmlAction action, String value, int value2, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + value2;
+		return value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, String value, long value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String concatValues(XmlAction action, String value, long value2, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + value2;
+		return value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, String value, float value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to be used")
+	public String concatValues(XmlAction action, String value, float value2, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + value2;
+		return value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, String value, double value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to be used")
+	public String concatValues(XmlAction action, String value, double value2, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + value2;
+		return value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, int value, String value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to be used")
+	public String concatValues(XmlAction action, int value, String value2, String separator) throws Exception
 	{
 		if(value2==null)
 		{
 			value2 = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return "" + value + seperator + value2;
+		return "" + value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, long value, String value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to be used")
+	public String concatValues(XmlAction action, long value, String value2, String separator) throws Exception
 	{
 		if(value2==null)
 		{
 			value2 = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return "" + value + seperator + value2;
+		return "" + value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, float value, String value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to be used")
+	public String concatValues(XmlAction action, float value, String value2, String separator) throws Exception
 	{
 		if(value2==null)
 		{
 			value2 = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return "" + value + seperator + value2;
+		return "" + value + separator + value2;
 	}
 	
-	public String concatValues(XmlAction action, double value, String value2, String seperator) throws Exception
+	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
+	@ActionMethodAnnotation(note= "last parameter: separator to be used")
+	public String concatValues(XmlAction action, double value, String value2, String separator) throws Exception
 	{
 		if(value2==null)
 		{
 			value2 = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return "" + value + seperator + value2;
+		return "" + value + separator + value2;
 	}
 	
+	@ActionAnnotation(description= "Add a value to the end of a value",methodDisplayname="append value")
 	public String appendValue(XmlAction action, String value, String appendValue) throws Exception
 	{
 		if(value==null)
@@ -423,7 +476,9 @@ public class StringAction
 		return value + appendValue;
 	}
 	
-	public String appendValue(XmlAction action, String value, String appendValue, String seperator) throws Exception
+	@ActionAnnotation(description= "Add a value to the end of a value",methodDisplayname="append value")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String appendValue(XmlAction action, String value, String appendValue, String separator) throws Exception
 	{
 		if(value==null)
 		{
@@ -433,13 +488,14 @@ public class StringAction
 		{
 			appendValue = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + appendValue;
+		return value + separator + appendValue;
 	}
 	
+	@ActionAnnotation(description= "Add a value to the end of a value",methodDisplayname="append value")
 	public String appendValue(XmlAction action, String value, int appendValue) throws Exception
 	{
 		if(value==null)
@@ -449,19 +505,22 @@ public class StringAction
 		return value + appendValue;
 	}
 	
-	public String appendValue(XmlAction action, String value, int appendValue, String seperator) throws Exception
+	@ActionAnnotation(description= "Add a value to the end of a value",methodDisplayname="append value")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String appendValue(XmlAction action, String value, int appendValue, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + appendValue;
+		return value + separator + appendValue;
 	}
 	
+	@ActionAnnotation(description= "Add a value to the end of a value",methodDisplayname="append value")
 	public String appendValue(XmlAction action, String value, long appendValue) throws Exception
 	{
 		if(value==null)
@@ -471,19 +530,22 @@ public class StringAction
 		return value + appendValue;
 	}
 	
-	public String appendValue(XmlAction action, String value, long appendValue, String seperator) throws Exception
+	@ActionAnnotation(description= "Add a value to the end of a value",methodDisplayname="append value")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String appendValue(XmlAction action, String value, long appendValue, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return value + seperator + appendValue;
+		return value + separator + appendValue;
 	}
 	
+	@ActionAnnotation(description= "Add a value to the beginning of a value",methodDisplayname="prepend value")
 	public String prependValue(XmlAction action, String value, String prependValue) throws Exception
 	{
 		if(value==null)
@@ -497,19 +559,22 @@ public class StringAction
 		return prependValue + value;
 	}
 
-	public String prependValue(XmlAction action, String value, int prependValue, String seperator) throws Exception
+	@ActionAnnotation(description= "Add a value to the beginning of a value",methodDisplayname="prepend value")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String prependValue(XmlAction action, String value, int prependValue, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return prependValue + seperator + value;
+		return prependValue + separator + value;
 	}
 
+	@ActionAnnotation(description= "Add a value to the beginning of a value",methodDisplayname="prepend value")
 	public String prependValue(XmlAction action, String value, int prependValue) throws Exception
 	{
 		if(value==null)
@@ -519,19 +584,22 @@ public class StringAction
 		return "" + prependValue + value;
 	}
 
-	public String prependValue(XmlAction action, String value, long prependValue, String seperator) throws Exception
+	@ActionAnnotation(description= "Add a value to the beginning of a value",methodDisplayname="prepend value")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String prependValue(XmlAction action, String value, long prependValue, String separator) throws Exception
 	{
 		if(value==null)
 		{
 			value = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return "" + prependValue + seperator + value;
+		return "" + prependValue + separator + value;
 	}
 
+	@ActionAnnotation(description= "Add a value to the beginning of a value",methodDisplayname="prepend value")
 	public String prependValue(XmlAction action, String value, long prependValue) throws Exception
 	{
 		if(value==null)
@@ -541,7 +609,9 @@ public class StringAction
 		return "" + prependValue + value;
 	}
 
-	public String prependValue(XmlAction action, String value, String prependValue, String seperator) throws Exception
+	@ActionAnnotation(description= "Add a value to the beginning of a value",methodDisplayname="prepend value")
+	@ActionMethodAnnotation(note= "last parameter: separator to use")
+	public String prependValue(XmlAction action, String value, String prependValue, String separator) throws Exception
 	{
 		if(value==null)
 		{
@@ -551,11 +621,11 @@ public class StringAction
 		{
 			prependValue = "";
 		}
-		if(seperator==null)
+		if(separator==null)
 		{
-			seperator = "";
+			separator = "";
 		}
-		return prependValue + seperator + value;
+		return prependValue + separator + value;
 	}
 
 	/**
@@ -567,6 +637,8 @@ public class StringAction
 	 * @param	length		the desired length of the result returned
 	 * @return				string with leading zeros
 	 */
+	@ActionAnnotation(description= "Add leading zeros to a value",methodDisplayname="add leading zeros")
+	@ActionMethodAnnotation(note="last parameter: maximum length of the String ") 
 	public String addLeadingZeros(XmlAction action,String value, int length)
 	{
 		if(value==null)
@@ -589,6 +661,8 @@ public class StringAction
 	 * @param	length		the desired length of the result returned
 	 * @return				string with leading spaces
 	 */
+	@ActionAnnotation(description= "Add leading spaces to a value",methodDisplayname="add leading spaces")
+	@ActionMethodAnnotation(note="last parameter: number of spaces to add at the begining") 
 	public String addLeadingSpaces(XmlAction action,String value, int length)
 	{
 		if(value==null)
@@ -609,6 +683,7 @@ public class StringAction
 	 * @param value		the value to trim
 	 * @return			the trimmed string
 	 */
+	@ActionAnnotation(description= "Remove (trim) all spaces from the beginning and the end of a value",methodDisplayname="trim")
 	public String trimValue(XmlAction action,String value)
 	{
 		if(value==null)
@@ -625,6 +700,7 @@ public class StringAction
 	 * @param value		the value to use
 	 * @return			the string all upper case
 	 */
+	@ActionAnnotation(description= "Set a value to its uppercase representation",methodDisplayname="uppercase")
 	public String upperCaseValue(XmlAction action,String value)
 	{
 		if(value==null)
@@ -641,6 +717,7 @@ public class StringAction
 	 * @param value		the value to use
 	 * @return			the string all lower case
 	 */
+	@ActionAnnotation(description= "Set a value to its lowercase representation",methodDisplayname="lowercase")
 	public String lowerCaseValue(XmlAction action,String value)
 	{
 		if(value==null)
@@ -657,6 +734,7 @@ public class StringAction
 	 * @param value		the value to use
 	 * @return			the has code for the value
 	 */
+	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,String value)
 	{
 		if(value==null)
@@ -676,6 +754,8 @@ public class StringAction
 	 * @param key		the key to use
 	 * @return			the encrypted string
 	 */
+	@ActionAnnotation(description= "Encrypt value (Blowfish) using a key",methodDisplayname="encrypt value")
+	@ActionMethodAnnotation(note= "last parameter: encryption key to use")
 	public String encryptValue(XmlAction action,String value,String key) 
 	{
 		if(value==null)
@@ -711,6 +791,8 @@ public class StringAction
 	 * @param key		the key to use
 	 * @return			the decrypted string
 	 */
+	@ActionAnnotation(description= "Decrypt value (Blowfish) using a key",methodDisplayname="decrypt value")
+	@ActionMethodAnnotation(note= "last parameter: encryption key to use")
 	public String decryptValue(XmlAction action,String value,String key)
 	{
 		if(value==null)

@@ -23,6 +23,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.datamelt.rules.core.XmlAction;
+import com.datamelt.util.ActionAnnotation;
+import com.datamelt.util.ActionMethodAnnotation;
 /**
  * Class containing possible actions that are related to dates.
  * 
@@ -31,7 +33,7 @@ import com.datamelt.rules.core.XmlAction;
  * @author uwe geercken
  * 
  */
-public class DateAction
+public class DateAction extends GenericAction
 {
 	// the default date format used whenever no other format is specified
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
@@ -44,6 +46,7 @@ public class DateAction
 	 * @return				date
 	 * @throws Exception	exception in date handling
 	 */
+	@ActionAnnotation(description= "Set a value to another value",methodDisplayname="set value (date)")
 	public Date setValue(XmlAction action, Date value) throws Exception
 	{
 		return value;
@@ -58,6 +61,8 @@ public class DateAction
 	 * @return				date
 	 * @throws Exception	exception in date handling
 	 */
+	@ActionAnnotation(description= "Set a value to a given date",methodDisplayname="set value (date)")
+	@ActionMethodAnnotation(note= "last parameter: the date format")
 	public String setValue(XmlAction action, Date value, String dateFormat) throws Exception
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -79,6 +84,8 @@ public class DateAction
 	 * @param value			the value to set
 	 * @return				the date in the default format
 	 */
+	@ActionAnnotation(description= "Set a value to a given date represented as a string",methodDisplayname="set value (date)")
+	@ActionMethodAnnotation(note= "the string will be interpreted as a date using format: " + DEFAULT_DATE_FORMAT)
 	public Date setValue(XmlAction action, String value)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
@@ -102,6 +109,8 @@ public class DateAction
 	 * @param dateFormat	the format to use for the date
 	 * @return				the date in the default format
 	 */
+	@ActionAnnotation(description= "Set a value to a given date represented as a string",methodDisplayname="set value (date)")
+	@ActionMethodAnnotation(note= "the last parameter specifies the date format of the string")
 	public Date setValue(XmlAction action, String value, String dateFormat)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -127,6 +136,8 @@ public class DateAction
 	 * @param returnFormat	the  return format to use for the date
 	 * @return				the date in the specified format
 	 */
+	@ActionAnnotation(description= "Set a value to a given date represented as a string",methodDisplayname="set value (date)")
+	@ActionMethodAnnotation(note= "the second parameter specifies the date format of the string, the third parameter specifies the return format")
 	public String setValue(XmlAction action, String value, String dateFormat, String returnFormat)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -154,6 +165,7 @@ public class DateAction
 	 * @param value			the value to convert
 	 * @return				the number of minutes calculated
 	 */
+	@ActionAnnotation(description= "Calculates the number of minutes from a decimal representation of hours",methodDisplayname="decimal hours to minutes")
 	public long decimalHoursToMinutes(XmlAction action, float value)
 	{
 		int hours = (int) value;
@@ -173,6 +185,8 @@ public class DateAction
 	 * @param value			the value to convert
 	 * @return				the hours and minutes formatted as a string
 	 */
+	@ActionAnnotation(description= "Calculates the hours and minutes from a decimal representation of hours",methodDisplayname="decimal hours to hours and minutes")
+	@ActionMethodAnnotation(note= "return format is hh:mm")
 	public String decimalHoursToHoursMinutes(XmlAction action, float value)
 	{
 		int hours = (int) value;
@@ -187,6 +201,7 @@ public class DateAction
 	 * @param value			the value to convert
 	 * @return				the number of seconds calculated
 	 */
+	@ActionAnnotation(description= "Calculates the number of seconds from a decimal representation of hours",methodDisplayname="decimal hours to seconds")
 	public long decimalHoursToSeconds(XmlAction action, float value)
 	{
 		int hours = (int) value;
@@ -206,6 +221,8 @@ public class DateAction
 	 * @param value			the value to convert
 	 * @return				the hours and minutes and seconds formatted as a string
 	 */
+	@ActionAnnotation(description= "Calculates the hours,minutes and seconds from a decimal representation of hours",methodDisplayname="decimal hours to hours, minutes, seconds")
+	@ActionMethodAnnotation(note= "return format is hh:mm:ss")
 	public String decimalHoursToHoursMinutesSeconds(XmlAction action, float value)
 	{
 		int hours = (int) value;
@@ -223,6 +240,8 @@ public class DateAction
 	 * @param dateFormat	the format to use for the date
 	 * @return				the date as a string in the default format
 	 */
+	@ActionAnnotation(description= "Set a value to todays date",methodDisplayname="set today date")
+	@ActionMethodAnnotation(note= "last parameter is the format of the returned date")
 	public String setTodayDate(XmlAction action,String dateFormat)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -235,6 +254,7 @@ public class DateAction
 	 * @param action		the action to use
 	 * @return				the date in the default format
 	 */
+	@ActionAnnotation(description= "Set a value to todays date",methodDisplayname="set today date")
 	public Date setTodayDate(XmlAction action)
 	{
 		return new Date();
@@ -252,6 +272,8 @@ public class DateAction
 
 	 * @return	todays date in the given format as a string
 	 */
+	@ActionAnnotation(description= "Set a value to todays date",methodDisplayname="set today date")
+	@ActionMethodAnnotation(note= "2nd parameter is the format of the returned date, 3rd parameter is number of days offset")
 	public String setTodayDate(XmlAction action,String dateFormat, int daysOffset)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -270,6 +292,8 @@ public class DateAction
 	 * @param month			the month used for calculation
 	 * @return	todays date in the default format as a string
 	 */
+	@ActionAnnotation(description= "Set a value to the last day of the month",methodDisplayname="set last day of month")
+	@ActionMethodAnnotation(note= "2nd parameter is the year, 3rd parameter is the month, using the default date format: " + DEFAULT_DATE_FORMAT)
 	public String setLastDayOfMonth(XmlAction action,int year, int month)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
@@ -290,6 +314,7 @@ public class DateAction
 	 * @param action		the action to use
 	 * @return				last day of the current month
 	 */
+	@ActionAnnotation(description= "Set a value to the last day of the month",methodDisplayname="set last day of month")
 	public Date setLastDayOfMonth(XmlAction action)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -309,6 +334,7 @@ public class DateAction
 	 * @param date			the date involved
 	 * @return				last day of the month of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the last day of the month",methodDisplayname="set last day of month")
 	public Date setLastDayOfMonth(XmlAction action,Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -326,6 +352,7 @@ public class DateAction
 	 * @param date			the date involved
 	 * @return				the year value of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the year of a given date",methodDisplayname="set year")
 	public int setYear(XmlAction action, Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -341,6 +368,7 @@ public class DateAction
 	 * @param date			the date involved
 	 * @return				the month value of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the month of a given date",methodDisplayname="set month")
 	public int setMonth(XmlAction action, Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -356,6 +384,7 @@ public class DateAction
 	 * @param date			the date involved
 	 * @return				the week of year value of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the wwek number of a given date",methodDisplayname="set week")
 	public int setWeek(XmlAction action, Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -371,6 +400,7 @@ public class DateAction
 	 * @param date			the date involved
 	 * @return				the day of week value of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the day of week of a given date",methodDisplayname="set day of week")
 	public int setDayOfWeek(XmlAction action, Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -387,6 +417,8 @@ public class DateAction
 	 * @param firstDayOfWeek	the day which starts the week
 	 * @return					the day of week value of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the day of week of a given date",methodDisplayname="set day of week")
+	@ActionMethodAnnotation(note= "last parameter is the indicator which day starts the week")
 	public int setDayOfWeek(XmlAction action, Date date, int firstDayOfWeek)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -397,12 +429,27 @@ public class DateAction
 	}
 	
 	/**
+	 * 
+	 * @param action		the action to use
+	 * @param value			the date involved
+	 * @return				null
+	 * @throws Exception
+	 */
+	@ActionAnnotation(description= "Set a value to null",methodDisplayname="set null value (date)")
+	@ActionMethodAnnotation(note= "returned as a Long with value of null")
+	public Long setNull(XmlAction action, Date date)
+	{
+		return null;
+	}
+	
+	/**
 	 * method will set the value of the relevant object to the quarter of the year of the given date
 	 * 
 	 * @param action		the action to use
 	 * @param date			the date involved
 	 * @return				the quarter of the year value of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the quarter of a given date",methodDisplayname="set quarter")
 	public int setQuarter(XmlAction action, Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -439,6 +486,8 @@ public class DateAction
 	 * @param dateFormat	the date format to use
 	 * @return				last day of the given year and month in the given format as a string
 	 */
+	@ActionAnnotation(description= "Set a value to the last day of the month",methodDisplayname="set last day of month")
+	@ActionMethodAnnotation(note= "2nd parameter is the year, 3rd parameter is the month, 4th parameter is the date format to use")
 	public String setLastDayOfMonth(XmlAction action,int year, int month,String dateFormat)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -462,6 +511,8 @@ public class DateAction
 	 * @param month			the month to use
 	 * @return				first day of the given year and month in the default format
 	 */
+	@ActionAnnotation(description= "Set a value to the first day of the month",methodDisplayname="set first day of month")
+	@ActionMethodAnnotation(note= "2nd parameter is the year, 3rd parameter is the month")
 	public String setFirstDayOfMonth(XmlAction action,int year, int month)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
@@ -481,6 +532,7 @@ public class DateAction
 	 * @param action		the action to use
 	 * @return				first day of the current month
 	 */
+	@ActionAnnotation(description= "Set a value to the first day of the current month",methodDisplayname="set first day of month")
 	public Date setFirstDayOfMonth(XmlAction action)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -499,6 +551,7 @@ public class DateAction
 	 * @param date			the date involved	 
 	 * @return				first day of the month of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the first day of the month",methodDisplayname="set first day of month")
 	public Date setFirstDayOfMonth(XmlAction action,Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -520,6 +573,8 @@ public class DateAction
 	 * @param dateFormat	the date format to use
 	 * @return				first day of the month of the given year and month in the specified format
 	 */
+	@ActionAnnotation(description= "Set a value to the first day of the month",methodDisplayname="set first day of month")
+	@ActionMethodAnnotation(note= "2nd parameter is the year, 3rd parameter is the month, 4th parameter is the date format to use")
 	public String setFirstDayOfMonth(XmlAction action,int year, int month,String dateFormat)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -542,6 +597,8 @@ public class DateAction
 	 * @param month			the month to use
 	 * @return				mid day of the month of the given year and month
 	 */
+	@ActionAnnotation(description= "Set a value to the mid day (15th) of the month",methodDisplayname="set mid day of month")
+	@ActionMethodAnnotation(note= "2nd parameter is the year, 3rd parameter is the month")
 	public String setMidDayOfMonth(XmlAction action,int year, int month)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
@@ -561,6 +618,7 @@ public class DateAction
 	 * @param action		the action to use
 	 * @return				mid day of the month of the current date
 	 */
+	@ActionAnnotation(description= "Set a value to the mid day (15th) of the month",methodDisplayname="set mid day of month")
 	public Date setMidDayOfMonth(XmlAction action)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -579,6 +637,7 @@ public class DateAction
 	 * @param date			the date involved	 
 	 * @return				mid day of the month of the given date
 	 */
+	@ActionAnnotation(description= "Set a value to the mid day of the month",methodDisplayname="set mid day of month")
 	public Date setMidDayOfMonth(XmlAction action,Date date)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -600,6 +659,8 @@ public class DateAction
 	 * @param dateFormat	the date format to use
 	 * @return				mid day of the month of the given year and month in the specified format as a string
 	 */
+	@ActionAnnotation(description= "Set a value to the first day of the month",methodDisplayname="set first day of month")
+	@ActionMethodAnnotation(note= "2nd parameter is the year, 3rd parameter is the month, 4th parameter is the date format to use")
 	public String setMidDayOfMonth(XmlAction action,int year, int month,String dateFormat)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -620,6 +681,7 @@ public class DateAction
 	 * @param seconds		number of seconds to add
 	 * @return				the given date plus the given seconds as a date
 	 */
+	@ActionAnnotation(description= "Add seconds to a date",methodDisplayname="add seconds")
 	public Date addSeconds(XmlAction action, Date date, long seconds)
 	{
 		final long ONE_SECOND_IN_MILLISECONDS = 1000;
@@ -636,6 +698,7 @@ public class DateAction
 	 * @param minutes		number of minutes to add
 	 * @return				the given date plus the given minutes as a date
 	 */
+	@ActionAnnotation(description= "Add minutes to a date",methodDisplayname="add minutes")
 	public Date addMinutes(XmlAction action, Date date, long minutes)
 	{
 		final long ONE_MINUTE_IN_MILLISECONDS = 60000;
@@ -652,6 +715,7 @@ public class DateAction
 	 * @param hours		number of hours to add
 	 * @return				the given date plus the given hours as a date
 	 */
+	@ActionAnnotation(description= "Add hours to a date",methodDisplayname="add hours")
 	public Date addHours(XmlAction action, Date date, long hours)
 	{
 		final long ONE_HOUR_IN_MILLISECONDS = 60000 * 60 ;
@@ -668,6 +732,7 @@ public class DateAction
 	 * @param days		number of days to add
 	 * @return				the given date plus the given days as a date
 	 */
+	@ActionAnnotation(description= "Add days to a date",methodDisplayname="add days")
 	public Date addDays(XmlAction action, Date date, long days)
 	{
 		final long ONE_DAY_IN_MILLISECONDS = 60000 * 60 * 24;
@@ -684,6 +749,7 @@ public class DateAction
 	 * @param seconds		number of seconds to subtract
 	 * @return				the given date minus the given seconds as a date
 	 */
+	@ActionAnnotation(description= "Subtract seconds from a date",methodDisplayname="subtract seconds")
 	public Date subtractSeconds(XmlAction action, Date date, long seconds)
 	{
 		final long ONE_SECOND_IN_MILLISECONDS = 1000;
@@ -700,6 +766,7 @@ public class DateAction
 	 * @param minutes		number of minutes to subtract
 	 * @return				the given date minus the given minutes as a date
 	 */
+	@ActionAnnotation(description= "Subtract minutes from a date",methodDisplayname="subtract minutes")
 	public Date subtractMinutes(XmlAction action, Date date, long minutes)
 	{
 		final long ONE_MINUTE_IN_MILLISECONDS = 60000;
@@ -716,6 +783,7 @@ public class DateAction
 	 * @param hours		number of hours to subtract
 	 * @return				the given date minus the given hours as a date
 	 */
+	@ActionAnnotation(description= "Subtract hours from a date",methodDisplayname="subtract hours")
 	public Date subtractHours(XmlAction action, Date date, long hours)
 	{
 		final long ONE_HOUR_IN_MILLISECONDS = 60000 * 60 ;
@@ -732,6 +800,7 @@ public class DateAction
 	 * @param days		number of days to add
 	 * @return				the given date subtract the given days as a date
 	 */
+	@ActionAnnotation(description= "Subtract days from a date",methodDisplayname="subtract days")
 	public Date subtractDays(XmlAction action, Date date, long days)
 	{
 		final long ONE_DAY_IN_MILLISECONDS = 60000 * 60 * 24;

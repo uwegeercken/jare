@@ -19,6 +19,8 @@
 package com.datamelt.rules.core.action;
 
 import com.datamelt.rules.core.XmlAction;
+import com.datamelt.util.ActionAnnotation;
+import com.datamelt.util.ActionMethodAnnotation;
 
 /**
  * Class containing actions that are related to the conversion of values.
@@ -29,7 +31,7 @@ import com.datamelt.rules.core.XmlAction;
  * 
  */
 
-public class ConvertAction
+public class ConvertAction extends GenericAction
 {
 	/**
 	 * converts a given string to an integer value
@@ -39,6 +41,8 @@ public class ConvertAction
 	 * @return				int
 	 * @throws Exception	when the string can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a String to an int value",methodDisplayname="convert to integer")
+	@ActionMethodAnnotation(note= "returns zero if the given string cannot be converted")
 	public int toInteger(XmlAction action, String value) throws Exception
 	{
 		try
@@ -60,6 +64,7 @@ public class ConvertAction
 	 * @return				integer
 	 * @throws Exception	when the double value can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a double to an integer value",methodDisplayname="convert to integer")
 	public int toInteger(XmlAction action, double value) throws Exception
 	{
 			return (int)value;
@@ -73,6 +78,7 @@ public class ConvertAction
 	 * @return				integer
 	 * @throws Exception	when the float value can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a float to an integer value",methodDisplayname="convert to integer")
 	public int toInteger(XmlAction action, float value) throws Exception
 	{
 			return (int)value;
@@ -86,6 +92,8 @@ public class ConvertAction
 	 * @return				long
 	 * @throws Exception	when the string can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a String to a long value",methodDisplayname="convert to long")
+	@ActionMethodAnnotation(note= "returns zero if the given string cannot be converted")
 	public long toLong(XmlAction action, String value) throws Exception
 	{
 		try
@@ -107,6 +115,8 @@ public class ConvertAction
 	 * @return				double
 	 * @throws Exception	when the string can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a String to a double value",methodDisplayname="convert to double")
+	@ActionMethodAnnotation(note= "returns zero if the given string cannot be converted")
 	public double toDouble(XmlAction action, String value) throws Exception
 	{
 		try
@@ -128,6 +138,8 @@ public class ConvertAction
 	 * @return				float
 	 * @throws Exception	when the string can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a String to a float value",methodDisplayname="convert to float")
+	@ActionMethodAnnotation(note= "returns zero if the given string cannot be converted")
 	public float toFloat(XmlAction action, String value) throws Exception
 	{
 		try
@@ -141,19 +153,30 @@ public class ConvertAction
 		}
 	}
 	
-	/**
-	 * converts a given int to a string value
-	 * 
-	 * @param action 		the action to use
-	 * @param value			the value to convert
-	 * @return				String
-	 * @throws Exception	when the int can not be converted
-	 */
+	@ActionAnnotation(description= "Convert an integer to a String value",methodDisplayname="convert to String")
 	public String toString(XmlAction action, int value) throws Exception
 	{
-		return "" + value;
+		return String.valueOf(value);
 	}
 	
+	@ActionAnnotation(description= "Convert a long to a String value",methodDisplayname="convert to String")
+	public String toString(XmlAction action, long value) throws Exception
+	{
+		return String.valueOf(value);
+	}
+
+	@ActionAnnotation(description= "Convert a double to a String value",methodDisplayname="convert to String")
+	public String toString(XmlAction action, double value) throws Exception
+	{
+		return String.valueOf(value);
+	}
+
+	@ActionAnnotation(description= "Convert a float to a String value",methodDisplayname="convert to String")
+	public String toString(XmlAction action, float value) throws Exception
+	{
+		return String.valueOf(value);
+	}
+
 	/**
 	 * converts a given string of four characters which represent hour and minutes in
 	 * the format "hhmm" to an integer value.
@@ -165,6 +188,8 @@ public class ConvertAction
 	 * @return				integer
 	 * @throws Exception	when the string can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a four character String which represents time (format: hhmm) to an integer value representing minutes",methodDisplayname="convert 4 characters time")
+	@ActionMethodAnnotation(note= "returns zero if the given time cannot be converted")
 	public int fourDigitTimetoMinutes(XmlAction action, String value) throws Exception
 	{
 		try
@@ -203,6 +228,8 @@ public class ConvertAction
 	 * @return				integer
 	 * @throws Exception	when the string can not be converted
 	 */
+	@ActionAnnotation(description= "Convert a five character String which represents time (format: hh:mm) to an integer value representing minutes",methodDisplayname="convert 5 characters time")
+	@ActionMethodAnnotation(note= "returns zero if the given time cannot be converted")
 	public int fiveDigitTimetoMinutes(XmlAction action, String value) throws Exception
 	{
 		try
@@ -228,6 +255,4 @@ public class ConvertAction
 			return 0;	
 		}
 	}
-	
-	
 }
