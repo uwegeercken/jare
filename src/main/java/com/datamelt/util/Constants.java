@@ -30,5 +30,7 @@ public class Constants
 	public static double		ROWFIELD_TYPE_DOUBLE_DEFAULT_VALUE					= 0.0d;
 	public static BigDecimal	ROWFIELD_TYPE_BIGDECIMAL_DEFAULT_VALUE				= new BigDecimal(0);
 	public static boolean		ROWFIELD_TYPE_BOOLEAN_DEFAULT_VALUE					= false;
+	
+	// the default was implemented for Avro format as Date is not defined there - this needs to be reconsidered
 	public static long	 		ROWFIELD_TYPE_DATE_DEFAULT_VALUE					= 0;
 }

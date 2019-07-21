@@ -613,7 +613,7 @@ public class MathAction extends GenericAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
-	 * @return			the has code for the value
+	 * @return			the hash code for the value
 	 */
 	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,int value)
@@ -627,7 +627,7 @@ public class MathAction extends GenericAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
-	 * @return			the has code for the value
+	 * @return			the hash code for the value
 	 */
 	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,long value)
@@ -641,7 +641,7 @@ public class MathAction extends GenericAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
-	 * @return			the has code for the value
+	 * @return			the hash code for the value
 	 */
 	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,double value)
@@ -655,7 +655,7 @@ public class MathAction extends GenericAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
-	 * @return			the has code for the value
+	 * @return			the hash code for the value
 	 */
 	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,float value)
@@ -669,7 +669,7 @@ public class MathAction extends GenericAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
-	 * @return			the has code for the value
+	 * @return			the hash code for the value
 	 */
 	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,boolean value)
@@ -683,7 +683,7 @@ public class MathAction extends GenericAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
-	 * @return			the has code for the value
+	 * @return			the hash code for the value
 	 */
 	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,BigDecimal value)

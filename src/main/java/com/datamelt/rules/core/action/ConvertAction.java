@@ -18,6 +18,8 @@
  */
 package com.datamelt.rules.core.action;
 
+import java.math.BigDecimal;
+
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ActionAnnotation;
 import com.datamelt.util.ActionMethodAnnotation;
@@ -161,6 +163,12 @@ public class ConvertAction extends GenericAction
 	
 	@ActionAnnotation(description= "Convert a long to a String value",methodDisplayname="convert to String")
 	public String toString(XmlAction action, long value) throws Exception
+	{
+		return String.valueOf(value);
+	}
+	
+	@ActionAnnotation(description= "Convert a BigDecimal to a String value",methodDisplayname="convert to String")
+	public String toString(XmlAction action, BigDecimal value) throws Exception
 	{
 		return String.valueOf(value);
 	}

@@ -55,7 +55,7 @@ class StringAction extends GenericAction
 		return null;
 	}
 	
-	@ActionAnnotation(description= "Replace a value by providing a regular expression to search for and a replacement value",methodDisplayname="replace value")
+	@ActionAnnotation(description= "Replace a value (each occurrence) by providing a regular expression to search for and a replacement value",methodDisplayname="replace value")
 	@ActionMethodAnnotation(note= "2nd parameter: regular expression, 3rd parameter: replacement")
 	public String replaceValue(XmlAction action, String value, String regex, String replacement) throws Exception
 	{
@@ -75,7 +75,7 @@ class StringAction extends GenericAction
 	}
 	
 	@ActionAnnotation(description= "Replace value from mapping file",methodDisplayname="replace value from map")
-	@ActionMethodAnnotation(note= "2nd parameter: path and name of the mapping file")
+	@ActionMethodAnnotation(note= "2nd parameter: path and name of the mapping file. must be accessible by the program.")
 	public String replaceValueFromMap(XmlAction action, String originalValue, String filename) throws Exception
 	{
 		if(originalValue==null)
@@ -732,7 +732,7 @@ class StringAction extends GenericAction
 	 * 
 	 * @param action	the action to use
 	 * @param value		the value to use
-	 * @return			the has code for the value
+	 * @return			the hash code for the value
 	 */
 	@ActionAnnotation(description= "Hash value",methodDisplayname="hash value")
 	public int hashValue(XmlAction action,String value)
@@ -742,6 +742,28 @@ class StringAction extends GenericAction
 			value="";
 		}
 		return value.hashCode();
+	}
+	
+	/**
+	 * returns the reverse string of the value
+	 * 
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the reverse of the value
+	 */
+	@ActionAnnotation(description= "Reverse value",methodDisplayname="reverse value")
+	public String reverseValue(XmlAction action, String value)
+	{
+		String reverse="";
+		if(value==null)
+		{
+			value="";
+		}
+		for(int i = value.length() - 1; i >= 0; i--)
+        {
+            reverse = reverse + value.charAt(i);
+        }
+		return reverse;
 	}
 	
 	/**
