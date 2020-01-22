@@ -839,4 +839,19 @@ class StringAction extends GenericAction
 			return value;
 		}
 	}
+	
+	/**
+	 * Clears the value of a field
+	 * 
+	 * returns an empty string
+	 * 
+	 *
+	 * @param action	the action to use
+	 * @return			the empty string
+	 */
+	@ActionAnnotation(description= "Clears a value",methodDisplayname="clear value")
+	public String clearValue(XmlAction action)
+	{
+		return "";
+	}
 }
