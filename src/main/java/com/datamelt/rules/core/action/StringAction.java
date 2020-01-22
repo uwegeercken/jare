@@ -22,6 +22,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ActionAnnotation;
 import com.datamelt.util.ActionMethodAnnotation;
@@ -836,6 +838,25 @@ class StringAction extends GenericAction
 		} 
 		catch (Exception e) 
 		{
+			return value;
+		}
+	}
+	
+	/**
+	 * truncates a string to the specified length
+	 *
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @param length	the length to use
+	 * @return			the truncated string
+	 */
+	@ActionAnnotation(description= "Truncate value to a set length",methodDisplayname="truncate value")
+	//	@ActionMethodAnnotation(note= "last parameter: length to use")
+	public String truncateValue(XmlAction action,String value,int length)
+	{
+		try {
+			return StringUtils.truncate(value, length);
+		} catch (Exception E) {
 			return value;
 		}
 	}
