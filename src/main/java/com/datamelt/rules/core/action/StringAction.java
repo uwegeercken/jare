@@ -22,8 +22,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ActionAnnotation;
 import com.datamelt.util.ActionMethodAnnotation;
@@ -852,6 +850,10 @@ class StringAction extends GenericAction
 	@ActionAnnotation(description= "Capitalize string",methodDisplayname="Capitalize string")
 	public String capitalizeValue(XmlAction action,String value)
 	{
-		return WordUtils.capitalizeFully(value, ",.-_'".toCharArray());
+		String[] strs = value.split("(?!^)\\b");
+		for (int i = 0; i<strs.length;i+=2) {
+			strs[i] = strs[i].substring(0, 1).toUpperCase() + strs[i].substring(1);
+		}
+		return String.join("", strs);
 	}
 }

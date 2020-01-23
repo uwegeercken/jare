@@ -53,14 +53,7 @@
         <groupId>org.apache.avro</groupId>
         <artifactId>avro</artifactId>
         <version>${lib.avro.version}</version>
-      </dependency>
-      
-      <dependency>
-           <groupId>org.apache.commons</groupId>
-           <artifactId>commons-lang3</artifactId>
-           <version>3.9</version>
-       </dependency>
-      
+      </dependency>    
 
     </dependencies>
 
