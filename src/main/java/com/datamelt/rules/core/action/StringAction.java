@@ -22,8 +22,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ActionAnnotation;
 import com.datamelt.util.ActionMethodAnnotation;
@@ -148,13 +146,20 @@ class StringAction extends GenericAction
 		return value.substring(beginIndex);
 	}
 
-	@ActionAnnotation(description= "Set a value to the substring of a value",methodDisplayname="substring of value")
+	@ActionAnnotation(description= "Set a value to the substring of a value. Return only the value up to the original length.",methodDisplayname="substring of value")
 	@ActionMethodAnnotation(note= "2nd parameter: start of substring, 3rd parameter: end of substring")
 	public String subStringValue(XmlAction action, String value, int beginIndex, int endIndex)
 	{
 		if(value==null)
 		{
 			value="";
+		}
+		int value_length = value.length();
+		if (beginIndex >= value_length) {
+			return "";
+		}
+		if (endIndex >= value_length) {
+			return value.substring(beginIndex);
 		}
 		return value.substring(beginIndex, endIndex);
 	}
@@ -838,25 +843,6 @@ class StringAction extends GenericAction
 		} 
 		catch (Exception e) 
 		{
-			return value;
-		}
-	}
-	
-	/**
-	 * truncates a string to the specified length
-	 *
-	 * @param action	the action to use
-	 * @param value		the value to use
-	 * @param length	the length to use
-	 * @return			the truncated string
-	 */
-	@ActionAnnotation(description= "Truncate value to a set length",methodDisplayname="truncate value")
-	//	@ActionMethodAnnotation(note= "last parameter: length to use")
-	public String truncateValue(XmlAction action,String value,int length)
-	{
-		try {
-			return StringUtils.truncate(value, length);
-		} catch (Exception E) {
 			return value;
 		}
 	}
