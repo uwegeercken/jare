@@ -146,13 +146,20 @@ class StringAction extends GenericAction
 		return value.substring(beginIndex);
 	}
 
-	@ActionAnnotation(description= "Set a value to the substring of a value",methodDisplayname="substring of value")
+	@ActionAnnotation(description= "Set a value to the substring of a value. Return only the value up to the original length.",methodDisplayname="substring of value")
 	@ActionMethodAnnotation(note= "2nd parameter: start of substring, 3rd parameter: end of substring")
 	public String subStringValue(XmlAction action, String value, int beginIndex, int endIndex)
 	{
 		if(value==null)
 		{
 			value="";
+		}
+		int value_length = value.length();
+		if (beginIndex >= value_length) {
+			return "";
+		}
+		if (endIndex >= value_length) {
+			return value.substring(beginIndex);
 		}
 		return value.substring(beginIndex, endIndex);
 	}
@@ -838,5 +845,38 @@ class StringAction extends GenericAction
 		{
 			return value;
 		}
+	}
+	
+	/**
+
+	 * Clears the value of a field
+	 * 
+	 * returns an empty string
+	 * 
+	 *
+	 * @param action	the action to use
+	 * @return			the empty string
+	 */
+	@ActionAnnotation(description= "Clears a value",methodDisplayname="clear value")
+	public String clearValue(XmlAction action)
+	{
+		return "";
+
+  }
+
+   * capitalizes a string
+	 *
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the capitalized string
+	 */
+	@ActionAnnotation(description= "Capitalize string",methodDisplayname="Capitalize string")
+	public String capitalizeValue(XmlAction action,String value)
+	{
+		String[] strs = value.split("(?!^)\\b");
+		for (int i = 0; i<strs.length;i+=2) {
+			strs[i] = strs[i].substring(0, 1).toUpperCase() + strs[i].substring(1);
+		}
+		return String.join("", strs);
 	}
 }
