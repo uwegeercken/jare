@@ -431,9 +431,8 @@ public class DateAction extends GenericAction
 	/**
 	 * 
 	 * @param action		the action to use
-	 * @param value			the date involved
+	 * @param date			the date involved
 	 * @return				null
-	 * @throws Exception
 	 */
 	@ActionAnnotation(description= "Set a value to null",methodDisplayname="set null value (date)")
 	@ActionMethodAnnotation(note= "returned as a Long with value of null")
