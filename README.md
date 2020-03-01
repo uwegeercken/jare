@@ -21,7 +21,7 @@ You may download the jar library which contains the sources compiled with Java 1
 
 Please send your feedback and help to enhance the tool.
 
-    Copyright (C) 2008-2019  Uwe Geercken
+    Copyright (C) 2008-2020  Uwe Geercken
 
 
  Licensed to the Apache Software Foundation (ASF) under one
@@ -45,5 +45,5 @@ Please send your feedback and help to enhance the tool.
 uwe geercken
 uwe.geercken@web.de
 
-last update: 2019-07-17
+last update: 2020-02-22
 

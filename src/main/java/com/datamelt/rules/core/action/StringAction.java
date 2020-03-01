@@ -846,4 +846,21 @@ class StringAction extends GenericAction
 			return value;
 		}
 	}
+	
+	/**
+	 * capitalizes a string
+	 *
+	 * @param action	the action to use
+	 * @param value		the value to use
+	 * @return			the capitalized string
+	 */
+	@ActionAnnotation(description= "Capitalize string",methodDisplayname="Capitalize string")
+	public String capitalizeValue(XmlAction action,String value)
+	{
+		String[] strs = value.split("(?!^)\\b");
+		for (int i = 0; i<strs.length;i+=2) {
+			strs[i] = strs[i].substring(0, 1).toUpperCase() + strs[i].substring(1);
+		}
+		return String.join("", strs);
+	}
 }
