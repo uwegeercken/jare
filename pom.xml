@@ -53,7 +53,7 @@
         <groupId>org.apache.avro</groupId>
         <artifactId>avro</artifactId>
         <version>${lib.avro.version}</version>
-      </dependency>
+      </dependency>    
 
     </dependencies>
 
