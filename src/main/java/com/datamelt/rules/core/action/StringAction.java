@@ -848,7 +848,23 @@ class StringAction extends GenericAction
 	}
 	
 	/**
-	 * capitalizes a string
+
+	 * Clears the value of a field
+	 * 
+	 * returns an empty string
+	 * 
+	 *
+	 * @param action	the action to use
+	 * @return			the empty string
+	 */
+	@ActionAnnotation(description= "Clears a value",methodDisplayname="clear value")
+	public String clearValue(XmlAction action)
+	{
+		return "";
+
+  }
+
+   * capitalizes a string
 	 *
 	 * @param action	the action to use
 	 * @param value		the value to use
