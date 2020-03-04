@@ -274,7 +274,7 @@ public class RuleSubGroup implements Serializable
                 executionResult.setResultObject2(result2);
                 
                 // here is the exception
-                if (rule.getCheckToExecute().equals("com.datamelt.rules.implementation.CheckIsNull"))
+                if (rule.getCheckToExecute().equals("com.datamelt.rules.implementation.CheckIsNull") || rule.getCheckToExecute().equals("com.datamelt.rules.implementation.CheckIsEmpty"))
                 {
                 	executionResult.getRule().setFailed(0);
                 	executionCollection.increaseRulesPassedCount();
