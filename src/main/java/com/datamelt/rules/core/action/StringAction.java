@@ -864,7 +864,7 @@ class StringAction extends GenericAction
 
   }
 
-        /* * capitalizes a string
+        /** capitalizes a string
 	 *
 	 * @param action	the action to use
 	 * @param value		the value to use
