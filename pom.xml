@@ -6,9 +6,17 @@
     <groupId>com.datamelt</groupId>
     <artifactId>jare</artifactId>
     <version>0.90-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <licenses>
+      <license>
+        <name>Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
 
     <properties>
-      
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -19,11 +27,7 @@
         <lib.avro.version>1.8.2</lib.avro.version>
     </properties>
 
-    <packaging>jar</packaging>
-
-
     <dependencies>
-    
       <dependency>
          <groupId>org.junit.jupiter</groupId>
          <artifactId>junit-jupiter-api</artifactId>
@@ -42,20 +46,16 @@
          <version>${junit.jupiter.version}</version>
          <scope>test</scope>
       </dependency>
-      
       <dependency>
           <groupId>org.apache.velocity</groupId>
           <artifactId>velocity-engine-core</artifactId>
           <version>${lib.velocity.version}</version>
-      </dependency> 
-
+      </dependency>
       <dependency>
         <groupId>org.apache.avro</groupId>
         <artifactId>avro</artifactId>
         <version>${lib.avro.version}</version>
      </dependency>
-
-
   </dependencies>
 
     <build>
@@ -93,4 +93,3 @@
      </distributionManagement>
 
 </project>
-
