@@ -181,19 +181,22 @@ public class RuleEngineServer extends Thread
     		}
     		else
     		{
-    			logger.info("no transformer defined: no ruleengine detailed ouput generated");
+    			logger.info("no transformer defined: no ruleengine detailed ouput is generated");
     		}
     		logger.info("rule engine file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
-    		logger.info("rule engine file - rule groups: " + ruleEngine.getNumberOfGroups());
-    		logger.info("rule engine file - rules: " + ruleEngine.getNumberOfRules());
-    		logger.info("rule engine file - actions: " + ruleEngine.getNumberOfActions());
+    		logger.info("rule engine file: rule groups: " + ruleEngine.getNumberOfGroups());
+    		logger.info("rule engine file: rules: " + ruleEngine.getNumberOfRules());
+    		logger.info("rule engine file: actions: " + ruleEngine.getNumberOfActions());
             for(ReferenceField field : ruleEngine.getReferenceFields())
             {
-            	logger.info("rule engine file - field: " + field.getName() + " - type: " + field.getJavaTypeName());
+            	logger.info("rule engine file: reference field: " + field.getName() + " - type: " + field.getJavaTypeName());
             }
     		InetAddress IP=InetAddress.getLocalHost();
+    		logger.info("server ready for connections: " + IP.getHostAddress() + ", port: " + server.port);
+    		
+    		// start the server
     		server.start();
-    		logger.info("server ready: " + IP.getHostAddress() + ", port: " + server.port + " for connections");
+    		
     	}
     	else
     	{

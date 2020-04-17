@@ -1,4 +1,21 @@
 #!/bin/bash
+# script to build a container image using buildah and pushing
+# it to the registry/artifactory.
+#
+# executed by maven as part of the package phase and
+# using the project and dependency files.
+#
+# note: the 'image_registry_password' environment variable needs to be defined.
+#
+# run the resulting image and mount a volume which contains the ruleengine project zip file
+# that contains the rules and actions. You can use docker or podman to run the image.
+#
+ # example: sudo podman run --name "testserver" --rm -v ./rules/:/opt/jare-server/rules:Z silent1:8082/jare-server:latest
+#
+#
+#
+# last update: uwe.geercken@web.de - 2020-04-17
+#
 
 # absolute path to this script
 script=$(readlink -f "$0")
@@ -17,7 +34,7 @@ image_format="docker"
 image_registry_docker_group="silent1:8082"
 image_registry_docker_private="silent1:8083"
 image_registry_user=admin
-image_registry_password=fasthans
+image_registry_password="${secret}"
 
 image_name_registry="${image_registry_docker_private}/${image_name}"
 image_tag="${image_registry_docker_private}/${image_name}:${image_version}"
@@ -36,7 +53,7 @@ application_properties="server.properties"
 echo "making entrypoint script executable"
 chmod +x "${script_folder}/${application_entrypoint}"
 
-# start of built
+# start of build
 echo "start of buildah process"
 echo "using working container: ${working_container}"
 container=$(buildah --name "${working_container}" from ${image_registry_docker_group}/${image_base}:${image_base_version})

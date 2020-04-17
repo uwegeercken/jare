@@ -31,9 +31,9 @@
 
     <dependencies>
       <dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${lib.log4j.version}</version>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>${lib.log4j.version}</version>
 	  </dependency>
       <dependency>
          <groupId>org.junit.jupiter</groupId>
