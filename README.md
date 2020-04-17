@@ -1,7 +1,7 @@
 jare
 ====
 
-Version 0.90
+Version 0.95
 
 Java Rule Engine source files.
 
@@ -14,10 +14,15 @@ A web application is available, which allows to compose the rule and action logi
 
 Additionally, there is also a Plugin available for the popular and highly sophisticated ETL tool from Pentaho called PDI (previously called Kettle). This plugin enables the ETL developer to get rid of the business logic in the ETL process. If the rules change, the code does not need to be touched. This enhances quality and also transparency: the business user usually has no understanding of ETL processes; with the Web application for the maintenance of the rules and the complex rule logic the user has a central place to work with the rules without the need for coding rules and without the need for IT to change the ETL process.
 
+The project allows to generate a container image using buildah and pushing it to a registry/artifactory. This image allows to run
+a ruleengine server using e.g. podman or docker.
+
 Documentation for the ruleengine, the Business Rules maintenance Web tool and for all available checks and actions
 is available at: https://github.com/uwegeercken/rule_maintenance_documentation
 
 You may download the jar library which contains the sources compiled with Java 1.8.
+
+
 
 Please send your feedback and help to enhance the tool.
 
@@ -45,5 +50,5 @@ Please send your feedback and help to enhance the tool.
 uwe geercken
 uwe.geercken@web.de
 
-last update: 2020-02-22
+last update: 2020-04-17
 
