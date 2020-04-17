@@ -25,7 +25,6 @@ import javax.xml.bind.DatatypeConverter;
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ActionAnnotation;
 import com.datamelt.util.ActionMethodAnnotation;
-import com.datamelt.util.CheckAnnotation; 
 
 /**
  * Class containing possible actions that are related to string handling.
@@ -847,10 +846,7 @@ public class StringAction extends GenericAction
 	}
 	
 	/**
-
-	 * Clears the value of a field
-	 * 
-	 * returns an empty string
+	 * clears the value of a field - returns an empty string
 	 * 
 	 *
 	 * @param action	the action to use
@@ -861,21 +857,30 @@ public class StringAction extends GenericAction
 	{
 		return "";
 
-  }
+	}
 
-        /** capitalizes a string
+    /** 
+     * capitalizes a string
 	 *
 	 * @param action	the action to use
 	 * @param value		the value to use
 	 * @return			the capitalized string
 	 */
-	@ActionAnnotation(description= "Capitalize string",methodDisplayname="Capitalize string")
+	@ActionAnnotation(description= "Capitalize string",methodDisplayname="capitalize string")
 	public String capitalizeValue(XmlAction action,String value)
 	{
-		String[] strs = value.split("(?!^)\\b");
-		for (int i = 0; i<strs.length;i+=2) {
-			strs[i] = strs[i].substring(0, 1).toUpperCase() + strs[i].substring(1);
+		if(value!=null)
+		{
+			String[] strs = value.split("(?!^)\\b");
+			for (int i = 0; i<strs.length;i+=2) 
+			{
+				strs[i] = strs[i].substring(0, 1).toUpperCase() + strs[i].substring(1);
+			}
+			return String.join("", strs);
 		}
-		return String.join("", strs);
+		else
+		{
+			return value;
+		}
 	}
 }
