@@ -5,18 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.datamelt</groupId>
     <artifactId>jare</artifactId>
-    <version>0.90-SNAPSHOT</version>
+    <version>0.95-SNAPSHOT</version>
 
     <properties>
-      
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
+		<buildah.folder>${project.build.directory}/buildah/${project.artifactId}</buildah.folder>
+		<buildah.image.version>0.2</buildah.image.version>
+
 		<junit.jupiter.version>5.3.0</junit.jupiter.version>
         <lib.velocity.version>2.0</lib.velocity.version>
         <lib.avro.version>1.8.2</lib.avro.version>
+        <lib.log4j.version>1.2.17</lib.log4j.version>
     </properties>
 
     <packaging>jar</packaging>
@@ -24,6 +27,11 @@
 
     <dependencies>
     
+      <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${lib.log4j.version}</version>
+	  </dependency>
       <dependency>
          <groupId>org.junit.jupiter</groupId>
          <artifactId>junit-jupiter-api</artifactId>
@@ -53,6 +61,7 @@
         <groupId>org.apache.avro</groupId>
         <artifactId>avro</artifactId>
         <version>${lib.avro.version}</version>
+      </dependency> 
     </dependencies>
 
     <build>
@@ -66,25 +75,91 @@
                     <nohelp>true</nohelp>
                 </configuration>
             </plugin>
-	         <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
-	         <plugin>
-	            <artifactId>maven-surefire-plugin</artifactId>
-	            <version>2.22.0</version>
-	         </plugin>
-	      </plugins>
+	        <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
+	        <plugin>
+	           <artifactId>maven-surefire-plugin</artifactId>
+	           <version>2.22.0</version>
+	        </plugin>
+	        <plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-jar-plugin</artifactId>
+        		<version>2.3.1</version>
+        		<configuration>
+          			<outputDirectory>${buildah.folder}/lib</outputDirectory>
+        		</configuration>
+      		</plugin>
+	        <plugin>
+    			<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-dependency-plugin</artifactId>
+    			<configuration>
+        			<outputDirectory>
+            			${buildah.folder}/lib
+        			</outputDirectory>
+   				 </configuration>
+   				 <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+			</plugin>
+			<plugin>
+		        <artifactId>maven-resources-plugin</artifactId>
+		        <version>3.1.0</version>
+		        <executions>
+		          <execution>
+		            <id>copy-resources</id>
+		            <!-- here the phase you need -->
+		            <phase>validate</phase>
+		            <goals>
+		              <goal>copy-resources</goal>
+		            </goals>
+		            <configuration>
+		              <outputDirectory>${buildah.folder}</outputDirectory>
+		              <resources>          
+		                <resource>
+		                  <directory>src/main/buildah</directory>
+		                  <filtering>true</filtering>
+		                </resource>
+		              </resources>              
+		            </configuration>            
+		          </execution>
+		        </executions>
+		    </plugin>
+		    <plugin>
+                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <executions>
+                    <execution><!-- Run our version calculation script -->
+                        <id>generate image using buildah</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <commandlineArgs>${buildah.folder}/buildah_jare-server.sh ${buildah.image.version}</commandlineArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+	   </plugins>	      
     </build>
 
     <distributionManagement>
         <repository>
            <id>nexus</id>
           <name>Releases</name>
-          <url>http://localhost:8081/repository/maven-releases</url>
+          <url>http://silent1:8081/repository/maven-releases</url>
 	  <layout>default</layout>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
            <name>Snapshot</name>
-           <url>http://localhost:8081/repository/maven-snapshots</url>
+           <url>http://silent1:8081/repository/maven-snapshots</url>
            <layout>default</layout>
         </snapshotRepository>
      </distributionManagement>

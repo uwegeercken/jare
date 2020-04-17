@@ -23,8 +23,11 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.NoRouteToHostException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import org.apache.log4j.Logger;
 
 import com.datamelt.util.RowFieldCollection;
 
@@ -49,7 +52,9 @@ public class RuleEngineClient
 	public static final int OUTPUT_TYPE_FAILED_GROUPS_ONLY 	= 1;
 	public static final int OUTPUT_TYPE_PASSED_GROUPS_ONLY 	= 2;
 	
-	public RuleEngineClient(String server, int port) throws UnknownHostException, IOException
+	final static Logger logger = Logger.getLogger(RuleEngineClient.class);
+	
+	public RuleEngineClient(String server, int port) throws UnknownHostException, IOException, NoRouteToHostException
 	{
 		this.server = server;
 		this.port = port;
@@ -57,22 +62,20 @@ public class RuleEngineClient
 		init();
 	}
 	
-	public RuleEngineClient(String server) throws UnknownHostException, IOException
+	public RuleEngineClient(String server) throws UnknownHostException, IOException, NoRouteToHostException
 	{
 		this.server = server;
 		
 		init();
 	}
 	
-	private void init() throws UnknownHostException, IOException
+	private void init() throws UnknownHostException, IOException, NoRouteToHostException
 	{
 		getServerSocket(server, port);
 		outputStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 		// flush MUST be called - otherwise the stream is blocking!
 		outputStream.flush();
 		inputStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-		
-		
 	}
 	
 	public RuleEngineServerObject getServerObject(RowFieldCollection fields) throws Exception

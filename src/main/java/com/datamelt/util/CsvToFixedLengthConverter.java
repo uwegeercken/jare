@@ -99,9 +99,6 @@ public class CsvToFixedLengthConverter
 	        	// apend to the data buffer
 	        	buffer.append(result);
 	        }
-	        
-	        //System.out.println(buffer.toString());
-
 	        // write out the data to a new file
 	        out.println(buffer.toString());
 
@@ -111,9 +108,6 @@ public class CsvToFixedLengthConverter
 	    reader.close();
 	    // close stream
 	    out.close();
-        
-        System.out.println("number of lines of data:   " + counter);
-		
 	}
 	
 	/*

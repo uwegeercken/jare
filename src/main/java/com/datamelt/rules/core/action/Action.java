@@ -120,15 +120,15 @@ public class Action implements Serializable
         	}
         	catch(ActionInvocationException aie)
         	{
-        		throw new ActionInvocationException("error invoking action object method: "+ aie.getMessage());
+        		throw new ActionInvocationException("error invoking action object. action: [" + action.getDescription() + "] " + action.getClassName() + " " + aie.getMessage());
         	}
         	catch(FieldNotFoundException fnfe)
         	{
-        		throw new FieldNotFoundException("error action field not found: "+ fnfe.getMessage());
+        		throw new FieldNotFoundException("error action field not found. action: ["+ action.getDescription() + "] " + action.getClassName() + " "+ fnfe.getMessage());
         	}
         	catch(InvocationTargetException ite)
             {
-            	throw new Exception("error invoking action method: "+ ite.getTargetException());
+            	throw new Exception("error invoking action method. action: [" + action.getDescription() + "] " + action.getClassName() + " " + ite.getTargetException());
             }
         }
         // if we only have a setter method, then we will simply update the object with the given action parameter(s)
@@ -141,13 +141,12 @@ public class Action implements Serializable
     		}
     		catch(NoSuchMethodException nsm)
     		{
-    			throw new Exception("no such method: "+ nsm.getMessage());
+    			throw new Exception("no such setter method. action: ["+ action.getDescription() + "] method: " + action.getClassName() + "." + action.getActionSetterObject().getMethodName());
     		}
     		catch(Exception ex)
     		{
-    			throw new Exception("error invoking action method: "+ ex.getMessage());
+    			throw new Exception("error invoking action method. action: ["+ action.getDescription() + "] method: " + action.getClassName() + "." + action.getActionSetterObject().getMethodName());
     		}
-    		
         }
         Object actionClassResult=null;
         if(action.getClassName()!=null)
@@ -164,15 +163,15 @@ public class Action implements Serializable
 	        }
 	        catch(ActionInvocationException aie)
 	        {
-	        	throw new ActionInvocationException("error invoking action method: "+ aie.getMessage());
+	        	throw new ActionInvocationException("error invoking action getter method. action: [" + action.getDescription() + "] method: " + action.getClassName() + "." + methodAction.getName() + " on object: " + getterObjects.toString());
 	        }
 	        catch(FieldNotFoundException fnfe)
         	{
-        		throw new FieldNotFoundException("error action field not found: "+ fnfe.getMessage());
+        		throw new FieldNotFoundException("error action field not found. action: [" + action.getDescription() + "] method: " + action.getClassName() + "." + methodAction.getName()+ " on object: " + getterObjects.toString());
         	}
 	        catch(InvocationTargetException ite)
             {
-            	throw new Exception("error invoking action getter method: "+ ite.getTargetException());
+            	throw new Exception("error invoking action getter method. action: [" + action.getDescription() + "] method: " + action.getClassName() + "." + methodAction.getName() +  " on object: " + getterObjects.toString());
             }
         }        
 
@@ -185,19 +184,19 @@ public class Action implements Serializable
         	}
         	catch(ActionInvocationException aie)
         	{
-        		throw new ActionInvocationException("error invoking action object method: "+ aie.getMessage());
+        		throw new ActionInvocationException("error invoking action setter method. action: [" + action.getDescription() + "] method: " + action.getClassName() + "." + methodSetterObject.getName() + " on object: " + object);
         	}
         	catch(FieldNotFoundException fnfe)
         	{
-        		throw new FieldNotFoundException("error action field not found: "+ fnfe.getMessage());
+        		throw new FieldNotFoundException("error action field not found. action: [" + action.getDescription() + "] method: "  + action.getClassName() + "." + methodSetterObject.getName() + " on object: " + object);
         	}
         	catch(InvocationTargetException ite)
             {
-            	throw new Exception("error invoking action setter method: "+ ite.getTargetException());
+            	throw new Exception("error invoking action setter method. action: [" + action.getDescription() + "] method: "  + action.getClassName() + "." + methodSetterObject.getName() + " on object: " + object);
             }
         	catch(Exception ex)
         	{
-        		throw new Exception("error invoking action setter method: "+ ex.getMessage());
+        		throw new Exception("error invoking action setter method. action: [" + action.getDescription() + "] method: "  + action.getClassName() + "." + methodSetterObject.getName()  + " on object: " + object);
         	}
         }
 	}

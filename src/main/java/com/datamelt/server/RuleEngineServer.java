@@ -21,20 +21,26 @@ package com.datamelt.server;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.zip.ZipFile;
 
 import javax.net.ServerSocketFactory;
 
+import org.apache.log4j.Logger;
+
+import com.datamelt.rules.core.ReferenceField;
+import com.datamelt.rules.engine.BusinessRulesEngine;
 import com.datamelt.server.transform.Transformer;
 import com.datamelt.util.FileUtility;
 
 public class RuleEngineServer extends Thread
 {
-    private ServerSocket serverSocket;
+	private ServerSocket serverSocket;
     private String ruleFileFolder;
     private String ruleFile;
     private Properties properties = new Properties();
@@ -55,9 +61,13 @@ public class RuleEngineServer extends Thread
     private static final String DEFAULT_RULEFILE 			= "rules.zip";
     
     private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd HH:mm:ss";
+    private static boolean ok								= true;
     
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
     
+    final static Logger logger 								= Logger.getLogger(RuleEngineServer.class);
+    
+    private static BusinessRulesEngine ruleEngine;
     
     private RuleEngineServer() throws Exception
     {
@@ -65,7 +75,6 @@ public class RuleEngineServer extends Thread
     	setVariables();
     	createSocket();
         createTransformer();
-        
     }
     
     private RuleEngineServer(String propertiesFile) throws Exception
@@ -157,41 +166,51 @@ public class RuleEngineServer extends Thread
     		}
     	}
     	
+    	// initialize the ruleengine
+    	RuleEngineServer.ruleEngine = new BusinessRulesEngine(new ZipFile(server.ruleFileFolder + server.ruleFile));
+    	
     	server.serverStart = System.currentTimeMillis();
-    	System.out.println(sdf.format(new Date()) + " - server start...");
+    	logger.info("server start...");
     	
     	if(FileUtility.fileExists(server.ruleFileFolder, server.ruleFile))
     	{
-    		System.out.println(sdf.format(new Date()) + " - using properties from: " + server.propertiesFileFullname);
-    		System.out.println(sdf.format(new Date()) + " - running rule engine file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
+    		logger.info("using properties from: " + server.propertiesFileFullname);
     		if(server.transformer!=null)
     		{
-    			System.out.println(sdf.format(new Date()) + " - output with transformer: " + server.transformer.getClass());
+    			logger.info("output with transformer: " + server.transformer.getClass());
     		}
     		else
     		{
-    			System.out.println(sdf.format(new Date()) + " - no transformer defined: no ruleengine ouput generated");
+    			logger.info("no transformer defined: no ruleengine detailed ouput generated");
     		}
+    		logger.info("rule engine file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
+    		logger.info("rule engine file - rule groups: " + ruleEngine.getNumberOfGroups());
+    		logger.info("rule engine file - rules: " + ruleEngine.getNumberOfRules());
+    		logger.info("rule engine file - actions: " + ruleEngine.getNumberOfActions());
+            for(ReferenceField field : ruleEngine.getReferenceFields())
+            {
+            	logger.info("rule engine file - field: " + field.getName() + " - type: " + field.getJavaTypeName());
+            }
+    		InetAddress IP=InetAddress.getLocalHost();
     		server.start();
-            System.out.println(sdf.format(new Date()) +  " - waiting on: " + server.serverSocket.getInetAddress() + ", port: " + server.port + " for connections");
+    		logger.info("server ready: " + IP.getHostAddress() + ", port: " + server.port + " for connections");
     	}
     	else
     	{
-    		System.out.println(sdf.format(new Date()) + " - error: file not found or is not a file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
+    		logger.error("file not found or is not a file: " + FileUtility.adjustSlash(server.ruleFileFolder) + server.ruleFile);
     	}
     }
     
     @Override
     public void run()
     {
-    	boolean ok=true;
-        while (ok)
+        while(ok)
         {
             try 
             {
                 final Socket socketToClient = serverSocket.accept();
-                System.out.println(sdf.format(new Date()) + " - client connected from: " + socketToClient.getInetAddress());
-                ClientHandler clientHandler = new ClientHandler(getProcessId(socketToClient.getInetAddress().toString()),socketToClient,FileUtility.adjustSlash(ruleFileFolder),ruleFile,transformer,serverStart);
+                logger.info("client connected from: " + socketToClient.getInetAddress());
+                ClientHandler clientHandler = new ClientHandler(getProcessId(socketToClient.getInetAddress().toString()),socketToClient,ruleEngine,transformer,serverStart);
                 clientHandler.start();
             }
             catch (Exception e)

@@ -41,6 +41,8 @@ public class RuleEngineServerObject implements Serializable
      private int outputType;
      private String objectLabel;
      private String processId;
+     private boolean ruleEngineException = false;
+     private String ruleEngineExceptionMessage;
      
      public static final long serialVersionUID = 200003;
      
@@ -189,5 +191,25 @@ public class RuleEngineServerObject implements Serializable
 	public void setTotalActions(long totalActions) 
 	{
 		this.totalActions = totalActions;
+	}
+
+	public boolean getRuleEngineException() 
+	{
+		return ruleEngineException;
+	}
+
+	public void setRuleEngineException(boolean ruleEngineException) 
+	{
+		this.ruleEngineException = ruleEngineException;
+	}
+
+	public String getRuleEngineExceptionMessage() 
+	{
+		return ruleEngineExceptionMessage;
+	}
+
+	public void setRuleEngineExceptionMessage(String ruleEngineExceptionMessage) 
+	{
+		this.ruleEngineExceptionMessage = ruleEngineExceptionMessage;
 	}
 }

@@ -34,6 +34,8 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.log4j.Logger;
+
 import com.datamelt.rules.parser.xml.Parser;
 import com.datamelt.rules.core.ReferenceField;
 import com.datamelt.rules.core.RuleExecutionCollection;
@@ -99,9 +101,9 @@ import com.datamelt.util.Splitter;
 public class BusinessRulesEngine
 {
 	// the version of the business rule engine
-	private static final String VERSION 	= "0.90";
-	private static final String REVISION 	= "2";
-	private static final String LAST_UPDATE = "2020-02-22";
+	private static final String VERSION 	= "0.95";
+	private static final String REVISION 	= "1";
+	private static final String LAST_UPDATE = "2020-04-17";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -156,9 +158,7 @@ public class BusinessRulesEngine
     private static final String PROPERTY_OBJECT_LABEL 				 = "object_label";
     private static final String PROPERTY_OBJECT_LABEL_FORMAT		 = "object_label_format";
 
-    
-    
-    
+    final static Logger logger = Logger.getLogger(BusinessRulesEngine.class);
     
     // name of the replacements file
     private String replacementsFile;
@@ -1349,10 +1349,6 @@ public class BusinessRulesEngine
 	        // the name of the properties file
 	        String propertiesfileName=null;
 	        
-	        // if there should be some output the user should
-	        // specify the -v parameter as an argument to the program
-	        boolean verbose=false;
-	        
 	    	for(int i=0;i<args.length;i++)
 	    	{
 	    		if (args[i].startsWith("-z="))
@@ -1375,10 +1371,6 @@ public class BusinessRulesEngine
 	    		{
 	    			fieldSeperator = args[i].substring(3);
 	    		}
-	    		else if(args[i].startsWith("-v"))
-	    		{
-	    			verbose=true;
-	    		}
 	    	}
 	    	if(zipfileName==null && rulesFolder==null)
 	    	{
@@ -1391,19 +1383,15 @@ public class BusinessRulesEngine
 	    	
 	    	// capture start time
 	    	Calendar start = Calendar.getInstance();
-	    	if(verbose)
-	    	{
-	    		System.out.println("start of rules engine:     " + start.getTime());
-    			System.out.println("using data file:           " + csvfileName);
-	    	}
+
+	    	logger.debug("start of rules engine:     " + start.getTime());
+	    	logger.debug("using data file:           " + csvfileName);
 		    
 	    	BusinessRulesEngine engine = null;
 	    	if (zipfileName!=null)
 	    	{
-	    		if(verbose)
-	    		{
-	    			System.out.println("parsing rules from:        " + zipfileName);
-	    		}
+    			logger.debug("parsing rules from:        " + zipfileName);
+
 	    		if(propertiesfileName!=null)
 	    		{
 	    			engine= new BusinessRulesEngine(new ZipFile(zipfileName),propertiesfileName);
@@ -1416,10 +1404,8 @@ public class BusinessRulesEngine
 	    	}
 	    	else if(rulesFolder!=null)
 	    	{
-	    		if(verbose)
-	    		{
-	    			System.out.println("parsing rules from:        " + rulesFolder);
-	    		}
+	    		logger.debug("parsing rules from:        " + rulesFolder);
+
 	    		if(propertiesfileName!=null)
 	    		{
 	    			engine = new BusinessRulesEngine(FileUtility.getXmlFiles(rulesFolder),propertiesfileName);
@@ -1431,21 +1417,16 @@ public class BusinessRulesEngine
 	    		engine.run(csvfileName, fieldSeperator);
 	    	}
 	    	
-	    	if(verbose)
-	    	{
-	            System.out.println("total number of rules:     " + engine.getNumberOfRules());
-	            System.out.println("rules passed/failed:       " + engine.getNumberOfRulesPassed() + "/" + engine.getNumberOfRulesFailed());
-	            System.out.println("groups failed:             " + engine.getNumberOfGroupsFailed());
-	            
-	            Calendar end = Calendar.getInstance();
-	            long elapsed = end.getTimeInMillis() - start.getTimeInMillis();
-	            long elapsedSeconds = (elapsed/1000);
+	    	logger.info("total number of rules:     " + engine.getNumberOfRules());
+	    	logger.info("rules passed/failed:       " + engine.getNumberOfRulesPassed() + "/" + engine.getNumberOfRulesFailed());
+	    	logger.info("groups failed:             " + engine.getNumberOfGroupsFailed());
+            
+            Calendar end = Calendar.getInstance();
+            long elapsed = end.getTimeInMillis() - start.getTimeInMillis();
+            long elapsedSeconds = (elapsed/1000);
 
-	    	    System.out.println("elapsed time:              " + elapsedSeconds + " second(s)");
-	    	    System.out.println("end of process.");
-	    	    System.out.println();
-
-	    	}
+            logger.info("elapsed time:              " + elapsedSeconds + " second(s)");
+            logger.info("end of process.");
         }    	
     }
     
@@ -1472,15 +1453,14 @@ public class BusinessRulesEngine
     	System.out.println("      [properties file]: optional. rule engine properties file");
     	System.out.println("      [csv file name]  : required. name of the csv file - containing the data - to use");
     	System.out.println("      [field seperator]: optional. field seperator used between the individual fields of the rows in the csv file");
-    	System.out.println("      -v               : optional. verbose mode. if specified some output will be generated.");
     	System.out.println();
-    	System.out.println("example: BusinessRulesEngine -z=rules_1.zip -p=engine.properties -c=datafile.csv -v");
+    	System.out.println("example: BusinessRulesEngine -z=rules_1.zip -p=engine.properties -c=datafile.csv");
     	System.out.println("         BusinessRulesEngine -z=rules_1.zip -p=engine.properties -c=datafile.csv -s=,");
     	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv");
-    	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv -s=; -v");
+    	System.out.println("         BusinessRulesEngine -r=/temp/rules -p=engine.properties -c=datafile.csv -s=;");
     	System.out.println();
     	System.out.println("published as open source under the Apache License. read the licence notice");
-    	System.out.println("all code by uwe geercken, 2006-2018. uwe.geercken@web.de");
+    	System.out.println("all code by uwe geercken, 2006-2020. uwe.geercken@web.de");
     	System.out.println();
 
     }

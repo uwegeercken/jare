@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.zip.ZipFile;
 
+import org.apache.log4j.Logger;
+
 import com.datamelt.rules.core.RuleGroup;
 import com.datamelt.rules.engine.BusinessRulesEngine;
 import com.datamelt.server.transform.Transformer;
@@ -66,17 +68,17 @@ public class ClientHandler extends Thread
     private static final String DEFAULT_DATETIME_FORMAT		= "yyyy-MM-dd HH:mm:ss";
     private static SimpleDateFormat sdf						= new SimpleDateFormat(DEFAULT_DATETIME_FORMAT);
     
-    ClientHandler(String processId, Socket socket, String ruleFileFolder, String ruleFile, Transformer transformer, long serverStart) throws Exception
+    final static Logger logger 								= Logger.getLogger(ClientHandler.class);
+    
+    ClientHandler(String processId, Socket socket, BusinessRulesEngine ruleEngine, Transformer transformer, long serverStart) throws Exception
     {
     	this.clientStart = System.currentTimeMillis();
     	this.serverStart = serverStart;
     	this.processId= processId;
-    	this.ruleFileFolder = ruleFileFolder;
-    	this.ruleFile = ruleFile;
         this.transformer = transformer;
         this.socket = socket;
         
-        this.ruleEngine = new BusinessRulesEngine(new ZipFile(ruleFileFolder + ruleFile));
+        this.ruleEngine = ruleEngine;
         
         // if no transformer is defined then no detailed output is generated. so we don't need
         // the detailed results of the rule engine. if one is defined, we keep them.
@@ -110,20 +112,27 @@ public class ClientHandler extends Thread
 	                ruleEngine.setOutputType(serverObject.getOutputType());
 	                
 	                // run the rule engine
-	                ruleEngine.run("row_" + rowsProcessed + "_" + sdf.format(new Date()), serverObject.getFields());
+	                try
+	                {
+	                	ruleEngine.run("row_" + rowsProcessed + "_" + sdf.format(new Date()), serverObject.getFields());
+	                	// set the fields of the object by using the results from the rule engine
+		                serverObject.setTotalGroups(ruleEngine.getNumberOfGroups());
+		                serverObject.setGroupsFailed(ruleEngine.getNumberOfGroupsFailed());
+		                serverObject.setGroupsSkipped(ruleEngine.getNumberOfGroupsSkipped());
+		                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
+		                serverObject.setRulesFailed(ruleEngine.getNumberOfRulesFailed());
+		                serverObject.setTotalActions(ruleEngine.getNumberOfActions());
+		                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
+		                serverObject.setProcessId(processId);
+	                }
+	                catch(Exception ex)
+	                {
+	                	serverObject.setRuleEngineException(true);
+	                	serverObject.setRuleEngineExceptionMessage(ex.getMessage());
+	                }
 	                
 	                // count the processed rows
 	                rowsProcessed++;
-	                
-	                // set the fields of the object by using the results from the rule engine
-	                serverObject.setTotalGroups(ruleEngine.getNumberOfGroups());
-	                serverObject.setGroupsFailed(ruleEngine.getNumberOfGroupsFailed());
-	                serverObject.setGroupsSkipped(ruleEngine.getNumberOfGroupsSkipped());
-	                serverObject.setTotalRules(ruleEngine.getNumberOfRules());
-	                serverObject.setRulesFailed(ruleEngine.getNumberOfRulesFailed());
-	                serverObject.setTotalActions(ruleEngine.getNumberOfActions());
-	                serverObject.setObjectLabel(serverObject.getFields().getFieldValues());
-	                serverObject.setProcessId(processId);
 	                
 	                outputStream.writeObject(serverObject);
 	                outputStream.flush();
@@ -148,7 +157,7 @@ public class ClientHandler extends Thread
     	                String responseMessage = "exit";
     	                sendMessage(responseMessage);
     	                
-    	                System.out.println(sdf.format(new Date()) + " - client requested exit - closing client socket");
+    	                logger.info("client requested exit - closing client socket");
 
     	                if(!socket.isClosed())
             			{
@@ -158,55 +167,42 @@ public class ClientHandler extends Thread
             		}
             		else if(serverObject.equals(RESPONSE_RELOAD))
             		{
-            			// create a new instance of the rule engine
-            			ruleEngine = new BusinessRulesEngine(new ZipFile(ruleFileFolder + ruleFile));
+            			ruleEngine.reloadZipFile(new ZipFile(ruleFileFolder + ruleFile));
             			
     	                String responseMessage = "reloaded rule file: " + ruleFileFolder + ruleFile;
     	                sendMessage(responseMessage);
     	                
-    	                System.out.println(sdf.format(new Date()) + " - reloaded rule file: " + responseMessage);
+    	                logger.info("reloaded rule file: " + responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_UPTIME))
             		{
     	                String responseMessage = getRunTime();
     	                sendMessage(responseMessage);
-    	                
-    	                //System.out.println(sdf.format(new Date()) + " - server running since: " + responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_ROWSPROCESSED))
             		{
     	                String responseMessage = "" + rowsProcessed;
     	                sendMessage(responseMessage);
-    	                
-    	                //System.out.println(sdf.format(new Date()) + " - rows processed: " + responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_PROCESSID))
             		{
     	                String responseMessage = processId;
     	                sendMessage(responseMessage);
-    	                
-    	                //System.out.println(sdf.format(new Date()) + " - process id: " + responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_RULEFILE))
             		{
     	                String responseMessage = ruleFileFolder + ruleFile;
     	                sendMessage(responseMessage);
-    	                
-    	                //System.out.println(sdf.format(new Date()) + " - running rule file: " + responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_RULEENGINE_VERSION))
             		{
     	                String responseMessage = BusinessRulesEngine.getVersion();
     	                sendMessage(responseMessage);
-    	                
-    	                //System.out.println(sdf.format(new Date()) + " - rule engine version: " + responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_NUMBER_OF_GROUPS))
             		{
     	                String responseMessage = "" + ruleEngine.getNumberOfGroups();
     	                sendMessage(responseMessage);
-    	                
-    	                //System.out.println(sdf.format(new Date()) + " - number of rulegroups: " + responseMessage);
             		}
             		else if(serverObject.equals(RESPONSE_HELLO))
             		{
@@ -217,7 +213,7 @@ public class ClientHandler extends Thread
     	                String responseMessage = "unknown request: " + serverObject;
     	                sendMessage(responseMessage);
     	                
-    	                System.out.println(sdf.format(new Date()) + " - " + responseMessage);
+    	                logger.info(responseMessage);
             		}
             	}
             	else
@@ -225,10 +221,9 @@ public class ClientHandler extends Thread
             		String responseMessage = "unknown or unhandled object received";
 	                sendMessage(responseMessage);
 	                
-	                System.out.println(sdf.format(new Date()) + " - " + responseMessage);
+	                logger.info(responseMessage);
             	}
             }
-            
         }
     	catch (EOFException e)
         {
