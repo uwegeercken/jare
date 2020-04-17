@@ -53,7 +53,7 @@ public class XmlAction implements Serializable
 	private ActionObject actionSetterObject = null;
     
 	// the collection of maps containing key/value pairs
-    private MappingCollection mappingCollection;
+    private MappingCollection mappingCollection; 
 
 
 	/**

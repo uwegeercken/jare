@@ -39,7 +39,7 @@ public class MathAction extends GenericAction
 	@ActionAnnotation(description= "Set a value to another value",methodDisplayname="set value (number)")
 	public int setValue(XmlAction action, int value) throws Exception
 	{
-		return value;
+		return value; 
 	}
 	
 	@ActionAnnotation(description= "Set a value to another value",methodDisplayname="set value (number)")

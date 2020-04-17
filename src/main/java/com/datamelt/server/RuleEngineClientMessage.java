@@ -59,7 +59,6 @@ public class RuleEngineClientMessage
 				boolean validMessage = checkMessageValidity(message);
 				if(validMessage)
 				{
-					boolean socketConnectionOk = false;
 					RuleEngineClient client = null;
 					try
 					{
@@ -83,12 +82,12 @@ public class RuleEngineClientMessage
 				}
 				else
 				{
-					logger.info("the message provided is invalid. possible messages are: " + Arrays.deepToString(ClientHandler.MESSAGES));
+					logger.info("the keyword provided is invalid. possible keywords are: " + Arrays.deepToString(ClientHandler.MESSAGES));
 				}
 			}
 			else
 			{
-				logger.error("message is undefined - exiting");
+				logger.error("keyword is undefined - exiting");
 			}
 		}
     }

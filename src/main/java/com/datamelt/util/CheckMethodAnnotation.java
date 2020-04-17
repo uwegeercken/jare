@@ -37,5 +37,5 @@ import java.lang.annotation.Target;
 public @interface CheckMethodAnnotation 
 {
 	String note() default "";
-	String [] noteParameter() default {};
+	String [] noteParameter() default {}; 
 }

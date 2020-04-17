@@ -6,27 +6,30 @@
     <groupId>com.datamelt</groupId>
     <artifactId>jare</artifactId>
     <version>0.95-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <licenses>
+      <license>
+        <name>Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-
-		<buildah.folder>${project.build.directory}/buildah/${project.artifactId}</buildah.folder>
-		<buildah.image.version>0.2</buildah.image.version>
-
-		<junit.jupiter.version>5.3.0</junit.jupiter.version>
+	<buildah.folder>${project.build.directory}/buildah/${project.artifactId}</buildah.folder>
+	<buildah.image.version>0.2</buildah.image.version>
+	<junit.jupiter.version>5.3.0</junit.jupiter.version>
         <lib.velocity.version>2.0</lib.velocity.version>
         <lib.avro.version>1.8.2</lib.avro.version>
         <lib.log4j.version>1.2.17</lib.log4j.version>
     </properties>
 
-    <packaging>jar</packaging>
-
-
     <dependencies>
-    
       <dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -50,19 +53,17 @@
          <version>${junit.jupiter.version}</version>
          <scope>test</scope>
       </dependency>
-      
       <dependency>
           <groupId>org.apache.velocity</groupId>
           <artifactId>velocity-engine-core</artifactId>
           <version>${lib.velocity.version}</version>
-      </dependency> 
-
+      </dependency>
       <dependency>
         <groupId>org.apache.avro</groupId>
         <artifactId>avro</artifactId>
         <version>${lib.avro.version}</version>
-      </dependency> 
-    </dependencies>
+     </dependency>
+  </dependencies>
 
     <build>
         <plugins>
@@ -165,4 +166,3 @@
      </distributionManagement>
 
 </project>
-

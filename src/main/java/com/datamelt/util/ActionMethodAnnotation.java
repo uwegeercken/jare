@@ -36,5 +36,5 @@ import java.lang.annotation.Target;
 @Target(METHOD)
 public @interface ActionMethodAnnotation 
 {
-	String note() default "";
+	String note() default ""; 
 }

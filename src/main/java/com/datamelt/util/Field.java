@@ -46,7 +46,7 @@ public class Field implements Serializable
 	{
 		this.name = name;
 		this.start = start;
-		this.length = length;
+		this.length = length; 
 	}
 	
 	/**

@@ -38,4 +38,4 @@ public @interface CheckAnnotation
 	String description();
 	String nameDescriptive();
 	int checkSingleField() default 0;
-}
+} 

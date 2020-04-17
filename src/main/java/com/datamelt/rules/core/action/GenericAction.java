@@ -29,5 +29,5 @@ import java.io.Serializable;
  */
 public class GenericAction implements Serializable 
 {
-
+ 
 }

@@ -36,7 +36,7 @@ public class ActionObject implements Serializable
 	public static final int METHOD_SETTER = 1;
 	
     private String className;
-    private String methodName;
+    private String methodName; 
     private String returnType;
     private int isGetter;
     private ArrayList <Parameter>parameters = new ArrayList<Parameter>();

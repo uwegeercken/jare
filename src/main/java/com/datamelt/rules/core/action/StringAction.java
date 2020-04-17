@@ -25,7 +25,7 @@ import javax.xml.bind.DatatypeConverter;
 import com.datamelt.rules.core.XmlAction;
 import com.datamelt.util.ActionAnnotation;
 import com.datamelt.util.ActionMethodAnnotation;
-import com.datamelt.util.CheckAnnotation;
+import com.datamelt.util.CheckAnnotation; 
 
 /**
  * Class containing possible actions that are related to string handling.
@@ -863,7 +863,7 @@ public class StringAction extends GenericAction
 
   }
 
-   /** capitalizes a string
+        /** capitalizes a string
 	 *
 	 * @param action	the action to use
 	 * @param value		the value to use

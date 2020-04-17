@@ -39,6 +39,6 @@ public class FieldNotFoundException extends Exception
 	  
 	  public FieldNotFoundException(Throwable cause) 
 	  {
-		  super(cause); 
+		  super(cause);  
 	  }
 }
