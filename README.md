@@ -17,6 +17,8 @@ Additionally, there is also a Plugin available for the popular and highly sophis
 The project allows to generate a container image using buildah and pushing it to a registry/artifactory. This image allows to run
 a ruleengine server using e.g. podman or docker.
 
+example: sudo podman run --name "testserver" --rm -v ./rules/:/opt/jare-server/rules:Z silent1:8082/jare-server:latest
+
 Documentation for the ruleengine, the Business Rules maintenance Web tool and for all available checks and actions
 is available at: https://github.com/uwegeercken/rule_maintenance_documentation
 
