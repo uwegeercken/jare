@@ -33,8 +33,8 @@ image_author="uwe.geercken@web.de"
 image_format="docker"
 image_registry_docker_group="silent1:8082"
 image_registry_docker_private="silent1:8083"
-image_registry_user=admin
-image_registry_password="${secret}"
+#image_registry_user=admin
+#image_registry_password="${secret}"
 
 image_name_registry="${image_registry_docker_private}/${image_name}"
 image_tag="${image_registry_docker_private}/${image_name}:${image_version}"
