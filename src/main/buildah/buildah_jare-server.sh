@@ -5,16 +5,15 @@
 # executed by maven as part of the package phase and
 # using the project and dependency files.
 #
-# note: the 'image_registry_password' environment variable needs to be defined.
+# note: the 'image_registry_user' and 'image_registry_password' environment variables need to be defined.
+#       the image version is triggered from the pom.xml when this script is executed.
 #
-# run the resulting image and mount a volume which contains the ruleengine project zip file
-# that contains the rules and actions. You can use docker or podman to run the image.
+# to get a container from the resulting image, mount a volume which contains the ruleengine project zip file.
+# You can use docker or podman to run the image.
 #
  # example: sudo podman run --name "testserver" --rm -v ./rules/:/opt/jare-server/rules:Z silent1:8082/jare-server:latest
 #
-#
-#
-# last update: uwe.geercken@web.de - 2020-04-17
+# last update: uwe.geercken@web.de - 2020-04-18
 #
 
 # absolute path to this script
@@ -33,8 +32,6 @@ image_author="uwe.geercken@web.de"
 image_format="docker"
 image_registry_docker_group="silent1:8082"
 image_registry_docker_private="silent1:8083"
-#image_registry_user=admin
-#image_registry_password="${secret}"
 
 image_name_registry="${image_registry_docker_private}/${image_name}"
 image_tag="${image_registry_docker_private}/${image_name}:${image_version}"

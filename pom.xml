@@ -21,9 +21,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-	<buildah.folder>${project.build.directory}/buildah/${project.artifactId}</buildah.folder>
-	<buildah.image.version>0.2</buildah.image.version>
-	<junit.jupiter.version>5.3.0</junit.jupiter.version>
+		<buildah.folder>${project.build.directory}/buildah/${project.artifactId}</buildah.folder>
+		<buildah.image.version>0.2</buildah.image.version>
+		<junit.jupiter.version>5.3.0</junit.jupiter.version>
         <lib.velocity.version>2.0</lib.velocity.version>
         <lib.avro.version>1.8.2</lib.avro.version>
         <lib.log4j.version>1.2.17</lib.log4j.version>
@@ -133,6 +133,7 @@
 		    <plugin>
                 <artifactId>exec-maven-plugin</artifactId>
                 <groupId>org.codehaus.mojo</groupId>
+                <version>1.6.0</version>
                 <executions>
                     <execution><!-- Run our version calculation script -->
                         <id>generate image using buildah</id>
