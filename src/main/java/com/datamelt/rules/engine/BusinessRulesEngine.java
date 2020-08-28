@@ -102,8 +102,8 @@ public class BusinessRulesEngine
 {
 	// the version of the business rule engine
 	private static final String VERSION 	= "0.95";
-	private static final String REVISION 	= "1";
-	private static final String LAST_UPDATE = "2020-04-17";
+	private static final String REVISION 	= "3";
+	private static final String LAST_UPDATE = "2020-08-28";
 	
     // contains all groups, subgroups and rules that have been parsed from one or more files
     private ArrayList<RuleGroup> groups = new ArrayList<RuleGroup>();
@@ -600,9 +600,11 @@ public class BusinessRulesEngine
     }
     
     /**
-     * reloads all rule xml files from a folder for a running BusinessRulesEngine instance
+     * reloads all rule xml files from a folder for a running BusinessRulesEngine instance.
+     * if the folder contains a single file and it's a zip file then reloads all xml files
+     * from this zip file.
      * 
-     * @param folderName		path and name of the folder containing the xml rule file(s)
+     * @param folderName		path and name of the folder containing the xml rule file(s) or a single zip file
      * @throws Exception		exception when the file could not be located or parsed
      */
     public void reloadRuleFileFolder(String folderName) throws Exception
@@ -615,13 +617,24 @@ public class BusinessRulesEngine
         if(folder.exists() && folder.isDirectory())
         {
         	String[] files = folder.list();
-        	for(int i=0;i<files.length;i++)
-            {
-        		File file = new File(files[i]);
-                parseXmlFile(file.getPath());
-            }
+        	if(files.length==1 && files[0].endsWith(".zip"))
+        	{
+        		reloadZipFile(new ZipFile(files[0]));
+        	}
+        	else
+        	{
+        		for(int i=0;i<files.length;i++)
+                {
+            		File file = new File(files[i]);
+                    parseXmlFile(file.getPath());
+                }
+        		prioritizeRuleGroups();
+        	}
         }
-        prioritizeRuleGroups();
+        else
+        {
+        	logger.error("failed to load business rules from folder: " + folderName);
+        }
     }
     
     /**

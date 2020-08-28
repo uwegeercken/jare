@@ -70,4 +70,45 @@ public class Converter
             return "true";
         }
     }
+    
+    /*
+     * converts an integer value to boolean value 
+     * 
+     * @param i 		the integer value to convert
+     * @return			the equivalent boolean representation of the integer value
+     */
+    public static boolean convertIntegerToBoolean(int i) 
+    {
+        if(i==0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+    /*
+     * converts an integer value which represents the action type and
+     * provides the result in form of a string.
+     * 
+     * @param i 		the integer value to convert
+     * @return			the equivalent string representation of the integer value
+     */
+    public static String convertActionTypeToString(int i) 
+    {
+        if(i==0)
+        {
+            return "passed";
+        }
+        else if(i==1)
+        {
+            return "failed";
+        }
+        else
+        {
+        	return "always";
+        }
+    }
 }
