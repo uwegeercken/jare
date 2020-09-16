@@ -119,7 +119,6 @@
 		        <executions>
 		          <execution>
 		            <id>copy-resources</id>
-		            <!-- here the phase you need -->
 		            <phase>validate</phase>
 		            <goals>
 		              <goal>copy-resources</goal>
@@ -141,9 +140,9 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <version>1.6.0</version>
                 <executions>
-                    <execution><!-- Run our version calculation script -->
-                        <id>generate image using buildah</id>
-                        <phase>package</phase>
+                    <execution>
+                        <id>generate jare server container image using buildah</id>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>

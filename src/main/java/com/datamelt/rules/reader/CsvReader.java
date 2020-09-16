@@ -20,12 +20,18 @@ package com.datamelt.rules.reader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.zip.ZipFile;
 
+import com.datamelt.util.HeaderRow;
 import com.datamelt.util.RowFieldCollection;
 import com.datamelt.util.Splitter;
+import com.datamelt.rules.core.RuleExecutionCollection;
+import com.datamelt.rules.core.RuleExecutionResult;
 import com.datamelt.rules.core.RuleGroup;
+import com.datamelt.rules.core.RuleSubGroup;
+import com.datamelt.rules.core.XmlRule;
 import com.datamelt.rules.engine.BusinessRulesEngine;
 
 /**
@@ -79,7 +85,7 @@ public class CsvReader
 
         // splitter object will split the row of the  data/csv file into
         // its fields using - in this case - the default semicolon (;) seperator
-        Splitter splitter = new Splitter(Splitter.TYPE_COMMA_SEPERATED);
+        Splitter splitter = new Splitter(Splitter.TYPE_COMMA_SEPERATED,Splitter.SEPERATOR_TAB);
 
         // output the number of groups in total as parsed from the xml files
         System.out.println("number of groups:          " + engine.getGroups().size());
@@ -93,6 +99,9 @@ public class CsvReader
             RuleGroup group = (RuleGroup)engine.getGroups().get(i);
             System.out.println("group logic:               " + group.getId() + ": "+ engine.getRuleLogic(i));
         }
+        
+        HeaderRow header = new HeaderRow(line=reader.readLine(),Splitter.SEPERATOR_TAB);
+        
         // read the input file line by line
         while ((line=reader.readLine())!=null)
 	    {
@@ -103,15 +112,53 @@ public class CsvReader
 	        {
 	        	line = line.replace("\"","");
 		        // get a row object containing the fields and data
-		        RowFieldCollection row = splitter.getRowFieldCollection(line); 
+	        	RowFieldCollection row = new RowFieldCollection(header, splitter.getFields(line));
+		        //RowFieldCollection row = splitter.getRowFieldCollection(line); 
 		        
+	        		System.out.println("row:                       " + counter);
+	        		System.out.println("row values:                " + row.getFieldValues());
+	        	 
 		        // run rules on this data
 		        engine.run("row: " + counter, row);
+		        
+		        // loop over groups, subgroups and results to get the
+		        // details of the execution of the rules
+		        for(int f=0;f<engine.getGroups().size();f++)
+		        {
+		        	RuleGroup group = engine.getGroups().get(f);
+		        	
+		        	System.out.println("group:                     " + group.getId());
+		        	System.out.println("group failed:              " + group.getFailedAsString());
+		        	
+		        	for(int g=0;g<group.getSubGroups().size();g++)
+		            {
+		        		RuleSubGroup subgroup = group.getSubGroups().get(g);
+		        		
+		        		//System.out.println("subgroup:                  " + group.getId());
+		            	//System.out.println("subgroup failed:           " + group.getFailedAsString());
+		        		
+		        		ArrayList <RuleExecutionResult> results = subgroup.getExecutionCollection().getResults();
+		        		for (int h= 0;h< results.size();h++)
+		                {
+		        			RuleExecutionResult result = results.get(h);
+		        			XmlRule rule = result.getRule();
+		        			
+		        			System.out.println("rule    :                  " + rule.getId());
+		                	System.out.println("rule failed:               " + result.getFailedAsString());
+		                	System.out.println("rule message:              " + result.getMessage());
+		                }
+		            }
+		        }
+		        		        
 		        counter++;
 	        }
 	    }
         // close the reader
         reader.close();
+
+        // get all execution results at the end of the process
+        //RuleExecutionCollection r = engine.getRuleExecutionCollection();
+        //ArrayList<RuleExecutionResult> re = r.getResults();
         
         System.out.println("number of lines of data:   " + counter);
         
