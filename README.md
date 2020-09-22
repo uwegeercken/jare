@@ -5,25 +5,24 @@ Version 0.95
 
 Java Rule Engine source files.
 
-The Rule Engine allows to implement business rules in a central location and outside the code - be it a web application, a standalone application, an ETL tool or any other java based tool - so that, if the rules change the code does not have to change - only the rules change.
-That establishes a proper division of responsibilities between business users and IT.
+The Rule Engine allows to implement business rules in a central location and outside the code - be it a web application, a standalone application, an ETL tool or any other java based tool - so that, if the rules change, the code does not have to be changed - the rules are managed externally. That establishes a proper division of responsibilities between business users and IT. Because now IT can focus on designing code and flows and the business user can maintain the business rules (logic) separately. The business logic is maintained centrally so that duplication is avoided, which is a quality factor.
 
-Version 0.73 comes with redesigned classes to setup the rule engine as a client/server application (if desired). The rule engine runs in server mode and waits for connections from clients to process data. If you want to output the results of the ruleengine you need to add the apache velocity jar file to the classpath. If you want to store the results in mongodb then you will need the mongodb jdbc jar file and the jongo and jackson jar files.
+Basically what happens is that some data is run through the business rules engine applying the business rules and the results are compared to what an expected result. The outcome is always a true or false if the data passes or fails the defined business logic. It is also possible to update the data (execute actions) based on the results of the business logic. Two modes are possible: client mode and server mode. In client mode the ruleengine jar library is embedded in your tool or application and the ruleengine is run from within your code. In server mode the ruleengine runs on a server (or in a container) and waits for connections from clients to process data. You application or tool sends data to the server and receives back a result from the server.
 
-A web application is available, which allows to compose the rule and action logic in an easy and user friendly way. Very complex scenarios are possible by combining rules with "and" and "or" conditions and by grouping them together.
+A web application is available, which allows to compose the business rules and actions in an easy and user friendly way. Very complex logic is possible by combining rules with "and" and "or" conditions and by grouping them together in groups and subgroups. Groups can also be dependent on other groups and groups may become active or inactive based on a defined date. The web application allows you to run tests against the defined logic you check it.
 
-Additionally, there is also a Plugin available for the popular and highly sophisticated ETL tool from Pentaho called PDI (previously called Kettle). This plugin enables the ETL developer to get rid of the business logic in the ETL process. If the rules change, the code does not need to be touched. This enhances quality and also transparency: the business user usually has no understanding of ETL processes; with the Web application for the maintenance of the rules and the complex rule logic the user has a central place to work with the rules without the need for coding rules and without the need for IT to change the ETL process.
+There is a plugin available for the popular and highly sophisticated Pentaho ETL tool (PDI). This plugin enables the ETL developer to get rid of the business logic in the ETL process.
 
-The project allows to generate a container image using buildah and pushing it to a registry/artifactory. This image allows to run
-a ruleengine server using e.g. podman or docker.
+Another plugin is available for the Tweakstreet Data Integration tool. It is a modern tool which can seemlessly work with nested data structures and handle data as well as functions as values: everything is a value. It has modern concepts, is lean and performant and runs everywhere. Check it out at: https://tweakstreet.io.
+
+The ruleengine itself has been tested to also work with other technologies such as Hadoop and Kafka. There is a separate project available here on GitHub which integrates the ruleengine with Kafka and allows to apply logic in realtime to your data: https://github.com/uwegeercken/kafka-ruleengine.
+
+The maven project generates the ruleengine library. You can also generate a container image using buildah and pushing it to a registry/artifactory. The resulting image runs a ruleengine server using e.g. podman or docker.
 
 example: sudo podman run --name "testserver" --rm -v ./rules/:/opt/jare-server/rules:Z silent1:8082/jare-server:latest
 
 Documentation for the ruleengine, the Business Rules maintenance Web tool and for all available checks and actions
-is available at: https://github.com/uwegeercken/rule_maintenance_documentation
-
-You may download the jar library which contains the sources compiled with Java 1.8.
-
+is available at: https://github.com/uwegeercken/rule_maintenance_documentation. There are also presentations and other documentation.
 
 
 Please send your feedback and help to enhance the tool.
@@ -53,4 +52,3 @@ uwe geercken
 uwe.geercken@web.de
 
 last update: 2020-04-17
-
