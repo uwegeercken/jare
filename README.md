@@ -1,7 +1,7 @@
 jare
 ====
 
-Version 0.95
+Version 1.0
 
 Java Rule Engine source files.
 
@@ -27,7 +27,7 @@ is available at: https://github.com/uwegeercken/rule_maintenance_documentation. 
 
 Please send your feedback and help to enhance the tool.
 
-    Copyright (C) 2008-2020  Uwe Geercken
+    Copyright (C) 2008-2021  Uwe Geercken
 
 
  Licensed to the Apache Software Foundation (ASF) under one
@@ -51,4 +51,4 @@ Please send your feedback and help to enhance the tool.
 uwe geercken
 uwe.geercken@web.de
 
-last update: 2020-04-17
+last update: 2021-04-11
