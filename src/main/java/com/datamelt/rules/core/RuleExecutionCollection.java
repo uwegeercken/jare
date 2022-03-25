@@ -118,7 +118,7 @@ public class RuleExecutionCollection implements Serializable
     	for(int i=0;i<results.size();i++)
         {
         	RuleExecutionResult result = results.get(i);
-        	if(result.getSubgroupId().equals(subgroupId) && result.getRule().getId().equals(ruleId))
+        	if(result.getSubgroupId().equals(subgroupId) && result.getRule().getRuleId().equals(ruleId))
         	{
         		found = i;
         		break;

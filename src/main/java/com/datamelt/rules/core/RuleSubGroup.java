@@ -151,15 +151,15 @@ public class RuleSubGroup implements Serializable
             }
             catch(FieldNotFoundException fnfe)
             {
-            	throw new FieldNotFoundException("error rule: [" + rule.getId() + "] - field not found: "+ fnfe.getMessage());
+            	throw new FieldNotFoundException("error rule: [" + rule.getRuleId() + "] - field not found: "+ fnfe.getMessage());
             }
             catch(InvocationTargetException ite)
             {
-            	throw new Exception("error rule: [" + rule.getId() + "] invoking method for first object: "+ ite.getTargetException());
+            	throw new Exception("error rule: [" + rule.getRuleId() + "] invoking method for first object: "+ ite.getTargetException());
             }
             catch(Exception ex)
             {
-            	throw new Exception("error rule: [" + rule.getId() + "] creating first object from xml object");
+            	throw new Exception("error rule: [" + rule.getRuleId() + "] creating first object from xml object");
             }
             
             // create second object from the object if we compare two objects
@@ -173,15 +173,15 @@ public class RuleSubGroup implements Serializable
             	}
             	catch(FieldNotFoundException fnfe)
                 {
-                	throw new FieldNotFoundException("error rule: [" + rule.getId() + "] - field not found: "+ fnfe.getMessage());
+                	throw new FieldNotFoundException("error rule: [" + rule.getRuleId() + "] - field not found: "+ fnfe.getMessage());
                 }
                 catch(InvocationTargetException ite)
                 {
-                	throw new Exception("error rule: [" + rule.getId() + "] invoking method for second object: "+ ite.getTargetException());
+                	throw new Exception("error rule: [" + rule.getRuleId() + "] invoking method for second object: "+ ite.getTargetException());
                 }
             	catch(Exception ex)
             	{
-            		throw new Exception("error rule: [" + rule.getId() + "] creating second object from xml object");
+            		throw new Exception("error rule: [" + rule.getRuleId() + "] creating second object from xml object");
             	}
 
             }
@@ -194,7 +194,7 @@ public class RuleSubGroup implements Serializable
             }
             catch(Exception ex)
             {
-            	throw new Exception("error rule: [" + rule.getId() + "] creating method from xml rule " + ex.getMessage());
+            	throw new Exception("error rule: [" + rule.getRuleId() + "] creating method from xml rule " + ex.getMessage());
             }
 
             // create the objects that will be used for the method
@@ -205,7 +205,7 @@ public class RuleSubGroup implements Serializable
             }
             catch(Exception ex)
             {
-            	throw new Exception("error rule: [" + rule.getId() + "] creating method arguments from xml rule " + ex.getMessage());
+            	throw new Exception("error rule: [" + rule.getRuleId() + "] creating method arguments from xml rule " + ex.getMessage());
             }
             
             if(arguments[0]!=null)
@@ -219,7 +219,7 @@ public class RuleSubGroup implements Serializable
             	}
             	catch(Exception ex)
             	{
-            		throw new Exception("error invoking method on rule: [" + rule.getId() + "]: " + ex.getMessage());
+            		throw new Exception("error invoking method on rule: [" + rule.getRuleId() + "]: " + ex.getMessage());
             	}
 	            
 	            // the result of the invocation must be a boolean
@@ -253,7 +253,7 @@ public class RuleSubGroup implements Serializable
 	            else
 	            {
 	                // throw an error if the return type is not a boolean
-	                throw new Exception("error rule: [" + rule.getId() + "] return type of rule result must always be of type boolean");
+	                throw new Exception("error rule: [" + rule.getRuleId() + "] return type of rule result must always be of type boolean");
 	            }
             }
             else
@@ -331,7 +331,7 @@ public class RuleSubGroup implements Serializable
         
 	        // create an array of classes
 	        // based on the number of parameters
-	        classes = new Class[2 + rule.getParameters().size()];
+	        classes = new Class[2 + rule.getParametersArrayList().size()];
 	
 	        // get the correct class for the actual value
 	        classes[0] = ClassUtility.getClass(rule.getRuleObjects().get(0).getMethodReturnType());
@@ -341,9 +341,9 @@ public class RuleSubGroup implements Serializable
 	        
 	        // get all additional parameters of the method
 	        // and create an equivalent class
-	        for (int i=0;i<rule.getParameters().size();i++)
+	        for (int i = 0; i<rule.getParametersArrayList().size(); i++)
 	        {
-	            Parameter parameter = (Parameter)rule.getParameters().get(i);
+	            Parameter parameter = (Parameter)rule.getParametersArrayList().get(i);
 	            classes[2+i]= ClassUtility.getClass(parameter.getType());
 	        }
         }
@@ -353,7 +353,7 @@ public class RuleSubGroup implements Serializable
 	        {
 	            // create an array of classes
 		        // based on the number of parameters
-		        classes = new Class[1 + rule.getParameters().size()];
+		        classes = new Class[1 + rule.getParametersArrayList().size()];
 		
 	            // get the correct class for the actual value
 	            classes[0] = ClassUtility.getClass(rule.getRuleObjects().get(0).getMethodReturnType());
@@ -362,7 +362,7 @@ public class RuleSubGroup implements Serializable
 	        {
 	            // create an array of classes
 		        // based on the number of parameters
-		        classes = new Class[2 + rule.getParameters().size()];
+		        classes = new Class[2 + rule.getParametersArrayList().size()];
 		
 	            // get the correct class for the actual value
 	            classes[0] = ClassUtility.getClass(rule.getRuleObjects().get(0).getMethodReturnType());
@@ -373,10 +373,10 @@ public class RuleSubGroup implements Serializable
 	        
 	        // get all additional parameters of the method
 	        // and create an equivalent class
-	        for (int i=0;i<rule.getParameters().size();i++)
+	        for (int i = 0; i<rule.getParametersArrayList().size(); i++)
 	        {
-	            Parameter parameter = (Parameter)rule.getParameters().get(i);
-	            classes[classes.length-rule.getParameters().size()+i] = ClassUtility.getClass(parameter.getType());
+	            Parameter parameter = (Parameter)rule.getParametersArrayList().get(i);
+	            classes[classes.length-rule.getParametersArrayList().size()+i] = ClassUtility.getClass(parameter.getType());
 	        }
         }
         Method m = null;
@@ -419,7 +419,7 @@ public class RuleSubGroup implements Serializable
         }
         
         // total number of objects is the number of objects plus the additional parameters
-        objects = new Object[numberOfObjects + rule.getParameters().size()];
+        objects = new Object[numberOfObjects + rule.getParametersArrayList().size()];
         
         // get the actual type of the first object
         String resultType = ClassUtility.getObjectType(result);
@@ -464,9 +464,9 @@ public class RuleSubGroup implements Serializable
         
         // get all additional parameters of the rule 
         // and create an equivalent class for each of them
-        for (int i=0;i<rule.getParameters().size();i++)
+        for (int i = 0; i<rule.getParametersArrayList().size(); i++)
         {
-            Parameter parameter = (Parameter)rule.getParameters().get(i);
+            Parameter parameter = (Parameter)rule.getParametersArrayList().get(i);
             objects[numberOfObjects+i]= ClassUtility.getObject(parameter.getType(),parameter.getValue());
         }
         return objects;
@@ -702,11 +702,11 @@ public class RuleSubGroup implements Serializable
         if (rulesCollection.size()>0)
         {
 	        XmlRule rule0 = (XmlRule)rulesCollection.get(0);
-	        buffer.append(rule0.getId());
+	        buffer.append(rule0.getRuleId());
 	        for(int i=1;i<rulesCollection.size();i++)
 	        {
 	            XmlRule rule = (XmlRule)rulesCollection.get(i);
-	            buffer.append(" " + Converter.convertIntToLogical(logicalOperatorRules) + " " + rule.getId());
+	            buffer.append(" " + Converter.convertIntToLogical(logicalOperatorRules) + " " + rule.getRuleId());
 	        }
         }
         buffer.append(")");

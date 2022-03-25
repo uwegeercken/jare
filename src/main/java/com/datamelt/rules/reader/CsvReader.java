@@ -143,7 +143,7 @@ public class CsvReader
 		        			RuleExecutionResult result = results.get(h);
 		        			XmlRule rule = result.getRule();
 		        			
-		        			System.out.println("rule    :                  " + rule.getId());
+		        			System.out.println("rule    :                  " + rule.getRuleId());
 		                	System.out.println("rule failed:               " + result.getFailedAsString());
 		                	System.out.println("rule message:              " + result.getMessage());
 		                }

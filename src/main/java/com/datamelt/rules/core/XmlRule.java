@@ -43,17 +43,17 @@ public class XmlRule implements Cloneable, Serializable
 	public static final long serialVersionUID = 1964070340;
 	
 	// indicates if a rule failed or passed
-    public static final int FAILED = 1;
-    public static final int PASSED = 0;
+    public static final int RULE_FAILED = 1;
+    public static final int RULE_PASSED = 0;
     
     // indicates if a rule failed or passed as a string expression
     public static final String FAILED_TEXT     = "[true]";
     public static final String NOT_FAILED_TEXT = "[false]";
     
     // id of the rule
-    private String id;
+    private String ruleId;
     // description of the rule
-    private String description;
+    private String ruleDescription;
     // the method of the object to envoke
     private String objectMethodName;
     // the returntype of the method to envoke
@@ -61,12 +61,12 @@ public class XmlRule implements Cloneable, Serializable
     
     private RuleObjectCollection ruleObjects = new RuleObjectCollection();
     // the messages of the rule: one in case it fails, one in case it passes
-    private RuleMessageCollection messages = new RuleMessageCollection();
+    private RuleMessageCollection ruleMessages = new RuleMessageCollection();
     // the actions that belong to the rule
-    private XmlActionCollection actions = new XmlActionCollection();
+    private XmlActionCollection ruleActions = new XmlActionCollection();
     
     private String checkToExecute;
-    private ArrayList<Parameter> parameters = new ArrayList<Parameter>();
+    private ArrayList<Parameter> parametersArrayList = new ArrayList<Parameter>();
     
     // value and type of the expected value
     private String expectedValueRule;
@@ -84,14 +84,14 @@ public class XmlRule implements Cloneable, Serializable
     /**
      * Constructor using the id and description of the rule.
      * 
-     * @param	id			the id of the action
-     * @param	description	the description of the action
+     * @param	ruleId			the id of the action
+     * @param	ruleDescription	the description of the action
 
      */
-    public XmlRule(String id, String description)
+    public XmlRule(String ruleId, String ruleDescription)
     {
-        this.id = id;
-        this.description = description;
+        this.ruleId = ruleId;
+        this.ruleDescription = ruleDescription;
     }
 
     /**
@@ -205,20 +205,20 @@ public class XmlRule implements Cloneable, Serializable
      * @return	list of parameters
      * 
      */
-    public ArrayList<Parameter> getParameters()
+    public ArrayList<Parameter> getParametersArrayList()
     {
-        return parameters;
+        return parametersArrayList;
     }
     
     /**
      * sets the list of parameters that have to be passed to the method
      * to execute 
      * 
-     * @param	parameters	list of parameters
+     * @param	parametersArrayList	list of parameters
      */
-    public void setParameters(ArrayList <Parameter>parameters)
+    public void setParametersArrayList(ArrayList <Parameter> parametersArrayList)
     {
-        this.parameters = parameters;
+        this.parametersArrayList = parametersArrayList;
     }
     
     /**
@@ -228,7 +228,7 @@ public class XmlRule implements Cloneable, Serializable
      */
     public void addParameter(Parameter parameter)
     {
-        parameters.add(parameter);
+        parametersArrayList.add(parameter);
     }
     
     /**
@@ -237,19 +237,19 @@ public class XmlRule implements Cloneable, Serializable
      * @return the description of the rule
      * 
      */
-    public String getDescription()
+    public String getRuleDescription()
     {
-        return description;
+        return ruleDescription;
     }
     
     /**
      * sets the description of the rule 
      * 
-     * @param	description	the description of the rule
+     * @param	ruleDescription	the description of the rule
      */
-    public void setDescription(String description)
+    public void setRuleDescription(String ruleDescription)
     {
-        this.description = description;
+        this.ruleDescription = ruleDescription;
     }
     
     /**
@@ -257,19 +257,19 @@ public class XmlRule implements Cloneable, Serializable
      * 
      * @return	the id of the rule
      */
-    public String getId()
+    public String getRuleId()
     {
-        return id;
+        return ruleId;
     }
     
     /**
      * sets the id of the rule 
      * 
-     * @param	id	the id of the rule
+     * @param	ruleId	the id of the rule
      */
-    public void setId(String id)
+    public void setRuleId(String ruleId)
     {
-        this.id = id;
+        this.ruleId = ruleId;
     }
 
     /** returns a integer expression meaning [0] or [1]
@@ -314,11 +314,11 @@ public class XmlRule implements Cloneable, Serializable
     {
         if (failed)
         {
-            this.failed = FAILED;
+            this.failed = RULE_FAILED;
         }
         else
         {
-            this.failed = PASSED;
+            this.failed = RULE_PASSED;
         }
     }
     
@@ -351,20 +351,20 @@ public class XmlRule implements Cloneable, Serializable
      * @return	a collection of messages
      * 
      */
-    public RuleMessageCollection getMessages()
+    public RuleMessageCollection getRuleMessages()
     {
-        return messages;
+        return ruleMessages;
     }
     
     /**
      * sets the messages - one if the rule passes and one if it fails
      * that will be used for display purposes 
      * 
-     * @param	messages	the messaged belonging to the rule
+     * @param	ruleMessages	the messaged belonging to the rule
      */
-    public void setMessages(RuleMessageCollection messages)
+    public void setRuleMessages(RuleMessageCollection ruleMessages)
     {
-        this.messages = messages;
+        this.ruleMessages = ruleMessages;
     }
     
     /**
@@ -398,7 +398,7 @@ public class XmlRule implements Cloneable, Serializable
      */
     public RuleMessage getMessage(int type)throws Exception
     {
-        return messages.getByType(type); 
+        return ruleMessages.getByType(type);
     }
 
     /**
@@ -406,19 +406,19 @@ public class XmlRule implements Cloneable, Serializable
      * 
      * @return	the collection of actions
      */
-	public XmlActionCollection getActions()
+	public XmlActionCollection getRuleActions()
 	{
-		return actions;
+		return ruleActions;
 	}
 
 	/**
 	 * sets the collection of actions
 	 * 
-	 * @param actions	the collection of actions
+	 * @param ruleActions	the collection of actions
 	 */
-	public void setActions(XmlActionCollection actions)
+	public void setRuleActions(XmlActionCollection ruleActions)
 	{
-		this.actions = actions;
+		this.ruleActions = ruleActions;
 	}
 	
 	/**
