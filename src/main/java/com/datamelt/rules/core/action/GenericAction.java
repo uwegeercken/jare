@@ -19,6 +19,8 @@
 
 package com.datamelt.rules.core.action;
 
+import com.datamelt.rules.core.XmlAction;
+import com.datamelt.util.ActionAnnotation;
 import java.io.Serializable;
 
 /**
@@ -29,5 +31,18 @@ import java.io.Serializable;
  */
 public class GenericAction implements Serializable 
 {
- 
+
+    /**
+     * sets the date to the given date
+     *
+     * @param action 		the action use
+     * @param value			the value to set
+     * @return				date
+     * @throws Exception	exception in date handling
+     */
+    @ActionAnnotation(description= "Set a value to another value",methodDisplayname="set value ()")
+    public Object setValue(XmlAction action, Object  value) throws Exception {
+        return value;
+    }
+
 }
