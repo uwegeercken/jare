@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.datamelt.rules.core.RuleSubGroupCollection;
 import com.datamelt.rules.core.action.Action;
 import com.datamelt.rules.core.util.Converter;
 import com.datamelt.rules.core.util.MappingCollection;
@@ -633,5 +632,35 @@ public class RuleGroup implements Serializable
 	{
 		this.mappingCollection = collection;
 	}
-    
+
+    /**
+     * method returns the a group identified by it's id
+     * as defined in the xml file
+     *
+     * @param    groupId    the id of the group
+     * @param groups
+     * @return			the rulegroup
+     */
+    public RuleGroup getGroupById(String groupId, ArrayList<RuleGroup> groups)
+    {
+        int found=-1;
+        for(int i=0;i< groups.size();i++)
+        {
+            RuleGroup group = groups.get(i);
+            if(group.getId().equals(groupId))
+            {
+                found=i;
+                break;
+            }
+        }
+        if(found > -1)
+        {
+            return groups.get(found);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }
