@@ -181,7 +181,7 @@ public class RuleExecutionResult implements Serializable
         	}
         	else
         	{
-        		resultString1 = "invalid type conversion: " + "[" + rule.getExpectedValueRuleType() +"] for rule: [" + rule.getId() + "]";
+        		resultString1 = "invalid type conversion: " + "[" + rule.getExpectedValueRuleType() +"] for rule: [" + rule.getRuleId() + "]";
         	}
         }
 
@@ -230,7 +230,7 @@ public class RuleExecutionResult implements Serializable
 	                	}
 	                	else
 	                	{
-	                		resultString2 = "invalid type conversion: " + "[" + rule.getExpectedValueRuleType() + "] for rule: [" + rule.getId() + "]";
+	                		resultString2 = "invalid type conversion: " + "[" + rule.getExpectedValueRuleType() + "] for rule: [" + rule.getRuleId() + "]";
 	                	}
 	                }
 	            	if(rule.getRuleObjects().get(0).getParameter()!=null)

@@ -37,21 +37,7 @@ public class DateAction extends GenericAction
 {
 	// the default date format used whenever no other format is specified
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-	
-	/**
-	 * sets the date to the given date
-	 * 
-	 * @param action 		the action use
-	 * @param value			the value to set
-	 * @return				date
-	 * @throws Exception	exception in date handling
-	 */
-	@ActionAnnotation(description= "Set a value to another value",methodDisplayname="set value (date)")
-	public Date setValue(XmlAction action, Date value) throws Exception
-	{
-		return value;
-	}
-	
+
 	/**
 	 * sets the date to the given date and returns it as a String value
 	 * 

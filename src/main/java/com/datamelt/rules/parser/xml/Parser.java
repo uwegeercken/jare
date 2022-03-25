@@ -414,11 +414,11 @@ public class Parser extends DefaultHandler implements ContentHandler
         {
             if(atts.getValue(TAG_MESSAGE_TYPE).equals(TAG_TYPE_FAILED))
             {
-                xmlRule.getMessages().add(new RuleMessage(RuleMessage.TYPE_FAILED, atts.getValue(TAG_MESSAGE_TEXT)));
+                xmlRule.getRuleMessages().add(new RuleMessage(RuleMessage.TYPE_FAILED, atts.getValue(TAG_MESSAGE_TEXT)));
             }
             else if(atts.getValue(TAG_MESSAGE_TYPE).equals(TAG_TYPE_PASSED))
             {
-                xmlRule.getMessages().add(new RuleMessage(RuleMessage.TYPE_PASSED, atts.getValue(TAG_MESSAGE_TEXT)));
+                xmlRule.getRuleMessages().add(new RuleMessage(RuleMessage.TYPE_PASSED, atts.getValue(TAG_MESSAGE_TEXT)));
             }
         }
         else if(ruleTagActive && qName.equals(TAG_ACTION))
@@ -455,7 +455,7 @@ public class Parser extends DefaultHandler implements ContentHandler
         	action.addParameter(new Parameter(atts.getValue(TAG_ACTION_PARAMETERTYPE),atts.getValue(TAG_ACTION_PARAMETER)));
         	action.setDescription(actionDescription);
         	action.setId(actionId);
-        	xmlRule.getActions().add(action);
+        	xmlRule.getRuleActions().add(action);
         }
         if(executeTagActive && qName.equals(TAG_PARAMETER))
         {

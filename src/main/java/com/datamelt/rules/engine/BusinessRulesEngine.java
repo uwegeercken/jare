@@ -478,7 +478,7 @@ public class BusinessRulesEngine
         if(group.getDependentRuleGroupId()!=null && !group.getDependentRuleGroupId().equals(""))
         {
         	// get the dependent group from the list of groups
-        	RuleGroup dependentRuleGroup = getGroupById(group.getDependentRuleGroupId());
+        	RuleGroup dependentRuleGroup = group.getGroupById(group.getDependentRuleGroupId(), groups);
         	// don't run the group if the dependent group does not exist or does not have the correct status (passed/failed)
         	if(dependentRuleGroup!=null && dependentRuleGroup.getFailed()!=group.getDependentRuleGroupExecuteIf())
         	{
@@ -896,34 +896,7 @@ public class BusinessRulesEngine
         return referenceFields;
     }
     
-    /**
-     * method returns the a group identified by it's id
-     * as defined in the xml file
-     * 
-     * @param	groupId	the id of the group
-     * @return			the rulegroup
-     */
-    public RuleGroup getGroupById(String groupId)
-    {
-    	int found=-1;
-    	for(int i=0;i< groups.size();i++)
-    	{
-    		RuleGroup group = groups.get(i);
-    		if(group.getId().equals(groupId))
-    		{
-    			found=i;
-    			break;
-    		}
-    	}
-    	if(found > -1)
-    	{
-    		return groups.get(found);
-    	}
-    	else
-    	{
-    		return null;
-    	}
-    }
+
     
     /**
      * method returns the number of rules from all groups and subgroups
