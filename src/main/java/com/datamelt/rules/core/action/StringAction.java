@@ -251,76 +251,52 @@ public class StringAction extends GenericAction
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, int value, String value2) throws Exception
 	{
-		if(value2==null)
-		{
-			value2="";
-		}
-		return value + value2;
+		return checkNullForConcat(value2, value);
 	}
 	
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, long value, String value2) throws Exception
 	{
-		if(value2==null)
-		{
-			value2="";
-		}
-		return value + value2;
+		return checkNullForConcat(value2, value);
 	}
 	
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, float value, String value2) throws Exception
 	{
-		if(value2==null)
-		{
-			value2="";
-		}
-		return value + value2;
+		return checkNullForConcat(value2, value);
 	}
 	
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, double value, String value2) throws Exception
 	{
-		if(value2==null)
-		{
-			value2 = "";
-		}
-		return "" + value + value2;
+		return checkNullForConcat(value2, value);
 	}
 
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, int value2) throws Exception
 	{
-		if(value==null)
-		{
-			value = "";
-		}
-		return value + value2;
+		return checkNullForConcat(value, value2);
 	}
 	
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, long value2) throws Exception
 	{
-		if(value==null)
-		{
-			value = "";
-		}
-		return value + value2;
+		return checkNullForConcat(value, value2);
 	}
 	
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, float value2) throws Exception
 	{
-		if(value==null)
-		{
-			value = "";
-		}
-		return value + value2;
+		return checkNullForConcat(value, value2);
 	}
 	
 	@ActionAnnotation(description= "Concatenate two values",methodDisplayname="concat values")
 	public String concatValues(XmlAction action, String value, double value2) throws Exception
 	{
+		return checkNullForConcat(value, value2);
+	}
+
+	private String checkNullForConcat(String value, Object value2){
 		if(value==null)
 		{
 			value = "";
