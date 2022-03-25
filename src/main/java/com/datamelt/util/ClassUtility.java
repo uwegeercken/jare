@@ -31,7 +31,7 @@ import com.datamelt.rules.implementation.GenericCheck;
 
 /**
  * Utility class to translate types, retrieve methods and invoke methods on objects
- * 
+ *
  * @author uwe geercken
  *
  */
@@ -48,10 +48,21 @@ public class ClassUtility
     public static final String TYPE_OBJECT    = "object";
     public static final String TYPE_ARRAYLIST = "arraylist";
     public static final String TYPE_BIGDECIMAL= "bigdecimal";
-    
+
+    public static DataTypeInteger dataTypeInteger = new DataTypeInteger();
+    public static DataTypeLong dataTypeLong = new DataTypeLong();
+    public static DataTypeString dataTypeString = new DataTypeString();
+    public static DataTypeBoolean dataTypeBoolean = new DataTypeBoolean();
+    public static DataTypeDouble dataTypeDouble = new DataTypeDouble();
+    public static DataTypeFloat dataTypeFloat = new DataTypeFloat();
+    public static DataTypeDate dataTypeDate = new DataTypeDate();
+    public static DataTypeObject dataTypeObject = new DataTypeObject();
+    public static DataTypeArrayList dataTypeArrayList = new DataTypeArrayList();
+    public static DataTypeBigDecimal dataTypeBigDecimal = new DataTypeBigDecimal();
+
 	 /**
      * method is used to return a class corresponding to the type passed to it.
-     * 
+     *
      */
     /**
      * @param type	the name of the type according to constants defined in this class
@@ -61,56 +72,56 @@ public class ClassUtility
     {
         if(type.toLowerCase().equals(TYPE_INTEGER) || type.toLowerCase().equals(TYPE_INT))
         {
-            return int.class;
+            return dataTypeInteger.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_LONG))
         {
-            return  long.class;
+            return dataTypeLong.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_STRING))
         {
-            return  String.class;
+            return dataTypeString.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_BOOLEAN))
         {
-            return  boolean.class;
+            return dataTypeBoolean.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_DOUBLE))
         {
-            return  double.class;
+            return dataTypeDouble.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_FLOAT))
         {
-            return  float.class;
+            return  dataTypeFloat.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_DATE))
         {
-            return  Date.class;
+            return  dataTypeDate.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_OBJECT))
         {
-            return  Object.class;
+            return  dataTypeObject.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_ARRAYLIST))
         {
-            return  ArrayList.class;
+            return  dataTypeArrayList.getDataType();
         }
         else if(type.toLowerCase().equals(TYPE_BIGDECIMAL))
         {
-            return  BigDecimal.class;
+            return  dataTypeBigDecimal.getDataType();
         }
         else
         {
             return null;
         }
     }
-    
+
     /**
      * in the xml file of a rule 'type' and 'value' are specified.
      * using these two components, a corresponding object is created. these objects will be passed
      * into a method as an array of objects, so that the method of the objects can be invoked.
-     * 
-     * @param type		the name of the type according to constants defined in this class		
+     *
+     * @param type		the name of the type according to constants defined in this class
      * @param value		the value for the object to be created
      * @return			an object corresponding to the type and value specified. return null if type is unknown or a conversion can not be done.
      */
@@ -118,103 +129,36 @@ public class ClassUtility
     {
         if(type.toLowerCase().equals(TYPE_INTEGER))
         {
-        	int i=0;
-        	try
-        	{
-        		i = Integer.parseInt(value);
-        	}
-        	catch(Exception ex)
-        	{
-        	}
-            return Integer.valueOf(i);
+        	return dataTypeInteger.getObject(value);
         }
         else if(type.toLowerCase().equals(TYPE_LONG))
         {
-        	long l=0;
-        	try
-        	{
-        		l = Long.parseLong(value);
-        	}
-        	catch(Exception ex)
-        	{
-        	}
-            return  Long.valueOf(l);
+        	return dataTypeLong.getObject(value);
         }
         else if(type.toLowerCase().equals(TYPE_STRING))
         {
-            return  value;
+            return dataTypeString.getObject(value);
         }
         else if(type.toLowerCase().equals(TYPE_BOOLEAN))
         {
-            boolean b= false;
-            try
-            {
-            	b = Boolean.parseBoolean(value);
-            }
-            catch(Exception ex)
-        	{
-        	}
-            return  Boolean.valueOf(b);
+            return dataTypeBoolean.getObject(value);
         }
         else if(type.toLowerCase().equals(TYPE_DOUBLE))
         {
-            double d=0;
-            try
-            {
-            	d = Double.parseDouble(value);
-            }
-            catch(Exception ex)
-        	{
-        	}
-            return  Double.valueOf(d);
+            return dataTypeDouble.getObject(value);
         }
         else if(type.toLowerCase().equals(TYPE_FLOAT))
         {
-            float f = 0;
-            try
-            {
-            	f = Float.parseFloat(value);
-            }
-            catch(Exception ex)
-        	{
-        	}
-            return  Float.valueOf(f);
+            return dataTypeFloat.getObject(value);
         }
         else if(type.toLowerCase().equals(TYPE_BIGDECIMAL))
         {
-        	BigDecimal bd= new BigDecimal(0);
-        	try
-        	{
-        		bd = new BigDecimal(value);
-        	}
-        	catch(Exception ex)
-        	{
-        	}
-            return  bd;
+        	return dataTypeBigDecimal.getObject(value);
         }
         // try to convert the value to a datetime value first
         else if(type.toLowerCase().equals(TYPE_DATE))
         {
-        	SimpleDateFormat sdtf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	try
-        	{
-        		Date d = sdtf.parse(value);
-                return  d;
-        	}
-        	// if it does not work, try to make a date from the value
-        	catch(Exception ex)
-        	{
-        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            	try
-            	{
-            		Date d = sdf.parse(value);
-                    return  d;
-            	}
-            	catch(Exception ex2)
-            	{
-            		return null;
-            	}
-        	}
+        	return dataTypeDate.getObject(value);
         }
         else
         {
@@ -272,10 +216,10 @@ public class ClassUtility
     		throw new Exception("object has an invalid field type");
     	}
     }
-    
+
     /**
      * Invokes the method on the given object and with the specified parameters.
-     * 
+     *
      * @param object		the object to invoke the method on
      * @param method		the method to be invoked
      * @param parameters	the parameters required for the method
@@ -310,12 +254,12 @@ public class ClassUtility
         	throw new Exception("error invoking object: " + object.getClass().getName() + " method: " + method.getName());
         }
         return result;
-        
+
     }
-    
+
     /**
      * Invokes the setter method on the given object and with the specified parameters.
-     * 
+     *
      * @param object		the object to invoke the method on
      * @param resultObject	the resulting object
      * @param method		the method to be invoked
@@ -352,12 +296,12 @@ public class ClassUtility
         	throw new Exception("error invoking object: " + object.getClass().getName() + " setter method: " + method.getName());
         }
         return result;
-        
+
     }
-    
+
     /**
      * Creates a list of parameter values.
-     * 
+     *
      * @param parameters	list of parameters
      * @return				a list of parameter values corresponding to the parameters provided
      */
@@ -372,11 +316,11 @@ public class ClassUtility
         }
     	return parameterValues;
     }
-    
-    
+
+
     /**
      * Creates a method of an action.
-     * 
+     *
      * @param action		the action for which the method is created
      * @return				a method for the action
      * @throws Exception	throws an exception if the method can not be created
@@ -397,7 +341,7 @@ public class ClassUtility
     	}
     	else
     	{
-    		// action might not have a getter object 
+    		// action might not have a getter object
 			parameterTypes    = new Class[action.getParameters().size() + 1];
 			parameterTypes[0] = action.getClass();
 			arraySize=1;
@@ -410,10 +354,10 @@ public class ClassUtility
 		Object object = Class.forName(action.getClassName()).newInstance();
         return  object.getClass().getMethod(action.getMethodName(),parameterTypes);
     }
-    
+
     /**
      * Invokes a method of an action.
-     * 
+     *
      * @param action		the action for which the method is created
      * @param object		the object to invoke the action on
      * @param methodAction	the method to invoke
@@ -428,7 +372,7 @@ public class ClassUtility
     		numberOfObjects=object.length;
     	}
     	int numberOfAdditionalParameters= 1 + numberOfObjects;
-    	
+
         Object parameterObjects[] = new Object[action.getParameters().size() + numberOfAdditionalParameters];
         // first parameter is the action
         parameterObjects[0] = action;
@@ -458,10 +402,10 @@ public class ClassUtility
 		// return the result
         return result;
     }
-    
+
     /**
      * Get the method corresponding to the given action and the concrete action object.
-     * 
+     *
      * @param action			the action for which to create the method
      * @param actionObject		the concrete action object
      * @return					the method created from the action
@@ -476,16 +420,16 @@ public class ClassUtility
         {
         	parameterTypes[i]= ClassUtility.getClass(actionObject.getParameters().get(i).getType());
         }
-        
+
     	Class<?> cl = Class.forName(actionObject.getClassName());
-    	
+
         //Object object = cl.newInstance();
     	return cl.getMethod(actionObject.getMethodName(),parameterTypes);
     }
-    
+
     /**
      * Get all methods of a class.
-     * 
+     *
      * @param className			the name of the class, including package information
      * @return					an array of methods for the given class
      * @throws Exception		throws an exception if the class was not found
@@ -498,10 +442,10 @@ public class ClassUtility
 
     /**
      * Get the checkId of a check class.
-     * 
+     *
      * The id of a check in the database uniquely identifies the check and should not change
      * as the business rules are based on them.
-     * 
+     *
      * @param clazz				the class to use
      * @return					the static checkId of the class
      * @throws Exception		throws an exception if the class was not found or the field is undefined
