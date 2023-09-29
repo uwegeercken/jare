@@ -25,7 +25,7 @@
 		<buildah.image.version>0.2</buildah.image.version>
 		<junit.jupiter.version>5.3.0</junit.jupiter.version>
         <lib.velocity.version>2.0</lib.velocity.version>
-        <lib.avro.version>1.8.2</lib.avro.version>
+        <lib.avro.version>1.11.3</lib.avro.version>
         <lib.log4j.version>1.2.17</lib.log4j.version>
     </properties>
 
